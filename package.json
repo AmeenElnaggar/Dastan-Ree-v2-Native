@@ -1,0 +1,16 @@
+{
+  "name": "dastan-ree-front",
+  "version": "1.0.0",
+  "description": "Real Estate Front-End — Dastan",
+  "scripts": {
+    "dev": "npx serve . -l 3000",
+    "build:css": "npx tailwindcss -i ./src/styles/global.css -o ./dist/styles.css --minify"
+  },
+  "dependencies": {
+    "swiper": "^11.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "serve": "^14.0.0"
+  }
+}

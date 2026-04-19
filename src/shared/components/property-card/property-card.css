@@ -1,0 +1,112 @@
+/* ===== Property Card Component ===== */
+
+.property-card {
+  position: relative;
+  display: block;
+  height: 400px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  text-decoration: none;
+  background: #111;
+}
+
+/* ---- Cover image layer ---- */
+.property-card__fig {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 1s ease-in-out;
+}
+
+.property-card:hover .property-card__fig {
+  transform: scale(1.08);
+}
+
+/* ---- Gradient overlay ---- */
+.property-card__gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 1;
+  transition: background 0.4s ease-in-out;
+}
+
+.property-card:hover .property-card__gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+}
+
+/* ---- Property details container ---- */
+.property-card__details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  color: #ffffff;
+  z-index: 2;
+  transition: transform 0.4s ease-in-out;
+}
+
+.property-card:hover .property-card__details {
+  transform: translateY(-32px);
+}
+
+.property-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.property-card__price {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.property-card__features {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---- CTA (View Details) ---- */
+.property-card__cta {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(400%);
+  transition:
+    opacity 0.4s ease-in-out,
+    transform 0.4s ease-in-out;
+}
+
+.property-card:hover .property-card__cta {
+  opacity: 1;
+  transform: translateY(0);
+}

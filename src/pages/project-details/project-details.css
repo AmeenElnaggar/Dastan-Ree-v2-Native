@@ -1,0 +1,14 @@
+/* ===== Project Details Page Styles ===== */
+
+.gallery-section {
+  position: relative;
+}
+
+.gallery-swiper .swiper-button-next,
+.gallery-swiper .swiper-button-prev {
+  color: #fff;
+}
+
+.gallery-swiper .swiper-pagination-bullet-active {
+  background: #0ea5e9;
+}
