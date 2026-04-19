@@ -33,7 +33,9 @@
     <link
       rel="stylesheet"
       href="../../../src/shared/components/action-link/action-link.css" />
-    <link rel="stylesheet" href="../../../src/shared/components/hero-slider/hero-slider.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/hero-slider/hero-slider.css" />
     <link rel="stylesheet" href="home.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
@@ -65,88 +67,105 @@
     </section>
 
     <!-- Why Choose Us -->
-    <section
-      id="why-choose-us"
-      class="why-choose-us-section"
-      style="
-        background-image: url(https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/07/services-h-fig-1920x1280.jpg);
-      ">
-      <div class="max-w-7xl mx-auto px-6">
-        <h2 class="why-choose-us__heading">Why Choose Us</h2>
-        <p class="why-choose-us__subheading">
-          We offer perfect real estate services.
-        </p>
-        <div class="why-choose-us__container">
-          <a href="#" class="why-choose-us__item">
-            <div class="why-choose-us__icon">
+    <section id="why-choose-us" class="why-choose-us">
+      <div class="why-choose-us__bg-accent" aria-hidden="true"></div>
+      <div class="why-choose-us__container max-w-7xl mx-auto px-6">
+        <div class="why-choose-us__content">
+          <div class="why-choose-us__eyebrow">why choose dastan</div>
+          <h2 class="why-choose-us__title">
+            Experience a New Standard of Living
+          </h2>
+          <p class="why-choose-us__description">
+            We combine deep market knowledge with a passion for exceptional
+            service, helping you find a home that truly reflects your lifestyle
+            and aspirations.
+          </p>
+          <a href="/src/pages/projects/index.html" class="why-choose-us__cta"
+            >Browse Properties</a
+          >
+        </div>
+        <div class="why-choose-us__features">
+          <div class="why-choose-us__feature">
+            <span class="feature__counter" aria-hidden="true">01</span>
+            <div class="feature__icon">
               <img
                 decoding="async"
                 src="https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/07/services-1-200x200.png"
                 alt="Find your future home" />
             </div>
-            <div class="why-choose-us__text">
-              <div class="why-choose-us__item-title">Find your future home</div>
-              <div class="why-choose-us__item-desc">
-                We help you find a new home by offering a smart real estate
-                experience
-              </div>
+            <div class="feature__title">Find Your Future Home</div>
+            <div class="feature__text">
+              We help you discover the perfect property with a smart, curated
+              real estate experience tailored to you.
             </div>
-            <div class="why-choose-us__cta">Learn more</div>
-          </a>
-
-          <a href="#" class="why-choose-us__item">
-            <div class="why-choose-us__icon">
+          </div>
+          <div class="why-choose-us__feature">
+            <span class="feature__counter" aria-hidden="true">02</span>
+            <div class="feature__icon">
               <img
                 decoding="async"
                 src="https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/07/services-2-200x200.png"
                 alt="Experienced agents" />
             </div>
-            <div class="why-choose-us__text">
-              <div class="why-choose-us__item-title">Experienced agents</div>
-              <div class="why-choose-us__item-desc">
-                Find an experienced agent who knows your market best
-              </div>
+            <div class="feature__title">Experienced Agents</div>
+            <div class="feature__text">
+              Our seasoned professionals know the market inside and out,
+              ensuring you get the best deal possible.
             </div>
-            <div class="why-choose-us__cta">Learn more</div>
-          </a>
-
-          <a href="#" class="why-choose-us__item">
-            <div class="why-choose-us__icon">
+          </div>
+          <div class="why-choose-us__feature">
+            <span class="feature__counter" aria-hidden="true">03</span>
+            <div class="feature__icon">
               <img
                 decoding="async"
                 src="https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/07/services-3-200x200.png"
                 alt="Buy or rent homes" />
             </div>
-            <div class="why-choose-us__text">
-              <div class="why-choose-us__item-title">Buy or rent homes</div>
-              <div class="why-choose-us__item-desc">
-                Millions of houses and apartments in your favourite cities
-              </div>
+            <div class="feature__title">Buy or Rent Homes</div>
+            <div class="feature__text">
+              Explore thousands of listings in your favourite cities, whether
+              you're looking to buy or rent.
             </div>
-            <div class="why-choose-us__cta">Learn more</div>
-          </a>
-
-          <a href="#" class="why-choose-us__item">
-            <div class="why-choose-us__icon">
+          </div>
+          <div class="why-choose-us__feature">
+            <span class="feature__counter" aria-hidden="true">04</span>
+            <div class="feature__icon">
               <img
                 decoding="async"
                 src="https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/07/services-4-200x200.png"
                 alt="List your own property" />
             </div>
-            <div class="why-choose-us__text">
-              <div class="why-choose-us__item-title">
-                List your own property
-              </div>
-              <div class="why-choose-us__item-desc">
-                Sign up now and sell or rent your own properties
-              </div>
+            <div class="feature__title">List Your Property</div>
+            <div class="feature__text">
+              Sign up and effortlessly list your property to reach thousands of
+              qualified buyers and renters.
             </div>
-            <div class="why-choose-us__cta">Learn more</div>
-          </a>
+          </div>
         </div>
       </div>
+      <script>
+        (function () {
+          var obs = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add("is-visible");
+                  obs.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.12 },
+          );
+          document
+            .querySelectorAll(
+              ".why-choose-us__feature, .why-choose-us__content",
+            )
+            .forEach(function (el) {
+              obs.observe(el);
+            });
+        })();
+      </script>
     </section>
-
     <!-- Featured Projects Slider -->
     <section id="featured" class="py-20">
       <div class="max-w-7xl mx-auto px-6">
