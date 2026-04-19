@@ -2543,3 +2543,79 @@ Only adjust:
 - Slider configuration
 
 The **Project Card itself should remain unchanged**.
+
+### Critical Fix v1 — Property Listing Slider Using Wrong Card
+
+There is a **major implementation mistake** that must be corrected.
+
+While updating the Featured Projects section, the **Property Listing slider logic was accidentally modified**.
+
+The function responsible for initializing the **properties slider** is now rendering the **project card**, which is incorrect.
+
+Property Listing must **always use the Property Card**, not the Project Card.
+
+---
+
+### 1. Restore Property Card in Property Listing Slider
+
+Inside the **properties slider initialization function**, the rendered card must be:
+
+`property-card`
+
+NOT:
+
+`project-card`
+
+The current implementation is incorrectly injecting **project card markup inside the Property Listing slider**.
+
+This must be reverted.
+
+---
+
+### 2. Restore the Original Property Listing Card Structure
+
+The **Property Listing slider** must use its **original card component and structure**.
+
+Do **not reuse any `project-card` classes** inside the Property Listing section.
+
+---
+
+### 3. Maintain Full Separation Between Cards
+
+The project must maintain **strict separation between card types**.
+
+Property Listing → uses **Property Card only**
+
+Featured Projects → uses **Project Card only**
+
+Under no circumstances should the **Property Listing slider render project cards**.
+
+---
+
+### 4. Restore the Previous Slider Behavior
+
+The **Property Listing slider behavior and structure must be restored exactly as it was before** the Featured Projects changes.
+
+This includes:
+
+- Same slider initialization
+- Same card rendering logic
+- Same DOM structure
+- Same classes
+
+The only section that should use **Project Cards** is:
+
+**Featured Projects**
+
+---
+
+### 5. Important Constraint
+
+Do not modify the **Featured Projects implementation** that was just created.
+
+Only fix the incorrect change inside the **Property Listing slider initialization**.
+
+After the fix:
+
+Property Listing → Property Card
+Featured Projects → Project Card

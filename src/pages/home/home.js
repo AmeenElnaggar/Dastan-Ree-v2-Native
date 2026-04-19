@@ -1,7 +1,7 @@
-import { projects } from "../../data/projects.data.js";
+import { properties } from "../../data/properties.data.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
-import { renderProjectCard } from "../../shared/components/project-card/ProjectCard.js";
+import { renderPropertyCard } from "../../shared/components/property-card/PropertyCard.js";
 import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
 
@@ -17,13 +17,13 @@ function initPropertiesSlider(selector) {
   const root = document.querySelector(selector);
   if (!root) return;
 
-  const latest = projects.slice(0, 8);
+  const latest = properties.slice(0, 8);
 
   root.innerHTML = `
     <div class="properties-slider-container">
       <div class="swiper properties-swiper">
         <div class="swiper-wrapper">
-          ${latest.map((p) => `<div class="swiper-slide">${renderProjectCard(p)}</div>`).join("")}
+          ${latest.map((p) => `<div class="swiper-slide">${renderPropertyCard(p)}</div>`).join("")}
         </div>
       </div>
       <button class="properties-arrow properties-arrow--prev" aria-label="Previous">
