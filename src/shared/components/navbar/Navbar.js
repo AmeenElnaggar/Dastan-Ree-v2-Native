@@ -1,11 +1,11 @@
 const NAV_LINKS = [
-  { label: 'Home',       href: '/src/pages/home/index.html' },
-  { label: 'Projects',   href: '/src/pages/projects/index.html' },
-  { label: 'Properties', href: '/src/pages/projects/index.html' },
-  { label: 'Blogs',      href: '#' },
-  { label: 'Careers',    href: '#' },
-  { label: 'About Us',   href: '#' },
-  { label: 'Contact Us', href: '#' },
+  { label: "Home", href: "/src/pages/home/index.html" },
+  { label: "Projects", href: "/src/pages/projects/index.html" },
+  { label: "Properties", href: "#" },
+  { label: "Blogs", href: "#" },
+  { label: "Careers", href: "#" },
+  { label: "About Us", href: "#" },
+  { label: "Contact Us", href: "#" },
 ];
 
 const PHONE_ICON = `
@@ -14,7 +14,7 @@ const PHONE_ICON = `
       1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1
       1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1
       1-1H7.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24
-      1.02L6.6 10.8z"/>
+      1.02L6.6 10.8z"/>ظ
   </svg>`;
 
 /**
@@ -32,10 +32,13 @@ export function renderNavbar(selector, options = {}) {
   const currentPath = window.location.pathname;
 
   // Normalize a path for exact comparison: strip trailing index.html and trailing slash
-  const normalizePath = (p) => p.replace(/\/index\.html$/, '').replace(/\/$/, '') || '/';
+  const normalizePath = (p) =>
+    p.replace(/\/index\.html$/, "").replace(/\/$/, "") || "/";
   const normalizedCurrent = normalizePath(currentPath);
 
-  const initialClass = transparent ? 'navbar--transparent' : 'navbar--solid navbar--scrolled';
+  const initialClass = transparent
+    ? "navbar--transparent"
+    : "navbar--solid navbar--scrolled";
 
   root.innerHTML = `
     <header class="navbar ${initialClass}" id="site-navbar">
@@ -48,10 +51,12 @@ export function renderNavbar(selector, options = {}) {
 
         <!-- Desktop Nav Links -->
         <nav class="navbar__nav" aria-label="Main navigation">
-          ${NAV_LINKS.map(link => {
-            const isActive = link.href !== '#' && normalizePath(link.href) === normalizedCurrent;
-            return `<a href="${link.href}" class="navbar__link${isActive ? ' navbar__link--active' : ''}">${link.label}</a>`;
-          }).join('')}
+          ${NAV_LINKS.map((link) => {
+            const isActive =
+              link.href !== "#" &&
+              normalizePath(link.href) === normalizedCurrent;
+            return `<a href="${link.href}" class="navbar__link${isActive ? " navbar__link--active" : ""}">${link.label}</a>`;
+          }).join("")}
         </nav>
 
         <!-- Right: phone + language + hamburger -->
@@ -77,7 +82,7 @@ export function renderNavbar(selector, options = {}) {
 
       <!-- Mobile drawer -->
       <nav class="navbar__mobile" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
-        ${NAV_LINKS.map(link => `<a href="${link.href}" class="navbar__mobile-link">${link.label}</a>`).join('')}
+        ${NAV_LINKS.map((link) => `<a href="${link.href}" class="navbar__mobile-link">${link.label}</a>`).join("")}
         <div class="navbar__mobile-footer">
           <div class="navbar__phone">
             ${PHONE_ICON}
@@ -91,28 +96,32 @@ export function renderNavbar(selector, options = {}) {
         </div>
       </nav>
     </header>
-    ${!transparent ? '<div class="navbar-spacer" aria-hidden="true"></div>' : ''}
+    ${!transparent ? '<div class="navbar-spacer" aria-hidden="true"></div>' : ""}
   `;
 
   // ── Mobile hamburger toggle ──────────────────────────────────────────
-  const hamburgerBtn = root.querySelector('#hamburger-btn');
-  const mobileNav    = root.querySelector('#mobile-nav');
+  const hamburgerBtn = root.querySelector("#hamburger-btn");
+  const mobileNav = root.querySelector("#mobile-nav");
 
-  hamburgerBtn.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('navbar__mobile--open');
-    hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
-    mobileNav.setAttribute('aria-hidden', String(!isOpen));
-    hamburgerBtn.classList.toggle('navbar__hamburger--open', isOpen);
+  hamburgerBtn.addEventListener("click", () => {
+    const isOpen = mobileNav.classList.toggle("navbar__mobile--open");
+    hamburgerBtn.setAttribute("aria-expanded", String(isOpen));
+    mobileNav.setAttribute("aria-hidden", String(!isOpen));
+    hamburgerBtn.classList.toggle("navbar__hamburger--open", isOpen);
   });
 
   // ── Scroll behavior (homepage only) ─────────────────────────────────
   if (transparent) {
-    const header = root.querySelector('#site-navbar');
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY > 30;
-      header.classList.toggle('navbar--transparent', !scrolled);
-      header.classList.toggle('navbar--solid',       scrolled);
-      header.classList.toggle('navbar--scrolled',    scrolled);
-    }, { passive: true });
+    const header = root.querySelector("#site-navbar");
+    window.addEventListener(
+      "scroll",
+      () => {
+        const scrolled = window.scrollY > 30;
+        header.classList.toggle("navbar--transparent", !scrolled);
+        header.classList.toggle("navbar--solid", scrolled);
+        header.classList.toggle("navbar--scrolled", scrolled);
+      },
+      { passive: true },
+    );
   }
 }

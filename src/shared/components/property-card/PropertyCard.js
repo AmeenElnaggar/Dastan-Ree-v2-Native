@@ -4,13 +4,19 @@ export function renderPropertyCard(property) {
   const { id, name, price, image, bedrooms, bathrooms, area } = property;
   const detailsUrl = `../../pages/project-details/index.html?id=${id}`;
 
-  const features = [
-    bedrooms != null ? `${bedrooms} BD` : null,
-    bathrooms != null ? `${bathrooms} BA` : null,
-    area != null ? `${area} SF` : null,
+  const featureItems = [
+    bedrooms != null
+      ? `<span class="property-card__feat"><i class="fa-solid fa-bed"></i> ${bedrooms}</span>`
+      : null,
+    bathrooms != null
+      ? `<span class="property-card__feat"><i class="fa-solid fa-bath"></i> ${bathrooms}</span>`
+      : null,
+    area != null
+      ? `<span class="property-card__feat"><i class="fa-solid fa-ruler-combined"></i> ${area}</span>`
+      : null,
   ]
     .filter(Boolean)
-    .join(" | ");
+    .join("");
 
   return `
     <a href="${detailsUrl}" class="property-card" data-id="${id}">
@@ -19,7 +25,7 @@ export function renderPropertyCard(property) {
       <div class="property-card__details">
         <div class="property-card__title">${name}</div>
         <div class="property-card__price">${formatPrice(price)}</div>
-        ${features ? `<div class="property-card__features">${features}</div>` : ""}
+        ${featureItems ? `<div class="property-card__features">${featureItems}</div>` : ""}
       </div>
       <div class="property-card__cta">View Details</div>
     </a>

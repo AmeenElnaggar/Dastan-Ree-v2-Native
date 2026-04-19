@@ -12,6 +12,9 @@
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../../../src/styles/variables.css" />
     <link rel="stylesheet" href="../../../src/styles/global.css" />
     <link rel="stylesheet" href="../../../src/styles/utilities.css" />
@@ -30,6 +33,7 @@
     <link
       rel="stylesheet"
       href="../../../src/shared/components/action-link/action-link.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/hero-slider/hero-slider.css" />
     <link rel="stylesheet" href="home.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
@@ -38,45 +42,8 @@
     <!-- Navbar -->
     <div id="navbar-root"></div>
 
-    <!-- Hero Section -->
-    <section id="hero-section" class="hero-section">
-      <!-- Background Slider -->
-      <div id="hero-slider-root"></div>
-      <!-- Dark Overlay -->
-      <div class="hero-overlay"></div>
-      <!-- Centered Content -->
-      <div class="hero-content">
-        <h1 class="hero-title font-display">Find your future home</h1>
-        <!-- Filter Box -->
-        <div class="hero-filters">
-          <select class="hero-select" aria-label="Property type">
-            <option value="rent">For Rent</option>
-            <option value="sale">For Sale</option>
-          </select>
-          <div class="hero-divider"></div>
-          <input
-            type="text"
-            class="hero-input"
-            placeholder="Enter address..."
-            aria-label="Address" />
-          <button class="hero-search-btn" aria-label="Search">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </section>
+    <!-- Hero Slider -->
+    <div id="hero-slider-root"></div>
 
     <!-- Property Listings -->
     <section class="py-20">

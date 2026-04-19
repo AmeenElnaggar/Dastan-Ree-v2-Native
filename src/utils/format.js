@@ -1,13 +1,13 @@
 /**
- * Format a number as a currency string (AED by default).
+ * Format a number as a currency string (egp by default).
  * @param {number} value
- * @param {string} [currency='AED']
+ * @param {string} [currency='egp']
  * @param {string} [locale='en-AE']
  * @returns {string}
  */
-export function formatPrice(value, currency = 'AED', locale = 'en-AE') {
+export function formatPrice(value, currency = "egp", locale = "en-AE") {
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: "currency",
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
@@ -20,7 +20,7 @@ export function formatPrice(value, currency = 'AED', locale = 'en-AE') {
  * @returns {string}
  */
 export function formatNumber(value) {
-  return new Intl.NumberFormat('en-US').format(value);
+  return new Intl.NumberFormat("en-US").format(value);
 }
 
 /**
@@ -30,5 +30,5 @@ export function formatNumber(value) {
  * @returns {string}
  */
 export function truncate(text, max = 100) {
-  return text.length > max ? text.slice(0, max).trimEnd() + '…' : text;
+  return text.length > max ? text.slice(0, max).trimEnd() + "…" : text;
 }

@@ -80,10 +80,23 @@
 }
 
 .property-card__features {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.property-card__feat {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.75);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.02em;
+}
+
+.property-card__feat i {
+  font-size: 0.75rem;
+  color: #fff;
 }
 
 /* ---- CTA (View Details) ---- */
