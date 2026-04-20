@@ -1,24 +1,25 @@
-# Fixes: Luxury Project Card & Slider Redesign
+Fixes: Synchronize Property Slider Controls with Project Section
 
-## 1. Objective
+1. Objective
+   Achieve full visual and functional consistency across the platform by migrating the new Luxury Slider Controls (Pagination & Arrows) from the Projects section to the Properties section.
 
-Redesign the `ProjectCardComponent` and its parent `ProjectSliderComponent` to align with a "Modern Luxury & Innovation" aesthetic. The goal is to achieve visual parity with the Property Listing section while introducing innovative project-specific UI elements.
+2. Requirements
+   Standardization: Implement the featured-slider-controls pattern in the PropertySliderComponent.
 
-## 2. Project Card Redesign (Innovation & Luxury)
+Visual Alignment: The Arrows and Pagination in the Properties section must match the Projects section's positioning, styling (Modern/Luxury), and animation exactly.
 
-- **Visual Structure:** Implement a "Seamless" design where the image and content area feel integrated.
-- **Aesthetic:** Use a minimalist color palette (Slate 900, Pure White, and refined accents).
-- **Innovative Features:** \* Add a "Project Progress" glassmorphism overlay (e.g., "70% Completed" or "Ready to Move").
-  - Implement a "Floating Badge" for the Developer's Logo or Project Status using `backdrop-filter: blur()`.
-- **Hover Effects:** Smooth vertical expansion or a "Reveal" effect where project details (e.g., number of units, location) fade in on hover.
+Component Reusability: If possible, refactor the featured-slider-controls into a shared/reusable component to ensure any future UI updates reflect across both Properties and Projects.
 
-## 3. Project Slider Enhancements (UX & Alignment)
+3. Implementation Steps
+   Template Sync: Update property-slider.component.html to include the same controls structure used in projects.
 
-- **Navigation:** Replace standard dots with a **Premium Pagination System** (e.g., "01 / 12" style or slim progress bars).
-- **Arrows:** Design custom, slim "Next/Prev" arrows. They must be aligned at the same height and position as the Property Listing slider for UI consistency.
-- **Responsiveness:** Ensure the gutter spacing (gap) between cards is consistent with the luxury "Airy" feel (e.g., `gap-8` or `gap-10`).
+Style Migration: Ensure the SCSS/Tailwind classes for the luxury arrows and numerical/progress pagination are applied to the Properties slider.
 
-## 4. Technical Constraints
+Logic Integration: \* Connect the existing Property Slider's "Next/Prev" logic to the new controls.
 
-- Maintain all existing data bindings and Signals.
-- Ensure full RTL (Right-to-Left) compatibility for the Arabic interface, focusing on logical properties for spacing and arrow directions.
+Ensure the active state of the pagination correctly reflects the current index of the property cards.
+
+RTL Check: Verify that the "mirroring" of arrows works perfectly in the Arabic layout, matching the behavior implemented in the Projects section.
+
+4. Final Polish
+   Ensure the spacing (Gaps and Margins) between the property cards and the new controls is identical to the Projects section to maintain the "Airy" luxury feel.
