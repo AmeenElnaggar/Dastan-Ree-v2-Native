@@ -149,7 +149,7 @@ function renderProjects() {
   slice.forEach(p => {
     const div = document.createElement('div');
     div.innerHTML = renderProjectCard(p);
-    fragment.appendChild(div.firstChild);
+    fragment.appendChild(div.firstElementChild);
   });
   grid.appendChild(fragment);
 
