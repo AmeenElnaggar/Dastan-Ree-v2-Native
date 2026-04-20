@@ -25,7 +25,6 @@ function initPropertiesSlider(selector) {
   if (!root) return;
 
   const latest = properties.slice(0, 8);
-  const total = latest.length;
 
   root.innerHTML = `
     <div class="featured-slider-container">
@@ -41,7 +40,7 @@ function initPropertiesSlider(selector) {
         <div class="featured-pagination">
           <span class="featured-pagination__current">01</span>
           <span class="featured-pagination__sep">/</span>
-          <span class="featured-pagination__total">${String(total).padStart(2, "0")}</span>
+          <span class="featured-pagination__total">01</span>
         </div>
         <button class="featured-arrow featured-arrow--next" aria-label="Next slide">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -53,9 +52,11 @@ function initPropertiesSlider(selector) {
   const prevBtn = root.querySelector(".featured-arrow--prev");
   const nextBtn = root.querySelector(".featured-arrow--next");
   const currentEl = root.querySelector(".featured-pagination__current");
+  const totalEl = root.querySelector(".featured-pagination__total");
 
   function updateControls(sw) {
-    currentEl.textContent = String(sw.realIndex + 1).padStart(2, "0");
+    currentEl.textContent = String(sw.snapIndex + 1).padStart(2, "0");
+    totalEl.textContent = String(sw.snapGrid.length).padStart(2, "0");
     prevBtn.disabled = sw.isBeginning;
     nextBtn.disabled = sw.isEnd;
   }
@@ -69,12 +70,9 @@ function initPropertiesSlider(selector) {
       1024: { slidesPerView: 3, spaceBetween: 32 },
     },
     on: {
-      init(sw) {
-        updateControls(sw);
-      },
-      slideChange(sw) {
-        updateControls(sw);
-      },
+      init(sw) { updateControls(sw); },
+      slideChange(sw) { updateControls(sw); },
+      breakpoint(sw) { updateControls(sw); },
     },
   });
 
@@ -167,8 +165,6 @@ function initBlogsSlider(selector) {
   const root = document.querySelector(selector);
   if (!root) return;
 
-  const total = blogs.length;
-
   root.innerHTML = `
     <div class="featured-slider-container">
       <div class="swiper blogs-swiper">
@@ -183,7 +179,7 @@ function initBlogsSlider(selector) {
         <div class="featured-pagination">
           <span class="featured-pagination__current">01</span>
           <span class="featured-pagination__sep">/</span>
-          <span class="featured-pagination__total">${String(total).padStart(2, "0")}</span>
+          <span class="featured-pagination__total">01</span>
         </div>
         <button class="featured-arrow featured-arrow--next" aria-label="Next slide">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -195,9 +191,11 @@ function initBlogsSlider(selector) {
   const prevBtn = root.querySelector(".featured-arrow--prev");
   const nextBtn = root.querySelector(".featured-arrow--next");
   const currentEl = root.querySelector(".featured-pagination__current");
+  const totalEl = root.querySelector(".featured-pagination__total");
 
   function updateControls(sw) {
-    currentEl.textContent = String(sw.realIndex + 1).padStart(2, "0");
+    currentEl.textContent = String(sw.snapIndex + 1).padStart(2, "0");
+    totalEl.textContent = String(sw.snapGrid.length).padStart(2, "0");
     prevBtn.disabled = sw.isBeginning;
     nextBtn.disabled = sw.isEnd;
   }
@@ -212,12 +210,9 @@ function initBlogsSlider(selector) {
       1024: { slidesPerView: 3, spaceBetween: 32 },
     },
     on: {
-      init(sw) {
-        updateControls(sw);
-      },
-      slideChange(sw) {
-        updateControls(sw);
-      },
+      init(sw) { updateControls(sw); },
+      slideChange(sw) { updateControls(sw); },
+      breakpoint(sw) { updateControls(sw); },
     },
   });
 
