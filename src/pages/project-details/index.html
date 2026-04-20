@@ -30,7 +30,9 @@
     <link
       rel="stylesheet"
       href="../../../src/shared/components/project-card/project-card.css" />
-    <link rel="stylesheet" href="/src/pages/project-details/project-details.css" />
+    <link
+      rel="stylesheet"
+      href="/src/pages/project-details/project-details.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -45,7 +47,11 @@
       <div class="property-top-container">
         <div class="property-top-left">
           <div class="property-title-row">
-            <img class="property-dev-logo" id="property-dev-logo" src="" alt="" />
+            <img
+              class="property-dev-logo"
+              id="property-dev-logo"
+              src=""
+              alt="" />
             <h1 class="property-title" id="property-title"></h1>
           </div>
           <p class="property-short-desc" id="property-short-desc"></p>
@@ -68,7 +74,6 @@
     <!-- Main Content + Sidebar -->
     <div class="property-content-area">
       <div class="property-content-row">
-
         <!-- Main Column -->
         <div class="property-content-main">
           <div class="property-section">
@@ -111,7 +116,6 @@
         <div class="property-content-sidebar">
           <div id="property-agent"></div>
         </div>
-
       </div>
     </div>
 
@@ -120,7 +124,7 @@
     <div id="footer-root"></div>
 
     <!-- Gallery Lightbox (Fail-Safe Rebuild) -->
-    <div id="property-lightbox" class="lightbox-overlay" style="display:none;">
+    <div id="property-lightbox" class="lightbox-overlay" style="display: none">
       <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
       <button class="lightbox-close" id="close-lightbox">&times;</button>
       <div class="swiper lightbox-swiper" id="lightbox-swiper-el">
@@ -139,6 +143,8 @@
     <script
       type="module"
       src="../../../src/shared/components/modal/Modal.js"></script>
-    <script type="module" src="/src/pages/project-details/project-details.js"></script>
+    <script
+      type="module"
+      src="/src/pages/project-details/project-details.js"></script>
   </body>
 </html>

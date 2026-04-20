@@ -1,50 +1,50 @@
-import { projects } from '../../data/projects.data.js';
-import { amenities } from '../../data/amenities.data.js';
-import { renderNavbar } from '../../shared/components/navbar/Navbar.js';
-import { renderFooter } from '../../shared/components/footer/Footer.js';
-import { openModal } from '../../shared/components/modal/Modal.js';
-import { renderProjectCard } from '../../shared/components/project-card/ProjectCard.js';
-import { formatNumber } from '../../utils/format.js';
-import { qs } from '../../utils/dom.js';
-import { getParam } from '../../utils/router.js';
+import { amenities } from "../../data/amenities.data.js";
+import { projects } from "../../data/projects.data.js";
+import { renderFooter } from "../../shared/components/footer/Footer.js";
+import { openModal } from "../../shared/components/modal/Modal.js";
+import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
+import { renderProjectCard } from "../../shared/components/project-card/ProjectCard.js";
+import { qs } from "../../utils/dom.js";
+import { formatNumber } from "../../utils/format.js";
+import { getParam } from "../../utils/router.js";
 
 const AMENITY_ICONS = {
-  pool:       'fa-water',
-  gym:        'fa-dumbbell',
-  security:   'fa-shield-halved',
-  parking:    'fa-square-parking',
-  garden:     'fa-leaf',
-  playground: 'fa-children',
-  cctv:       'fa-video',
-  mosque:     'fa-mosque',
-  concierge:  'fa-bell-concierge',
-  rooftop:    'fa-city',
-  spa:        'fa-spa',
-  beach:      'fa-umbrella-beach',
-  cafe:       'fa-mug-hot',
+  pool: "fa-water",
+  gym: "fa-dumbbell",
+  security: "fa-shield-halved",
+  parking: "fa-square-parking",
+  garden: "fa-leaf",
+  playground: "fa-children",
+  cctv: "fa-video",
+  mosque: "fa-mosque",
+  concierge: "fa-bell-concierge",
+  rooftop: "fa-city",
+  spa: "fa-spa",
+  beach: "fa-umbrella-beach",
+  cafe: "fa-mug-hot",
 };
 
 const FACILITY_ICONS = {
-  lobby:    'fa-door-open',
-  retail:   'fa-store',
-  parking:  'fa-square-parking',
-  rooftop:  'fa-city',
-  beach:    'fa-umbrella-beach',
-  pool:     'fa-water',
-  kitchen:  'fa-utensils',
-  garage:   'fa-car-side',
-  smart:    'fa-microchip',
-  garden:   'fa-leaf',
-  lounge:   'fa-couch',
+  lobby: "fa-door-open",
+  retail: "fa-store",
+  parking: "fa-square-parking",
+  rooftop: "fa-city",
+  beach: "fa-umbrella-beach",
+  pool: "fa-water",
+  kitchen: "fa-utensils",
+  garage: "fa-car-side",
+  smart: "fa-microchip",
+  garden: "fa-leaf",
+  lounge: "fa-couch",
 };
 
 const PURPOSE_ICONS = {
-  residential: 'fa-house',
-  commercial:  'fa-building',
-  mixed:       'fa-city',
-  office:      'fa-briefcase',
-  retail:      'fa-store',
-  hotel:       'fa-hotel',
+  residential: "fa-house",
+  commercial: "fa-building",
+  mixed: "fa-city",
+  office: "fa-briefcase",
+  retail: "fa-store",
+  hotel: "fa-hotel",
 };
 
 function getFacilityIcon(name) {
@@ -52,7 +52,7 @@ function getFacilityIcon(name) {
   for (const [key, icon] of Object.entries(FACILITY_ICONS)) {
     if (lower.includes(key)) return icon;
   }
-  return 'fa-check';
+  return "fa-check";
 }
 
 function getPurposeIcon(name) {
@@ -60,20 +60,21 @@ function getPurposeIcon(name) {
   for (const [key, icon] of Object.entries(PURPOSE_ICONS)) {
     if (lower.includes(key)) return icon;
   }
-  return 'fa-tag';
+  return "fa-tag";
 }
 
 let _lightboxSwiper = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderNavbar('#navbar-root');
-  renderFooter('#footer-root');
+document.addEventListener("DOMContentLoaded", () => {
+  renderNavbar("#navbar-root");
+  renderFooter("#footer-root");
 
-  const id = getParam('id') || projects[0]?.id;
-  const project = projects.find(p => p.id === id) || projects[0];
+  const id = getParam("id") || projects[0]?.id;
+  const project = projects.find((p) => p.id === id) || projects[0];
 
   if (!project) {
-    document.body.innerHTML = '<p class="text-center py-20 text-gray-500">Project not found.</p>';
+    document.body.innerHTML =
+      '<p class="text-center py-20 text-gray-500">Project not found.</p>';
     return;
   }
 
@@ -86,42 +87,53 @@ function renderProject(p) {
   document.title = `${p.name} — Dastan Real Estate`;
 
   // Section 1: Header left — logo + title + short description
-  const devLogo = qs('#property-dev-logo');
-  devLogo.src = p.developerLogo || '';
-  devLogo.alt = p.developer || '';
+  const devLogo = qs("#property-dev-logo");
+  devLogo.src = p.developerLogo || "";
+  devLogo.alt = p.developer || "";
 
-  qs('#property-title').textContent = p.name;
-  qs('#property-short-desc').textContent = p.shortDescription || '';
+  qs("#property-title").textContent = p.name;
+  qs("#property-short-desc").textContent = p.shortDescription || "";
 
   // Header right — price & finishing date
-  qs('#property-price').innerHTML =
+  qs("#property-price").innerHTML =
     `<span class="price-amount">${formatNumber(p.price)}</span>
      <span class="price-currency">EGP</span>`;
 
-  qs('#property-finishing').innerHTML =
+  qs("#property-finishing").innerHTML =
     `<span class="finishing-label">Finishing:</span>
-     <span class="finishing-value">${p.finishingType || '—'}</span>`;
+     <span class="finishing-value">${p.finishingType || "—"}</span>`;
 
   // Section 3: Gallery
   renderGallery(p.images || []);
 
   // Key details — 4 primary metrics
-  const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
   const details = [
-    { label: 'Area',          value: `${p.area} sqm`,          icon: 'fa-ruler-combined' },
-    { label: 'Finishing',     value: p.finishingType || '—',    icon: 'fa-paint-roller' },
-    { label: 'Delivery Date', value: p.deliveryDate || '—',     icon: 'fa-calendar-check' },
-    { label: 'Type',          value: capitalize(p.type),        icon: 'fa-building' },
+    { label: "Area", value: `${p.area} sqm`, icon: "fa-ruler-combined" },
+    {
+      label: "Finishing",
+      value: p.finishingType || "—",
+      icon: "fa-paint-roller",
+    },
+    {
+      label: "Delivery Date",
+      value: p.deliveryDate || "—",
+      icon: "fa-calendar-check",
+    },
+    { label: "Type", value: capitalize(p.type), icon: "fa-building" },
   ];
-  qs('#property-details').innerHTML = details.map(d =>
-    `<div class="property-detail-item">
+  qs("#property-details").innerHTML = details
+    .map(
+      (d) =>
+        `<div class="property-detail-item">
        <div class="property-detail-icon"><i class="fa-solid ${d.icon}"></i></div>
        <div class="property-detail-label">${d.label}</div>
        <div class="property-detail-value">${d.value}</div>
-     </div>`
-  ).join('');
+     </div>`,
+    )
+    .join("");
 
-  qs('#property-overview').innerHTML = `<p>${p.description}</p>`;
+  qs("#property-overview").innerHTML = `<p>${p.description}</p>`;
 
   // Section 4: Amenities + Facilities + Purpose Types
   renderAmenities(p);
@@ -136,8 +148,7 @@ function renderProject(p) {
   renderSimilarProjects(p);
 
   // Sidebar
-  qs('#property-agent').innerHTML =
-    `<div class="property-agent-card">
+  qs("#property-agent").innerHTML = `<div class="property-agent-card">
        <h3 class="property-section-title">Listed By</h3>
        <div class="agent-profile">
          <div class="agent-avatar"
@@ -162,23 +173,30 @@ function renderProject(p) {
 
 function renderGallery(images) {
   const allImages = images.slice(0, 5);
-  const mainImg = allImages[0] || '';
+  const mainImg = allImages[0] || "";
   const thumbs = allImages.slice(1, 5);
 
   // 1+4 grid: hero image + four thumbnails, each with data-index and .clickable-gallery-img
-  qs('#property-gallery').innerHTML = `
+  qs("#property-gallery").innerHTML = `
     <div class="gallery-split">
       <div class="gallery-main clickable-gallery-img" data-index="0">
         <div class="gallery-cover" style="background-image:url('${mainImg}')"></div>
       </div>
-      ${thumbs.length > 0 ? `
+      ${
+        thumbs.length > 0
+          ? `
       <div class="gallery-thumbs">
-        ${thumbs.map((img, i) =>
-          `<div class="gallery-thumb clickable-gallery-img" data-index="${i + 1}">
+        ${thumbs
+          .map(
+            (img, i) =>
+              `<div class="gallery-thumb clickable-gallery-img" data-index="${i + 1}">
              <div class="gallery-cover" style="background-image:url('${img}')"></div>
-           </div>`
-        ).join('')}
-      </div>` : ''}
+           </div>`,
+          )
+          .join("")}
+      </div>`
+          : ""
+      }
     </div>`;
 
   // Pre-populate lightbox slides (Swiper inits lazily on first open)
@@ -186,39 +204,44 @@ function renderGallery(images) {
     _lightboxSwiper.destroy(true, true);
     _lightboxSwiper = null;
   }
-  document.getElementById('lightbox-slides-container').innerHTML = allImages.map((img, i) =>
-    `<div class="swiper-slide">
+  document.getElementById("lightbox-slides-container").innerHTML = allImages
+    .map(
+      (img, i) =>
+        `<div class="swiper-slide">
        <img class="lightbox-slide-img" src="${img}" alt="Gallery image ${i + 1}" />
-     </div>`
-  ).join('');
+     </div>`,
+    )
+    .join("");
 
   // Event delegation on gallery grid
-  qs('#property-gallery').addEventListener('click', e => {
-    const item = e.target.closest('.clickable-gallery-img');
+  qs("#property-gallery").addEventListener("click", (e) => {
+    const item = e.target.closest(".clickable-gallery-img");
     if (!item) return;
     openLightbox(parseInt(item.dataset.index, 10));
   });
 
   // "View Photos" button
-  document.getElementById('trigger-gallery-main').addEventListener('click', () => {
-    openLightbox(0);
-  });
+  document
+    .getElementById("trigger-gallery-main")
+    .addEventListener("click", () => {
+      openLightbox(0);
+    });
 }
 
 function openLightbox(index) {
-  const overlay = document.getElementById('property-lightbox');
-  overlay.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  const overlay = document.getElementById("property-lightbox");
+  overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
 
   // setTimeout gives the browser a full paint cycle before Swiper measures dimensions
   setTimeout(() => {
     if (!_lightboxSwiper) {
-      _lightboxSwiper = new Swiper('#lightbox-swiper-el', {
+      _lightboxSwiper = new Swiper("#lightbox-swiper-el", {
         loop: false,
         keyboard: { enabled: true },
         navigation: {
-          nextEl: '#lightbox-swiper-el .swiper-button-next',
-          prevEl: '#lightbox-swiper-el .swiper-button-prev',
+          nextEl: "#lightbox-swiper-el .swiper-button-next",
+          prevEl: "#lightbox-swiper-el .swiper-button-prev",
         },
       });
     }
@@ -228,67 +251,81 @@ function openLightbox(index) {
 }
 
 function closeLightbox() {
-  document.getElementById('property-lightbox').style.display = 'none';
-  document.body.style.overflow = '';
+  document.getElementById("property-lightbox").style.display = "none";
+  document.body.style.overflow = "";
 }
 
 function initLightbox() {
-  document.getElementById('close-lightbox').addEventListener('click', closeLightbox);
-  document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox();
+  document
+    .getElementById("close-lightbox")
+    .addEventListener("click", closeLightbox);
+  document
+    .getElementById("lightbox-backdrop")
+    .addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
   });
 }
 
 function renderAmenities(p) {
-  const projectAmenities = amenities.filter(a => p.amenityIds.includes(a.id));
+  const projectAmenities = amenities.filter((a) => p.amenityIds.includes(a.id));
 
-  qs('#property-amenities').innerHTML = projectAmenities.map(a => {
-    const faIcon = AMENITY_ICONS[a.id] || 'fa-star';
-    return `<div class="property-amenity-item">
+  qs("#property-amenities").innerHTML = projectAmenities
+    .map((a) => {
+      const faIcon = AMENITY_ICONS[a.id] || "fa-star";
+      return `<div class="property-amenity-item">
        <i class="fa-solid ${faIcon}"></i>
        <span>${a.name}</span>
      </div>`;
-  }).join('');
+    })
+    .join("");
 
-  const facilitiesBlock = qs('#property-facilities-block');
+  const facilitiesBlock = qs("#property-facilities-block");
   if (p.facilities && p.facilities.length > 0) {
     facilitiesBlock.innerHTML = `
       <h4 class="property-sub-title">Facilities</h4>
       <div class="property-amenities-grid">
-        ${p.facilities.map(f =>
-          `<div class="property-amenity-item">
+        ${p.facilities
+          .map(
+            (f) =>
+              `<div class="property-amenity-item">
              <i class="fa-solid ${getFacilityIcon(f)}"></i>
              <span>${f}</span>
-           </div>`
-        ).join('')}
+           </div>`,
+          )
+          .join("")}
       </div>`;
   }
 
-  const purposesBlock = qs('#property-purposes-block');
+  const purposesBlock = qs("#property-purposes-block");
   if (p.purposeTypes && p.purposeTypes.length > 0) {
     purposesBlock.innerHTML = `
       <h4 class="property-sub-title">Purpose Types</h4>
       <div class="property-amenities-grid">
-        ${p.purposeTypes.map(pt =>
-          `<div class="property-amenity-item">
+        ${p.purposeTypes
+          .map(
+            (pt) =>
+              `<div class="property-amenity-item">
              <i class="fa-solid ${getPurposeIcon(pt)}"></i>
              <span>${pt}</span>
-           </div>`
-        ).join('')}
+           </div>`,
+          )
+          .join("")}
       </div>`;
   }
 }
 
 function renderFloorPlans(floorPlans) {
-  const section = qs('#floor-plans-section');
+  const section = qs("#floor-plans-section");
   if (!floorPlans.length) {
-    section.style.display = 'none';
+    section.style.display = "none";
     return;
   }
 
-  qs('#floor-plans-list').innerHTML = floorPlans.map(fp =>
-    `<div class="floor-plan-item">
+  qs("#floor-plans-list").innerHTML = floorPlans
+    .map(
+      (fp) =>
+        `<div class="floor-plan-item">
        <div class="floor-plan-header">
          <span class="floor-plan-name">${fp.name}</span>
          <i class="fa-solid fa-chevron-down floor-plan-chevron"></i>
@@ -296,28 +333,32 @@ function renderFloorPlans(floorPlans) {
        <div class="floor-plan-body">
          <img src="${fp.image}" alt="${fp.name}" class="floor-plan-img" loading="lazy" />
        </div>
-     </div>`
-  ).join('');
+     </div>`,
+    )
+    .join("");
 
-  qs('#floor-plans-list').addEventListener('click', e => {
-    const header = e.target.closest('.floor-plan-header');
+  qs("#floor-plans-list").addEventListener("click", (e) => {
+    const header = e.target.closest(".floor-plan-header");
     if (!header) return;
-    const item = header.closest('.floor-plan-item');
-    const isOpen = item.classList.contains('is-open');
-    document.querySelectorAll('.floor-plan-item.is-open').forEach(el => el.classList.remove('is-open'));
-    if (!isOpen) item.classList.add('is-open');
+    const item = header.closest(".floor-plan-item");
+    const isOpen = item.classList.contains("is-open");
+    document
+      .querySelectorAll(".floor-plan-item.is-open")
+      .forEach((el) => el.classList.remove("is-open"));
+    if (!isOpen) item.classList.add("is-open");
   });
 }
 
 function renderMap(p) {
   if (!p.latitude || !p.longitude) {
-    qs('#map-section').style.display = 'none';
+    qs("#map-section").style.display = "none";
     return;
   }
 
-  const map = L.map('property-map').setView([p.latitude, p.longitude], 15);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  const map = L.map("property-map").setView([p.latitude, p.longitude], 15);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
   L.marker([p.latitude, p.longitude])
     .addTo(map)
@@ -327,23 +368,23 @@ function renderMap(p) {
 
 function renderSimilarProjects(currentProject) {
   const similar = projects
-    .filter(p => p.id !== currentProject.id)
+    .filter((p) => p.id !== currentProject.id)
     .slice(0, 2);
 
-  const container = qs('#similar-projects-grid');
+  const container = qs("#similar-projects-grid");
   if (!container) return;
 
   if (similar.length === 0) {
-    qs('.property-section--related').style.display = 'none';
+    qs(".property-section--related").style.display = "none";
     return;
   }
 
-  container.innerHTML = similar.map(p => renderProjectCard(p)).join('');
+  container.innerHTML = similar.map((p) => renderProjectCard(p)).join("");
 }
 
 function bindActions(project) {
-  document.addEventListener('click', e => {
-    if (e.target.closest('#contact-agent-btn')) {
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("#contact-agent-btn")) {
       openModal({
         title: `Contact Agent`,
         content: `
@@ -356,11 +397,13 @@ function bindActions(project) {
             <button type="submit" class="btn-primary">Send Message</button>
           </form>`,
         onOpen: (modal) => {
-          modal.querySelector('#contact-form').addEventListener('submit', ev => {
-            ev.preventDefault();
-            modal.querySelector('#contact-form').innerHTML =
-              '<p class="text-center text-green-600 font-medium py-4">Message sent! We\'ll be in touch soon.</p>';
-          });
+          modal
+            .querySelector("#contact-form")
+            .addEventListener("submit", (ev) => {
+              ev.preventDefault();
+              modal.querySelector("#contact-form").innerHTML =
+                '<p class="text-center text-green-600 font-medium py-4">Message sent! We\'ll be in touch soon.</p>';
+            });
         },
       });
     }
