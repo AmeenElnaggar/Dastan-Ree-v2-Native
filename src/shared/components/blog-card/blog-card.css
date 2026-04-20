@@ -7,21 +7,13 @@
   overflow: hidden;
   text-decoration: none;
   background: #fff;
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.04),
-    0 6px 20px rgba(0, 0, 0, 0.06),
-    0 16px 48px rgba(0, 0, 0, 0.07);
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+
+  transition: transform 0.35s ease;
 }
 
 .blog-card:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.06),
-    0 12px 32px rgba(0, 0, 0, 0.1),
-    0 24px 64px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
 }
 
 /* ---- Image ---- */

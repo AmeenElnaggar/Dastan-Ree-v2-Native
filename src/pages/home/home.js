@@ -84,6 +84,8 @@ function initPartnersSlider(selector) {
   const root = document.querySelector(selector);
   if (!root) return;
 
+  const total = partners.length;
+
   root.innerHTML = `
     <div class="partners-slider-container">
       <div class="swiper partners-swiper">
@@ -109,11 +111,27 @@ function initPartnersSlider(selector) {
             .join("")}
         </div>
       </div>
-      <div class="partners-pagination swiper-pagination"></div>
+      <div class="featured-slider-controls">
+        <button class="featured-arrow featured-arrow--prev" aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="featured-pagination">
+          <span class="featured-pagination__current">01</span>
+          <span class="featured-pagination__sep">/</span>
+          <span class="featured-pagination__total">${String(total).padStart(2, "0")}</span>
+        </div>
+        <button class="featured-arrow featured-arrow--next" aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
   `;
 
-  new Swiper(root.querySelector(".partners-swiper"), {
+  const prevBtn = root.querySelector(".featured-arrow--prev");
+  const nextBtn = root.querySelector(".featured-arrow--next");
+  const currentEl = root.querySelector(".featured-pagination__current");
+
+  const swiper = new Swiper(root.querySelector(".partners-swiper"), {
     slidesPerView: 2,
     spaceBetween: 16,
     loop: true,
@@ -123,17 +141,24 @@ function initPartnersSlider(selector) {
       disableOnInteraction: false,
       pauseOnMouseEnter: true,
     },
-    pagination: {
-      el: root.querySelector(".partners-pagination"),
-      clickable: true,
-    },
     breakpoints: {
       480: { slidesPerView: 3, spaceBetween: 24 },
       768: { slidesPerView: 4, spaceBetween: 32 },
       1024: { slidesPerView: 5, spaceBetween: 40 },
       1280: { slidesPerView: 6, spaceBetween: 48 },
     },
+    on: {
+      init(sw) {
+        currentEl.textContent = String(sw.realIndex + 1).padStart(2, "0");
+      },
+      slideChange(sw) {
+        currentEl.textContent = String(sw.realIndex + 1).padStart(2, "0");
+      },
+    },
   });
+
+  prevBtn.addEventListener("click", () => swiper.slidePrev());
+  nextBtn.addEventListener("click", () => swiper.slideNext());
 }
 
 function initBlogsSlider(selector) {

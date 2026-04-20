@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 16px;
-  margin-top: 24px;
+  margin-top: 16px;
 }
 
 .featured-arrow {
@@ -391,31 +391,6 @@
   color: #333;
 }
 
-.partners-pagination.swiper-pagination {
-  position: static;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 28px;
-  width: 100%;
-}
-
-.partners-pagination .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #ccc;
-  opacity: 1;
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease;
-}
-
-.partners-pagination .swiper-pagination-bullet-active {
-  background: #c9a84c;
-  transform: scale(1.35);
-}
-
 /* ===== Blogs Slider — Slide & Fade ===== */
 
 .blogs-swiper .swiper-slide {
@@ -425,4 +400,10 @@
 
 .blogs-swiper .swiper-slide-visible {
   opacity: 1;
+}
+
+.blogs-swiper,
+.properties-swiper,
+.partners-swiper {
+  padding-block: 20px;
 }

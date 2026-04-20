@@ -6,14 +6,14 @@
   border-radius: 24px;
   text-decoration: none;
   background: #fff;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 20px 40px -15px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .property-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04);
+  transform: scale(1.01);
 }
 
 /* ---- Visual Layer: inset image ---- */
@@ -92,7 +92,9 @@
   justify-content: center;
   color: #fff;
   z-index: 2;
-  transition: background 0.25s ease, color 0.25s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .property-card__favorite:hover {
@@ -196,13 +198,17 @@
   font-weight: 600;
   color: #0ea5e9;
   letter-spacing: 0.03em;
-  transition: color 0.25s ease, transform 0.25s ease;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
   display: inline-block;
 }
 
 .property-card__cta-arrow {
   color: #0ea5e9;
-  transition: color 0.25s ease, transform 0.25s ease;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
   display: block;
 }
 
