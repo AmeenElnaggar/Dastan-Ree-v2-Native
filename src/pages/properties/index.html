@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Properties — Dastan Real Estate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css" />
+    <link rel="stylesheet" href="../../../src/styles/global.css" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/navbar/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/footer/footer.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/property-card/property-card.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/action-link/action-link.css" />
+    <link rel="stylesheet" href="properties.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-white text-gray-900">
+    <div id="navbar-root"></div>
+
+    <!-- Page Header -->
+    <div id="page-header-root"></div>
+
+    <!-- Filters -->
+    <section class="bg-white border-b border-gray-100 sticky top-16 z-30">
+      <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Finishing filter -->
+          <span class="text-sm font-medium text-gray-500">Finishing:</span>
+          <button class="filter-btn active" data-finishing="all">All</button>
+          <button class="filter-btn" data-finishing="Fully Finished">Fully Finished</button>
+          <button class="filter-btn" data-finishing="Semi-Finished">Semi-Finished</button>
+          <button class="filter-btn" data-finishing="Core &amp; Shell">Core &amp; Shell</button>
+
+          <div class="properties-filter-sep"></div>
+
+          <!-- Furnishing filter -->
+          <span class="text-sm font-medium text-gray-500">Furnishing:</span>
+          <button class="filter-btn active" data-furnishing="all">All</button>
+          <button class="filter-btn" data-furnishing="Fully Furnished">Furnished</button>
+          <button class="filter-btn" data-furnishing="Semi-Furnished">Semi-Furnished</button>
+          <button class="filter-btn" data-furnishing="Unfurnished">Unfurnished</button>
+
+          <!-- Sort -->
+          <div class="ml-auto flex items-center gap-2">
+            <label class="text-sm text-gray-500">Sort:</label>
+            <select
+              id="sort-select"
+              class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary-500">
+              <option value="newest">Newest First</option>
+              <option value="price-asc">Price: Low → High</option>
+              <option value="price-desc">Price: High → Low</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Properties Grid -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <p id="results-count" class="text-sm text-gray-500 mb-8"></p>
+        <div
+          id="properties-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        <div id="load-more-wrap" class="text-center mt-12 hidden">
+          <button
+            id="load-more-btn"
+            class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-10 py-3 rounded-2xl transition-colors">
+            Load More
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script
+      type="module"
+      src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/components/footer/Footer.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/layouts/page-header.js"></script>
+    <script type="module" src="/src/pages/properties/properties.js"></script>
+  </body>
+</html>

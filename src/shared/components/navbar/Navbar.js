@@ -1,7 +1,7 @@
 const NAV_LINKS = [
   { label: "Home", href: "/src/pages/home/index.html" },
   { label: "Projects", href: "/src/pages/projects/index.html" },
-  { label: "Properties", href: "#" },
+  { label: "Properties", href: "/src/pages/properties/index.html" },
   { label: "Blogs", href: "#" },
   { label: "Careers", href: "#" },
   { label: "About Us", href: "#" },

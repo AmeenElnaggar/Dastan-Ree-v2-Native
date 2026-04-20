@@ -4,64 +4,10 @@ import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { openModal } from "../../shared/components/modal/Modal.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderProjectCard } from "../../shared/components/project-card/ProjectCard.js";
+import { AMENITY_ICONS, getFacilityIcon, getPurposeIcon } from "../../shared/components/amenities/icons.js";
 import { qs } from "../../utils/dom.js";
 import { formatNumber } from "../../utils/format.js";
 import { getParam } from "../../utils/router.js";
-
-const AMENITY_ICONS = {
-  pool: "fa-water",
-  gym: "fa-dumbbell",
-  security: "fa-shield-halved",
-  parking: "fa-square-parking",
-  garden: "fa-leaf",
-  playground: "fa-children",
-  cctv: "fa-video",
-  mosque: "fa-mosque",
-  concierge: "fa-bell-concierge",
-  rooftop: "fa-city",
-  spa: "fa-spa",
-  beach: "fa-umbrella-beach",
-  cafe: "fa-mug-hot",
-};
-
-const FACILITY_ICONS = {
-  lobby: "fa-door-open",
-  retail: "fa-store",
-  parking: "fa-square-parking",
-  rooftop: "fa-city",
-  beach: "fa-umbrella-beach",
-  pool: "fa-water",
-  kitchen: "fa-utensils",
-  garage: "fa-car-side",
-  smart: "fa-microchip",
-  garden: "fa-leaf",
-  lounge: "fa-couch",
-};
-
-const PURPOSE_ICONS = {
-  residential: "fa-house",
-  commercial: "fa-building",
-  mixed: "fa-city",
-  office: "fa-briefcase",
-  retail: "fa-store",
-  hotel: "fa-hotel",
-};
-
-function getFacilityIcon(name) {
-  const lower = name.toLowerCase();
-  for (const [key, icon] of Object.entries(FACILITY_ICONS)) {
-    if (lower.includes(key)) return icon;
-  }
-  return "fa-check";
-}
-
-function getPurposeIcon(name) {
-  const lower = name.toLowerCase();
-  for (const [key, icon] of Object.entries(PURPOSE_ICONS)) {
-    if (lower.includes(key)) return icon;
-  }
-  return "fa-tag";
-}
 
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root");

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Details — Dastan Real Estate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css" />
+    <link rel="stylesheet" href="../../../src/styles/global.css" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/navbar/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/footer/footer.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/modal/modal.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/property-card/property-card.css" />
+    <link rel="stylesheet" href="/src/pages/property-details/property-details.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  </head>
+  <body class="font-sans bg-white text-gray-900">
+    <div id="navbar-root"></div>
+
+    <!-- ── Cinematic Hero ─────────────────────────────────────────── -->
+    <section class="pd-hero" id="pd-hero">
+      <div class="swiper pd-hero__swiper" id="hero-swiper">
+        <div class="swiper-wrapper" id="hero-slides"></div>
+        <div class="swiper-button-prev pd-hero__btn pd-hero__btn--prev"></div>
+        <div class="swiper-button-next pd-hero__btn pd-hero__btn--next"></div>
+        <div class="swiper-pagination pd-hero__pagination"></div>
+      </div>
+      <div class="pd-hero__overlay"></div>
+      <div class="pd-hero__content">
+        <nav class="pd-hero__breadcrumb" id="hero-breadcrumb" aria-label="Breadcrumb"></nav>
+        <div class="pd-hero__bottom">
+          <div class="pd-hero__info">
+            <span class="pd-hero__badge" id="hero-badge"></span>
+            <h1 class="pd-hero__title" id="hero-title"></h1>
+            <p class="pd-hero__location" id="hero-location"></p>
+          </div>
+          <div class="pd-hero__price-card" id="hero-price-card"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sticky Summary Bar ─────────────────────────────────────── -->
+    <div class="pd-sticky" id="pd-sticky" aria-hidden="true">
+      <div class="pd-sticky__inner">
+        <span class="pd-sticky__name" id="sticky-name"></span>
+        <span class="pd-sticky__sep" aria-hidden="true">·</span>
+        <span class="pd-sticky__price" id="sticky-price"></span>
+        <button class="pd-sticky__cta" id="sticky-schedule-btn">Schedule a Viewing</button>
+      </div>
+    </div>
+
+    <!-- ── Stats Ribbon ───────────────────────────────────────────── -->
+    <section class="pd-stats" aria-label="Property statistics">
+      <div class="pd-stats__grid" id="stats-grid"></div>
+    </section>
+
+    <!-- ── Body: Main Column + Sidebar ───────────────────────────── -->
+    <div class="pd-body">
+      <div class="pd-body__inner">
+
+        <!-- Main Column -->
+        <main class="pd-main-col">
+
+          <!-- About -->
+          <section class="pd-section" id="about-section">
+            <h2 class="pd-section-title">About This Property</h2>
+            <div class="pd-about-body" id="about-body"></div>
+          </section>
+
+          <!-- Amenities -->
+          <section class="pd-section" id="amenities-section">
+            <h2 class="pd-section-title">Amenities &amp; Features</h2>
+            <div class="pd-amenities-grid" id="amenities-grid"></div>
+            <div id="facilities-block"></div>
+            <div id="purposes-block"></div>
+          </section>
+
+          <!-- Floor Plans (tabbed) -->
+          <section class="pd-section" id="floorplans-section">
+            <h2 class="pd-section-title">Floor Plans</h2>
+            <div class="pd-floorplans" id="floorplans-body">
+              <div class="pd-floorplans__tabs" id="floorplan-tabs"></div>
+              <div class="pd-floorplans__image-wrap">
+                <img id="floorplan-active-img" class="pd-floorplans__img" src="" alt="Floor plan" loading="lazy" />
+              </div>
+            </div>
+          </section>
+
+          <!-- Masterplan -->
+          <section class="pd-section" id="masterplan-section">
+            <h2 class="pd-section-title">Masterplan</h2>
+            <div class="pd-masterplan" id="masterplan-wrap">
+              <img id="masterplan-img" class="pd-masterplan__img" src="" alt="Project masterplan" loading="lazy" />
+              <button class="pd-masterplan__expand" id="masterplan-expand-btn" type="button">
+                <i class="fa-solid fa-expand" aria-hidden="true"></i> View Full Masterplan
+              </button>
+            </div>
+          </section>
+
+          <!-- Location Map -->
+          <section class="pd-section" id="map-section">
+            <h2 class="pd-section-title">Location</h2>
+            <div class="pd-map-row">
+              <div id="property-map" class="pd-map"></div>
+              <div class="pd-neighborhood" id="neighborhood-list"></div>
+            </div>
+          </section>
+
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="pd-sidebar" id="pd-sidebar">
+          <div class="pd-agent-card" id="agent-card"></div>
+          <div class="pd-quick-facts" id="quick-facts"></div>
+        </aside>
+
+      </div>
+    </div>
+
+    <!-- ── Similar Properties ──────────────────────────────────── -->
+    <section class="pd-similar" id="similar-section">
+      <div class="pd-similar__inner">
+        <div class="pd-similar__header">
+          <h2 class="pd-section-title" style="margin-bottom:0;border-bottom:none;padding-bottom:0">Similar Properties</h2>
+          <div class="pd-similar__nav">
+            <button class="pd-similar__nav-btn" id="similar-prev" aria-label="Previous">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="pd-similar__nav-btn" id="similar-next" aria-label="Next">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="swiper pd-similar__swiper" id="similar-swiper">
+          <div class="swiper-wrapper" id="similar-slides"></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="modal-root"></div>
+    <div id="footer-root"></div>
+
+    <script
+      type="module"
+      src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/components/footer/Footer.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/components/modal/Modal.js"></script>
+    <script type="module" src="/src/pages/property-details/property-details.js"></script>
+  </body>
+</html>

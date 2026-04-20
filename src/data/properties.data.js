@@ -1,18 +1,32 @@
-/**
- * Individual property units (re-exports project items shaped as properties).
- * In a real app this would come from an API.
- */
 import { projects } from './projects.data.js';
 
 export const properties = projects.map(p => ({
   id: p.id,
   name: p.name,
+  shortDescription: p.shortDescription,
   location: p.location,
+  developer: p.developer,
+  developerLogo: p.developerLogo,
   type: p.type,
   status: p.status,
   price: p.price,
+  units: p.units,
+  year: p.year,
   bedrooms: p.bedrooms,
   bathrooms: p.bathrooms,
   area: p.area,
+  featured: p.featured,
+  deliveryDate: p.deliveryDate,
+  finishingType: p.finishingType,
+  furnishingStatus: p.furnishingStatus,
+  facilities: p.facilities,
+  purposeTypes: p.purposeTypes,
   image: p.image,
+  images: p.images,
+  floorPlans: p.floorPlans,
+  masterplanImage: p.masterplanImage,
+  latitude: p.latitude,
+  longitude: p.longitude,
+  description: p.description,
+  amenityIds: p.amenityIds,
 }));
