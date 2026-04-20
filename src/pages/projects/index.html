@@ -1,165 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects — Dastan Real Estate</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="../../../src/styles/variables.css" />
-  <link rel="stylesheet" href="../../../src/styles/global.css" />
-  <link rel="stylesheet" href="../../../src/styles/utilities.css" />
-  <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css" />
-  <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css" />
-  <link rel="stylesheet" href="../../../src/shared/components/project-card/project-card.css" />
-  <link rel="stylesheet" href="projects.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="../../../tailwind.config.js"></script>
-</head>
-<body class="font-sans bg-white text-gray-900">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — Dastan Real Estate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css" />
+    <link rel="stylesheet" href="../../../src/styles/global.css" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/navbar/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/footer/footer.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/project-card/project-card.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/action-link/action-link.css" />
+    <link rel="stylesheet" href="projects.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-white text-gray-900">
+    <div id="navbar-root"></div>
 
-  <div id="navbar-root"></div>
+    <!-- Page Header -->
+    <div id="page-header-root"></div>
 
-  <!-- Hero Section -->
-  <section class="projects-hero">
-    <div class="projects-hero__inner">
-      <p class="projects-hero__eyebrow">Our Portfolio</p>
-      <h1 class="projects-hero__title">Explore Our Exclusive Projects</h1>
-      <p class="projects-hero__subtitle">A curated collection of premium residential and commercial developments in the world's most sought-after locations.</p>
-    </div>
-  </section>
-
-  <!-- Command Center Filter Bar -->
-  <section class="command-center" id="command-center">
-    <div class="command-center__inner">
-      <div class="command-center__filters" id="desktop-filters">
-        <div class="command-center__filter-group">
-          <label class="command-center__label">Location</label>
-          <select class="command-center__select" id="filter-location">
-            <option value="all">All Locations</option>
-          </select>
-        </div>
-        <div class="command-center__divider"></div>
-        <div class="command-center__filter-group">
-          <label class="command-center__label">Price Range</label>
-          <select class="command-center__select" id="filter-price">
-            <option value="all">Any Price</option>
-            <option value="0-1000000">Under 1M</option>
-            <option value="1000000-3000000">1M – 3M</option>
-            <option value="3000000-6000000">3M – 6M</option>
-            <option value="6000000-999999999">Above 6M</option>
-          </select>
-        </div>
-        <div class="command-center__divider"></div>
-        <div class="command-center__filter-group">
-          <label class="command-center__label">Property Type</label>
-          <select class="command-center__select" id="filter-type">
-            <option value="all">All Types</option>
-            <option value="apartment">Apartments</option>
-            <option value="villa">Villas</option>
-            <option value="commercial">Commercial</option>
-          </select>
-        </div>
-        <div class="command-center__divider"></div>
-        <div class="command-center__filter-group">
-          <label class="command-center__label">Status</label>
-          <select class="command-center__select" id="filter-status">
-            <option value="all">All Status</option>
-            <option value="Available">Available</option>
-            <option value="Sold Out">Sold Out</option>
-            <option value="Coming Soon">Coming Soon</option>
+    <!-- Filters -->
+    <section class="bg-white border-b border-gray-100 sticky top-16 z-30">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center gap-3">
+        <span class="text-sm font-medium text-gray-500">Filter:</span>
+        <button class="filter-btn active" data-type="all">All</button>
+        <button class="filter-btn" data-type="apartment">Apartments</button>
+        <button class="filter-btn" data-type="villa">Villas</button>
+        <button class="filter-btn" data-type="commercial">Commercial</button>
+        <div class="ml-auto flex items-center gap-2">
+          <label class="text-sm text-gray-500">Sort:</label>
+          <select
+            id="sort-select"
+            class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <option value="newest">Newest First</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
           </select>
         </div>
       </div>
+    </section>
 
-      <button class="command-center__mobile-btn" id="mobile-filter-btn" aria-label="Open filters">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
-        Filters
-        <span class="command-center__filter-count hidden" id="active-filter-count">0</span>
-      </button>
-
-      <div class="command-center__sort">
-        <select class="command-center__select" id="sort-select">
-          <option value="newest">Newest First</option>
-          <option value="price-asc">Price: Low → High</option>
-          <option value="price-desc">Price: High → Low</option>
-        </select>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mobile Filter Drawer -->
-  <div class="filter-drawer" id="filter-drawer" aria-hidden="true">
-    <div class="filter-drawer__backdrop" id="drawer-backdrop"></div>
-    <div class="filter-drawer__panel">
-      <div class="filter-drawer__header">
-        <span class="filter-drawer__title">Filters</span>
-        <button class="filter-drawer__close" id="drawer-close" aria-label="Close filters">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-        </button>
-      </div>
-      <div class="filter-drawer__body">
-        <div class="filter-drawer__group">
-          <label class="filter-drawer__label">Location</label>
-          <select class="filter-drawer__select" id="m-filter-location">
-            <option value="all">All Locations</option>
-          </select>
-        </div>
-        <div class="filter-drawer__group">
-          <label class="filter-drawer__label">Price Range</label>
-          <select class="filter-drawer__select" id="m-filter-price">
-            <option value="all">Any Price</option>
-            <option value="0-1000000">Under 1M</option>
-            <option value="1000000-3000000">1M – 3M</option>
-            <option value="3000000-6000000">3M – 6M</option>
-            <option value="6000000-999999999">Above 6M</option>
-          </select>
-        </div>
-        <div class="filter-drawer__group">
-          <label class="filter-drawer__label">Property Type</label>
-          <select class="filter-drawer__select" id="m-filter-type">
-            <option value="all">All Types</option>
-            <option value="apartment">Apartments</option>
-            <option value="villa">Villas</option>
-            <option value="commercial">Commercial</option>
-          </select>
-        </div>
-        <div class="filter-drawer__group">
-          <label class="filter-drawer__label">Status</label>
-          <select class="filter-drawer__select" id="m-filter-status">
-            <option value="all">All Status</option>
-            <option value="Available">Available</option>
-            <option value="Sold Out">Sold Out</option>
-            <option value="Coming Soon">Coming Soon</option>
-          </select>
+    <!-- Projects Grid -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <p id="results-count" class="text-sm text-gray-500 mb-8"></p>
+        <div
+          id="projects-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        <div id="load-more-wrap" class="text-center mt-12 hidden">
+          <button
+            id="load-more-btn"
+            class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-10 py-3 rounded-2xl transition-colors">
+            Load More
+          </button>
         </div>
       </div>
-      <div class="filter-drawer__footer">
-        <button class="filter-drawer__reset" id="drawer-reset">Reset All</button>
-        <button class="filter-drawer__apply" id="drawer-apply">Apply Filters</button>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Projects Showroom -->
-  <section class="showroom">
-    <div class="showroom__inner">
-      <p id="results-count" class="showroom__count"></p>
-      <div id="projects-grid" class="showroom__grid"></div>
-      <div id="no-results" class="showroom__empty hidden">
-        <p>No projects match your current filters.</p>
-        <button id="clear-filters-btn">Clear Filters</button>
-      </div>
-      <nav class="pagination" id="pagination" aria-label="Projects pagination"></nav>
-    </div>
-  </section>
+    <div id="footer-root"></div>
 
-  <div id="footer-root"></div>
-
-  <script type="module" src="../../../src/shared/components/navbar/Navbar.js"></script>
-  <script type="module" src="../../../src/shared/components/footer/Footer.js"></script>
-  <script type="module" src="projects.js"></script>
-</body>
+    <script
+      type="module"
+      src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/components/footer/Footer.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/layouts/page-header.js"></script>
+    <script type="module" src="projects.js"></script>
+  </body>
 </html>
