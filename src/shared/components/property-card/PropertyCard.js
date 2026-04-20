@@ -12,7 +12,7 @@ export function renderPropertyCard(property) {
     location,
     status,
   } = property;
-  const detailsUrl = `../../pages/project-details/index.html?id=${id}`;
+  const detailsUrl = `../property-details/index.html?id=${id}`;
   const badgeText = status || "For Sale";
   const formattedAmount = formatNumber(price);
 
