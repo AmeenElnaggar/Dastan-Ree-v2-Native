@@ -1,9 +1,9 @@
-import { properties } from "../../data/properties.data.js";
 import { blogs } from "../../data/blogs.data.js";
+import { properties } from "../../data/properties.data.js";
+import { renderBlogCard } from "../../shared/components/blog-card/BlogCard.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderPropertyCard } from "../../shared/components/property-card/PropertyCard.js";
-import { renderBlogCard } from "../../shared/components/blog-card/BlogCard.js";
 import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
 
@@ -29,12 +29,15 @@ function initPropertiesSlider(selector) {
           ${latest.map((p) => `<div class="swiper-slide">${renderPropertyCard(p)}</div>`).join("")}
         </div>
       </div>
-      <button class="properties-arrow properties-arrow--prev" aria-label="Previous">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="properties-arrow properties-arrow--next" aria-label="Next">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+    <div class="properties-pagination-bar">
+        <button class="properties-arrow properties-arrow--prev" aria-label="Previous">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="properties-pagination swiper-pagination"></div>
+        <button class="properties-arrow properties-arrow--next" aria-label="Next">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
   `;
 
@@ -50,13 +53,9 @@ function initPropertiesSlider(selector) {
     slidesPerView: 3,
     spaceBetween: 30,
     loop: false,
-    on: {
-      init(sw) {
-        updateArrows(sw);
-      },
-      slideChange(sw) {
-        updateArrows(sw);
-      },
+    pagination: {
+      el: root.querySelector(".properties-pagination"),
+      clickable: true,
     },
   });
 
@@ -101,8 +100,12 @@ function initBlogsSlider(selector) {
       1024: { slidesPerView: 3 },
     },
     on: {
-      init(sw) { updateArrows(sw); },
-      slideChange(sw) { updateArrows(sw); },
+      init(sw) {
+        updateArrows(sw);
+      },
+      slideChange(sw) {
+        updateArrows(sw);
+      },
     },
   });
 
