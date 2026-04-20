@@ -11,9 +11,6 @@
       rel="stylesheet" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link
-      rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../../../src/styles/variables.css" />
     <link rel="stylesheet" href="../../../src/styles/global.css" />
@@ -29,110 +26,82 @@
       href="../../../src/shared/components/modal/modal.css" />
     <link
       rel="stylesheet"
-      href="../../../src/shared/components/action-link/action-link.css" />
-    <link
-      rel="stylesheet"
       href="../../../src/shared/components/project-card/project-card.css" />
-    <link rel="stylesheet" href="project-details.css" />
+    <link rel="stylesheet" href="/src/pages/project-details/project-details.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </head>
   <body class="font-sans bg-white text-gray-900">
     <div id="navbar-root"></div>
+    <div class="navbar-spacer"></div>
 
-    <!-- Gallery Slider -->
-    <section class="gallery-section bg-gray-950">
-      <div class="swiper gallery-swiper">
-        <div class="swiper-wrapper" id="gallery-slides"></div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-      </div>
-    </section>
-
-    <!-- Main Content -->
-    <section
-      class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
-      <!-- Left: Details -->
-      <div class="lg:col-span-2">
-        <div id="project-breadcrumb" class="text-sm text-gray-400 mb-4"></div>
-        <h1
-          id="project-title"
-          class="font-display text-4xl font-bold mb-2"></h1>
-        <p
-          id="project-location"
-          class="text-gray-500 mb-6 flex items-center gap-1">
-          <svg
-            class="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          <span id="project-location-text"></span>
-        </p>
-
-        <div
-          id="project-stats"
-          class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10"></div>
-
-        <h2 class="text-xl font-semibold mb-3">About This Project</h2>
-        <p
-          id="project-description"
-          class="text-gray-600 leading-relaxed mb-10"></p>
-
-        <h2 class="text-xl font-semibold mb-4">Amenities</h2>
-        <div
-          id="project-amenities"
-          class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10"></div>
-
-        <!-- Related Slider -->
-        <h2 class="text-xl font-semibold mb-4">Related Projects</h2>
-        <div id="related-slider-root"></div>
-      </div>
-
-      <!-- Right: Inquiry Card -->
-      <div>
-        <div
-          class="sticky top-20 bg-white rounded-3xl shadow-xl border border-gray-100 p-6">
-          <p class="text-gray-500 text-sm mb-1">Starting From</p>
-          <p
-            id="project-price"
-            class="font-display text-3xl font-bold text-primary-700 mb-6"></p>
-          <button
-            id="inquiry-btn"
-            class="w-full bg-primary-500 hover:bg-primary-600 text-white font-semibold py-4 rounded-2xl transition-colors mb-3">
-            Request Info
-          </button>
-          <button
-            id="schedule-btn"
-            class="w-full border border-primary-500 text-primary-600 hover:bg-primary-50 font-semibold py-4 rounded-2xl transition-colors">
-            Schedule a Visit
-          </button>
-          <div class="mt-6 pt-6 border-t border-gray-100">
-            <p class="text-xs text-gray-400 text-center">
-              Our team will respond within 24 hours
-            </p>
-          </div>
+    <!-- Property Top Section -->
+    <section class="property-top">
+      <div class="property-top-container">
+        <div class="property-top-left">
+          <nav class="property-breadcrumb" id="property-breadcrumb"></nav>
+          <h1 class="property-title" id="property-title"></h1>
+          <p class="property-address">
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="property-address-text"></span>
+          </p>
+        </div>
+        <div class="property-top-right">
+          <div class="property-actions" id="property-actions"></div>
+          <div class="property-stats" id="property-stats"></div>
+          <div class="property-price" id="property-price"></div>
         </div>
       </div>
     </section>
 
-    <!-- Inquiry Modal -->
-    <div id="modal-root"></div>
+    <!-- Property Gallery -->
+    <div class="property-gallery-container">
+      <div class="property-gallery" id="property-gallery"></div>
+      <a href="#" class="property-gallery-btn" id="gallery-btn">
+        <i class="fa-solid fa-images"></i> View Photos
+      </a>
+    </div>
 
+    <!-- Main Content + Sidebar -->
+    <div class="property-content-area">
+      <div class="property-content-row">
+
+        <!-- Main Column -->
+        <div class="property-content-main">
+          <div class="property-section">
+            <h3 class="property-section-title">Key Details</h3>
+            <div class="property-details-grid" id="property-details"></div>
+          </div>
+
+          <div class="property-section">
+            <h3 class="property-section-title">Overview</h3>
+            <div class="property-overview" id="property-overview"></div>
+          </div>
+
+          <div class="property-section">
+            <h3 class="property-section-title">Amenities</h3>
+            <div class="property-amenities-grid" id="property-amenities"></div>
+          </div>
+
+          <div class="property-section property-section--related">
+            <h3 class="property-section-title">Similar Properties</h3>
+            <div id="related-slider-root"></div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="property-content-sidebar">
+          <div id="property-agent"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal & Footer -->
+    <div id="modal-root"></div>
     <div id="footer-root"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script
       type="module"
       src="../../../src/shared/components/navbar/Navbar.js"></script>
@@ -145,6 +114,6 @@
     <script
       type="module"
       src="../../../src/shared/sliders/RelatedSlider.js"></script>
-    <script type="module" src="project-details.js"></script>
+    <script type="module" src="/src/pages/project-details/project-details.js"></script>
   </body>
 </html>

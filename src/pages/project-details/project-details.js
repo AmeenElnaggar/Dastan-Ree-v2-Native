@@ -4,7 +4,7 @@ import { renderNavbar } from '../../shared/components/navbar/Navbar.js';
 import { renderFooter } from '../../shared/components/footer/Footer.js';
 import { openModal } from '../../shared/components/modal/Modal.js';
 import { initRelatedSlider } from '../../shared/sliders/RelatedSlider.js';
-import { formatPrice } from '../../utils/format.js';
+import { formatNumber } from '../../utils/format.js';
 import { qs } from '../../utils/dom.js';
 import { getParam } from '../../utils/router.js';
 
@@ -16,107 +16,138 @@ document.addEventListener('DOMContentLoaded', () => {
   const project = projects.find(p => p.id === id) || projects[0];
 
   if (!project) {
-    document.body.innerHTML = '<p class="p-10 text-center text-gray-500">Project not found.</p>';
+    document.body.innerHTML = '<p class="text-center py-20 text-gray-500">Project not found.</p>';
     return;
   }
 
   renderProject(project);
-  bindInquiry(project);
+  bindActions(project);
   initRelatedSlider('#related-slider-root', project);
 });
 
 function renderProject(p) {
   document.title = `${p.name} — Dastan Real Estate`;
 
-  // Gallery
-  const slidesContainer = qs('#gallery-slides');
-  slidesContainer.innerHTML = p.images.map(img =>
-    `<div class="swiper-slide">
-       <div class="w-full h-[55vh] bg-cover bg-center" style="background-image:url('${img}')"></div>
-     </div>`
+  qs('#property-breadcrumb').innerHTML =
+    `<a href="../home/index.html">Home</a>
+     <span class="breadcrumb-sep">/</span>
+     <a href="../projects/index.html">Properties</a>
+     <span class="breadcrumb-sep">/</span>
+     <span>${p.name}</span>`;
+
+  qs('#property-title').textContent = p.name;
+  qs('#property-address-text').textContent = p.location;
+
+  qs('#property-actions').innerHTML =
+    `<button class="property-action-btn" id="save-btn">
+       <i class="fa-regular fa-heart"></i> Save
+     </button>
+     <button class="property-action-btn" id="share-btn">
+       <i class="fa-solid fa-share-nodes"></i> Share
+     </button>`;
+
+  qs('#property-stats').innerHTML =
+    `<div class="property-stat-item">${p.bedrooms} <span>BD</span></div>
+     <div class="property-stat-item">${p.bathrooms} <span>BA</span></div>
+     <div class="property-stat-item">${p.area} <span>M²</span></div>`;
+
+  qs('#property-price').innerHTML = `${formatNumber(p.price)} <span>AED</span>`;
+
+  const images = p.images.slice(0, 5);
+  const galleryEl = qs('#property-gallery');
+  if (images.length === 1) galleryEl.classList.add('property-gallery--single');
+  else if (images.length <= 3) galleryEl.classList.add('property-gallery--compact');
+  galleryEl.innerHTML = images.map((img, i) =>
+    `<figure class="property-gallery-item${i === 0 ? ' property-gallery-item--main' : ''}">
+       <a class="property-gallery-cover" href="${img}" target="_blank"
+          style="background-image:url('${img}')"></a>
+     </figure>`
   ).join('');
 
-  new Swiper('.gallery-swiper', {
-    loop: true,
-    pagination: { el: '.swiper-pagination', clickable: true },
-    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+  qs('#gallery-btn').addEventListener('click', e => {
+    e.preventDefault();
+    window.open(images[0], '_blank');
   });
 
-  // Text fields
-  qs('#project-title').textContent = p.name;
-  qs('#project-location-text').textContent = p.location;
-  qs('#project-price').textContent = formatPrice(p.price);
-  qs('#project-description').textContent = p.description;
-  qs('#project-breadcrumb').innerHTML =
-    `<a href="../home/index.html" class="hover:text-primary-500">Home</a>
-     <span class="mx-2">/</span>
-     <a href="../projects/index.html" class="hover:text-primary-500">Projects</a>
-     <span class="mx-2">/</span>
-     <span class="text-gray-700">${p.name}</span>`;
-
-  // Stats
-  const stats = [
-    { label: 'Type',     value: p.type },
-    { label: 'Units',    value: p.units },
-    { label: 'Status',   value: p.status },
-    { label: 'Year',     value: p.year },
+  const capitalize = s => s.charAt(0).toUpperCase() + s.slice(1);
+  const details = [
+    { label: 'Status',      value: p.status },
+    { label: 'Type',        value: capitalize(p.type) },
+    { label: 'Year Built',  value: p.year },
+    { label: 'Total Units', value: p.units },
+    { label: 'Bedrooms',    value: p.bedrooms },
+    { label: 'Bathrooms',   value: p.bathrooms },
   ];
-  qs('#project-stats').innerHTML = stats.map(s =>
-    `<div class="bg-gray-50 rounded-2xl p-4">
-       <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">${s.label}</p>
-       <p class="font-semibold text-gray-800">${s.value}</p>
+  qs('#property-details').innerHTML = details.map(d =>
+    `<div class="property-detail-item">
+       <div class="property-detail-label">${d.label}</div>
+       <div class="property-detail-value">${d.value}</div>
      </div>`
   ).join('');
 
-  // Amenities
+  qs('#property-overview').innerHTML = `<p>${p.description}</p>`;
+
   const projectAmenities = amenities.filter(a => p.amenityIds.includes(a.id));
-  qs('#project-amenities').innerHTML = projectAmenities.map(a =>
-    `<div class="flex items-center gap-2 text-sm text-gray-600 bg-gray-50 rounded-xl px-4 py-3">
-       <span>${a.icon}</span><span>${a.name}</span>
+  qs('#property-amenities').innerHTML = projectAmenities.map(a =>
+    `<div class="property-amenity-item">
+       <span>${a.icon}</span> ${a.name}
      </div>`
   ).join('');
+
+  qs('#property-agent').innerHTML =
+    `<div class="property-agent-card">
+       <h3 class="property-section-title">Listed By</h3>
+       <div class="agent-profile">
+         <div class="agent-avatar"
+              style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200')">
+         </div>
+         <div class="agent-info">
+           <div class="agent-name">Sarah Al-Hassan</div>
+           <div class="agent-rating">★★★★★</div>
+           <div class="agent-email">
+             <a href="mailto:sarah@dastan.ae">sarah@dastan.ae</a>
+           </div>
+           <div class="agent-phone">
+             <i class="fa-solid fa-phone"></i> +971 50 123 4567
+           </div>
+         </div>
+       </div>
+       <button class="agent-contact-btn" id="contact-agent-btn">
+         <i class="fa-regular fa-envelope"></i> Contact Agent
+       </button>
+     </div>`;
 }
 
-function bindInquiry(project) {
-  qs('#inquiry-btn').addEventListener('click', () => {
-    openModal({
-      title: `Inquire about ${project.name}`,
-      content: `
-        <form id="inquiry-form" class="flex flex-col gap-4">
-          <input type="text" placeholder="Your Name" required class="input" />
-          <input type="email" placeholder="Email Address" required class="input" />
-          <input type="tel" placeholder="Phone Number" class="input" />
-          <textarea placeholder="Your message..." rows="4" class="input resize-none"></textarea>
-          <button type="submit" class="btn-primary">Send Inquiry</button>
-        </form>`,
-      onOpen: (modal) => {
-        modal.querySelector('#inquiry-form').addEventListener('submit', e => {
-          e.preventDefault();
-          modal.querySelector('#inquiry-form').innerHTML =
-            '<p class="text-center text-green-600 font-medium py-4">Thank you! We\'ll be in touch soon.</p>';
-        });
-      },
-    });
-  });
+function bindActions(project) {
+  document.addEventListener('click', e => {
+    if (e.target.closest('#save-btn')) {
+      const btn = e.target.closest('#save-btn');
+      btn.classList.toggle('is-saved');
+      btn.innerHTML = btn.classList.contains('is-saved')
+        ? '<i class="fa-solid fa-heart"></i> Saved'
+        : '<i class="fa-regular fa-heart"></i> Save';
+    }
 
-  qs('#schedule-btn').addEventListener('click', () => {
-    openModal({
-      title: 'Schedule a Site Visit',
-      content: `
-        <form id="schedule-form" class="flex flex-col gap-4">
-          <input type="text" placeholder="Your Name" required class="input" />
-          <input type="email" placeholder="Email Address" required class="input" />
-          <input type="date" required class="input" min="${new Date().toISOString().split('T')[0]}" />
-          <input type="time" class="input" />
-          <button type="submit" class="btn-primary">Confirm Visit</button>
-        </form>`,
-      onOpen: (modal) => {
-        modal.querySelector('#schedule-form').addEventListener('submit', e => {
-          e.preventDefault();
-          modal.querySelector('#schedule-form').innerHTML =
-            '<p class="text-center text-green-600 font-medium py-4">Visit scheduled! We\'ll confirm by email.</p>';
-        });
-      },
-    });
+    if (e.target.closest('#contact-agent-btn')) {
+      openModal({
+        title: `Contact Agent`,
+        content: `
+          <form id="contact-form" class="flex flex-col gap-4">
+            <input type="text" placeholder="Your Name" required class="input" />
+            <input type="email" placeholder="Email Address" required class="input" />
+            <input type="tel" placeholder="Phone Number" class="input" />
+            <textarea placeholder="Message about ${project.name}..."
+                      rows="4" class="input resize-none"></textarea>
+            <button type="submit" class="btn-primary">Send Message</button>
+          </form>`,
+        onOpen: (modal) => {
+          modal.querySelector('#contact-form').addEventListener('submit', ev => {
+            ev.preventDefault();
+            modal.querySelector('#contact-form').innerHTML =
+              '<p class="text-center text-green-600 font-medium py-4">Message sent! We\'ll be in touch soon.</p>';
+          });
+        },
+      });
+    }
   });
 }
