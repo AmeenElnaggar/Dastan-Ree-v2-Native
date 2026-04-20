@@ -62,10 +62,10 @@ export function renderNavbar(selector, options = {}) {
         <!-- Right: phone + language + hamburger -->
         <div class="navbar__right">
 
-          <div class="navbar__phone">
+          <a href="tel:19220" class="navbar__phone">
             ${PHONE_ICON}
             <span>19220</span>
-          </div>
+          </a>
 
           <div class="navbar__lang" aria-label="Language switcher">
             <button class="navbar__lang-btn" type="button">AR</button>
@@ -84,10 +84,10 @@ export function renderNavbar(selector, options = {}) {
       <nav class="navbar__mobile" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
         ${NAV_LINKS.map((link) => `<a href="${link.href}" class="navbar__mobile-link">${link.label}</a>`).join("")}
         <div class="navbar__mobile-footer">
-          <div class="navbar__phone">
+          <a href="tel:19220" class="navbar__phone">
             ${PHONE_ICON}
             <span>19220</span>
-          </div>
+          </a>
           <div class="navbar__lang">
             <button class="navbar__lang-btn" type="button">AR</button>
             <span class="navbar__lang-sep" aria-hidden="true">|</span>

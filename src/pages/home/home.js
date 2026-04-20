@@ -98,12 +98,12 @@ function initPartnersSlider(selector) {
                 <div class="partner-card__logo-wrap">
                   <img
                     src="${p.logo}"
-                    alt="${p.name} logo"
+                    alt="${p.alt}"
                     loading="lazy"
                     class="partner-card__logo"
                   />
                 </div>
-                <span class="partner-card__name">${p.name}</span>
+                <p class="partner-card__name">${p.name}</p>
               </div>
             </div>
           `,
@@ -145,7 +145,7 @@ function initPartnersSlider(selector) {
       480: { slidesPerView: 3, spaceBetween: 24 },
       768: { slidesPerView: 4, spaceBetween: 32 },
       1024: { slidesPerView: 5, spaceBetween: 40 },
-      1280: { slidesPerView: 6, spaceBetween: 48 },
+      1280: { slidesPerView: 7, spaceBetween: 48 },
     },
     on: {
       init(sw) {

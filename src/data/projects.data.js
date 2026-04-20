@@ -8,6 +8,8 @@ export const projects = [
     name: "Azure Heights",
     location: "Downtown Dubai, UAE",
     developer: "Emaar Properties",
+    developerLogo:
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=100&h=100&fit=crop&crop=center",
     type: "apartment",
     status: "Available",
     price: 1_200_000,
@@ -32,6 +34,8 @@ export const projects = [
     name: "Palm Villa IV",
     location: "Palm Jumeirah, Dubai",
     developer: "Nakheel Properties",
+    developerLogo:
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=100&h=100&fit=crop&crop=center",
     type: "villa",
     status: "Available",
     price: 8_500_000,
@@ -56,6 +60,8 @@ export const projects = [
     name: "Marina Gate Residences",
     location: "Dubai Marina, UAE",
     developer: "Select Group",
+    developerLogo:
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=100&h=100&fit=crop&crop=center",
     type: "apartment",
     status: "Available",
     price: 950_000,
@@ -79,6 +85,8 @@ export const projects = [
     name: "Greenfield Villas",
     location: "Arabian Ranches, Dubai",
     developer: "Dubai Properties",
+    developerLogo:
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=100&h=100&fit=crop&crop=center",
     type: "villa",
     status: "Sold Out",
     price: 3_200_000,
@@ -101,6 +109,8 @@ export const projects = [
     name: "Business Plaza Tower",
     location: "DIFC, Dubai",
     developer: "ICD Brookfield",
+    developerLogo:
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=100&h=100&fit=crop&crop=center",
     type: "commercial",
     status: "Available",
     price: 5_400_000,
@@ -123,6 +133,8 @@ export const projects = [
     name: "Creek Harbour Suites",
     location: "Dubai Creek Harbour",
     developer: "Emaar Properties",
+    developerLogo:
+      "https://images.unsplash.com/photo-1464082354059-27db6ce50048?w=100&h=100&fit=crop&crop=top",
     type: "apartment",
     status: "Available",
     price: 780_000,

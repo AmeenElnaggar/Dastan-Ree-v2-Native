@@ -13,7 +13,7 @@ export function renderFooter(selector) {
   const projectLinks = featuredProjects
     .map(
       (p) =>
-        `<li><a href="/src/pages/project-details/index.html?id=${p.id}" class="footer__link">${p.name}</a></li>`
+        `<li><a href="/src/pages/project-details/index.html?id=${p.id}" class="footer__link">${p.name}</a></li>`,
     )
     .join("");
 
@@ -94,7 +94,7 @@ export function renderFooter(selector) {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a class="footer__contact-date" >
                 <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 <span>Mon – Sat, 9am – 6pm</span>
               </a>
@@ -105,7 +105,7 @@ export function renderFooter(selector) {
       </div>
 
       <div class="footer__bottom">
-        <p>© ${new Date().getFullYear()} Dastan Real Estate. All rights reserved.</p>
+        <p class="footer__bottom-text">© Copyright 2026. All Rights Reserved To <a href="https://8worx.com" target="_blank" rel="noopener" class="footer__8worx-link">8WORX</a></p>
         <div class="footer__bottom-links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Use</a>
