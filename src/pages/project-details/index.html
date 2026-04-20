@@ -64,12 +64,12 @@
     </section>
 
     <!-- Property Gallery -->
-    <div class="property-gallery-container">
-      <div id="property-gallery"></div>
-      <button class="property-gallery-btn" id="trigger-gallery-main">
-        <i class="fa-solid fa-images"></i> View Photos
-      </button>
-    </div>
+    <section class="property-gallery">
+      <div class="property-gallery-hero">
+        <img id="gallery-hero-img" class="property-gallery-hero-img" src="" alt="" />
+      </div>
+      <div class="property-gallery-thumbs" id="gallery-thumbs"></div>
+    </section>
 
     <!-- Main Content + Sidebar -->
     <div class="property-content-area">
@@ -122,17 +122,6 @@
     <!-- Modal & Footer -->
     <div id="modal-root"></div>
     <div id="footer-root"></div>
-
-    <!-- Gallery Lightbox (Fail-Safe Rebuild) -->
-    <div id="property-lightbox" class="lightbox-overlay" style="display: none">
-      <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
-      <button class="lightbox-close" id="close-lightbox">&times;</button>
-      <div class="swiper lightbox-swiper" id="lightbox-swiper-el">
-        <div class="swiper-wrapper" id="lightbox-slides-container"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      </div>
-    </div>
 
     <script
       type="module"

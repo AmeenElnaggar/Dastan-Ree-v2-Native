@@ -63,8 +63,6 @@ function getPurposeIcon(name) {
   return "fa-tag";
 }
 
-let _lightboxSwiper = null;
-
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root");
   renderFooter("#footer-root");
@@ -80,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderProject(project);
   bindActions(project);
-  initLightbox();
 });
 
 function renderProject(p) {
@@ -172,98 +169,36 @@ function renderProject(p) {
 }
 
 function renderGallery(images) {
-  const allImages = images.slice(0, 5);
-  const mainImg = allImages[0] || "";
-  const thumbs = allImages.slice(1, 5);
-
-  // 1+4 grid: hero image + four thumbnails, each with data-index and .clickable-gallery-img
-  qs("#property-gallery").innerHTML = `
-    <div class="gallery-split">
-      <div class="gallery-main clickable-gallery-img" data-index="0">
-        <div class="gallery-cover" style="background-image:url('${mainImg}')"></div>
-      </div>
-      ${
-        thumbs.length > 0
-          ? `
-      <div class="gallery-thumbs">
-        ${thumbs
-          .map(
-            (img, i) =>
-              `<div class="gallery-thumb clickable-gallery-img" data-index="${i + 1}">
-             <div class="gallery-cover" style="background-image:url('${img}')"></div>
-           </div>`,
-          )
-          .join("")}
-      </div>`
-          : ""
-      }
-    </div>`;
-
-  // Pre-populate lightbox slides (Swiper inits lazily on first open)
-  if (_lightboxSwiper) {
-    _lightboxSwiper.destroy(true, true);
-    _lightboxSwiper = null;
+  if (!images.length) {
+    document.querySelector(".property-gallery").style.display = "none";
+    return;
   }
-  document.getElementById("lightbox-slides-container").innerHTML = allImages
+
+  const heroImg = qs("#gallery-hero-img");
+  const thumbsContainer = qs("#gallery-thumbs");
+
+  heroImg.src = images[0];
+  heroImg.alt = "Gallery image 1";
+
+  thumbsContainer.innerHTML = images
     .map(
-      (img, i) =>
-        `<div class="swiper-slide">
-       <img class="lightbox-slide-img" src="${img}" alt="Gallery image ${i + 1}" />
-     </div>`,
+      (src, i) =>
+        `<button type="button" class="property-gallery-thumb${i === 0 ? " is-active" : ""}" data-index="${i}">
+           <img src="${src}" alt="Gallery thumbnail ${i + 1}" loading="lazy" />
+         </button>`,
     )
     .join("");
 
-  // Event delegation on gallery grid
-  qs("#property-gallery").addEventListener("click", (e) => {
-    const item = e.target.closest(".clickable-gallery-img");
-    if (!item) return;
-    openLightbox(parseInt(item.dataset.index, 10));
-  });
-
-  // "View Photos" button
-  document
-    .getElementById("trigger-gallery-main")
-    .addEventListener("click", () => {
-      openLightbox(0);
-    });
-}
-
-function openLightbox(index) {
-  const overlay = document.getElementById("property-lightbox");
-  overlay.style.display = "flex";
-  document.body.style.overflow = "hidden";
-
-  // setTimeout gives the browser a full paint cycle before Swiper measures dimensions
-  setTimeout(() => {
-    if (!_lightboxSwiper) {
-      _lightboxSwiper = new Swiper("#lightbox-swiper-el", {
-        loop: false,
-        keyboard: { enabled: true },
-        navigation: {
-          nextEl: "#lightbox-swiper-el .swiper-button-next",
-          prevEl: "#lightbox-swiper-el .swiper-button-prev",
-        },
-      });
-    }
-    _lightboxSwiper.update();
-    _lightboxSwiper.slideTo(index, 0);
-  }, 50);
-}
-
-function closeLightbox() {
-  document.getElementById("property-lightbox").style.display = "none";
-  document.body.style.overflow = "";
-}
-
-function initLightbox() {
-  document
-    .getElementById("close-lightbox")
-    .addEventListener("click", closeLightbox);
-  document
-    .getElementById("lightbox-backdrop")
-    .addEventListener("click", closeLightbox);
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeLightbox();
+  thumbsContainer.addEventListener("click", (e) => {
+    const btn = e.target.closest(".property-gallery-thumb");
+    if (!btn) return;
+    const index = Number(btn.dataset.index);
+    heroImg.src = images[index];
+    heroImg.alt = `Gallery image ${index + 1}`;
+    thumbsContainer
+      .querySelectorAll(".property-gallery-thumb.is-active")
+      .forEach((el) => el.classList.remove("is-active"));
+    btn.classList.add("is-active");
   });
 }
 
