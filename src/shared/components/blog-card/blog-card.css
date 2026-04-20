@@ -4,16 +4,16 @@
   display: flex;
   flex-direction: column;
   border-radius: 16px;
-  overflow: hidden;
   text-decoration: none;
   background: #fff;
-
-  transition: transform 0.35s ease;
+  box-shadow:
+    0 20px 40px -15px rgba(0, 0, 0, 0.05),
+    0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .blog-card:hover {
-  border: 2px solid rgba(0, 0, 0, 0.08);
-  border-radius: 1rem;
+  transform: scale(1.01);
 }
 
 /* ---- Image ---- */
@@ -21,6 +21,8 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
 }
 
 .blog-card__img {
@@ -28,24 +30,24 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .blog-card:hover .blog-card__img {
-  transform: scale(1.06);
+  transform: scale(1.1);
 }
 
-/* ---- Overlay: subtle darken that lightens on hover ---- */
+/* ---- Overlay ---- */
 .blog-card__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.22);
+  background: rgba(0, 0, 0, 0);
   transition: background 0.4s ease;
   pointer-events: none;
 }
 
 .blog-card:hover .blog-card__overlay {
-  background: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.12);
 }
 
 /* ---- Date Badge ---- */

@@ -166,7 +166,6 @@
 
 .navbar--transparent .navbar__phone:hover {
   color: #ffffff;
-  transform: translateY(-1px);
 }
 
 .navbar--solid .navbar__phone {
@@ -175,7 +174,6 @@
 
 .navbar--solid .navbar__phone:hover {
   color: var(--navbar-brand);
-  transform: translateY(-1px);
 }
 
 .navbar--solid .navbar__phone:active,
