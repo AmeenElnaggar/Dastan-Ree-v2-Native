@@ -1,163 +1,24 @@
-# Add Blogs Section — Implementation Directive
+# Fixes: Luxury Project Card & Slider Redesign
 
-We need to add a new **Blogs Section** to the Home Page.
+## 1. Objective
 
-This section should be implemented as a complete feature including:
+Redesign the `ProjectCardComponent` and its parent `ProjectSliderComponent` to align with a "Modern Luxury & Innovation" aesthetic. The goal is to achieve visual parity with the Property Listing section while introducing innovative project-specific UI elements.
 
-• Blog Section Layout
-• Reusable Blog Card Component
-• Slider for blog items
-• Mock data for blogs
+## 2. Project Card Redesign (Innovation & Luxury)
 
----
+- **Visual Structure:** Implement a "Seamless" design where the image and content area feel integrated.
+- **Aesthetic:** Use a minimalist color palette (Slate 900, Pure White, and refined accents).
+- **Innovative Features:** \* Add a "Project Progress" glassmorphism overlay (e.g., "70% Completed" or "Ready to Move").
+  - Implement a "Floating Badge" for the Developer's Logo or Project Status using `backdrop-filter: blur()`.
+- **Hover Effects:** Smooth vertical expansion or a "Reveal" effect where project details (e.g., number of units, location) fade in on hover.
 
-## 1. Section Placement
+## 3. Project Slider Enhancements (UX & Alignment)
 
-The Blogs Section must be added as the **last section on the Home Page**.
+- **Navigation:** Replace standard dots with a **Premium Pagination System** (e.g., "01 / 12" style or slim progress bars).
+- **Arrows:** Design custom, slim "Next/Prev" arrows. They must be aligned at the same height and position as the Property Listing slider for UI consistency.
+- **Responsiveness:** Ensure the gutter spacing (gap) between cards is consistent with the luxury "Airy" feel (e.g., `gap-8` or `gap-10`).
 
-Page order:
+## 4. Technical Constraints
 
-Hero
-Featured Projects
-Property Listing
-Why Choose Us
-Blogs Section ← NEW (LAST)
-
----
-
-## 2. Blog Card Component
-
-Create a **reusable Blog Card component**.
-
-This component must be structured similarly to other shared components in the project.
-
-It should be reusable and not hardcoded inside the section.
-
----
-
-## 3. Blog Card Content
-
-Each blog card should display:
-
-• Blog Image
-• Blog Title
-• Short Description (excerpt)
-• Publication Date
-• CTA (Read More)
-
-Do not omit any of these elements.
-
----
-
-## 4. Blog Card Design
-
-The design should follow the same **modern luxury real estate style** used across the project.
-
-Expectations:
-
-• clean layout
-• strong image focus
-• elegant typography
-• proper spacing
-• subtle hover effects
-
-The card should feel consistent with:
-
-• Property Card
-• Project Card
-
-But still visually distinct as a blog card.
-
----
-
-## 5. Slider Implementation
-
-The Blogs Section must use a **Swiper slider**.
-
-Requirements:
-
-• same slider behavior used in Property Listing
-• smooth sliding
-• proper spacing between cards
-• responsive layout
-
-Do not create a completely different slider style.
-
-Reuse the existing slider patterns.
-
----
-
-## 6. Section Header
-
-The Blogs Section should include:
-
-• Section Title (e.g. “Latest Articles” or “From Our Blog”)
-• Optional action (e.g. “Browse All”)
-
-The header should be aligned consistently with other sections.
-
----
-
-## 7. Mock Data
-
-Create a **mock data file for blogs**.
-
-Each blog item should include:
-
-• id
-• title
-• image
-• description (short excerpt)
-• date
-
-The data should be realistic and suitable for a real estate website.
-
----
-
-## 8. Architecture Rules
-
-Follow the existing project structure:
-
-• Blog Card → shared component
-• Blogs Section → feature (Home page)
-• Mock data → data folder
-
-Do not mix logic or duplicate components.
-
----
-
-## 9. Interaction & UX
-
-Hover behavior should feel:
-
-• smooth
-• subtle
-• modern
-
-Possible interactions:
-
-• image zoom
-• card elevation
-• CTA highlight
-
-Animations must be consistent with the rest of the project.
-
----
-
-## 10. Constraints
-
-• Do not introduce new libraries
-• Continue using Swiper
-• Keep the code clean and modular
-• Maintain naming consistency with the project
-
----
-
-## Final Goal
-
-Add a **complete Blogs Section** that feels like a natural extension of the website:
-
-• modern
-• elegant
-• real estate focused
-• fully reusable and scalable
+- Maintain all existing data bindings and Signals.
+- Ensure full RTL (Right-to-Left) compatibility for the Arabic interface, focusing on logical properties for spacing and arrow directions.

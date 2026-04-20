@@ -53,6 +53,80 @@
   transform: scale(1.35);
 }
 
+/* ===== Featured Slider Controls ===== */
+
+.featured-slider-container {
+  position: relative;
+}
+
+.featured-slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.featured-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+.featured-arrow:hover:not(:disabled) {
+  border-color: #0f172a;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+.featured-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.featured-pagination {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+}
+
+.featured-pagination__current {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.featured-pagination__sep {
+  font-size: 1rem;
+  color: #9ca3af;
+}
+
+.featured-pagination__total {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+/* RTL: flip featured slider arrows */
+[dir="rtl"] .featured-arrow--prev svg,
+[dir="rtl"] .featured-arrow--next svg {
+  transform: scaleX(-1);
+}
+
 /* ===== Why Choose Us Section ===== */
 
 .why-choose-us {
