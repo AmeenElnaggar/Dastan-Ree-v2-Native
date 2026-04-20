@@ -12,6 +12,9 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="../../../src/styles/variables.css" />
     <link rel="stylesheet" href="../../../src/styles/global.css" />
     <link rel="stylesheet" href="../../../src/styles/utilities.css" />
@@ -31,6 +34,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   </head>
   <body class="font-sans bg-white text-gray-900">
     <div id="navbar-root"></div>
@@ -40,27 +44,25 @@
     <section class="property-top">
       <div class="property-top-container">
         <div class="property-top-left">
-          <nav class="property-breadcrumb" id="property-breadcrumb"></nav>
-          <h1 class="property-title" id="property-title"></h1>
-          <p class="property-address">
-            <i class="fa-solid fa-location-dot"></i>
-            <span id="property-address-text"></span>
-          </p>
+          <div class="property-title-row">
+            <img class="property-dev-logo" id="property-dev-logo" src="" alt="" />
+            <h1 class="property-title" id="property-title"></h1>
+          </div>
+          <p class="property-short-desc" id="property-short-desc"></p>
         </div>
         <div class="property-top-right">
-          <div class="property-actions" id="property-actions"></div>
-          <div class="property-stats" id="property-stats"></div>
-          <div class="property-price" id="property-price"></div>
+          <div class="property-price-tag" id="property-price"></div>
+          <div class="property-finishing-date" id="property-finishing"></div>
         </div>
       </div>
     </section>
 
     <!-- Property Gallery -->
     <div class="property-gallery-container">
-      <div class="property-gallery" id="property-gallery"></div>
-      <a href="#" class="property-gallery-btn" id="gallery-btn">
+      <div id="property-gallery"></div>
+      <button class="property-gallery-btn" id="trigger-gallery-main">
         <i class="fa-solid fa-images"></i> View Photos
-      </a>
+      </button>
     </div>
 
     <!-- Main Content + Sidebar -->
@@ -79,14 +81,29 @@
             <div class="property-overview" id="property-overview"></div>
           </div>
 
-          <div class="property-section">
+          <div class="property-section" id="amenities-section">
             <h3 class="property-section-title">Amenities</h3>
             <div class="property-amenities-grid" id="property-amenities"></div>
+            <div id="property-facilities-block"></div>
+            <div id="property-purposes-block"></div>
           </div>
 
+          <!-- Floor Plans (Section 5) -->
+          <div class="property-section" id="floor-plans-section">
+            <h3 class="property-section-title">Floor Plans</h3>
+            <div class="floor-plans-list" id="floor-plans-list"></div>
+          </div>
+
+          <!-- Map (Section 6) -->
+          <div class="property-section" id="map-section">
+            <h3 class="property-section-title">Explore the Area</h3>
+            <div class="property-map" id="property-map"></div>
+          </div>
+
+          <!-- Similar Projects (Section 7) -->
           <div class="property-section property-section--related">
-            <h3 class="property-section-title">Similar Properties</h3>
-            <div id="related-slider-root"></div>
+            <h3 class="property-section-title">Similar Projects</h3>
+            <div class="similar-projects-grid" id="similar-projects-grid"></div>
           </div>
         </div>
 
@@ -102,6 +119,17 @@
     <div id="modal-root"></div>
     <div id="footer-root"></div>
 
+    <!-- Gallery Lightbox (Fail-Safe Rebuild) -->
+    <div id="property-lightbox" class="lightbox-overlay" style="display:none;">
+      <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+      <button class="lightbox-close" id="close-lightbox">&times;</button>
+      <div class="swiper lightbox-swiper" id="lightbox-swiper-el">
+        <div class="swiper-wrapper" id="lightbox-slides-container"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+
     <script
       type="module"
       src="../../../src/shared/components/navbar/Navbar.js"></script>
@@ -111,9 +139,6 @@
     <script
       type="module"
       src="../../../src/shared/components/modal/Modal.js"></script>
-    <script
-      type="module"
-      src="../../../src/shared/sliders/RelatedSlider.js"></script>
     <script type="module" src="/src/pages/project-details/project-details.js"></script>
   </body>
 </html>
