@@ -350,13 +350,15 @@
 }
 
 .lightbox-slide-img {
-  max-width: 100%;
-  max-height: 80vh;
+  display: block;
   width: auto;
   height: auto;
+  max-width: 90vw;
+  max-height: 85vh;
   object-fit: contain;
-  display: block;
-  border-radius: 4px;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
 }
 
 /* ---- Content Area ---- */
@@ -810,5 +812,6 @@
 
   .lightbox-slide-img {
     max-height: 60vh;
+    max-width: 95vw;
   }
 }

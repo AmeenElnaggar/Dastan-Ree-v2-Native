@@ -1,0 +1,180 @@
+/* ============================================
+   SPLASH SCREEN
+   ============================================ */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.6s;
+}
+
+.splash .splash-watermark {
+  position: absolute;
+  top: 2%;
+  left: 0;
+  opacity: 0.15;
+  width: 25vw;
+}
+
+.splash--done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Center container */
+.splash__center {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  z-index: 2;
+}
+
+/* ---- Exit: whole splash fades + logo scales down ---- */
+.splash--exit .splash__center {
+  animation: splashExit 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes splashExit {
+  to {
+    opacity: 0;
+    transform: scale(0.85) translateY(-20px);
+  }
+}
+
+/* Lock body scroll while splash is visible */
+body.splash-active {
+  overflow: hidden;
+}
+
+/* ---- Symbol: stroke-draw then fill ---- */
+.symbol-path {
+  fill: #0a1e77;
+  fill-opacity: 0;
+  stroke: #0a1e77;
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    drawSymbol 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards,
+    fillSymbol 0.45s ease-out 1.25s forwards;
+}
+
+@keyframes drawSymbol {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fillSymbol {
+  from {
+    fill-opacity: 0;
+    stroke-opacity: 1;
+  }
+  to {
+    fill-opacity: 1;
+    stroke-opacity: 0;
+  }
+}
+
+/* ---- Wordmark paths: hidden until staggered in ---- */
+.splash svg path:not(.symbol-path) {
+  opacity: 0;
+  transform: translateY(10px) scale(0.92);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wordmarkReveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes wordmarkReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Stagger: symbol = nth-of-type(1), wordmark = 2–21, step 45ms from 1.55s */
+.splash svg path:nth-of-type(2) {
+  animation-delay: 0s;
+}
+.splash svg path:nth-of-type(3) {
+  animation-delay: 0.05s;
+}
+.splash svg path:nth-of-type(4) {
+  animation-delay: 0.1s;
+}
+.splash svg path:nth-of-type(5) {
+  animation-delay: 0.15s;
+}
+.splash svg path:nth-of-type(6) {
+  animation-delay: 0.2s;
+}
+.splash svg path:nth-of-type(7) {
+  animation-delay: 0.25s;
+}
+.splash svg path:nth-of-type(8) {
+  animation-delay: 0.3s;
+}
+.splash svg path:nth-of-type(9) {
+  animation-delay: 0.35s;
+}
+.splash svg path:nth-of-type(10) {
+  animation-delay: 0.4s;
+}
+.splash svg path:nth-of-type(11) {
+  animation-delay: 0.45s;
+}
+.splash svg path:nth-of-type(12) {
+  animation-delay: 0.5s;
+}
+.splash svg path:nth-of-type(13) {
+  animation-delay: 0.55s;
+}
+.splash svg path:nth-of-type(14) {
+  animation-delay: 0.6s;
+}
+.splash svg path:nth-of-type(15) {
+  animation-delay: 0.65s;
+}
+.splash svg path:nth-of-type(16) {
+  animation-delay: 0.7s;
+}
+.splash svg path:nth-of-type(17) {
+  animation-delay: 0.75s;
+}
+.splash svg path:nth-of-type(18) {
+  animation-delay: 0.8s;
+}
+.splash svg path:nth-of-type(19) {
+  animation-delay: 0.85s;
+}
+.splash svg path:nth-of-type(20) {
+  animation-delay: 0.9s;
+}
+.splash svg path:nth-of-type(21) {
+  animation-delay: 0.95s;
+}
+
+/* ---- Reduced motion: skip all, show everything instantly ---- */
+@media (prefers-reduced-motion: reduce) {
+  .symbol-path {
+    animation: none;
+    fill-opacity: 1;
+    stroke-opacity: 0;
+    stroke-dashoffset: 0;
+  }
+  .splash svg path:not(.symbol-path) {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

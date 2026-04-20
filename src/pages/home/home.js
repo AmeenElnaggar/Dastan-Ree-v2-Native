@@ -7,8 +7,10 @@ import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderPropertyCard } from "../../shared/components/property-card/PropertyCard.js";
 import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
+import { initSplash } from "../splash-screen/splash-screen.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  initSplash();
   renderNavbar("#navbar-root", { transparent: true });
   renderFooter("#footer-root");
   initHeroSlider("#hero-slider-root");
