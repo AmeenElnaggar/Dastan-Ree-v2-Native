@@ -11,17 +11,10 @@ export function renderPropertyCard(property) {
     area,
     location,
     status,
-    type,
-    deliveryDate,
-    finishingType,
-    furnishingStatus,
   } = property;
-  const detailsUrl = `../property-details/index.html?id=${id}`;
+  const detailsUrl = `../../pages/project-details/index.html?id=${id}`;
   const badgeText = status || "For Sale";
   const formattedAmount = formatNumber(price);
-
-  const TYPE_LABELS = { apartment: "Apartment", villa: "Villa", commercial: "Commercial" };
-  const typeLabel = TYPE_LABELS[type] || type || "";
 
   const metaItems = [
     bedrooms != null
@@ -46,13 +39,6 @@ export function renderPropertyCard(property) {
     .filter(Boolean)
     .join("");
 
-  const chips = [
-    typeLabel ? `<span class="property-card__chip property-card__chip--type">${typeLabel}</span>` : null,
-    deliveryDate ? `<span class="property-card__chip"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${deliveryDate}</span>` : null,
-    finishingType ? `<span class="property-card__chip">${finishingType}</span>` : null,
-    furnishingStatus ? `<span class="property-card__chip">${furnishingStatus}</span>` : null,
-  ].filter(Boolean).join("");
-
   return `
     <a href="${detailsUrl}" class="property-card" data-id="${id}">
       <div class="property-card__visual">
@@ -61,6 +47,7 @@ export function renderPropertyCard(property) {
           <div class="property-card__overlay"></div>
         </div>
         <span class="property-card__badge">${badgeText}</span>
+
       </div>
       <div class="property-card__content">
         <div class="property-card__price">
@@ -70,7 +57,6 @@ export function renderPropertyCard(property) {
         <div class="property-card__title">${name}</div>
         ${location ? `<div class="property-card__location"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${location}</div>` : ""}
         ${metaItems ? `<div class="property-card__meta">${metaItems}</div>` : ""}
-        ${chips ? `<div class="property-card__chips">${chips}</div>` : ""}
         <div class="property-card__footer">
           <span class="property-card__cta">View Details</span>
           <svg class="property-card__cta-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
