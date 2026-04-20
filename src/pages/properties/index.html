@@ -38,39 +38,7 @@
     <div id="page-header-root"></div>
 
     <!-- Filters -->
-    <section class="bg-white border-b border-gray-100 sticky top-16 z-30">
-      <div class="max-w-7xl mx-auto px-6 py-4">
-        <div class="flex flex-wrap items-center gap-3">
-          <!-- Finishing filter -->
-          <span class="text-sm font-medium text-gray-500">Finishing:</span>
-          <button class="filter-btn active" data-finishing="all">All</button>
-          <button class="filter-btn" data-finishing="Fully Finished">Fully Finished</button>
-          <button class="filter-btn" data-finishing="Semi-Finished">Semi-Finished</button>
-          <button class="filter-btn" data-finishing="Core &amp; Shell">Core &amp; Shell</button>
-
-          <div class="properties-filter-sep"></div>
-
-          <!-- Furnishing filter -->
-          <span class="text-sm font-medium text-gray-500">Furnishing:</span>
-          <button class="filter-btn active" data-furnishing="all">All</button>
-          <button class="filter-btn" data-furnishing="Fully Furnished">Furnished</button>
-          <button class="filter-btn" data-furnishing="Semi-Furnished">Semi-Furnished</button>
-          <button class="filter-btn" data-furnishing="Unfurnished">Unfurnished</button>
-
-          <!-- Sort -->
-          <div class="ml-auto flex items-center gap-2">
-            <label class="text-sm text-gray-500">Sort:</label>
-            <select
-              id="sort-select"
-              class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary-500">
-              <option value="newest">Newest First</option>
-              <option value="price-asc">Price: Low → High</option>
-              <option value="price-desc">Price: High → Low</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section id="filters-root"></section>
 
     <!-- Properties Grid -->
     <section class="py-16">
@@ -97,9 +65,6 @@
     <script
       type="module"
       src="../../../src/shared/components/footer/Footer.js"></script>
-    <script
-      type="module"
-      src="../../../src/shared/layouts/page-header.js"></script>
     <script type="module" src="/src/pages/properties/properties.js"></script>
   </body>
 </html>
