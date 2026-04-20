@@ -1,25 +1,34 @@
-Fixes: Synchronize Property Slider Controls with Project Section
+# Fixes: Luxury Editorial Blog Section Redesign
 
-1. Objective
-   Achieve full visual and functional consistency across the platform by migrating the new Luxury Slider Controls (Pagination & Arrows) from the Projects section to the Properties section.
+## 1. Objective
 
-2. Requirements
-   Standardization: Implement the featured-slider-controls pattern in the PropertySliderComponent.
+Redesign the **Blog/News Section** to match the "Modern Luxury" aesthetic of the Properties and Projects sections. The goal is to transform the blog cards into a premium "Editorial" style and integrate the shared `featured-slider-controls`.
 
-Visual Alignment: The Arrows and Pagination in the Properties section must match the Projects section's positioning, styling (Modern/Luxury), and animation exactly.
+## 2. Blog Card Redesign (The Luxury Aesthetic)
 
-Component Reusability: If possible, refactor the featured-slider-controls into a shared/reusable component to ensure any future UI updates reflect across both Properties and Projects.
+- **Visual Concept:** Think "High-End Lifestyle Magazine."
+- **Image Treatment:** \* Use a fixed aspect ratio (e.g., `16:9` or `4:5`) with a very subtle `darken` overlay that lightens on hover.
+  - Add a "Date Badge" that looks minimalist (e.g., a simple white box with a thin border and elegant serif typography).
+- **Typography & Content:**
+  - **Category Tag:** Small, uppercase, and with high letter-spacing (`tracking-[0.2em]`) above the title.
+  - **Title:** Use a semi-bold Slate-900 font with a strict `line-clamp-2` to maintain card symmetry.
+  - **Description:** A very short, muted excerpt that only shows on larger screens.
+- **Interactions:** A sophisticated "Read More" link that animates an arrow or an underline on hover.
 
-3. Implementation Steps
-   Template Sync: Update property-slider.component.html to include the same controls structure used in projects.
+## 3. Slider & Navigation Integration
 
-Style Migration: Ensure the SCSS/Tailwind classes for the luxury arrows and numerical/progress pagination are applied to the Properties slider.
+- **Synchronization:** Implement the exact same `featured-slider-controls` (Pagination & Arrows) used in the Projects and Properties sections.
+- **Alignment:** Ensure the arrows and pagination are perfectly aligned with the grid, maintaining identical margins and padding for visual consistency.
+- **Transition:** Use a "Slide & Fade" transition for the blog cards during navigation for a more "Fluid" feel.
 
-Logic Integration: \* Connect the existing Property Slider's "Next/Prev" logic to the new controls.
+## 4. UI/UX Innovation Details
 
-Ensure the active state of the pagination correctly reflects the current index of the property cards.
+- **Micro-Innovation:** Add a "Read Time" indicator (e.g., "5 min read") using a minimalist icon.
+- **Glassmorphism:** If the card has tags or categories, use a `backdrop-blur-sm` background for those elements to give a modern "Glass" look.
+- **Shadows:** Apply the same "Soft-Global-Illumination" shadow used in the Property cards to ensure the entire page feels like one cohesive design.
 
-RTL Check: Verify that the "mirroring" of arrows works perfectly in the Arabic layout, matching the behavior implemented in the Projects section.
+## 5. Technical & RTL Requirements
 
-4. Final Polish
-   Ensure the spacing (Gaps and Margins) between the property cards and the new controls is identical to the Projects section to maintain the "Airy" luxury feel.
+- **Logical Properties:** Use `padding-inline`, `margin-inline`, and `border-start` to ensure the layout is perfectly balanced for Arabic (RTL).
+- **Data Binding:** Maintain existing data models (Title, Date, Image, Category) and ensure they are bound correctly using Angular Signals.
+- **Responsiveness:** Ensure a clean grid transition (1 card on mobile, 2 on tablet, 3 on desktop).
