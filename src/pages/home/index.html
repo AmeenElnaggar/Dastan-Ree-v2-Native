@@ -35,6 +35,9 @@
       href="../../../src/shared/components/action-link/action-link.css" />
     <link
       rel="stylesheet"
+      href="../../../src/shared/components/blog-card/blog-card.css" />
+    <link
+      rel="stylesheet"
       href="../../../src/shared/components/hero-slider/hero-slider.css" />
     <link rel="stylesheet" href="home.css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,7 +51,7 @@
     <div id="hero-slider-root"></div>
 
     <!-- Property Listings -->
-    <section class="py-20">
+    <section class="py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between mb-12">
           <div>
@@ -167,7 +170,7 @@
       </script>
     </section>
     <!-- Featured Projects Slider -->
-    <section id="featured" class="py-20">
+    <section id="featured" class="py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between mb-12">
           <div>
@@ -182,6 +185,25 @@
           </a>
         </div>
         <div id="featured-slider-root"></div>
+      </div>
+    </section>
+
+    <!-- Blogs Section -->
+    <section class="py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-12">
+          <div>
+            <h2 class="text-4xl font-semibold">From Our Blog</h2>
+            <p class="text-gray-500 opacity-75 mt-1">
+              Insights, tips, and market updates
+            </p>
+          </div>
+          <a href="#" class="action-link">
+            <span class="action-link__text uppercase">browse all</span>
+            <span class="action-link__line"></span>
+          </a>
+        </div>
+        <div id="blogs-slider-root"></div>
       </div>
     </section>
 
