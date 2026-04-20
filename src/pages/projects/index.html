@@ -38,26 +38,7 @@
     <div id="page-header-root"></div>
 
     <!-- Filters -->
-    <section class="bg-white border-b border-gray-100 sticky top-16 z-30">
-      <div
-        class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center gap-3">
-        <span class="text-sm font-medium text-gray-500">Filter:</span>
-        <button class="filter-btn active" data-type="all">All</button>
-        <button class="filter-btn" data-type="apartment">Apartments</button>
-        <button class="filter-btn" data-type="villa">Villas</button>
-        <button class="filter-btn" data-type="commercial">Commercial</button>
-        <div class="ml-auto flex items-center gap-2">
-          <label class="text-sm text-gray-500">Sort:</label>
-          <select
-            id="sort-select"
-            class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary-500">
-            <option value="newest">Newest First</option>
-            <option value="price-asc">Price: Low → High</option>
-            <option value="price-desc">Price: High → Low</option>
-          </select>
-        </div>
-      </div>
-    </section>
+    <section id="filters-root"></section>
 
     <!-- Projects Grid -->
     <section class="py-16">
@@ -84,9 +65,6 @@
     <script
       type="module"
       src="../../../src/shared/components/footer/Footer.js"></script>
-    <script
-      type="module"
-      src="../../../src/shared/layouts/page-header.js"></script>
     <script type="module" src="projects.js"></script>
   </body>
 </html>
