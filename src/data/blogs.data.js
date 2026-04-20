@@ -1,15 +1,5 @@
 export const blogs = [
   {
-    id: 1,
-    title: "Top 5 Luxury Communities in Dubai for 2026",
-    image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
-    description:
-      "Discover the most sought-after residential communities redefining luxury living in Dubai, from waterfront villas to sky-high penthouses.",
-    date: "April 10, 2026",
-    category: "Market Insights",
-  },
-  {
     id: 2,
     title: "How to Invest in Off-Plan Properties: A Complete Guide",
     image:
