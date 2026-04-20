@@ -306,6 +306,116 @@
   }
 }
 
+/* ===== Partners Slider ===== */
+
+.partners-section {
+  background: #fafaf8;
+  border-top: 1px solid #f0ede8;
+  border-bottom: 1px solid #f0ede8;
+}
+
+.partners-section__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c9a84c;
+}
+
+.partners-section__eyebrow::before,
+.partners-section__eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: #c9a84c;
+  vertical-align: middle;
+  opacity: 0.65;
+}
+
+.partners-section__eyebrow::before {
+  margin-right: 0.5rem;
+}
+
+.partners-section__eyebrow::after {
+  margin-left: 0.5rem;
+}
+
+.partners-slider-container {
+  position: relative;
+}
+
+.partner-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  cursor: default;
+}
+
+.partner-card__logo-wrap {
+  width: 130px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-card__logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) opacity(0.42);
+  transition:
+    filter 0.35s ease,
+    transform 0.35s ease;
+}
+
+.partner-card:hover .partner-card__logo {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.06);
+}
+
+.partner-card__name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #999;
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+.partner-card:hover .partner-card__name {
+  color: #333;
+}
+
+.partners-pagination.swiper-pagination {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 28px;
+  width: 100%;
+}
+
+.partners-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  opacity: 1;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.partners-pagination .swiper-pagination-bullet-active {
+  background: #c9a84c;
+  transform: scale(1.35);
+}
+
 /* ===== Blogs Slider — Slide & Fade ===== */
 
 .blogs-swiper .swiper-slide {

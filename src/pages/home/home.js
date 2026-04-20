@@ -1,4 +1,5 @@
 import { blogs } from "../../data/blogs.data.js";
+import { partners } from "../../data/partners.data.js";
 import { properties } from "../../data/properties.data.js";
 import { renderBlogCard } from "../../shared/components/blog-card/BlogCard.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderFooter("#footer-root");
   initHeroSlider("#hero-slider-root");
   initFeaturedSlider("#featured-slider-root");
+  initPartnersSlider("#partners-slider-root");
   initPropertiesSlider("#properties-slider-root");
   initBlogsSlider("#blogs-slider-root");
 });
@@ -65,13 +67,73 @@ function initPropertiesSlider(selector) {
       1024: { slidesPerView: 3, spaceBetween: 32 },
     },
     on: {
-      init(sw) { updateControls(sw); },
-      slideChange(sw) { updateControls(sw); },
+      init(sw) {
+        updateControls(sw);
+      },
+      slideChange(sw) {
+        updateControls(sw);
+      },
     },
   });
 
   prevBtn.addEventListener("click", () => swiper.slidePrev());
   nextBtn.addEventListener("click", () => swiper.slideNext());
+}
+
+function initPartnersSlider(selector) {
+  const root = document.querySelector(selector);
+  if (!root) return;
+
+  root.innerHTML = `
+    <div class="partners-slider-container">
+      <div class="swiper partners-swiper">
+        <div class="swiper-wrapper">
+          ${partners
+            .map(
+              (p) => `
+            <div class="swiper-slide">
+              <div class="partner-card">
+                <div class="partner-card__logo-wrap">
+                  <img
+                    src="${p.logo}"
+                    alt="${p.name} logo"
+                    loading="lazy"
+                    class="partner-card__logo"
+                  />
+                </div>
+                <span class="partner-card__name">${p.name}</span>
+              </div>
+            </div>
+          `,
+            )
+            .join("")}
+        </div>
+      </div>
+      <div class="partners-pagination swiper-pagination"></div>
+    </div>
+  `;
+
+  new Swiper(root.querySelector(".partners-swiper"), {
+    slidesPerView: 2,
+    spaceBetween: 16,
+    loop: true,
+    speed: 900,
+    autoplay: {
+      delay: 2800,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    pagination: {
+      el: root.querySelector(".partners-pagination"),
+      clickable: true,
+    },
+    breakpoints: {
+      480: { slidesPerView: 3, spaceBetween: 24 },
+      768: { slidesPerView: 4, spaceBetween: 32 },
+      1024: { slidesPerView: 5, spaceBetween: 40 },
+      1280: { slidesPerView: 6, spaceBetween: 48 },
+    },
+  });
 }
 
 function initBlogsSlider(selector) {
@@ -123,8 +185,12 @@ function initBlogsSlider(selector) {
       1024: { slidesPerView: 3, spaceBetween: 32 },
     },
     on: {
-      init(sw) { updateControls(sw); },
-      slideChange(sw) { updateControls(sw); },
+      init(sw) {
+        updateControls(sw);
+      },
+      slideChange(sw) {
+        updateControls(sw);
+      },
     },
   });
 
