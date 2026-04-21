@@ -5,9 +5,12 @@ import { renderPropertyCard } from "../../shared/components/property-card/Proper
 
 const PAGE_SIZE = 9;
 let currentPage = 1;
-let activeFinishing = "all";
-let activeFurnishing = "all";
-let sortOrder = "newest";
+let activeArea = "all";
+let activeType = "all";
+let activeBedrooms = "all";
+let activeDeveloper = "all";
+let minPrice = "";
+let maxPrice = "";
 
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root");
@@ -31,7 +34,7 @@ function renderHeader(selector) {
         </nav>
         <h1 class="ph__title">Our Properties</h1>
         <div class="ph__accent" aria-hidden="true"></div>
-        <p class="ph__subtitle">Browse our curated collection of residential and<br class="ph__br"> commercial properties across the UAE.</p>
+        <p class="ph__subtitle">Browse our curated collection of residential and<br class="ph__br"> commercial properties across the EGY.</p>
       </div>
     </section>
   `;
@@ -40,76 +43,114 @@ function renderHeader(selector) {
 function renderFilterBar(selector) {
   const root = document.querySelector(selector);
   if (!root) return;
+
+  const areas = [
+    ...new Set(properties.map((p) => p.location).filter(Boolean)),
+  ].sort();
+  const types = [
+    ...new Set(properties.map((p) => p.type).filter(Boolean)),
+  ].sort();
+  const developers = [
+    ...new Set(properties.map((p) => p.developer).filter(Boolean)),
+  ].sort();
+
+  const typeLabels = {
+    apartment: "Apartment",
+    villa: "Villa",
+    commercial: "Commercial",
+    townhouse: "Townhouse",
+    penthouse: "Penthouse",
+    studio: "Studio",
+    office: "Office",
+  };
+
   root.innerHTML = `
     <div class="pf">
       <div class="pf__inner">
-        <div class="pf__types">
-          <span class="pf__label">Finishing:</span>
-          <button class="pf__pill pf__pill--active" data-finishing="all">All</button>
-          <button class="pf__pill" data-finishing="Fully Finished">Fully Finished</button>
-          <button class="pf__pill" data-finishing="Semi-Finished">Semi-Finished</button>
-          <button class="pf__pill" data-finishing="Core &amp; Shell">Core &amp; Shell</button>
+        <div class="pf__grid">
+          <div class="pf__field">
+            <label class="pf__field-label" for="area-select">Area</label>
+            <select class="pf__select pf__select--field" id="area-select">
+              <option value="all">All Areas</option>
+              ${areas.map((a) => `<option value="${a}">${a}</option>`).join("")}
+            </select>
+          </div>
+          <div class="pf__field">
+            <label class="pf__field-label" for="type-select">Property Type</label>
+            <select class="pf__select pf__select--field" id="type-select">
+              <option value="all">All Types</option>
+              ${types.map((t) => `<option value="${t}">${typeLabels[t] || t.charAt(0).toUpperCase() + t.slice(1)}</option>`).join("")}
+            </select>
+          </div>
+          <div class="pf__field">
+            <label class="pf__field-label" for="bedrooms-select">Bedrooms</label>
+            <select class="pf__select pf__select--field" id="bedrooms-select">
+              <option value="all">Any</option>
+              <option value="1">1 Bedroom</option>
+              <option value="2">2 Bedrooms</option>
+              <option value="3">3 Bedrooms</option>
+              <option value="4">4+ Bedrooms</option>
+            </select>
+          </div>
+          <div class="pf__field">
+            <label class="pf__field-label" for="developer-select">Developer</label>
+            <select class="pf__select pf__select--field" id="developer-select">
+              <option value="all">All Developers</option>
+              ${developers.map((d) => `<option value="${d}">${d}</option>`).join("")}
+            </select>
+          </div>
+          <div class="pf__field">
+            <label class="pf__field-label">Price Range</label>
+            <div class="pf__price-range">
+              <input type="number" class="pf__input" id="min-price" placeholder="Min" min="0" />
+              <span class="pf__price-sep">—</span>
+              <input type="number" class="pf__input" id="max-price" placeholder="Max" min="0" />
+            </div>
+          </div>
         </div>
-        <span class="pf__sep" aria-hidden="true"></span>
-        <div class="pf__types">
-          <span class="pf__label">Furnishing:</span>
-          <button class="pf__pill pf__pill--active" data-furnishing="all">All</button>
-          <button class="pf__pill" data-furnishing="Fully Furnished">Furnished</button>
-          <button class="pf__pill" data-furnishing="Semi-Furnished">Semi-Furnished</button>
-          <button class="pf__pill" data-furnishing="Unfurnished">Unfurnished</button>
-        </div>
-        <div class="pf__controls">
-          <span class="pf__sep" aria-hidden="true"></span>
-          <select class="pf__select pf__select--sort" id="sort-select">
-            <option value="newest">Newest First</option>
-            <option value="price-asc">Price: Low → High</option>
-            <option value="price-desc">Price: High → Low</option>
-          </select>
-          <button class="pf__reset" id="reset-filters">Reset</button>
+
+        <div class="pf__row">
+          <div class="pf__controls">
+          <button class="pf__reset" id="reset-filters">↺ Reset</button>
+          <button class="pf__apply" id="apply-filters">Apply Filters</button>
+          </div>
         </div>
       </div>
     </div>
   `;
 }
 
+function applyFilters() {
+  activeArea = document.querySelector("#area-select").value;
+  activeType = document.querySelector("#type-select").value;
+  activeBedrooms = document.querySelector("#bedrooms-select").value;
+  activeDeveloper = document.querySelector("#developer-select").value;
+  minPrice = document.querySelector("#min-price").value;
+  maxPrice = document.querySelector("#max-price").value;
+  currentPage = 1;
+  renderProperties();
+}
+
 function bindFilters() {
-  document.querySelectorAll(".pf__pill[data-finishing]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".pf__pill[data-finishing]").forEach((b) => b.classList.remove("pf__pill--active"));
-      btn.classList.add("pf__pill--active");
-      activeFinishing = btn.dataset.finishing;
-      currentPage = 1;
-      renderProperties();
-    });
-  });
-
-  document.querySelectorAll(".pf__pill[data-furnishing]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll(".pf__pill[data-furnishing]").forEach((b) => b.classList.remove("pf__pill--active"));
-      btn.classList.add("pf__pill--active");
-      activeFurnishing = btn.dataset.furnishing;
-      currentPage = 1;
-      renderProperties();
-    });
-  });
-
-  document.querySelector("#sort-select").addEventListener("change", (e) => {
-    sortOrder = e.target.value;
-    currentPage = 1;
-    renderProperties();
-  });
+  document
+    .querySelector("#apply-filters")
+    .addEventListener("click", applyFilters);
 
   document.querySelector("#reset-filters").addEventListener("click", () => {
-    activeFinishing = "all";
-    activeFurnishing = "all";
-    sortOrder = "newest";
+    activeArea = "all";
+    activeType = "all";
+    activeBedrooms = "all";
+    activeDeveloper = "all";
+    minPrice = "";
+    maxPrice = "";
     currentPage = 1;
 
-    document.querySelectorAll(".pf__pill[data-finishing]").forEach((b) => b.classList.remove("pf__pill--active"));
-    document.querySelector(".pf__pill[data-finishing='all']").classList.add("pf__pill--active");
-    document.querySelectorAll(".pf__pill[data-furnishing]").forEach((b) => b.classList.remove("pf__pill--active"));
-    document.querySelector(".pf__pill[data-furnishing='all']").classList.add("pf__pill--active");
-    document.querySelector("#sort-select").value = "newest";
+    document.querySelector("#area-select").value = "all";
+    document.querySelector("#type-select").value = "all";
+    document.querySelector("#bedrooms-select").value = "all";
+    document.querySelector("#developer-select").value = "all";
+    document.querySelector("#min-price").value = "";
+    document.querySelector("#max-price").value = "";
 
     renderProperties();
   });
@@ -123,11 +164,17 @@ function bindFilters() {
 function getFiltered() {
   let list = [...properties];
 
-  if (activeFinishing !== "all") list = list.filter((p) => p.finishingType === activeFinishing);
-  if (activeFurnishing !== "all") list = list.filter((p) => p.furnishingStatus === activeFurnishing);
-
-  if (sortOrder === "price-asc") list.sort((a, b) => a.price - b.price);
-  else if (sortOrder === "price-desc") list.sort((a, b) => b.price - a.price);
+  if (activeArea !== "all")
+    list = list.filter((p) => p.location === activeArea);
+  if (activeType !== "all") list = list.filter((p) => p.type === activeType);
+  if (activeBedrooms !== "all") {
+    const n = parseInt(activeBedrooms, 10);
+    list = list.filter((p) => (n >= 4 ? p.bedrooms >= 4 : p.bedrooms === n));
+  }
+  if (activeDeveloper !== "all")
+    list = list.filter((p) => p.developer === activeDeveloper);
+  if (minPrice !== "") list = list.filter((p) => p.price >= Number(minPrice));
+  if (maxPrice !== "") list = list.filter((p) => p.price <= Number(maxPrice));
 
   return list;
 }

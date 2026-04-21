@@ -1,15 +1,15 @@
 const NAV_LINKS = [
   { label: "Home", href: "/src/pages/home/index.html" },
-  { label: "Projects", href: "/src/pages/projects/index.html" },
+  { label: "Projects", href: "#" },
   { label: "Properties", href: "/src/pages/properties/index.html" },
   { label: "Blogs", href: "#" },
-  { label: "Careers", href: "#" },
   { label: "About Us", href: "#" },
+  { label: "Careers", href: "#" },
   { label: "Contact Us", href: "#" },
 ];
 
 const PHONE_ICON = `
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
     <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.27-.27.67-.36
       1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1
       1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1

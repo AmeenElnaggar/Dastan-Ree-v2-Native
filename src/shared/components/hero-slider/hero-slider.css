@@ -367,6 +367,22 @@
   z-index: 0;
 }
 
+.hero-slider__info-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  right: 10px;
+  bottom: 10px;
+  background-image: url("../../../assets/logo-pattern.png");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: 35px auto;
+  opacity: 0.1;
+  filter: opacity(0.5);
+  pointer-events: none;
+  z-index: 0;
+}
+
 @media (max-width: 1024px) {
   .hero-slider__info-left {
     width: 60vw;

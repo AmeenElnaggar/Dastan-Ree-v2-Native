@@ -96,10 +96,24 @@
   pointer-events: none;
 }
 
+.why-choose-us::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../../assets/logo-pattern.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 180px auto;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .why-choose-us__container {
   display: flex;
   align-items: center;
   gap: 80px;
+  z-index: 1;
 }
 
 .why-choose-us__content {
@@ -161,7 +175,6 @@
   gap: 8px;
   margin-top: 36px;
   padding: 14px 32px;
-  border-radius: 4px;
   font-weight: 600;
   font-size: 0.9rem;
   letter-spacing: 0.04em;

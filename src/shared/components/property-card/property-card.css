@@ -104,11 +104,28 @@
 
 /* ---- Content section ---- */
 .property-card__content {
+  position: relative;
   padding-block: 16px 20px;
   padding-inline: 20px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.property-card__content ::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  right: 10px;
+  bottom: 10px;
+  background-image: url("../../../assets/logo-pattern.png");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: 35px auto;
+  opacity: 0.1;
+  filter: opacity(0.5);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ---- Price (Primary) ---- */
@@ -122,7 +139,7 @@
 .property-card__currency {
   font-size: 0.8rem;
   font-weight: 400;
-  color: #94a3b8;
+  color: #64748b;
   letter-spacing: 0.05em;
 }
 
@@ -150,7 +167,7 @@
   align-items: center;
   gap: 4px;
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: #64748b;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
