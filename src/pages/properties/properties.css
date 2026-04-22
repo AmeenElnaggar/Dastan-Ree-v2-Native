@@ -173,7 +173,7 @@
 
 .pf__input:hover,
 .pf__input:focus {
-  border-color: var(--color-primary-500);
+  border-color: #080f1f;
 }
 
 .pf__input[type="number"]::-webkit-inner-spin-button,
@@ -243,24 +243,52 @@
 .pf__select {
   font-size: 0.8125rem;
   font-family: var(--font-sans);
-  color: var(--color-gray-700);
-  border: 1px solid var(--color-gray-200);
-  border-radius: 0.5rem;
-  padding: 0.4rem 1.75rem 0.4rem 0.625rem;
+  font-weight: 500;
+  color: var(--color-gray-600);
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: 4px;
+  padding: 0.45rem 2rem 0.45rem 0.75rem;
   background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%239ca3af' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='1 1 5 5 9 1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='1 1 5 5 9 1'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.5rem center;
+  background-position: right 0.6rem center;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  transition: border-color 0.2s;
   outline: none;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    color 0.2s;
 }
 
-.pf__select:hover,
+.pf__select:hover {
+  border-color: #080f1f;
+}
+
 .pf__select:focus {
-  border-color: var(--color-primary-500);
+  border-color: #080f1f;
+  box-shadow: 0 0 0 3px rgba(8, 15, 31, 0.08);
+}
+
+/* Active state — a non-default option is selected */
+.pf__select--active {
+  background-color: #080f1f;
+  border-color: #080f1f;
+  color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='1 1 5 5 9 1'/%3E%3C/svg%3E");
+}
+
+.pf__select--active:hover,
+.pf__select--active:focus {
+  background-color: #1a2540;
+  border-color: #1a2540;
+  box-shadow: none;
+}
+
+.pf__select--active option {
+  background-color: #fff;
+  color: #1f2937;
 }
 
 .pf__sep {
