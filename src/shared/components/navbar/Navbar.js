@@ -11,7 +11,7 @@ const NAV_LINKS = [
 const GLOBE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><path d="M2 12h20"/></svg>`;
 
 function getCurrentLang() {
-  return localStorage.getItem("site-lang") || "AR";
+  return localStorage.getItem("site-lang") || "EN";
 }
 
 function applyLang(lang) {
@@ -118,13 +118,14 @@ export function renderNavbar(selector, options = {}) {
     hamburgerBtn.classList.toggle("navbar__hamburger--open", isOpen);
   });
 
-
   // ── Language toggle ──────────────────────────────────────────────────
   root.querySelectorAll(".navbar__lang-toggle").forEach((btn) => {
     btn.addEventListener("click", () => {
       const next = getCurrentLang() === "AR" ? "EN" : "AR";
       applyLang(next);
-      root.querySelectorAll(".navbar__lang-toggle span").forEach((s) => (s.textContent = next));
+      root
+        .querySelectorAll(".navbar__lang-toggle span")
+        .forEach((s) => (s.textContent = next));
     });
   });
 
