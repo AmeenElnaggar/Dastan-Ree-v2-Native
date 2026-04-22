@@ -64,7 +64,7 @@ export function renderProjectCard(project) {
           ${name}
         </h3>
 
-        <p class="text-gray-600 text-sm leading-relaxed">
+        <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">
           ${shortDescription}
         </p>
       </div>
