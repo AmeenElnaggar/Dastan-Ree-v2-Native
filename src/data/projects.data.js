@@ -7,8 +7,8 @@ export const projects = [
     id: "azure-heights",
     name: "Azure Heights",
     shortDescription:
-      "Premier residential tower with breathtaking Dubai skyline views.",
-    location: "Downtown Dubai, UAE",
+      "Premier residential tower with breathtaking Cairo skyline views.",
+    location: "Downtown Cairo, EGY",
     developer: "Emaar Properties",
     developerLogo:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=100&h=100&fit=crop&crop=center",
@@ -61,7 +61,7 @@ export const projects = [
     latitude: 25.1972,
     longitude: 55.2744,
     description:
-      "Azure Heights is a premier residential tower offering breathtaking views of the Dubai skyline. Designed for the modern professional, each unit features floor-to-ceiling windows, smart home integration, and premium finishes.",
+      "Azure Heights is a premier residential tower offering breathtaking views of the Cairo skyline. Designed for the modern professional, each unit features floor-to-ceiling windows, smart home integration, and premium finishes.",
     amenityIds: ["pool", "gym", "parking", "concierge", "rooftop"],
   },
   {
@@ -69,7 +69,7 @@ export const projects = [
     name: "Palm Villa IV",
     shortDescription:
       "Exclusive beachfront villas with private access on the iconic Palm Jumeirah.",
-    location: "Palm Jumeirah, Dubai",
+    location: "Palm Jumeirah, Cairo",
     developer: "Nakheel Properties",
     developerLogo:
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=100&h=100&fit=crop&crop=center",
@@ -124,8 +124,8 @@ export const projects = [
     id: "marina-gate",
     name: "Marina Gate Residences",
     shortDescription:
-      "Contemporary waterfront apartments at the heart of Dubai Marina.",
-    location: "Dubai Marina, UAE",
+      "Contemporary waterfront apartments at the heart of Cairo Marina.",
+    location: "Cairo Marina, EGY",
     developer: "Select Group",
     developerLogo:
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=100&h=100&fit=crop&crop=center",
@@ -177,7 +177,7 @@ export const projects = [
     latitude: 25.0777,
     longitude: 55.1397,
     description:
-      "Marina Gate sits at the heart of Dubai Marina, steps from the waterfront promenade. Studio to 3-bedroom units available with resort-style amenities and 24-hour concierge.",
+      "Marina Gate sits at the heart of Cairo Marina, steps from the waterfront promenade. Studio to 3-bedroom units available with resort-style amenities and 24-hour concierge.",
     amenityIds: ["pool", "gym", "parking", "concierge", "spa"],
   },
   {
@@ -185,8 +185,8 @@ export const projects = [
     name: "Greenfield Villas",
     shortDescription:
       "Serene community living surrounded by lush landscaping in Arabian Ranches.",
-    location: "Arabian Ranches, Dubai",
-    developer: "Dubai Properties",
+    location: "Arabian Ranches, Cairo",
+    developer: "Cairo Properties",
     developerLogo:
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=100&h=100&fit=crop&crop=center",
     type: "villa",
@@ -239,8 +239,8 @@ export const projects = [
     id: "business-plaza",
     name: "Business Plaza Tower",
     shortDescription:
-      "Grade-A commercial offices in the heart of the Dubai International Financial Centre.",
-    location: "DIFC, Dubai",
+      "Grade-A commercial offices in the heart of the Cairo International Financial Centre.",
+    location: "DIFC, Cairo",
     developer: "ICD Brookfield",
     developerLogo:
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=100&h=100&fit=crop&crop=center",
@@ -292,15 +292,15 @@ export const projects = [
     latitude: 25.21,
     longitude: 55.28,
     description:
-      "Grade-A commercial offices in the Dubai International Financial Centre. Flexible floor plans from 500 to 5,000 sq ft, with dedicated meeting suites and rooftop terrace.",
+      "Grade-A commercial offices in the Cairo International Financial Centre. Flexible floor plans from 500 to 5,000 sq ft, with dedicated meeting suites and rooftop terrace.",
     amenityIds: ["parking", "concierge", "security", "cafe"],
   },
   {
     id: "creek-harbour",
     name: "Creek Harbour Suites",
     shortDescription:
-      "Contemporary suites overlooking Dubai Creek and the upcoming Creek Tower.",
-    location: "Dubai Creek Harbour",
+      "Contemporary suites overlooking Cairo Creek and the upcoming Creek Tower.",
+    location: "Cairo Creek Harbour",
     developer: "Emaar Properties",
     developerLogo:
       "https://images.unsplash.com/photo-1464082354059-27db6ce50048?w=100&h=100&fit=crop&crop=top",
@@ -342,7 +342,7 @@ export const projects = [
     latitude: 25.1921,
     longitude: 55.3508,
     description:
-      "Overlooking the Creek and the upcoming Dubai Creek Tower, these suites blend contemporary design with cultural heritage, offering a truly unique urban living experience.",
+      "Overlooking the Creek and the upcoming Cairo Creek Tower, these suites blend contemporary design with cultural heritage, offering a truly unique urban living experience.",
     amenityIds: ["pool", "gym", "parking", "rooftop"],
   },
 ];

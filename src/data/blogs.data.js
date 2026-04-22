@@ -21,21 +21,21 @@ export const blogs = [
   },
   {
     id: 4,
-    title: "Understanding Property Ownership Laws for Expats in Dubai",
+    title: "Understanding Property Ownership Laws for Expats in Cairo",
     image:
       "https://images.unsplash.com/photo-1483366774565-c783b9f70e2c?auto=format&fit=crop&w=800&q=80",
     description:
-      "A clear breakdown of freehold zones, title deed processes, and everything an expat buyer needs to know before purchasing property in the UAE.",
+      "A clear breakdown of freehold zones, title deed processes, and everything an expat buyer needs to know before purchasing property in the EGY.",
     date: "March 3, 2026",
     category: "Legal Guide",
   },
   {
     id: 5,
-    title: "Why Downtown Dubai Remains the Most Coveted Address",
+    title: "Why Downtown Cairo Remains the Most Coveted Address",
     image:
       "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80",
     description:
-      "With world-class infrastructure, iconic landmarks, and unmatched connectivity, Downtown Dubai continues to dominate the premium real estate market.",
+      "With world-class infrastructure, iconic landmarks, and unmatched connectivity, Downtown Cairo continues to dominate the premium real estate market.",
     date: "February 19, 2026",
     category: "Neighborhoods",
   },

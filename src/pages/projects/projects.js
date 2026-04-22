@@ -38,7 +38,7 @@ function renderHeader(selector) {
         </nav>
         <h1 class="ph__title">Our Projects</h1>
         <div class="ph__accent" aria-hidden="true"></div>
-        <p class="ph__subtitle">Explore our full portfolio of residential and commercial<br class="ph__br"> developments across the UAE.</p>
+        <p class="ph__subtitle">Explore our full portfolio of residential and commercial<br class="ph__br"> developments across the EGY.</p>
 
       </div>
     </section>
