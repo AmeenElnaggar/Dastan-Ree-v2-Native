@@ -213,9 +213,8 @@
 }
 
 .hero-slider__nav-btn:hover {
-  background: transparent;
-  border-color: var(--color-gold);
-  color: var(--color-gold);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .hero-slider__nav-btn--prev {

@@ -35,7 +35,7 @@ export const projects = [
     purposeTypes: ["Residential"],
     image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600",
     images: [
-      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200",
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
