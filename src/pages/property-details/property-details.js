@@ -352,9 +352,7 @@ function initHeroSwiper(p) {
 
 function initSimilarSwiper(currentProperty) {
   const similar = properties
-    .filter(
-      (p) => p.id !== currentProperty.id && p.type === currentProperty.type,
-    )
+    .filter((p) => p.type === currentProperty.type)
     .slice(0, 6);
 
   const section = document.querySelector("#similar-section");
