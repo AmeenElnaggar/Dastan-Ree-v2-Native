@@ -50,7 +50,7 @@ export const projects = [
       {
         name: "1 Bedroom — 90 m²",
         image:
-          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+          "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200",
       },
       {
         name: "2 Bedroom — 140 m²",

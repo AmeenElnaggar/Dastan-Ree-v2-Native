@@ -282,18 +282,26 @@
   font-family: var(--font-sans);
   font-weight: 600;
   color: #fff;
-  border: 1px solid #0a1e77;
+  border: 1px solid #080f1f;
   border-radius: 4px;
   padding: 0.4rem 1rem;
-  background: #0a1e77;
+  background: #080f1f;
+  position: relative;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
 }
 
-.pf__apply:hover {
-  background: #0c2490;
-  border-color: #0c2490;
+.pf__apply::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+  transition: background 0.2s;
+}
+
+.pf__apply:hover::after {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .pf__reset {

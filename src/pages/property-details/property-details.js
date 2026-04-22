@@ -1,19 +1,19 @@
 import { amenities } from "../../data/amenities.data.js";
 import { properties } from "../../data/properties.data.js";
-import { renderFooter } from "../../shared/components/footer/Footer.js";
-import { openModal } from "../../shared/components/modal/Modal.js";
-import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
-import { renderPropertyCard } from "../../shared/components/property-card/PropertyCard.js";
 import {
   AMENITY_ICONS,
   getFacilityIcon,
   getPurposeIcon,
 } from "../../shared/components/amenities/icons.js";
+import { renderFooter } from "../../shared/components/footer/Footer.js";
+import { openModal } from "../../shared/components/modal/Modal.js";
+import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
+import { renderPropertyCard } from "../../shared/components/property-card/PropertyCard.js";
 import { formatNumber } from "../../utils/format.js";
 import { getParam } from "../../utils/router.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderNavbar("#navbar-root");
+  renderNavbar("#navbar-root", { transparent: true });
   renderFooter("#footer-root");
 
   const id = getParam("id") || properties[0]?.id;
@@ -49,21 +49,17 @@ function renderProperty(p) {
 }
 
 function renderHeroOverlay(p) {
-  const breadcrumb = document.querySelector("#hero-breadcrumb");
-  breadcrumb.innerHTML = `
-    <a href="../home/index.html">Home</a>
-    <span class="pd-hero__breadcrumb-sep">›</span>
-    <a href="../properties/index.html">Properties</a>
-    <span class="pd-hero__breadcrumb-sep">›</span>
-    <span>${p.name}</span>`;
-
   const badge = document.querySelector("#hero-badge");
-  const TYPE_LABEL = { apartment: "Apartment", villa: "Villa", commercial: "Commercial" };
+  const TYPE_LABEL = {
+    apartment: "Apartment",
+    villa: "Villa",
+    commercial: "Commercial",
+  };
   badge.textContent = TYPE_LABEL[p.type] || p.type || "";
 
   document.querySelector("#hero-title").textContent = p.name;
   document.querySelector("#hero-location").innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
     ${p.location}`;
 
   document.querySelector("#hero-price-card").innerHTML = `
@@ -78,16 +74,37 @@ function renderHeroOverlay(p) {
 
   // Sticky bar
   document.querySelector("#sticky-name").textContent = p.name;
-  document.querySelector("#sticky-price").textContent = `EGP ${formatNumber(p.price)}`;
+  document.querySelector("#sticky-price").textContent =
+    `EGP ${formatNumber(p.price)}`;
 }
 
 function renderStatsRibbon(p) {
   const stats = [
-    { icon: "fa-bed", label: "Bedrooms", value: p.bedrooms != null ? p.bedrooms : "—" },
-    { icon: "fa-bath", label: "Bathrooms", value: p.bathrooms != null ? p.bathrooms : "—" },
-    { icon: "fa-ruler-combined", label: "Area", value: p.area ? `${p.area} m²` : "—" },
-    { icon: "fa-calendar-check", label: "Delivery", value: p.deliveryDate || "—" },
-    { icon: "fa-paint-roller", label: "Finishing", value: p.finishingType || "—" },
+    {
+      icon: "fa-bed",
+      label: "Bedrooms",
+      value: p.bedrooms != null ? p.bedrooms : "—",
+    },
+    {
+      icon: "fa-bath",
+      label: "Bathrooms",
+      value: p.bathrooms != null ? p.bathrooms : "—",
+    },
+    {
+      icon: "fa-ruler-combined",
+      label: "Area",
+      value: p.area ? `${p.area} m²` : "—",
+    },
+    {
+      icon: "fa-calendar-check",
+      label: "Delivery",
+      value: p.deliveryDate || "—",
+    },
+    {
+      icon: "fa-paint-roller",
+      label: "Finishing",
+      value: p.finishingType || "—",
+    },
     { icon: "fa-couch", label: "Furnishing", value: p.furnishingStatus || "—" },
   ];
 
@@ -118,17 +135,20 @@ function renderAbout(p) {
 }
 
 function renderAmenities(p) {
-  const propAmenities = amenities.filter((a) => (p.amenityIds || []).includes(a.id));
+  const propAmenities = amenities.filter((a) =>
+    (p.amenityIds || []).includes(a.id),
+  );
 
-  document.querySelector("#amenities-grid").innerHTML = propAmenities
-    .map(
-      (a) => `
+  document.querySelector("#amenities-grid").innerHTML =
+    propAmenities
+      .map(
+        (a) => `
       <div class="pd-amenity-item">
         <i class="fa-solid ${AMENITY_ICONS[a.id] || "fa-star"}" aria-hidden="true"></i>
         <span>${a.name}</span>
       </div>`,
-    )
-    .join("") || '<p class="text-sm text-gray-400">No amenities listed.</p>';
+      )
+      .join("") || '<p class="text-sm text-gray-400">No amenities listed.</p>';
 
   const facilBlock = document.querySelector("#facilities-block");
   if (p.facilities && p.facilities.length > 0) {
@@ -165,7 +185,10 @@ function renderAmenities(p) {
 
 function renderFloorPlans(floorPlans) {
   const section = document.querySelector("#floorplans-section");
-  if (!floorPlans.length) { section.style.display = "none"; return; }
+  if (!floorPlans.length) {
+    section.style.display = "none";
+    return;
+  }
 
   const tabsEl = document.querySelector("#floorplan-tabs");
   const imgEl = document.querySelector("#floorplan-active-img");
@@ -173,9 +196,9 @@ function renderFloorPlans(floorPlans) {
   const activate = (index) => {
     imgEl.src = floorPlans[index].image;
     imgEl.alt = floorPlans[index].name;
-    tabsEl.querySelectorAll(".pd-floorplan-tab").forEach((t, i) =>
-      t.classList.toggle("active", i === index),
-    );
+    tabsEl
+      .querySelectorAll(".pd-floorplan-tab")
+      .forEach((t, i) => t.classList.toggle("active", i === index));
   };
 
   tabsEl.innerHTML = floorPlans
@@ -197,17 +220,24 @@ function renderFloorPlans(floorPlans) {
 
 function renderMasterplan(p) {
   const section = document.querySelector("#masterplan-section");
-  if (!p.masterplanImage) { section.style.display = "none"; return; }
+  if (!p.masterplanImage) {
+    section.style.display = "none";
+    return;
+  }
   document.querySelector("#masterplan-img").src = p.masterplanImage;
 }
 
 function renderMap(p) {
   const section = document.querySelector("#map-section");
-  if (!p.latitude || !p.longitude) { section.style.display = "none"; return; }
+  if (!p.latitude || !p.longitude) {
+    section.style.display = "none";
+    return;
+  }
 
   const map = L.map("property-map").setView([p.latitude, p.longitude], 15);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution:
+      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
   const icon = L.divIcon({
@@ -237,34 +267,8 @@ function renderNeighborhood(p) {
 }
 
 function renderSidebar(p) {
-  document.querySelector("#agent-card").innerHTML = `
-    <div class="pd-agent__header">
-      <div class="pd-agent__avatar-wrap">
-        <img
-          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200"
-          alt="Agent"
-          class="pd-agent__avatar"
-          loading="lazy" />
-        <span class="pd-agent__online-dot" title="Online"></span>
-      </div>
-      <div>
-        <div class="pd-agent__name">Sarah Al-Hassan</div>
-        <div class="pd-agent__title">Senior Property Consultant</div>
-        <div class="pd-agent__rating" aria-label="5 stars">★★★★★</div>
-      </div>
-    </div>
-    <hr class="pd-agent__divider" />
-    <div class="pd-agent__info-row"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:sarah@dastan.ae">sarah@dastan.ae</a></div>
-    <div class="pd-agent__info-row"><i class="fa-solid fa-phone" aria-hidden="true"></i>+971 50 123 4567</div>
-    <hr class="pd-agent__divider" />
-    <button class="pd-agent__contact-btn" id="sidebar-contact-btn" type="button">
-      <i class="fa-regular fa-envelope" aria-hidden="true"></i> Send Message
-    </button>
-    <button class="pd-agent__whatsapp-btn" type="button">
-      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp
-    </button>`;
+  const capitalize = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : "—");
 
-  const capitalize = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1) : "—";
   document.querySelector("#quick-facts").innerHTML = `
     <div class="pd-quick-facts__title">Quick Facts</div>
     ${[
@@ -281,6 +285,36 @@ function renderSidebar(p) {
           </div>`,
       )
       .join("")}`;
+
+  document.querySelector("#contact-form-card").innerHTML = `
+    <div class="pd-cform__title">Get in Touch</div>
+    <form class="pd-cform__form" id="sidebar-contact-form" novalidate>
+      <div class="pd-cform__field">
+        <label class="pd-cform__label" for="cf-name">Full Name</label>
+        <input class="pd-cform__input" id="cf-name" type="text" placeholder="Your name" required />
+      </div>
+      <div class="pd-cform__field">
+        <label class="pd-cform__label" for="cf-phone">Phone</label>
+        <input class="pd-cform__input" id="cf-phone" type="tel" placeholder="+20 xxx xxx xxxx" />
+      </div>
+      <div class="pd-cform__field">
+        <label class="pd-cform__label" for="cf-message">Message</label>
+        <textarea class="pd-cform__input pd-cform__textarea" id="cf-message" rows="4" placeholder="I'm interested in ${p.name}…"></textarea>
+      </div>
+      <button class="pd-cform__submit" type="submit">Send Enquiry</button>
+      <a class="pd-cform__whatsapp" href="https://wa.me/9712019220" target="_blank" rel="noopener">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp Us
+      </a>
+    </form>`;
+
+  document
+    .querySelector("#sidebar-contact-form")
+    .addEventListener("submit", (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      form.innerHTML =
+        '<p class="pd-cform__success">Thank you! We\'ll be in touch shortly.</p>';
+    });
 }
 
 // ── Sliders ───────────────────────────────────────────────────────
@@ -300,7 +334,8 @@ function initHeroSwiper(p) {
 
   new Swiper("#hero-swiper", {
     loop: images.length > 1,
-    autoplay: images.length > 1 ? { delay: 5500, disableOnInteraction: false } : false,
+    autoplay:
+      images.length > 1 ? { delay: 5500, disableOnInteraction: false } : false,
     effect: "fade",
     fadeEffect: { crossFade: true },
     speed: 1200,
@@ -317,11 +352,16 @@ function initHeroSwiper(p) {
 
 function initSimilarSwiper(currentProperty) {
   const similar = properties
-    .filter((p) => p.id !== currentProperty.id && p.type === currentProperty.type)
+    .filter(
+      (p) => p.id !== currentProperty.id && p.type === currentProperty.type,
+    )
     .slice(0, 6);
 
   const section = document.querySelector("#similar-section");
-  if (!similar.length) { section.style.display = "none"; return; }
+  if (!similar.length) {
+    section.style.display = "none";
+    return;
+  }
 
   const slidesEl = document.querySelector("#similar-slides");
   similar.forEach((p) => {
@@ -391,8 +431,7 @@ function bindActions(property) {
   document.addEventListener("click", (e) => {
     if (
       e.target.closest("#hero-schedule-btn") ||
-      e.target.closest("#sticky-schedule-btn") ||
-      e.target.closest("#sidebar-contact-btn")
+      e.target.closest("#sticky-schedule-btn")
     ) {
       openViewingModal(property.name);
     }

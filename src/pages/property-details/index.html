@@ -33,7 +33,9 @@
     <link
       rel="stylesheet"
       href="../../../src/shared/components/property-card/property-card.css" />
-    <link rel="stylesheet" href="/src/pages/property-details/property-details.css" />
+    <link
+      rel="stylesheet"
+      href="/src/pages/property-details/property-details.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -51,8 +53,11 @@
         <div class="swiper-pagination pd-hero__pagination"></div>
       </div>
       <div class="pd-hero__overlay"></div>
+      <!-- ── Stats Ribbon (integrated inside hero) ─────────────────── -->
+      <section class="pd-stats pd-hero__stats" aria-label="Property statistics">
+        <div class="pd-stats__grid" id="stats-grid"></div>
+      </section>
       <div class="pd-hero__content">
-        <nav class="pd-hero__breadcrumb" id="hero-breadcrumb" aria-label="Breadcrumb"></nav>
         <div class="pd-hero__bottom">
           <div class="pd-hero__info">
             <span class="pd-hero__badge" id="hero-badge"></span>
@@ -70,22 +75,17 @@
         <span class="pd-sticky__name" id="sticky-name"></span>
         <span class="pd-sticky__sep" aria-hidden="true">·</span>
         <span class="pd-sticky__price" id="sticky-price"></span>
-        <button class="pd-sticky__cta" id="sticky-schedule-btn">Schedule a Viewing</button>
+        <button class="pd-sticky__cta" id="sticky-schedule-btn">
+          Schedule a Viewing
+        </button>
       </div>
     </div>
-
-    <!-- ── Stats Ribbon ───────────────────────────────────────────── -->
-    <section class="pd-stats" aria-label="Property statistics">
-      <div class="pd-stats__grid" id="stats-grid"></div>
-    </section>
 
     <!-- ── Body: Main Column + Sidebar ───────────────────────────── -->
     <div class="pd-body">
       <div class="pd-body__inner">
-
         <!-- Main Column -->
         <main class="pd-main-col">
-
           <!-- About -->
           <section class="pd-section" id="about-section">
             <h2 class="pd-section-title">About This Property</h2>
@@ -106,7 +106,12 @@
             <div class="pd-floorplans" id="floorplans-body">
               <div class="pd-floorplans__tabs" id="floorplan-tabs"></div>
               <div class="pd-floorplans__image-wrap">
-                <img id="floorplan-active-img" class="pd-floorplans__img" src="" alt="Floor plan" loading="lazy" />
+                <img
+                  id="floorplan-active-img"
+                  class="pd-floorplans__img"
+                  src=""
+                  alt="Floor plan"
+                  loading="lazy" />
               </div>
             </div>
           </section>
@@ -115,9 +120,18 @@
           <section class="pd-section" id="masterplan-section">
             <h2 class="pd-section-title">Masterplan</h2>
             <div class="pd-masterplan" id="masterplan-wrap">
-              <img id="masterplan-img" class="pd-masterplan__img" src="" alt="Project masterplan" loading="lazy" />
-              <button class="pd-masterplan__expand" id="masterplan-expand-btn" type="button">
-                <i class="fa-solid fa-expand" aria-hidden="true"></i> View Full Masterplan
+              <img
+                id="masterplan-img"
+                class="pd-masterplan__img"
+                src=""
+                alt="Project masterplan"
+                loading="lazy" />
+              <button
+                class="pd-masterplan__expand"
+                id="masterplan-expand-btn"
+                type="button">
+                <i class="fa-solid fa-expand" aria-hidden="true"></i> View Full
+                Masterplan
               </button>
             </div>
           </section>
@@ -130,15 +144,13 @@
               <div class="pd-neighborhood" id="neighborhood-list"></div>
             </div>
           </section>
-
         </main>
 
         <!-- Sidebar -->
         <aside class="pd-sidebar" id="pd-sidebar">
-          <div class="pd-agent-card" id="agent-card"></div>
           <div class="pd-quick-facts" id="quick-facts"></div>
+          <div class="pd-contact-form-card" id="contact-form-card"></div>
         </aside>
-
       </div>
     </div>
 
@@ -146,12 +158,22 @@
     <section class="pd-similar" id="similar-section">
       <div class="pd-similar__inner">
         <div class="pd-similar__header">
-          <h2 class="pd-section-title" style="margin-bottom:0;border-bottom:none;padding-bottom:0">Similar Properties</h2>
+          <h2
+            class="pd-section-title"
+            style="margin-bottom: 0; border-bottom: none; padding-bottom: 0">
+            Similar Properties
+          </h2>
           <div class="pd-similar__nav">
-            <button class="pd-similar__nav-btn" id="similar-prev" aria-label="Previous">
+            <button
+              class="pd-similar__nav-btn"
+              id="similar-prev"
+              aria-label="Previous">
               <i class="fa-solid fa-chevron-left"></i>
             </button>
-            <button class="pd-similar__nav-btn" id="similar-next" aria-label="Next">
+            <button
+              class="pd-similar__nav-btn"
+              id="similar-next"
+              aria-label="Next">
               <i class="fa-solid fa-chevron-right"></i>
             </button>
           </div>
@@ -174,6 +196,8 @@
     <script
       type="module"
       src="../../../src/shared/components/modal/Modal.js"></script>
-    <script type="module" src="/src/pages/property-details/property-details.js"></script>
+    <script
+      type="module"
+      src="/src/pages/property-details/property-details.js"></script>
   </body>
 </html>
