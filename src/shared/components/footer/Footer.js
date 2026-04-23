@@ -11,10 +11,7 @@ export function renderFooter(selector) {
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 5);
 
   const projectLinks = featuredProjects
-    .map(
-      (p) =>
-        `<li><a href="/src/pages/project-details/index.html?id=${p.id}" class="footer__link">${p.name}</a></li>`,
-    )
+    .map((p) => `<li><a href="#" class="footer__link">${p.name}</a></li>`)
     .join("");
 
   root.innerHTML = `
@@ -64,7 +61,7 @@ export function renderFooter(selector) {
           <h4 class="footer__heading">Navigate</h4>
           <ul class="footer__list">
             <li><a href="/src/pages/home/index.html" class="footer__link">Home</a></li>
-            <li><a href="/src/pages/projects/index.html" class="footer__link">All Projects</a></li>
+            <li><a href="#" class="footer__link">All Projects</a></li>
             <li><a href="#" class="footer__link">About Us</a></li>
             <li><a href="#" class="footer__link">Blog</a></li>
             <li><a href="#" class="footer__link">Careers</a></li>
@@ -76,7 +73,7 @@ export function renderFooter(selector) {
           <h4 class="footer__heading">Contact</h4>
           <ul class="footer__list footer__list--contact">
             <li>
-              <a href="https://maps.google.com/?q=Business+Bay+Dubai" target="_blank" rel="noopener">
+              <a href="https://maps.google.com/?q=Business+Bay+cairo" target="_blank" rel="noopener">
                 <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 <span>Downtown, Business Bay, Egypt</span>
               </a>

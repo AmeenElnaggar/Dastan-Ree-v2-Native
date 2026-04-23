@@ -14,7 +14,7 @@ function locationCard(loc, idx) {
   const count = getCount(loc.searchKey);
   const label = count === 1 ? "Listing" : "Listings";
   return `
-    <a href="../projects/index.html" class="location-card${loc.featured ? " location-card--featured" : ""}" data-idx="${idx}">
+    <a href="#" class="location-card${loc.featured ? " location-card--featured" : ""}" data-idx="${idx}">
       <div class="location-card__image-wrap">
         <img src="${loc.image}" alt="${loc.name}" class="location-card__img" loading="lazy" />
         <div class="location-card__overlay"></div>
