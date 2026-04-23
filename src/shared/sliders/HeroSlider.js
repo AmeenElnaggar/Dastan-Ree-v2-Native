@@ -63,8 +63,7 @@ export function initHeroSlider(selector) {
         `<i class="fas fa-calendar-alt" aria-hidden="true"></i> Completion ${project.year}`;
       infoLeft.querySelector(".hero-slider__info-desc").textContent =
         project.description;
-      infoLeft.querySelector(".hero-slider__cta-link").href =
-        `../project-details/index.html?id=${project.id}`;
+      infoLeft.querySelector(".hero-slider__cta-link").href = `#`;
 
       if (nextSibling) {
         parent.insertBefore(infoLeft, nextSibling);
