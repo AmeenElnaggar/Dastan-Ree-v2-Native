@@ -6,7 +6,7 @@ const allListings = [...projects, ...properties];
 
 function getCount(searchKey) {
   return allListings.filter((item) =>
-    item.location.toLowerCase().includes(searchKey)
+    item.location.toLowerCase().includes(searchKey),
   ).length;
 }
 
@@ -39,7 +39,7 @@ export function renderLocations(selector) {
   if (!el) return;
 
   el.innerHTML = `
-    <section class="explore-locations">
+    <section class="explore-locations py-20">
       <div class="max-w-7xl mx-auto px-6">
         <div class="explore-locations__header">
           <span class="explore-locations__eyebrow">Explore by Location</span>
@@ -65,7 +65,7 @@ export function renderLocations(selector) {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
 
   obs.observe(header);

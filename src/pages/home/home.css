@@ -122,8 +122,6 @@
 
 .why-choose-us {
   position: relative;
-  background: #fff;
-  padding: 100px 0;
   overflow: hidden;
 }
 
@@ -352,12 +350,6 @@
 }
 
 /* ===== Partners Slider ===== */
-
-.partners-section {
-  background: #fafaf8;
-  border-top: 1px solid #f0ede8;
-  border-bottom: 1px solid #f0ede8;
-}
 
 .partners-section__eyebrow {
   display: inline-block;
