@@ -41,9 +41,13 @@
       rel="stylesheet"
       href="../../../src/shared/components/hero-slider/hero-slider.css" />
     <link rel="stylesheet" href="../../../src/shared/components/cta/cta.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/locations/locations.css" />
 
     <link rel="stylesheet" href="../splash-screen/splash-screen.css" />
     <link rel="stylesheet" href="home.css" />
+    <script>history.scrollRestoration = 'manual'; window.scrollTo(0, 0);</script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
   </head>
@@ -153,11 +157,14 @@
     <!-- Hero Slider -->
     <div id="hero-slider-root"></div>
 
+    <!-- Explore by Location -->
+    <div id="locations-root"></div>
+
     <!-- Why Choose Us -->
     <section id="why-choose-us" class="why-choose-us bg-gray-50">
       <div class="why-choose-us__bg-accent" aria-hidden="true"></div>
       <div class="why-choose-us__container max-w-7xl mx-auto px-6">
-        <div class="why-choose-us__content">
+        <div class="why-choose-us__content fade-up">
           <div class="why-choose-us__eyebrow">why choose dastan</div>
           <h2 class="why-choose-us__title">
             Experience a New Standard of Living
@@ -230,36 +237,15 @@
           </div>
         </div>
       </div>
-      <script>
-        (function () {
-          var obs = new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (e) {
-                if (e.isIntersecting) {
-                  e.target.classList.add("is-visible");
-                  obs.unobserve(e.target);
-                }
-              });
-            },
-            { threshold: 0.12 },
-          );
-          document
-            .querySelectorAll(
-              ".why-choose-us__feature, .why-choose-us__content",
-            )
-            .forEach(function (el) {
-              obs.observe(el);
-            });
-        })();
-      </script>
     </section>
 
     <!-- Featured Projects Slider -->
     <section id="featured" class="py-20">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-12">
+        <div class="flex items-center justify-between mb-12 fade-up">
           <div>
-            <h2 class="text-4xl font-semibold">Featured Projects</h2>
+            <span class="section-header__eyebrow">Our Portfolio</span>
+            <h2 class="section-header__title">Featured Projects</h2>
             <p class="text-gray-500 opacity-75 mt-1">
               Handpicked developments worth exploring
             </p>
@@ -269,31 +255,31 @@
             <span class="action-link__line"></span>
           </a>
         </div>
-        <div id="featured-slider-root"></div>
+        <div id="featured-slider-root" class="fade-up" style="transition-delay: 0.15s"></div>
       </div>
     </section>
 
-    <section class="partners-section py-10">
+    <section class="partners-section py-20">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-12">
-          <div>
-            <h2 class="text-4xl font-semibold">Partners</h2>
-            <p class="text-gray-500 opacity-75 mt-1">
-              Working alongside the region's leading developers and
-              collaborators
-            </p>
-          </div>
+        <div class="text-center mb-12 fade-up">
+          <span class="section-header__eyebrow">Trusted By</span>
+          <h2 class="section-header__title">Partners</h2>
+          <p class="text-gray-500 opacity-75 mt-1">
+            Working alongside the region's leading developers and
+            collaborators
+          </p>
         </div>
-        <div id="partners-slider-root"></div>
+        <div id="partners-slider-root" class="fade-up" style="transition-delay: 0.15s"></div>
       </div>
     </section>
 
     <!-- Property Listings -->
     <section class="py-20">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-12">
+        <div class="flex items-center justify-between mb-12 fade-up">
           <div>
-            <h2 class="text-4xl font-semibold">Recommended For You</h2>
+            <span class="section-header__eyebrow">Curated For You</span>
+            <h2 class="section-header__title">Recommended For You</h2>
             <p class="text-gray-500 opacity-75 mt-1">
               Listings we think you’ll love.
             </p>
@@ -303,7 +289,7 @@
             <span class="action-link__line"></span>
           </a>
         </div>
-        <div id="properties-slider-root"></div>
+        <div id="properties-slider-root" class="fade-up" style="transition-delay: 0.15s"></div>
       </div>
     </section>
 
@@ -311,11 +297,12 @@
     <div id="cta-root"></div>
 
     <!-- Blogs Section -->
-    <section class="pt-20">
+    <section class="py-20">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-12">
+        <div class="flex items-center justify-between mb-12 fade-up">
           <div>
-            <h2 class="text-4xl font-semibold">From Our Blog</h2>
+            <span class="section-header__eyebrow">News & Insights</span>
+            <h2 class="section-header__title">From Our Blog</h2>
             <p class="text-gray-500 opacity-75 mt-1">
               Insights, tips, and market updates
             </p>
@@ -325,7 +312,7 @@
             <span class="action-link__line"></span>
           </a>
         </div>
-        <div id="blogs-slider-root"></div>
+        <div id="blogs-slider-root" class="fade-up" style="transition-delay: 0.15s"></div>
       </div>
     </section>
 

@@ -7,6 +7,7 @@ import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderPropertyCard } from "../../shared/components/property-card/PropertyCard.js";
 import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
+import { renderLocations } from "../../shared/components/locations/Locations.js";
 import { initSplash } from "../splash-screen/splash-screen.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,7 +18,21 @@ document.addEventListener("DOMContentLoaded", () => {
   initFeaturedSlider("#featured-slider-root");
   initPartnersSlider("#partners-slider-root");
   initPropertiesSlider("#properties-slider-root");
+  renderLocations("#locations-root");
   initBlogsSlider("#blogs-slider-root");
+
+  const fadeObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          fadeObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll(".fade-up, .why-choose-us__feature").forEach((el) => fadeObs.observe(el));
 });
 
 function initPropertiesSlider(selector) {
