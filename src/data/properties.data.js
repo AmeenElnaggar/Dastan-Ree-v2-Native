@@ -21,7 +21,7 @@ export const properties = [
     finishingType: "Fully Finished",
     furnishingStatus: "Unfurnished",
     masterplanImage:
-      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200",
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: [
       "Infinity Pool",
       "Sky Lounge",
@@ -75,7 +75,7 @@ export const properties = [
     finishingType: "Ultra-Lux",
     furnishingStatus: "Fully Furnished",
     masterplanImage:
-      "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1200",
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: [
       "Private Beach",
       "Home Cinema",
@@ -129,7 +129,7 @@ export const properties = [
     finishingType: "Semi-Finished",
     furnishingStatus: "Unfurnished",
     masterplanImage:
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200",
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: [
       "Jogging Track",
       "Clubhouse",
@@ -183,7 +183,7 @@ export const properties = [
     finishingType: "Fully Finished",
     furnishingStatus: "Semi-Furnished",
     masterplanImage:
-      "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200",
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Rooftop Pool", "Meeting Rooms", "Concierge Service", "Spa"],
     purposeTypes: ["Residential", "Commercial"],
     image:
@@ -232,7 +232,7 @@ export const properties = [
     finishingType: "Core & Shell",
     furnishingStatus: "Unfurnished",
     masterplanImage:
-      "https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200",
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: [
       "Golf Course",
       "Tennis Courts",
@@ -286,7 +286,7 @@ export const properties = [
     finishingType: "Fully Finished",
     furnishingStatus: "Fully Furnished",
     masterplanImage:
-      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=1200",
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Valet Parking", "Housekeeping", "Library", "Private Terrace"],
     purposeTypes: ["Residential", "Investment"],
     image:
