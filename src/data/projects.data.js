@@ -33,11 +33,13 @@ export const projects = [
       "Covered Parking",
     ],
     purposeTypes: ["Residential"],
-    image:
-      "https://new-projects-media.propertyfinder.com/project/32ff46e5-0268-4bd2-874f-94a20479c3be/gallery/image/LKiGiJ0tw3XHXd1LApxKW7KPxBWnOTxunWjRK4WRuEM=/original.webp",
+    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600",
     images: [
-      "https://new-projects-media.propertyfinder.com/project/32ff46e5-0268-4bd2-874f-94a20479c3be/gallery/image/ys9_0SDcm3iVt2aA0VTHaIc5BACvq6FM-D2Q0F5OH8o=/original.webp",
-      "https://new-projects-media.propertyfinder.com/project/32ff46e5-0268-4bd2-874f-94a20479c3be/gallery/image/LKiGiJ0tw3XHXd1LApxKW7KPxBWnOTxunWjRK4WRuEM=/original.webp",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200",
     ],
     floorPlans: [
       {
@@ -90,8 +92,11 @@ export const projects = [
     image:
       "https://new-projects-media.propertyfinder.com/project/6e9a4054-9bf0-4a4d-926a-2c73e79f84eb/gallery/image/SarNBC4dbkDEyuki76zftNW0V2BQbwbnn9pm3_G_xFs=/original.webp",
     images: [
-      "https://new-projects-media.propertyfinder.com/project/6e9a4054-9bf0-4a4d-926a-2c73e79f84eb/gallery/image/M-zRg5tY0Oyz9tRBL2lWoqyXAuu3LlMfJYTQW-JQkj8=/original.webp",
-      "https://new-projects-media.propertyfinder.com/project/6e9a4054-9bf0-4a4d-926a-2c73e79f84eb/gallery/image/SarNBC4dbkDEyuki76zftNW0V2BQbwbnn9pm3_G_xFs=/original.webp",
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
     ],
     floorPlans: [
       {
@@ -148,9 +153,12 @@ export const projects = [
     purposeTypes: ["Residential"],
     image:
       "https://new-projects-media.propertyfinder.com/project/78e3bb0c-4785-4967-9082-fa6476e92b31/gallery/image/wqnp4ujffNacgR-FjIGj6qwiuWmsLUFQWJZspnBe7_w=/original.webp",
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600",
     images: [
-      "https://new-projects-media.propertyfinder.com/project/78e3bb0c-4785-4967-9082-fa6476e92b31/gallery/image/kbYRxB0I2r75cg57oOGQAFr5Bhdr6XSS2oYINIWJHac=/original.webp",
-      "https://new-projects-media.propertyfinder.com/project/78e3bb0c-4785-4967-9082-fa6476e92b31/gallery/image/wqnp4ujffNacgR-FjIGj6qwiuWmsLUFQWJZspnBe7_w=/original.webp",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200",
     ],
     floorPlans: [
       {
@@ -200,11 +208,12 @@ export const projects = [
       "Club Room",
     ],
     purposeTypes: ["Residential"],
-    image:
-      "https://new-projects-media.propertyfinder.com/project/52832183-7cdf-4186-8749-2a16ba499fc5/gallery/image/9I8Z3Gq91-uwYSbIAUMmsDMxDeNSwN-DeNNDSDjyfrk=/original.webp",
+    image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=600",
     images: [
-      "https://new-projects-media.propertyfinder.com/project/52832183-7cdf-4186-8749-2a16ba499fc5/gallery/image/aWhHwJA6UYiNPNv8Lo9G7ZLheUHv7Ar7aeDk9cX3fdc=/original.webp",
-      "https://new-projects-media.propertyfinder.com/project/52832183-7cdf-4186-8749-2a16ba499fc5/gallery/image/9I8Z3Gq91-uwYSbIAUMmsDMxDeNSwN-DeNNDSDjyfrk=/original.webp",
+      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200",
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
     ],
     floorPlans: [
       {

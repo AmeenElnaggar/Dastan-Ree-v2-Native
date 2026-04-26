@@ -30,10 +30,11 @@ export const properties = [
     ],
     purposeTypes: ["Residential", "Investment"],
     image:
-      "https://static.shared.propertyfinder.eg/media/images/listing/7MPDT6XMGG97XRZEM681VEC010/c13479f4-86e0-4f17-ad13-763c076ea27d/416x272.webp",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop&q=80",
     images: [
-      "https://static.shared.propertyfinder.eg/media/images/listing/7MPDT6XMGG97XRZEM681VEC010/6d202b6c-2d15-4d3f-a5fd-f4b925ea01a2/1312x894.webp",
-      "https://static.shared.propertyfinder.eg/media/images/listing/7MPDT6XMGG97XRZEM681VEC010/c13479f4-86e0-4f17-ad13-763c076ea27d/1312x894.webp",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
       {
@@ -84,10 +85,11 @@ export const properties = [
     ],
     purposeTypes: ["Residential"],
     image:
-      "https://static.shared.propertyfinder.eg/media/images/listing/6QV9VTD2N8ZMJ51JDCJ0MTHDGW/040af64e-960e-45b5-8a8f-8b054b4a75cd/416x272.webp",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop&q=80",
     images: [
-      "https://static.shared.propertyfinder.eg/media/images/listing/6QV9VTD2N8ZMJ51JDCJ0MTHDGW/52fe2377-f65f-48f9-9f8e-e1028a380da8/1312x894.webp",
-      "https://static.shared.propertyfinder.eg/media/images/listing/6QV9VTD2N8ZMJ51JDCJ0MTHDGW/040af64e-960e-45b5-8a8f-8b054b4a75cd/1312x894.webp",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
       {
@@ -138,10 +140,11 @@ export const properties = [
     ],
     purposeTypes: ["Residential"],
     image:
-      "https://static.shared.propertyfinder.eg/media/images/listing/YDXYB7VWJ4WFQGJH2X8GX6BRJ0/ffa89ecc-2175-49c6-8be4-9ff69aaff647/416x272.webp",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop&q=80",
     images: [
-      "https://static.shared.propertyfinder.eg/media/images/listing/YDXYB7VWJ4WFQGJH2X8GX6BRJ0/c123a66e-55eb-4744-b65d-eb8681c7d11b/1312x894.webp",
-      "https://static.shared.propertyfinder.eg/media/images/listing/YDXYB7VWJ4WFQGJH2X8GX6BRJ0/4f5ddbe8-fb3a-4117-9b9e-b16d5f5636d0/1312x894.webp",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
       {
@@ -187,10 +190,11 @@ export const properties = [
     facilities: ["Rooftop Pool", "Meeting Rooms", "Concierge Service", "Spa"],
     purposeTypes: ["Residential", "Commercial"],
     image:
-      "https://static.shared.propertyfinder.eg/media/images/listing/55CPK5STY1NST1XPVXX3AGANT0/a37cb5bd-9925-4ffe-b0b3-1755a6d84b22/416x272.webp",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop&q=80",
     images: [
-      "https://static.shared.propertyfinder.eg/media/images/listing/55CPK5STY1NST1XPVXX3AGANT0/e3f7fc70-8737-443f-af68-8029ade8163d/1312x894.webp",
-      "https://static.shared.propertyfinder.eg/media/images/listing/55CPK5STY1NST1XPVXX3AGANT0/13d46d34-18ba-4ea8-a2ee-a72f33006454/1312x894.webp",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
       {
@@ -241,10 +245,11 @@ export const properties = [
     ],
     purposeTypes: ["Residential"],
     image:
-      "https://static.shared.propertyfinder.eg/media/images/listing/FJNGWZYTX1MR1697X1E19EKXNC/221f7de3-56ea-4c8e-8a0e-3f00565bbf05/416x272.webp",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&q=80",
     images: [
-      "https://static.shared.propertyfinder.eg/media/images/listing/FJNGWZYTX1MR1697X1E19EKXNC/dcd85f72-7afe-40b9-9a85-55b72217ae26/1312x894.webp",
-      "https://static.shared.propertyfinder.eg/media/images/listing/FJNGWZYTX1MR1697X1E19EKXNC/775e9bee-de1b-4e33-8e4d-c8102af7791f/1312x894.webp",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
       {
@@ -290,10 +295,11 @@ export const properties = [
     facilities: ["Valet Parking", "Housekeeping", "Library", "Private Terrace"],
     purposeTypes: ["Residential", "Investment"],
     image:
-      "https://static.shared.propertyfinder.eg/media/images/listing/EJEAFG169VA2C8Y5JGDHHXAHE0/ca7c6931-87f2-4548-a206-02c31fad4138/416x272.webp",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop&q=80",
     images: [
-      "https://static.shared.propertyfinder.eg/media/images/listing/EJEAFG169VA2C8Y5JGDHHXAHE0/ca7c6931-87f2-4548-a206-02c31fad4138/416x272.webp",
-      "https://static.shared.propertyfinder.eg/media/images/listing/EJEAFG169VA2C8Y5JGDHHXAHE0/cdca2822-849e-4f17-a702-ffff0c5d4545/1312x894.webp",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1312&h=894&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
       {
