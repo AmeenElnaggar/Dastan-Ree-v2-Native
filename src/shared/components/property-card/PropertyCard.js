@@ -40,28 +40,63 @@ export function renderPropertyCard(property) {
     .join("");
 
   return `
-    <a href="${detailsUrl}" class="property-card" data-id="${id}">
-      <div class="property-card__visual">
-        <div class="property-card__image-wrap">
-          <img src="${image}" alt="${name}" class="property-card__img" loading="lazy" />
-          <div class="property-card__overlay"></div>
-        </div>
-        <span class="property-card__badge">${badgeText}</span>
+    <div class="relative w-[380px] group">
 
+  <!-- Decorative Frame -->
+  <div class="absolute inset-0 border border-gray-300 translate-x-2 translate-y-2"></div>
+
+  <!-- Card -->
+  <div class="relative bg-white overflow-hidden shadow-xl transition-all duration-200
+              group-hover:translate-x-2 group-hover:translate-y-2">
+
+    <!-- Image Wrapper -->
+    <div class="relative h-60 overflow-hidden">
+
+      <img
+        src="${image}"
+        alt="${name}"
+        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+
+      <span class="absolute top-5 left-5 bg-black text-white text-xs tracking-widest px-4 py-2 uppercase">
+        ${badgeText}
+      </span>
+
+    </div>
+
+    <div class="relative p-5 flex flex-col gap-3">
+
+      <div class="absolute inset-0 right-[10px] bottom-[10px] bg-no-repeat bg-right-bottom bg-[length:35px_auto] opacity-20 pointer-events-none z-0" style="background-image:url('../../assets/images/logo-pattern.png')"></div>
+
+      <div class="flex items-baseline gap-2">
+        <span class="text-xs font-semibold text-[#64748b] tracking-widest uppercase">EGP</span>
+        <span class="text-xl font-bold text-gray-900">${formattedAmount}</span>
       </div>
-      <div class="property-card__content">
-        <div class="property-card__price">
-          <span class="property-card__currency">EGP</span>
-          <span class="property-card__amount">${formattedAmount}</span>
-        </div>
-        <div class="property-card__title">${name}</div>
-        ${location ? `<div class="property-card__location"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${location}</div>` : ""}
-        ${metaItems ? `<div class="property-card__meta">${metaItems}</div>` : ""}
-        <div class="property-card__footer">
-          <span class="property-card__cta">View Details</span>
-          <svg class="property-card__cta-arrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-        </div>
+
+      <h3 class="text-xl font-semibold  leading-tight">
+        ${name}
+      </h3>
+
+      <div class="flex items-center gap-1.5 text-gray-500 text-sm ">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span class="truncate">${location || "Location N/A"}</span>
       </div>
-    </a>
+
+      <div class="flex items-center gap-3 border-t border-gray-100 py-3">
+        ${metaItems}
+      </div>
+
+      <a href="${detailsUrl}" class="inline-flex items-center gap-3 bg-black text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 transition-all duration-300 hover:bg-amber-500 group/cta self-start">
+        <span>View Property</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover/cta:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-gray-400 transition-opacity duration-500 group-hover:opacity-0"></div>
+
+</div>
   `;
 }
