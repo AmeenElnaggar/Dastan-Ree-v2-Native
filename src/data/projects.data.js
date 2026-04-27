@@ -33,7 +33,7 @@ export const projects = [
       "Covered Parking",
     ],
     purposeTypes: ["Residential"],
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600",
+    image: "../assets/images/projects/project1.jpeg",
     images: [
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200",
@@ -89,8 +89,7 @@ export const projects = [
       "Rooftop Lounge",
     ],
     purposeTypes: ["Residential"],
-    image:
-      "https://new-projects-media.propertyfinder.com/project/6e9a4054-9bf0-4a4d-926a-2c73e79f84eb/gallery/image/SarNBC4dbkDEyuki76zftNW0V2BQbwbnn9pm3_G_xFs=/original.webp",
+    image: "../assets/images/projects/project2.jpeg",
     images: [
       "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200",
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
@@ -151,9 +150,7 @@ export const projects = [
       "Double Garage",
     ],
     purposeTypes: ["Residential"],
-    image:
-      "https://new-projects-media.propertyfinder.com/project/78e3bb0c-4785-4967-9082-fa6476e92b31/gallery/image/wqnp4ujffNacgR-FjIGj6qwiuWmsLUFQWJZspnBe7_w=/original.webp",
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600",
+    image: "../assets/images/projects/project3.jpeg",
     images: [
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200",
@@ -208,7 +205,7 @@ export const projects = [
       "Club Room",
     ],
     purposeTypes: ["Residential"],
-    image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=600",
+    image: "../assets/images/projects/project4.jpeg",
     images: [
       "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200",
       "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200",

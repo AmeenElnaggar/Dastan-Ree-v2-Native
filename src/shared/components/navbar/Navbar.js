@@ -1,7 +1,7 @@
 const NAV_LINKS = [
-  { label: "Home", href: "/src/pages/home/index.html" },
+  { label: "Home", href: "../home/index.html" },
   { label: "Projects", href: "#" },
-  { label: "Properties", href: "/src/pages/properties/index.html" },
+  { label: "Properties", href: "../properties/index.html" },
   { label: "Blogs", href: "#" },
   { label: "About Us", href: "#" },
   { label: "Careers", href: "#" },
@@ -45,6 +45,16 @@ export function renderNavbar(selector, options = {}) {
     p.replace(/\/index\.html$/, "").replace(/\/$/, "") || "/";
   const normalizedCurrent = normalizePath(currentPath);
 
+  // Resolve a relative or absolute href to an absolute pathname
+  const resolveHref = (href) => {
+    if (href === "#") return null;
+    try {
+      return new URL(href, window.location.href).pathname;
+    } catch {
+      return href;
+    }
+  };
+
   const initialClass = transparent
     ? "navbar--transparent"
     : "navbar--solid navbar--scrolled";
@@ -61,8 +71,8 @@ export function renderNavbar(selector, options = {}) {
       <div class="navbar__inner">
 
         <!-- Logo -->
-        <a href="/src/pages/home/index.html" class="navbar__brand" aria-label="Dastan Home">
-          <img src="/src/assets/images/dastan-logo.svg" alt="Dastan Real Estate" class="navbar__logo" />
+        <a href="../../../src/pages/home/index.html" class="navbar__brand" aria-label="Dastan Home">
+          <img src="../../../src/assets/images/dastan-logo.svg" alt="Dastan Real Estate" class="navbar__logo" />
         </a>
 
         <!-- Desktop Nav Links -->
@@ -70,7 +80,7 @@ export function renderNavbar(selector, options = {}) {
           ${NAV_LINKS.map((link) => {
             const isActive =
               link.href !== "#" &&
-              normalizePath(link.href) === normalizedCurrent;
+              normalizePath(resolveHref(link.href)) === normalizedCurrent;
             return `<a href="${link.href}" class="navbar__link${isActive ? " navbar__link--active" : ""}">${link.label}</a>`;
           }).join("")}
         </nav>

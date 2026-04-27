@@ -36,7 +36,7 @@ export function renderProjectCard(project) {
     <div class="relative h-3/5 overflow-hidden">
 
       <img
-        src="${image}"
+        src="../${image}"
         alt="Luxury Project"
         class="w-full h-full object-cover scale-105 brightness-110 transition-all duration-700 group-hover:scale-100 group-hover:brightness-100"
       />

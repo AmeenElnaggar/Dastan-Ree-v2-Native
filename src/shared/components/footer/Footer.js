@@ -20,10 +20,10 @@ export function renderFooter(selector) {
 
         <!-- Col 1: Brand Identity -->
         <div class="footer__brand">
-          <a href="/src/pages/home/index.html" class="footer__logo-wrap" aria-label="Dastan Home">
+          <a href="../../../src/pages/home/index.html" class="footer__logo-wrap" aria-label="Dastan Home">
             <div class="footer__logo-aura"></div>
             <img
-              src="/src/assets/images/dastan-logo.svg"
+              src="../../../src/assets/images/dastan-logo.svg"
               alt="Dastan Real Estate"
               class="footer__logo-img"
             />
@@ -60,7 +60,7 @@ export function renderFooter(selector) {
         <div class="footer__col">
           <h4 class="footer__heading">Navigate</h4>
           <ul class="footer__list">
-            <li><a href="/src/pages/home/index.html" class="footer__link">Home</a></li>
+            <li><a href="../home/index.html" class="footer__link">Home</a></li>
             <li><a href="#" class="footer__link">All Projects</a></li>
             <li><a href="#" class="footer__link">About Us</a></li>
             <li><a href="#" class="footer__link">Blog</a></li>
