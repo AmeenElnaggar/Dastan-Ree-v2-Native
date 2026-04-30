@@ -12,8 +12,16 @@ import { renderPropertyCard } from "../../shared/components/property-card/Proper
 import { formatNumber } from "../../utils/format.js";
 import { getParam } from "../../utils/router.js";
 
+const TYPE_LABEL = {
+  apartment: "Apartment",
+  villa: "Villa",
+  commercial: "Commercial",
+};
+
+const capitalize = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : "—");
+
 document.addEventListener("DOMContentLoaded", () => {
-  renderNavbar("#navbar-root", { transparent: true });
+  renderNavbar("#navbar-root");
   renderFooter("#footer-root");
 
   const id = getParam("id") || properties[0]?.id;
@@ -26,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   renderProperty(property);
-  initHeroSwiper(property);
+  initGallerySwipers(property);
   initSimilarSwiper(property);
   initStickyBar();
   bindActions(property);
@@ -37,8 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderProperty(p) {
   document.title = `${p.name} — Dastan Real Estate`;
 
-  renderHeroOverlay(p);
-  renderStatsRibbon(p);
+  renderIntro(p);
+  renderQuickInfo(p);
   renderAbout(p);
   renderAmenities(p);
   renderFloorPlans(p.floorPlans || []);
@@ -46,92 +54,100 @@ function renderProperty(p) {
   renderMap(p);
   renderNeighborhood(p);
   renderSidebar(p);
-}
 
-function renderHeroOverlay(p) {
-  const badge = document.querySelector("#hero-badge");
-  const TYPE_LABEL = {
-    apartment: "Apartment",
-    villa: "Villa",
-    commercial: "Commercial",
-  };
-  badge.textContent = TYPE_LABEL[p.type] || p.type || "";
-
-  document.querySelector("#hero-title").textContent = p.name;
-  document.querySelector("#hero-location").innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-    ${p.location}`;
-
-  document.querySelector("#hero-price-card").innerHTML = `
-    <div class="pd-hero__price-label">Starting From</div>
-    <div class="pd-hero__price-row">
-      <span class="pd-hero__price-currency">EGP</span>
-      <span class="pd-hero__price-amount">${formatNumber(p.price)}</span>
-    </div>
-    <button class="pd-hero__schedule-btn" id="hero-schedule-btn" type="button">
-      <i class="fa-regular fa-calendar-check" aria-hidden="true"></i> Schedule a Viewing
-    </button>`;
-
-  // Sticky bar
+  // Sticky bar values
   document.querySelector("#sticky-name").textContent = p.name;
   document.querySelector("#sticky-price").textContent =
     `EGP ${formatNumber(p.price)}`;
 }
 
-function renderStatsRibbon(p) {
-  const stats = [
-    {
-      icon: "fa-bed",
-      label: "Bedrooms",
-      value: p.bedrooms != null ? p.bedrooms : "—",
-    },
-    {
-      icon: "fa-bath",
-      label: "Bathrooms",
-      value: p.bathrooms != null ? p.bathrooms : "—",
-    },
-    {
-      icon: "fa-ruler-combined",
-      label: "Area",
-      value: p.area ? `${p.area} m²` : "—",
-    },
-    {
-      icon: "fa-calendar-check",
-      label: "Delivery",
-      value: p.deliveryDate || "—",
-    },
-    {
-      icon: "fa-paint-roller",
-      label: "Finishing",
-      value: p.finishingType || "—",
-    },
-    { icon: "fa-couch", label: "Furnishing", value: p.furnishingStatus || "—" },
+function renderIntro(p) {
+  document.querySelector("#intro-badge").textContent =
+    TYPE_LABEL[p.type] || capitalize(p.type);
+
+  const logo = document.querySelector("#intro-logo");
+  if (p.developerLogo) {
+    logo.src = p.developerLogo;
+    logo.alt = p.developer || "Developer logo";
+  } else {
+    logo.style.display = "none";
+  }
+
+  document.querySelector("#intro-title").textContent = p.name;
+  document.querySelector("#intro-desc").textContent = p.shortDescription || "";
+
+  document.querySelector("#intro-location").innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    ${p.location || ""}`;
+}
+
+function renderQuickInfo(p) {
+  const rows = [
+    { label: "Status", value: p.status || "—", icon: "fa-circle-check" },
+    { label: "Type", value: TYPE_LABEL[p.type] || capitalize(p.type), icon: "fa-building" },
+    { label: "Bedrooms", value: p.bedrooms != null ? p.bedrooms : "—", icon: "fa-bed" },
+    { label: "Bathrooms", value: p.bathrooms != null ? p.bathrooms : "—", icon: "fa-bath" },
+    { label: "Area", value: p.area ? `${p.area} m²` : "—", icon: "fa-ruler-combined" },
+    { label: "Delivery", value: p.deliveryDate || "—", icon: "fa-calendar-check" },
+    { label: "Finishing", value: p.finishingType || "—", icon: "fa-paint-roller" },
+    { label: "Year", value: p.year || "—", icon: "fa-clock" },
   ];
 
-  document.querySelector("#stats-grid").innerHTML = stats
-    .map(
-      (s) => `
-      <div class="pd-stat-card">
-        <div class="pd-stat-card__icon"><i class="fa-solid ${s.icon}" aria-hidden="true"></i></div>
-        <div class="pd-stat-card__label">${s.label}</div>
-        <div class="pd-stat-card__value">${s.value}</div>
-      </div>`,
-    )
-    .join("");
+  document.querySelector("#quick-info").innerHTML = `
+    <div class="pd-quick-info__price">
+      <div class="pd-quick-info__price-label">Starting From</div>
+      <div class="pd-quick-info__price-row">
+        <span class="pd-quick-info__price-currency">EGP</span>
+        <span class="pd-quick-info__price-amount">${formatNumber(p.price)}</span>
+      </div>
+    </div>
+    <div class="pd-quick-info__divider" aria-hidden="true"></div>
+    <ul class="pd-quick-info__list">
+      ${rows
+        .map(
+          (r) =>
+            `<li class="pd-quick-info__row">
+               <span class="pd-quick-info__row-label"><i class="fa-solid ${r.icon}" aria-hidden="true"></i>${r.label}</span>
+               <span class="pd-quick-info__row-value">${r.value}</span>
+             </li>`,
+        )
+        .join("")}
+    </ul>
+    <button class="pd-quick-info__cta" id="quick-info-cta" type="button">
+      <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+      <span>Schedule a Viewing</span>
+    </button>`;
 }
 
 function renderAbout(p) {
-  const devLogoHtml = p.developerLogo
-    ? `<img src="${p.developerLogo}" alt="${p.developer}" class="pd-developer-card__logo" loading="lazy" />`
-    : `<div class="pd-developer-card__logo pd-developer-card__logo--placeholder"><i class="fa-solid fa-building"></i></div>`;
+  const description = p.description || p.shortDescription || "";
+  const textEl = document.querySelector("#about-text");
+  const btn = document.querySelector("#about-readmore");
+  const labelEl = btn.querySelector(".pd-about__readmore-label");
 
-  document.querySelector("#about-body").innerHTML = `
-    <p class="pd-about__text">${p.description || p.shortDescription || ""}</p>
-    <div class="pd-developer-card">
-      ${devLogoHtml}
-      <div class="pd-developer-card__label">Developer</div>
-      <div class="pd-developer-card__name">${p.developer || "—"}</div>
-    </div>`;
+  textEl.textContent = description;
+
+  // Developer card
+  const devLogoHtml = p.developerLogo
+    ? `<img src="${p.developerLogo}" alt="${p.developer || ""}" class="pd-developer-card__logo" loading="lazy" />`
+    : `<div class="pd-developer-card__logo pd-developer-card__logo--placeholder"><i class="fa-solid fa-building"></i></div>`;
+  document.querySelector("#developer-card").innerHTML = `
+    ${devLogoHtml}
+    <div class="pd-developer-card__label">Developer</div>
+    <div class="pd-developer-card__name">${p.developer || "—"}</div>`;
+
+  // Show Read More button only when text overflows the clamp
+  requestAnimationFrame(() => {
+    const overflows = textEl.scrollHeight - textEl.clientHeight > 1;
+    if (overflows) btn.hidden = false;
+  });
+
+  btn.addEventListener("click", () => {
+    const expanded = btn.classList.toggle("is-expanded");
+    btn.setAttribute("aria-expanded", String(expanded));
+    textEl.classList.toggle("is-clamped", !expanded);
+    labelEl.textContent = expanded ? "Read Less" : "Read More";
+  });
 }
 
 function renderAmenities(p) {
@@ -267,25 +283,6 @@ function renderNeighborhood(p) {
 }
 
 function renderSidebar(p) {
-  const capitalize = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : "—");
-
-  document.querySelector("#quick-facts").innerHTML = `
-    <div class="pd-quick-facts__title">Quick Facts</div>
-    ${[
-      ["Status", p.status || "—"],
-      ["Type", capitalize(p.type)],
-      ["Total Units", p.units != null ? p.units : "—"],
-      ["Year Built", p.year || "—"],
-    ]
-      .map(
-        ([k, v]) =>
-          `<div class="pd-quick-facts__row">
-            <span class="pd-quick-facts__key">${k}</span>
-            <span class="pd-quick-facts__val">${v}</span>
-          </div>`,
-      )
-      .join("")}`;
-
   document.querySelector("#contact-form-card").innerHTML = `
     <div class="pd-cform__title">Get in Touch</div>
     <form class="pd-cform__form" id="sidebar-contact-form" novalidate>
@@ -319,41 +316,69 @@ function renderSidebar(p) {
 
 // ── Sliders ───────────────────────────────────────────────────────
 
-function initHeroSwiper(p) {
-  const slidesContainer = document.querySelector("#hero-slides");
-  const images = p.images && p.images.length ? p.images : [p.image];
+function initGallerySwipers(p) {
+  const images = p.images && p.images.length ? p.images : p.image ? [p.image] : [];
+  if (!images.length) {
+    document.querySelector("#pd-gallery-info").style.display = "none";
+    return;
+  }
 
-  slidesContainer.innerHTML = images
+  const mainSlides = document.querySelector("#gallery-main-slides");
+  const thumbSlides = document.querySelector("#gallery-thumb-slides");
+
+  mainSlides.innerHTML = images
     .map(
-      (src) =>
+      (src, i) =>
         `<div class="swiper-slide">
-          <img src="${src}" alt="${p.name}" loading="lazy" />
-        </div>`,
+           <img src="${src}" alt="${p.name} — image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
+         </div>`,
     )
     .join("");
 
-  new Swiper("#hero-swiper", {
+  thumbSlides.innerHTML = images
+    .map(
+      (src, i) =>
+        `<div class="swiper-slide">
+           <img src="${src}" alt="${p.name} — thumbnail ${i + 1}" loading="lazy" />
+         </div>`,
+    )
+    .join("");
+
+  if (typeof window.Swiper === "undefined") return;
+
+  const isRTL = document.documentElement.dir === "rtl";
+
+  const thumbsSwiper = new window.Swiper("#gallery-thumbs", {
+    spaceBetween: 10,
+    slidesPerView: 5,
+    freeMode: true,
+    watchSlidesProgress: true,
+    breakpoints: {
+      0: { slidesPerView: 4, spaceBetween: 8 },
+      640: { slidesPerView: 5, spaceBetween: 10 },
+    },
+  });
+
+  new window.Swiper("#gallery-main", {
+    spaceBetween: 12,
+    slidesPerView: 1,
+    speed: 500,
+    rtl: isRTL,
+    keyboard: { enabled: true },
     loop: images.length > 1,
-    autoplay:
-      images.length > 1 ? { delay: 5500, disableOnInteraction: false } : false,
-    effect: "fade",
-    fadeEffect: { crossFade: true },
-    speed: 1200,
     navigation: {
-      nextEl: ".pd-hero__btn--next",
-      prevEl: ".pd-hero__btn--prev",
+      nextEl: "#gallery-main-next",
+      prevEl: "#gallery-main-prev",
     },
-    pagination: {
-      el: ".pd-hero__pagination",
-      clickable: true,
-    },
+    thumbs: { swiper: thumbsSwiper },
   });
 }
 
 function initSimilarSwiper(currentProperty) {
-  const similar = properties
-    .filter((p) => p.type === currentProperty.type)
-    .slice(0, 6);
+  const others = properties.filter((p) => p.id !== currentProperty.id);
+  const sameType = others.filter((p) => p.type === currentProperty.type);
+  const otherType = others.filter((p) => p.type !== currentProperty.type);
+  const similar = [...sameType, ...otherType].slice(0, 6);
 
   const section = document.querySelector("#similar-section");
   if (!similar.length) {
@@ -388,7 +413,10 @@ function initSimilarSwiper(currentProperty) {
 
 function initStickyBar() {
   const stickyBar = document.querySelector("#pd-sticky");
-  const hero = document.querySelector("#pd-hero");
+  const target =
+    document.querySelector("#pd-gallery-info") ||
+    document.querySelector("#pd-intro");
+  if (!target) return;
 
   const observer = new IntersectionObserver(
     ([entry]) => {
@@ -398,7 +426,7 @@ function initStickyBar() {
     },
     { threshold: 0.05 },
   );
-  observer.observe(hero);
+  observer.observe(target);
 }
 
 // ── Actions ───────────────────────────────────────────────────────
@@ -428,7 +456,7 @@ function openViewingModal(propertyName) {
 function bindActions(property) {
   document.addEventListener("click", (e) => {
     if (
-      e.target.closest("#hero-schedule-btn") ||
+      e.target.closest("#quick-info-cta") ||
       e.target.closest("#sticky-schedule-btn")
     ) {
       openViewingModal(property.name);

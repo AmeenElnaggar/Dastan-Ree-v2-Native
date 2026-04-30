@@ -48,28 +48,47 @@
   <body class="font-sans bg-white text-gray-900">
     <div id="navbar-root"></div>
 
-    <!-- ── Cinematic Hero ─────────────────────────────────────────── -->
-    <section class="pd-hero" id="pd-hero">
-      <div class="swiper pd-hero__swiper" id="hero-swiper">
-        <div class="swiper-wrapper" id="hero-slides"></div>
-        <div class="swiper-button-prev pd-hero__btn pd-hero__btn--prev"></div>
-        <div class="swiper-button-next pd-hero__btn pd-hero__btn--next"></div>
-        <div class="swiper-pagination pd-hero__pagination"></div>
-      </div>
-      <div class="pd-hero__overlay"></div>
-      <!-- ── Stats Ribbon (integrated inside hero) ─────────────────── -->
-      <section class="pd-stats pd-hero__stats" aria-label="Property statistics">
-        <div class="pd-stats__grid" id="stats-grid"></div>
-      </section>
-      <div class="pd-hero__content">
-        <div class="pd-hero__bottom">
-          <div class="pd-hero__info">
-            <span class="pd-hero__badge" id="hero-badge"></span>
-            <h1 class="pd-hero__title" id="hero-title"></h1>
-            <p class="pd-hero__location" id="hero-location"></p>
-          </div>
-          <div class="pd-hero__price-card" id="hero-price-card"></div>
+    <!-- ── Intro Banner ────────────────────────────────────────────── -->
+    <section class="pd-intro" id="pd-intro">
+      <div class="pd-intro__inner">
+        <span class="pd-intro__badge" id="intro-badge"></span>
+        <div class="pd-intro__title-row">
+          <img class="pd-intro__logo" id="intro-logo" src="" alt="" />
+          <h1 class="pd-intro__title" id="intro-title"></h1>
         </div>
+        <p class="pd-intro__desc" id="intro-desc"></p>
+        <p class="pd-intro__location" id="intro-location"></p>
+      </div>
+    </section>
+
+    <!-- ── Gallery (9 cols) + Quick Info (3 cols) ──────────────────── -->
+    <section class="pd-gallery-info" id="pd-gallery-info">
+      <div class="pd-gallery-info__inner">
+        <div class="pd-gallery-info__gallery">
+          <div class="swiper pd-gallery-main" id="gallery-main">
+            <div class="swiper-wrapper" id="gallery-main-slides"></div>
+            <button
+              class="pd-gallery-main__nav pd-gallery-main__nav--prev"
+              id="gallery-main-prev"
+              type="button"
+              aria-label="Previous image">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button
+              class="pd-gallery-main__nav pd-gallery-main__nav--next"
+              id="gallery-main-next"
+              type="button"
+              aria-label="Next image">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="swiper pd-gallery-thumbs" id="gallery-thumbs">
+            <div class="swiper-wrapper" id="gallery-thumb-slides"></div>
+          </div>
+        </div>
+        <aside class="pd-gallery-info__quick">
+          <div class="pd-quick-info" id="quick-info"></div>
+        </aside>
       </div>
     </section>
 
@@ -93,7 +112,21 @@
           <!-- About -->
           <section class="pd-section" id="about-section">
             <h2 class="pd-section-title">About This Property</h2>
-            <div class="pd-about-body" id="about-body"></div>
+            <div class="pd-about-body">
+              <div class="pd-about__main">
+                <p class="pd-about__text is-clamped" id="about-text"></p>
+                <button
+                  class="pd-about__readmore"
+                  id="about-readmore"
+                  type="button"
+                  aria-expanded="false"
+                  hidden>
+                  <span class="pd-about__readmore-label">Read More</span>
+                  <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="pd-developer-card" id="developer-card"></div>
+            </div>
           </section>
 
           <!-- Amenities -->
@@ -152,7 +185,6 @@
 
         <!-- Sidebar -->
         <aside class="pd-sidebar" id="pd-sidebar">
-          <div class="pd-quick-facts" id="quick-facts"></div>
           <div class="pd-contact-form-card" id="contact-form-card"></div>
         </aside>
       </div>
