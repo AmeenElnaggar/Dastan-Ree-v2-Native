@@ -1,21 +1,25 @@
-/* ===== Blog Card — Editorial Luxury ===== */
+/* ===== Blog Card ===== */
 
 .blog-card {
+  background: #fff;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  background: #fff;
-  box-shadow:
-    0 20px 40px -15px rgba(0, 0, 0, 0.05),
-    0 1px 3px rgba(0, 0, 0, 0.02);
-  overflow: hidden;
+  transition: box-shadow var(--transition-base);
 }
 
-/* ---- Image ---- */
-.blog-card__image {
+.blog-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Image */
+.blog-card__image-wrap {
   position: relative;
+  height: 220px;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
 }
 
 .blog-card__img {
@@ -23,47 +27,34 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .blog-card:hover .blog-card__img {
-  transform: scale(1.1);
+  transform: scale(1.06);
 }
 
-/* ---- Overlay ---- */
-.blog-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  transition: background 0.4s ease;
-  pointer-events: none;
-}
-
-.blog-card:hover .blog-card__overlay {
-  background: rgba(0, 0, 0, 0.12);
-}
-
-/* ---- Date Badge ---- */
+/* Date badge */
 .blog-card__date-badge {
   position: absolute;
-  top: 16px;
-  inset-inline-start: 16px;
+  top: 0.875rem;
+  inset-inline-start: 0.875rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  padding: 8px 4px;
+  width: 48px;
+  padding: 7px 4px;
   background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  border-radius: 6px;
   z-index: 2;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .blog-card__date-day {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #0f172a;
   line-height: 1;
@@ -73,100 +64,94 @@
 .blog-card__date-month {
   font-size: 0.6rem;
   font-weight: 600;
-  color: #b68c2f;
+  color: var(--color-gold, #f59e0b);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-top: 3px;
 }
 
-/* ---- Content ---- */
-.blog-card__content {
-  padding: 22px 24px 24px;
+/* Body */
+.blog-card__body {
+  padding: 1.125rem 1.25rem 1.25rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex: 1;
+  gap: 0.375rem;
 }
 
-/* ---- Category ---- */
+/* Category pill */
 .blog-card__category {
   display: inline-block;
   align-self: flex-start;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: #fff;
-  background: #333;
-  border: 1px solid #333;
-  padding: 4px 10px;
-  border-radius: 3px;
+  color: #0a1e77;
+  background: rgba(10, 30, 119, 0.08);
+  padding: 0.2rem 0.625rem;
+  border-radius: 999px;
+  margin-bottom: 0.125rem;
 }
 
-/* ---- Title ---- */
+/* Title */
 .blog-card__title {
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #0f172a;
-  line-height: 1.4;
+  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gray-800, #1f2937);
+  line-height: 1.35;
+  margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin: 0;
-  font-family: var(--font-display, "Playfair Display", Georgia, serif);
 }
 
-/* ---- Excerpt — hidden on mobile, visible md+ ---- */
+/* Excerpt */
 .blog-card__excerpt {
-  font-size: 0.875rem;
-  color: #64748b;
-  line-height: 1.65;
-  display: none;
+  font-size: 0.8125rem;
+  color: var(--color-gray-500, #6b7280);
+  line-height: 1.6;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-@media (min-width: 768px) {
-  .blog-card__excerpt {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-}
-
-/* ---- Footer ---- */
+/* Footer */
 .blog-card__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.875rem;
   margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--color-gray-200, #e5e7eb);
 }
 
-/* ---- Read Time ---- */
+/* Read time */
 .blog-card__read-time {
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.75rem;
-  color: #94a3b8;
+  font-size: 0.8rem;
+  color: var(--color-gray-500, #6b7280);
   font-weight: 500;
 }
 
-/* ---- CTA ---- */
+/* CTA link */
 .blog-card__cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #333;
+  color: #0a1e77;
+  text-decoration: none;
   letter-spacing: 0.03em;
-  transition:
-    gap 0.25s ease,
-    color 0.25s ease;
+  transition: gap var(--transition-fast), color var(--transition-fast);
 }
 
 .blog-card__cta span {
@@ -185,7 +170,7 @@
 }
 
 .blog-card:hover .blog-card__cta {
-  color: #000;
+  color: var(--color-gold, #f59e0b);
   gap: 10px;
 }
 

@@ -1,105 +1,52 @@
-export function renderProjectCard(project) {
-  const {
-    id,
-    name,
-    location,
-    developer,
-    developerLogo,
-    units,
-    type,
-    image,
-    description,
-    shortDescription,
-  } = project;
-  const detailsUrl = `../../pages/project-details/index.html?id=${id}`;
-  const typeLabel = type || "Residential";
+import { formatPrice } from "../../../utils/format.js";
 
-  const badgeHtml = developerLogo
-    ? `<div class="project-card__badge">
-        <img src="${developerLogo}" alt="${developer}" class="project-card__badge-logo" />
-       </div>`
-    : developer
-      ? `<div class="project-card__badge project-card__badge--text">${developer}</div>`
-      : "";
+export function renderProjectCard(project) {
+  const { id, name, location, developer, image, price, deliveryDate, status } = project;
+  const detailsUrl = `../../pages/project-details/index.html?id=${id}`;
+
+  const developerBadge = developer
+    ? `<div class="project-card__developer">${developer}</div>`
+    : "";
+
+  const statusBadge = status
+    ? `<div class="project-card__status">${status}</div>`
+    : "";
+
+  const locationPin = `<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+
+  const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+
+  const metaHtml = (location || deliveryDate)
+    ? `<div class="project-card__meta">
+        ${location ? `<div class="project-card__location">${locationPin}${location}</div>` : ""}
+        ${deliveryDate ? `<div class="project-card__delivery">${calendarIcon}${deliveryDate}</div>` : ""}
+      </div>`
+    : "";
+
+  const priceHtml = price
+    ? `<div class="project-card__price">
+        <span class="project-card__price-from">Starting from</span>
+        <span class="project-card__price-value">${formatPrice(price)}</span>
+      </div>`
+    : `<div></div>`;
 
   return `
-    <a href="#"  data-id="${id}">
-      <div class="relative w-96 h-[28rem] group cursor-pointer">
-
-  <!-- Main D-shaped card -->
-  <div
-    class="absolute inset-0 bg-white translate-x-2 -translate-y-2 transition-all duration-300 group-hover:translate-x-0 group-hover:translate-y-0"
-    style="clip-path: polygon(0 0, 70% 0, 100% 12%, 100% 88%, 70% 100%, 0 100%);"
-  >
-
-    <!-- Image section -->
-    <div class="relative h-3/5 overflow-hidden">
-
-      <img
-        src="../${image}"
-        alt="Luxury Project"
-        class="w-full h-full object-cover scale-105 brightness-110 transition-all duration-700 group-hover:scale-100 group-hover:brightness-100"
-      />
-
-      <!-- Gradient overlay -->
-      <div class="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/30"></div>
-
-      <!-- Category badge -->
-      <div class="absolute top-6 left-6">
-        <div
-          class="bg-black text-white px-4 py-2 text-sm"
-          style="clip-path: polygon(0 0, 90% 0, 100% 30%, 100% 100%, 0 100%);"
-        >
-          ${typeLabel}
+    <a href="${detailsUrl}" class="project-card" data-id="${id}">
+      <img class="project-card__img" src="../${image}" alt="${name}" loading="lazy" />
+      <div class="project-card__gradient"></div>
+      ${developerBadge}
+      ${statusBadge}
+      <div class="project-card__body">
+        <h3 class="project-card__title">${name}</h3>
+        ${metaHtml}
+        <div class="project-card__divider"></div>
+        <div class="project-card__footer">
+          ${priceHtml}
+          <span class="project-card__cta" aria-label="View ${name}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
         </div>
       </div>
-
-    </div>
-
-    <!-- Content section -->
-    <div class="h-2/5 bg-white p-6 flex flex-col justify-between">
-
-      <div>
-        <h3 class="text-black text-2xl mb-3 font-semibold">
-          ${name}
-        </h3>
-
-        <p class="text-gray-600 text-sm leading-relaxed line-clamp-2">
-          ${shortDescription}
-        </p>
-      </div>
-
-      <!-- Arrow indicator -->
-      <div class="flex items-center gap-4 text-black transition-all duration-300 group-hover:gap-2">
-
-        <span class="text-sm tracking-wider">
-          VIEW PROJECT
-        </span>
-
-        <div
-          class="w-12 h-[2px] bg-black transition-all duration-300 group-hover:w-8"
-          style="clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);"
-        ></div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- Shadow layer -->
-  <div
-    class="absolute inset-0 bg-black/10 -z-10"
-    style="clip-path: polygon(0 0, 70% 0, 100% 12%, 100% 88%, 70% 100%, 0 100%);"
-  ></div>
-
-  <!-- Accent border -->
-  <div
-    class="absolute inset-0 border-4 border-black/40 pointer-events-none transition-all duration-300 group-hover:border-black/20"
-    style="clip-path: polygon(0 0, 70% 0, 100% 12%, 100% 88%, 70% 100%, 0 100%);"
-  ></div>
-
-</div>
     </a>
   `;
 }

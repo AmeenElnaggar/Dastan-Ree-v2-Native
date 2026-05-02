@@ -9,12 +9,14 @@ import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
 import { renderLocations } from "../../shared/components/locations/Locations.js";
 import { initSplash } from "../splash-screen/splash-screen.js";
+import { renderFilterBanner } from "../../shared/components/filter-banner/FilterBanner.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initSplash();
   renderNavbar("#navbar-root", { transparent: true });
   renderFooter("#footer-root");
   initHeroSlider("#hero-slider-root");
+  renderFilterBanner("#filter-banner-root");
   initFeaturedSlider("#featured-slider-root");
   initPartnersSlider("#partners-slider-root");
   initPropertiesSlider("#properties-slider-root");

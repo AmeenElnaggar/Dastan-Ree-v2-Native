@@ -20,8 +20,7 @@ function applyLang(lang) {
   document.documentElement.dir = lang === "AR" ? "rtl" : "ltr";
 }
 
-const PHONE_ICON = `
-  <svg _ngcontent-ng-c2431689971="" fill="#fff" height="24px" width="24px" version="1.1" viewBox="0 0 490 490"><g _ngcontent-ng-c2431689971=""><path _ngcontent-ng-c2431689971="" d="M465.45,204.248C456.781,90.169,361.179,0,244.917,0C128.656,0,33.063,90.169,24.394,204.248 c-0.407,1.104-0.641,117.413-0.641,117.413c0,5.644,4.566,10.209,10.208,10.209h31.463c25.191,0,45.678-20.486,45.678-45.679 v-42.936c0-25.192-20.487-45.679-45.678-45.679H45.562C57.275,97.957,142.2,20.417,244.917,20.417 c102.717,0,187.651,77.54,199.364,177.161h-19.861c-25.192,0-45.688,20.486-45.688,45.679v42.936 c0,25.192,20.496,45.679,45.688,45.679h19.408c-3.457,22.314-12.247,51.467-33.944,75.357 c-25.205,27.745-62.73,42.822-111.637,44.896c-1.773-15.345-14.841-27.301-30.652-27.301h-37.873 c-17.017,0-30.864,13.846-30.864,30.863c0,1.725-1.462,32.834,30.864,34.315h37.873c12.171,0,22.719-7.087,27.74-17.353 c56.378-1.659,99.981-19.025,129.662-51.693c28.352-31.215,38.326-69.321,41.093-95.362 C466.597,324.381,465.732,205.01,465.45,204.248z M65.424,217.994c13.926,0,25.262,11.334,25.262,25.262v42.936 c0,13.928-11.335,25.262-25.262,25.262H44.17c0,0,0.024-92.403,0.04-93.459H65.424z M267.597,469.583h-37.873 c-5.763,0-11.54-5.099-10.447-13.898c0.71-5.718,3.863-10.447,10.447-10.447h37.873c6.763,0,9.871,4.715,10.447,10.447 C278.991,465.106,273.359,469.583,267.597,469.583z M424.421,311.453c-13.938,0-25.272-11.334-25.272-25.262v-42.936 c0-13.928,11.334-25.262,25.272-25.262h21.213c0.017,1.056,0.04,93.459,0.04,93.459H424.421z"></path></g></svg>`;
+const PHONE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
 
 /**
  * Injects the navbar into the given selector.
@@ -90,9 +89,9 @@ export function renderNavbar(selector, options = {}) {
 
           ${langBtn}
 
-          <a href="tel:19220" class="navbar__phone">
+          <a href="tel:+20224000000" class="navbar__phone">
             ${PHONE_ICON}
-            <span>19220</span>
+            <span>+20 224 000 000</span>
           </a>
 
           <button class="navbar__hamburger" id="hamburger-btn" aria-label="Toggle mobile menu" aria-expanded="false">
@@ -106,9 +105,9 @@ export function renderNavbar(selector, options = {}) {
       <nav class="navbar__mobile" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
         ${NAV_LINKS.map((link) => `<a href="${link.href}" class="navbar__mobile-link">${link.label}</a>`).join("")}
         <div class="navbar__mobile-footer">
-          <a href="tel:19220" class="navbar__phone">
+          <a href="tel:+20224000000" class="navbar__phone">
             ${PHONE_ICON}
-            <span>19220</span>
+            <span>+20 224 000 000</span>
           </a>
           ${langBtn}
         </div>

@@ -1,236 +1,241 @@
-/* ===== Property Card — Digital Luxury Brochure ===== */
+/* ===== Property Card ===== */
 
 .property-card {
+  background: #fff;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-radius: 24px;
-  text-decoration: none;
-  background: #fff;
-  box-shadow:
-    0 20px 40px -15px rgba(0, 0, 0, 0.05),
-    0 1px 3px rgba(0, 0, 0, 0.02);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+  cursor: default;
 }
 
 .property-card:hover {
-  transform: scale(1.01);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
 }
 
-/* ---- Visual Layer: inset image ---- */
-.property-card__visual {
-  position: relative;
-  padding: 12px 12px 0;
-}
-
+/* Image */
 .property-card__image-wrap {
   position: relative;
+  height: 220px;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.property-card__img-link {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .property-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   display: block;
-  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Ken Burns zoom */
 .property-card:hover .property-card__img {
-  transform: scale(1.1);
+  transform: scale(1.06);
 }
 
-/* ---- Hover overlay ---- */
-.property-card__overlay {
+/* Status badge (top-left) */
+.property-card__purpose {
   position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  transition: background 0.4s ease;
-  pointer-events: none;
-}
-
-.property-card:hover .property-card__overlay {
-  background: rgba(0, 0, 0, 0.12);
-}
-
-/* ---- Status badge (floating) ---- */
-.property-card__badge {
-  position: absolute;
-  inset-block-start: 24px;
-  inset-inline-start: 24px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #0f172a;
-  font-size: 0.65rem;
+  top: 0.875rem;
+  inset-inline-start: 0.875rem;
+  z-index: 2;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 20px;
-  z-index: 2;
+  color: #fff;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-/* ---- Favorite button ---- */
-.property-card__favorite {
+/* Featured badge (top-right) */
+.property-card__featured {
   position: absolute;
-  inset-block-start: 24px;
-  inset-inline-end: 24px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.25);
+  top: 0.875rem;
+  inset-inline-end: 0.875rem;
+  z-index: 2;
+  background: rgba(6, 14, 46, 0.72);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  z-index: 2;
-  transition:
-    background 0.25s ease,
-    color 0.25s ease;
+  color: var(--color-gold);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.3rem 0.625rem;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 158, 11, 0.35);
 }
 
-.property-card__favorite:hover {
-  background: #fff;
-  color: #e11d48;
-}
-
-/* ---- Content section ---- */
-.property-card__content {
-  position: relative;
-  padding-block: 16px 20px;
-  padding-inline: 20px;
+/* Body */
+.property-card__body {
+  padding: 1.125rem 1.25rem 1.25rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.375rem;
 }
 
-.property-card__content ::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  right: 10px;
-  bottom: 10px;
-  background-image: url("../../../assets/images/logo-pattern.png");
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: 35px auto;
-  opacity: 0.1;
-  filter: opacity(0.5);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ---- Price (Primary) ---- */
-.property-card__price {
-  display: flex;
-  align-items: baseline;
-  gap: 5px;
-  line-height: 1.2;
-}
-
-.property-card__currency {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: #64748b;
-  letter-spacing: 0.05em;
-}
-
-.property-card__amount {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.03em;
-}
-
-/* ---- Title (Secondary) ---- */
-.property-card__title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #0f172a;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3;
-}
-
-/* ---- Location (Tertiary) ---- */
-.property-card__location {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.8rem;
-  color: #64748b;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ---- Meta row ---- */
-.property-card__meta {
-  display: flex;
-  gap: 14px;
-  padding-block: 10px 4px;
-  border-top: 1px solid #f1f5f9;
-  margin-block-start: 4px;
-}
-
-.property-card__meta-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.75rem;
-  color: #64748b;
+/* Type pill */
+.property-card__type {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.6rem;
   font-weight: 700;
-  transition: color 0.2s ease;
-}
-
-.property-card__meta-item:hover {
-  color: #f59e0b;
-}
-
-.property-card__meta-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
+  color: #0a1e77;
+  background: rgba(10, 30, 119, 0.08);
+  padding: 0.2rem 0.625rem;
+  border-radius: 999px;
+  margin-bottom: 0.125rem;
 }
 
-/* ---- Footer: CTA ---- */
+/* Title */
+.property-card__title {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.property-card__title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.property-card__title-link:hover {
+  color: #0a1e77;
+}
+
+/* Location */
+.property-card__location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--color-gray-500);
+}
+
+/* Specs row */
+.property-card__specs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--color-gray-200);
+  margin-top: auto;
+}
+
+.property-card__spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--color-gray-700);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.property-card__spec-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-gray-400);
+  flex-shrink: 0;
+}
+
+/* Footer */
 .property-card__footer {
   display: flex;
   align-items: center;
-  gap: 3px;
-  margin-block-start: 6px;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.875rem;
 }
 
-.property-card__cta {
-  font-size: 0.8125rem;
+/* Price */
+.property-card__price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.property-card__price-label {
+  font-size: 0.6rem;
   font-weight: 600;
-  color: #0ea5e9;
-  letter-spacing: 0.03em;
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
-  display: inline-block;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
 }
 
-.property-card__cta-arrow {
-  color: #0ea5e9;
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
-  display: block;
+.property-card__price-value {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0a1e77;
+  line-height: 1.1;
 }
 
-.property-card:hover .property-card__cta,
-.property-card:hover .property-card__cta-arrow {
-  color: #0284c7;
-  transform: translateX(3px);
+/* CTA button */
+.property-card__cta {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #0a1e77;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  border: 2px solid #0a1e77;
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.property-card:hover .property-card__cta {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  transform: scale(1.1);
+}
+
+[dir="rtl"] .property-card__cta svg {
+  transform: scaleX(-1);
+}
+
+/* Entry animation */
+.property-card-enter {
+  animation: cardIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

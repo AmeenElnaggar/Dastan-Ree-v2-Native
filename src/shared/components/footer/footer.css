@@ -189,6 +189,36 @@
   flex-shrink: 0;
 }
 
+/* Phones row — icon centered between two stacked links */
+.footer__phones {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.footer__phones .footer__contact-icon {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.footer__phones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.footer__phones-list a {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+
+.footer__phones-list a:hover {
+  color: #fff;
+}
+
 /* ── Bottom Bar ── */
 .footer__bottom {
   position: relative;
