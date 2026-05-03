@@ -51,7 +51,6 @@
       rel="stylesheet"
       href="../../../src/shared/components/locations/locations.css" />
 
-    <link rel="stylesheet" href="../splash-screen/splash-screen.css" />
     <link rel="stylesheet" href="home.css" />
     <script>
       history.scrollRestoration = "manual";
@@ -61,8 +60,17 @@
     <script src="../../../tailwind.config.js"></script>
   </head>
   <body class="font-sans bg-white text-gray-900">
-    <!-- Splash Screen (markup loaded from src/pages/splash-screen/index.html) -->
-    <div class="splash" id="splash-root"></div>
+    <!-- Splash Screen -->
+    <div class="splash" id="splash-root">
+      <video
+        class="splash__video"
+        id="splash-video"
+        src="../../assets/videos/splash.mp4"
+        autoplay
+        muted
+        playsinline
+        preload="auto"></video>
+    </div>
 
     <!-- Navbar -->
     <div id="navbar-root"></div>

@@ -8,7 +8,6 @@ import { renderPropertyCard } from "../../shared/components/property-card/Proper
 import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
 import { renderLocations } from "../../shared/components/locations/Locations.js";
-import { initSplash } from "../splash-screen/splash-screen.js";
 import { renderFilterBanner } from "../../shared/components/filter-banner/FilterBanner.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,6 +35,39 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   document.querySelectorAll(".fade-up, .why-choose-us__feature").forEach((el) => fadeObs.observe(el));
 });
+
+/* ==========================================
+   SPLASH SCREEN — visibility only.
+   Hides the splash when the video ends, errors,
+   or after 6s as a safety fallback.
+   ========================================== */
+function initSplash() {
+  const splash = document.getElementById("splash-root");
+  if (!splash) return;
+
+  const video = document.getElementById("splash-video");
+  document.body.classList.add("splash-active");
+
+  let dismissed = false;
+  function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
+    splash.classList.add("splash--done");
+    setTimeout(() => {
+      document.body.classList.remove("splash-active");
+      splash.remove();
+    }, 600);
+  }
+
+  if (video) {
+    video.addEventListener("ended", dismiss);
+    video.addEventListener("error", dismiss);
+    const p = video.play();
+    if (p && typeof p.catch === "function") p.catch(dismiss);
+  }
+
+  setTimeout(dismiss, 6000);
+}
 
 function initPropertiesSlider(selector) {
   const root = document.querySelector(selector);
