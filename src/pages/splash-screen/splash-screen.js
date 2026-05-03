@@ -1,23 +1,25 @@
 /* ==========================================
    SPLASH SCREEN — video-driven dismissal
-   Exits when the video ends, with a 6s safety fallback.
+   Builds the <video> in JS so there's no fragment fetch
+   to fail silently on the host. Falls back to a 6s timeout.
    ========================================== */
-export async function initSplash(rootSelector = "#splash-root") {
+export function initSplash(rootSelector = "#splash-root") {
   var splash = document.querySelector(rootSelector);
   if (!splash) return;
 
-  // Anchor fragment + video URLs to this module so paths resolve
-  // independently of which page mounts the splash.
-  try {
-    var fragmentUrl = new URL("./index.html", import.meta.url);
-    var res = await fetch(fragmentUrl);
-    if (res.ok) splash.innerHTML = await res.text();
-  } catch (_) {}
-
-  var video = document.getElementById("splash-video");
-  if (video) {
-    video.src = new URL("../../assets/videos/splash.mp4", import.meta.url).href;
-  }
+  var video = document.createElement("video");
+  video.id = "splash-video";
+  video.className = "splash__video";
+  video.autoplay = true;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute("playsinline", "");
+  video.setAttribute("muted", "");
+  video.preload = "auto";
+  // Anchor video URL to this module so cPanel deploys resolve it predictably.
+  video.src = new URL("../../assets/videos/splash.mp4", import.meta.url).href;
+  splash.appendChild(video);
 
   document.body.classList.add("splash-active");
 
@@ -32,13 +34,18 @@ export async function initSplash(rootSelector = "#splash-root") {
     }, 600);
   }
 
-  if (video) {
-    video.addEventListener("ended", dismiss);
-    video.addEventListener("error", dismiss);
-    var playAttempt = video.play();
-    if (playAttempt && typeof playAttempt.catch === "function") {
-      playAttempt.catch(dismiss);
-    }
+  video.addEventListener("ended", dismiss);
+  video.addEventListener("error", function () {
+    console.warn("[splash] video failed:", video.error, "src=", video.currentSrc);
+    dismiss();
+  });
+
+  var playAttempt = video.play();
+  if (playAttempt && typeof playAttempt.catch === "function") {
+    playAttempt.catch(function (err) {
+      console.warn("[splash] play() rejected:", err);
+      dismiss();
+    });
   }
 
   setTimeout(dismiss, 6000);
