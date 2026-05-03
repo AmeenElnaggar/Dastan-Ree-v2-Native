@@ -98,7 +98,7 @@
 }
 
 .property-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 900;
   line-height: 1.2;
   color: #111827;
@@ -221,7 +221,7 @@
 
 .property-gallery-hero {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 1;
   background: #f3f4f6;
   border-radius: 8px;
   overflow: hidden;
@@ -237,8 +237,9 @@
 .property-gallery-thumbs {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 0.75rem;
-  margin-top: 0.75rem;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  max-width: 720px;
 }
 
 .property-gallery-thumb {
@@ -248,7 +249,7 @@
   overflow: hidden;
   background: none;
   cursor: pointer;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 21 / 9;
   transition:
     border-color 0.2s,
     transform 0.2s;
@@ -637,7 +638,7 @@
   }
 
   .property-title {
-    font-size: 1.6rem;
+    font-size: 1.25rem;
   }
 
   .property-gallery-thumbs {

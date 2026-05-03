@@ -57,8 +57,27 @@ function renderProperty(p) {
 
   // Sticky bar values
   document.querySelector("#sticky-name").textContent = p.name;
+
+  const statusEl = document.querySelector("#sticky-status");
+  if (p.status) {
+    statusEl.textContent = p.status;
+    statusEl.hidden = false;
+  }
+
+  const featuredEl = document.querySelector("#sticky-featured");
+  if (p.featured) featuredEl.hidden = false;
+
+  document.querySelector("#sticky-location").innerHTML = p.location
+    ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${p.location}</span>`
+    : "";
+
   document.querySelector("#sticky-price").textContent =
     `EGP ${formatNumber(p.price)}`;
+
+  const subEl = document.querySelector("#sticky-price-sub");
+  if (p.area) {
+    subEl.textContent = `EGP ${formatNumber(Math.round(p.price / p.area))} / m²`;
+  }
 }
 
 function renderIntro(p) {
@@ -371,7 +390,78 @@ function initGallerySwipers(p) {
       prevEl: "#gallery-main-prev",
     },
     thumbs: { swiper: thumbsSwiper },
+    on: {
+      click: (swiper, event) => {
+        if (event.target.closest(".pd-gallery-main__nav")) return;
+        openLightbox(images, swiper.realIndex, p.name);
+      },
+    },
   });
+}
+
+function openLightbox(images, startIndex, alt = "") {
+  let index = Math.max(0, Math.min(startIndex, images.length - 1));
+
+  const overlay = document.createElement("div");
+  overlay.className = "pd-lightbox";
+  overlay.innerHTML = `
+    <button class="pd-lightbox__close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <button class="pd-lightbox__nav pd-lightbox__nav--prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+    <img class="pd-lightbox__img" src="${images[index]}" alt="${alt}" />
+    <button class="pd-lightbox__nav pd-lightbox__nav--next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+    <span class="pd-lightbox__counter"></span>
+  `;
+
+  document.body.appendChild(overlay);
+  document.body.style.overflow = "hidden";
+
+  const imgEl = overlay.querySelector(".pd-lightbox__img");
+  const counter = overlay.querySelector(".pd-lightbox__counter");
+  const prevBtn = overlay.querySelector(".pd-lightbox__nav--prev");
+  const nextBtn = overlay.querySelector(".pd-lightbox__nav--next");
+
+  if (images.length <= 1) {
+    prevBtn.style.display = "none";
+    nextBtn.style.display = "none";
+    counter.style.display = "none";
+  }
+
+  const update = () => {
+    imgEl.src = images[index];
+    counter.textContent = `${index + 1} / ${images.length}`;
+  };
+  const go = (delta) => {
+    index = (index + delta + images.length) % images.length;
+    update();
+  };
+  const close = () => {
+    overlay.classList.remove("pd-lightbox--visible");
+    document.removeEventListener("keydown", onKey);
+    overlay.addEventListener(
+      "transitionend",
+      () => {
+        overlay.remove();
+        document.body.style.overflow = "";
+      },
+      { once: true },
+    );
+  };
+  const onKey = (e) => {
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowRight") go(1);
+    else if (e.key === "ArrowLeft") go(-1);
+  };
+
+  overlay.querySelector(".pd-lightbox__close").addEventListener("click", close);
+  prevBtn.addEventListener("click", () => go(-1));
+  nextBtn.addEventListener("click", () => go(1));
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) close();
+  });
+  document.addEventListener("keydown", onKey);
+
+  update();
+  requestAnimationFrame(() => overlay.classList.add("pd-lightbox--visible"));
 }
 
 function initSimilarSwiper(currentProperty) {
@@ -412,21 +502,60 @@ function initSimilarSwiper(currentProperty) {
 // ── Sticky Bar ────────────────────────────────────────────────────
 
 function initStickyBar() {
-  const stickyBar = document.querySelector("#pd-sticky");
-  const target =
+  const bar = document.querySelector("#propStickyBar");
+  const trigger =
     document.querySelector("#pd-gallery-info") ||
     document.querySelector("#pd-intro");
-  if (!target) return;
+  const progress = document.querySelector("#stickyProgress");
+  if (!bar || !trigger) return;
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      const visible = !entry.isIntersecting;
-      stickyBar.classList.toggle("pd-sticky--visible", visible);
-      stickyBar.setAttribute("aria-hidden", String(!visible));
-    },
-    { threshold: 0.05 },
-  );
-  observer.observe(target);
+  const NAV_OFFSET = 72;
+
+  const onScroll = () => {
+    const rect = trigger.getBoundingClientRect();
+    const visible = rect.bottom < NAV_OFFSET;
+    bar.classList.toggle("is-visible", visible);
+    if (visible) bar.removeAttribute("aria-hidden");
+    else bar.setAttribute("aria-hidden", "true");
+
+    if (progress) {
+      const scrolled = window.scrollY || document.documentElement.scrollTop;
+      const total = document.body.scrollHeight - window.innerHeight;
+      const pct = total > 0 ? Math.min((scrolled / total) * 100, 100) : 0;
+      progress.style.width = `${pct}%`;
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  const shareBtn = document.querySelector("#stickyShareBtn");
+  const saveBtn = document.querySelector("#stickySaveBtn");
+
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      const shareData = {
+        title: document.title,
+        url: window.location.href,
+      };
+      try {
+        if (navigator.share) await navigator.share(shareData);
+        else {
+          await navigator.clipboard.writeText(shareData.url);
+          shareBtn.title = "Link copied!";
+          setTimeout(() => (shareBtn.title = "Share"), 1500);
+        }
+      } catch (_) {
+        /* user cancelled */
+      }
+    });
+  }
+
+  if (saveBtn) {
+    saveBtn.addEventListener("click", () => {
+      saveBtn.classList.toggle("saved");
+    });
+  }
 }
 
 // ── Actions ───────────────────────────────────────────────────────
@@ -455,10 +584,7 @@ function openViewingModal(propertyName) {
 
 function bindActions(property) {
   document.addEventListener("click", (e) => {
-    if (
-      e.target.closest("#quick-info-cta") ||
-      e.target.closest("#sticky-schedule-btn")
-    ) {
+    if (e.target.closest("#quick-info-cta")) {
       openViewingModal(property.name);
     }
 

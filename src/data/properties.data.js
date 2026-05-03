@@ -2,10 +2,12 @@ export const properties = [
   {
     id: "luxe-001",
     name: "Sky Penthouse — Makadi Heights",
-    shortDescription: "A unique opportunity in the heart of the Red Sea Riviera, also known as the New El Gouna.",
+    shortDescription:
+      "A unique opportunity in the heart of the Red Sea Riviera, also known as the New El Gouna.",
     location: "Makadi Heights, Hurghada, Red Sea",
     developer: "Emaar Properties",
-    developerLogo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&h=100&fit=crop",
     type: "Penthouse",
     status: "Off-Plan",
     price: 4500000,
@@ -18,21 +20,33 @@ export const properties = [
     deliveryDate: "December 2027",
     finishingType: "Fully Finished",
     furnishingStatus: "Unfurnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
-    facilities: ["Infinity Pool", "Sky Lounge", "Private Elevator", "Smart Home System"],
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    facilities: [
+      "Infinity Pool",
+      "Sky Lounge",
+      "Private Elevator",
+      "Smart Home System",
+    ],
     purposeTypes: ["Residential", "Investment"],
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "4 Bedroom — 350 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "4 Bedroom — 350 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 27.2574,
     longitude: 33.8129,
-    description: "Experience the pinnacle of luxury in this high-rise marvel, featuring floor-to-ceiling windows and world-class amenities.",
+    description:
+      "Experience the pinnacle of luxury in this high-rise marvel, featuring floor-to-ceiling windows and world-class amenities. Experience the pinnacle of luxury in this high-rise marvel, featuring floor-to-ceiling windows and world-class amenities. Experience the pinnacle of luxury in this high-rise marvel, featuring floor-to-ceiling windows and world-class amenities. ",
     amenityIds: ["pool", "gym", "security", "concierge"],
     purpose: "sale",
     parking: true,
@@ -42,10 +56,12 @@ export const properties = [
   {
     id: "luxe-002",
     name: "Standalone Villa — Noor City",
-    shortDescription: "Exclusive gated villa nestled within Noor City's premium residential enclave.",
+    shortDescription:
+      "Exclusive gated villa nestled within Noor City's premium residential enclave.",
     location: "Noor City, New Cairo, EGY",
     developer: "Nakheel",
-    developerLogo: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=100&h=100&fit=crop",
     type: "Villa",
     status: "Available",
     price: 8200000,
@@ -58,21 +74,28 @@ export const properties = [
     deliveryDate: "Ready to Move",
     finishingType: "Ultra-Lux",
     furnishingStatus: "Fully Furnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Private Pool", "Home Cinema", "Wine Cellar", "4-Car Garage"],
     purposeTypes: ["Residential"],
-    image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "6 Bedroom — 850 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "6 Bedroom — 850 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.0502,
     longitude: 31.4234,
-    description: "A masterpiece of contemporary architecture offering unparalleled privacy and resort-style living.",
+    description:
+      "A masterpiece of contemporary architecture offering unparalleled privacy and resort-style living.",
     amenityIds: ["pool", "garden", "concierge", "parking", "security"],
     purpose: "sale",
     parking: true,
@@ -82,10 +105,12 @@ export const properties = [
   {
     id: "luxe-003",
     name: "Madinaty B8 Duplex",
-    shortDescription: "A sanctuary of peace integrated with lush green landscapes in Madinaty.",
+    shortDescription:
+      "A sanctuary of peace integrated with lush green landscapes in Madinaty.",
     location: "Madinaty, Cairo, EGY",
     developer: "Mountain View",
-    developerLogo: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop",
     type: "Duplex",
     status: "Under Construction",
     price: 3200000,
@@ -98,21 +123,33 @@ export const properties = [
     deliveryDate: "June 2026",
     finishingType: "Semi-Finished",
     furnishingStatus: "Unfurnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
-    facilities: ["Jogging Track", "Clubhouse", "Underground Parking", "Kids Area"],
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    facilities: [
+      "Jogging Track",
+      "Clubhouse",
+      "Underground Parking",
+      "Kids Area",
+    ],
     purposeTypes: ["Residential"],
-    image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "3 Bedroom — 210 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "3 Bedroom — 210 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.0131,
     longitude: 31.7201,
-    description: "Modern living meets nature. These residences offer spacious layouts and proximity to the new business district.",
+    description:
+      "Modern living meets nature. These residences offer spacious layouts and proximity to the new business district.",
     amenityIds: ["security", "gym", "parking", "garden"],
     purpose: "sale",
     parking: true,
@@ -122,10 +159,12 @@ export const properties = [
   {
     id: "luxe-004",
     name: "City Apartment — Noor City",
-    shortDescription: "Sophisticated urban living in the heart of Noor City's financial district.",
+    shortDescription:
+      "Sophisticated urban living in the heart of Noor City's financial district.",
     location: "Noor City, Cairo, EGY",
     developer: "Damac Properties",
-    developerLogo: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=100&h=100&fit=crop",
     type: "Apartment",
     status: "Ready",
     price: 1850000,
@@ -138,21 +177,28 @@ export const properties = [
     deliveryDate: "Immediate",
     finishingType: "Fully Finished",
     furnishingStatus: "Semi-Furnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Rooftop Pool", "Meeting Rooms", "Concierge Service", "Spa"],
     purposeTypes: ["Residential", "Commercial"],
-    image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "2 Bedroom — 135 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "2 Bedroom — 135 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.0502,
     longitude: 31.4234,
-    description: "Designed for the modern professional, combining convenience with high-end luxury finishes.",
+    description:
+      "Designed for the modern professional, combining convenience with high-end luxury finishes.",
     amenityIds: ["gym", "pool", "concierge", "parking"],
     purpose: "sale",
     parking: true,
@@ -162,10 +208,12 @@ export const properties = [
   {
     id: "luxe-005",
     name: "R3 Townhouse — New Capital",
-    shortDescription: "Spacious family townhouse surrounded by green parks and golf courses in the New Capital.",
+    shortDescription:
+      "Spacious family townhouse surrounded by green parks and golf courses in the New Capital.",
     location: "R3, New Capital, Cairo, EGY",
     developer: "SODIC",
-    developerLogo: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=100&h=100&fit=crop",
     type: "Townhouse",
     status: "Available",
     price: 5400000,
@@ -178,21 +226,33 @@ export const properties = [
     deliveryDate: "October 2025",
     finishingType: "Core & Shell",
     furnishingStatus: "Unfurnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
-    facilities: ["Golf Course", "Tennis Courts", "Boutique Retail", "International School"],
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    facilities: [
+      "Golf Course",
+      "Tennis Courts",
+      "Boutique Retail",
+      "International School",
+    ],
     purposeTypes: ["Residential"],
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "4 Bedroom — 280 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "4 Bedroom — 280 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.0444,
     longitude: 30.9876,
-    description: "The perfect family retreat offering a blend of modern design and open outdoor spaces.",
+    description:
+      "The perfect family retreat offering a blend of modern design and open outdoor spaces.",
     amenityIds: ["security", "parking", "garden", "gym"],
     purpose: "sale",
     parking: true,
@@ -202,10 +262,12 @@ export const properties = [
   {
     id: "luxe-006",
     name: "Apartment in Privado — Madinaty",
-    shortDescription: "Luxury boutique apartments with premium finishes in the heart of Madinaty.",
+    shortDescription:
+      "Luxury boutique apartments with premium finishes in the heart of Madinaty.",
     location: "Privado, Madinaty, Cairo, EGY",
     developer: "Hassan Allam Properties",
-    developerLogo: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=100&h=100&fit=crop",
     type: "Apartment",
     status: "Limited Units",
     price: 2100000,
@@ -218,21 +280,28 @@ export const properties = [
     deliveryDate: "Ready to Move",
     finishingType: "Fully Finished",
     furnishingStatus: "Fully Furnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Valet Parking", "Housekeeping", "Library", "Private Terrace"],
     purposeTypes: ["Residential", "Investment"],
-    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "2 Bedroom — 160 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "2 Bedroom — 160 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.0626,
     longitude: 31.7201,
-    description: "Boutique apartments delivering high-end lifestyle with panoramic views and concierge service.",
+    description:
+      "Boutique apartments delivering high-end lifestyle with panoramic views and concierge service.",
     amenityIds: ["parking", "security", "concierge", "pool"],
     purpose: "sale",
     parking: true,
@@ -242,10 +311,12 @@ export const properties = [
   {
     id: "luxe-007",
     name: "Sky Residence — New Cairo",
-    shortDescription: "Contemporary high-rise apartments with panoramic city views and premium finishes.",
+    shortDescription:
+      "Contemporary high-rise apartments with panoramic city views and premium finishes.",
     location: "Fifth Settlement, New Cairo, EGY",
     developer: "Emaar Misr",
-    developerLogo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&h=100&fit=crop",
     type: "Apartment",
     status: "Off-Plan",
     price: 2750000,
@@ -258,21 +329,28 @@ export const properties = [
     deliveryDate: "March 2027",
     finishingType: "Fully Finished",
     furnishingStatus: "Unfurnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Rooftop Garden", "Co-working Space", "Gym", "Kids Pool"],
     purposeTypes: ["Residential", "Investment"],
-    image: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "3 Bedroom — 175 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "3 Bedroom — 175 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.0271,
     longitude: 31.4634,
-    description: "Elevated city living with breathtaking skyline views and a full suite of resident amenities.",
+    description:
+      "Elevated city living with breathtaking skyline views and a full suite of resident amenities.",
     amenityIds: ["pool", "gym", "security", "parking"],
     purpose: "sale",
     parking: true,
@@ -282,10 +360,12 @@ export const properties = [
   {
     id: "luxe-008",
     name: "Palm Hills Villa",
-    shortDescription: "Elegant detached villa in a gated golf community with lush green surroundings.",
+    shortDescription:
+      "Elegant detached villa in a gated golf community with lush green surroundings.",
     location: "Palm Hills, 6th of October, EGY",
     developer: "Palm Hills Developments",
-    developerLogo: "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=100&h=100&fit=crop",
     type: "Villa",
     status: "Available",
     price: 12500000,
@@ -298,21 +378,28 @@ export const properties = [
     deliveryDate: "Ready to Move",
     finishingType: "Ultra-Lux",
     furnishingStatus: "Semi-Furnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Private Pool", "Golf Access", "Smart Home", "4-Car Garage"],
     purposeTypes: ["Residential"],
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "5 Bedroom — 650 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "5 Bedroom — 650 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 29.9668,
     longitude: 30.9358,
-    description: "A prestigious address offering unmatched privacy, lush golf course views, and bespoke interiors.",
+    description:
+      "A prestigious address offering unmatched privacy, lush golf course views, and bespoke interiors.",
     amenityIds: ["pool", "garden", "security", "parking", "gym"],
     purpose: "sale",
     parking: true,
@@ -322,10 +409,12 @@ export const properties = [
   {
     id: "luxe-009",
     name: "Seaview Penthouse — Ras El Hekma",
-    shortDescription: "Exclusive penthouse perched above the Mediterranean with 270-degree sea views.",
+    shortDescription:
+      "Exclusive penthouse perched above the Mediterranean with 270-degree sea views.",
     location: "Ras El Hekma, North Coast, EGY",
     developer: "Tatweer Misr",
-    developerLogo: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=100&h=100&fit=crop",
     type: "Penthouse",
     status: "Limited Units",
     price: 9800000,
@@ -338,21 +427,28 @@ export const properties = [
     deliveryDate: "August 2025",
     finishingType: "Fully Finished",
     furnishingStatus: "Fully Furnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Private Rooftop", "Marina Access", "Butler Service", "Spa"],
     purposeTypes: ["Residential", "Investment"],
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "4 Bedroom — 420 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "4 Bedroom — 420 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 31.0914,
     longitude: 27.7261,
-    description: "Unrivalled luxury on the Mediterranean coastline — the finest penthouse residence on the North Coast.",
+    description:
+      "Unrivalled luxury on the Mediterranean coastline — the finest penthouse residence on the North Coast.",
     amenityIds: ["beach", "pool", "concierge", "security", "gym"],
     purpose: "sale",
     parking: true,
@@ -362,10 +458,12 @@ export const properties = [
   {
     id: "luxe-010",
     name: "Zed East Tower Apartment",
-    shortDescription: "Smart city apartments designed for professionals in East Cairo's new hub.",
+    shortDescription:
+      "Smart city apartments designed for professionals in East Cairo's new hub.",
     location: "Zed East, New Cairo, EGY",
     developer: "Ora Developers",
-    developerLogo: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=100&h=100&fit=crop",
     type: "Apartment",
     status: "Under Construction",
     price: 1650000,
@@ -378,21 +476,33 @@ export const properties = [
     deliveryDate: "September 2026",
     finishingType: "Fully Finished",
     furnishingStatus: "Unfurnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
-    facilities: ["Smart Access", "Shared Workspaces", "Yoga Deck", "Retail Ground Floor"],
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    facilities: [
+      "Smart Access",
+      "Shared Workspaces",
+      "Yoga Deck",
+      "Retail Ground Floor",
+    ],
     purposeTypes: ["Residential", "Investment"],
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "1 Bedroom — 90 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "1 Bedroom — 90 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.0512,
     longitude: 31.5102,
-    description: "Contemporary compact living in the heart of New Cairo's fastest-growing smart district.",
+    description:
+      "Contemporary compact living in the heart of New Cairo's fastest-growing smart district.",
     amenityIds: ["gym", "security", "parking", "pool"],
     purpose: "rent",
     parking: true,
@@ -402,10 +512,12 @@ export const properties = [
   {
     id: "luxe-011",
     name: "Alburouj Townhouse",
-    shortDescription: "Family townhouse in a self-contained community with schools and green parks.",
+    shortDescription:
+      "Family townhouse in a self-contained community with schools and green parks.",
     location: "Alburouj, East Cairo, EGY",
     developer: "Capital Group Properties",
-    developerLogo: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=100&h=100&fit=crop",
     type: "Townhouse",
     status: "Ready",
     price: 4100000,
@@ -418,21 +530,33 @@ export const properties = [
     deliveryDate: "Immediate",
     finishingType: "Fully Finished",
     furnishingStatus: "Unfurnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
-    facilities: ["Community Park", "International School", "Cycling Track", "Community Club"],
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    facilities: [
+      "Community Park",
+      "International School",
+      "Cycling Track",
+      "Community Club",
+    ],
     purposeTypes: ["Residential"],
-    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "3 Bedroom — 230 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "3 Bedroom — 230 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 30.1022,
     longitude: 31.6487,
-    description: "A complete family community offering safety, green spaces, and top-tier educational facilities.",
+    description:
+      "A complete family community offering safety, green spaces, and top-tier educational facilities.",
     amenityIds: ["garden", "security", "parking", "gym"],
     purpose: "sale",
     parking: true,
@@ -442,10 +566,12 @@ export const properties = [
   {
     id: "luxe-012",
     name: "Marina Duplex — El Sokhna",
-    shortDescription: "Spacious duplex with private garden steps away from the Red Sea.",
+    shortDescription:
+      "Spacious duplex with private garden steps away from the Red Sea.",
     location: "Ain Sokhna, Suez, EGY",
     developer: "Porto Group",
-    developerLogo: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=100&h=100&fit=crop",
+    developerLogo:
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=100&h=100&fit=crop",
     type: "Duplex",
     status: "Available",
     price: 3600000,
@@ -458,21 +584,28 @@ export const properties = [
     deliveryDate: "Ready to Move",
     finishingType: "Fully Finished",
     furnishingStatus: "Semi-Furnished",
-    masterplanImage: "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    masterplanImage:
+      "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     facilities: ["Private Garden", "Beach Club", "Water Sports", "BBQ Area"],
     purposeTypes: ["Residential", "Investment"],
-    image: "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&h=600&fit=crop&q=80",
+    image:
+      "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&h=600&fit=crop&q=80",
     images: [
       "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1312&h=894&fit=crop&q=80",
     ],
     floorPlans: [
-      { name: "3 Bedroom — 260 m²", image: "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg" },
+      {
+        name: "3 Bedroom — 260 m²",
+        image:
+          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+      },
     ],
     latitude: 29.5994,
     longitude: 32.3361,
-    description: "Dual-level seaside living with generous outdoor space and direct access to beach amenities.",
+    description:
+      "Dual-level seaside living with generous outdoor space and direct access to beach amenities.",
     amenityIds: ["beach", "pool", "garden", "parking", "security"],
     purpose: "sale",
     parking: true,
