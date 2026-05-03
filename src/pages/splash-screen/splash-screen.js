@@ -1,28 +1,34 @@
 /* ==========================================
-     SPLASH SCREEN — orchestration + cleanup
-     Timeline: draw(0-2s) → fill(1.8s) → words(1.6-1.85s)
-               → sweep(2.2s) → exit(3s) → remove(3.6s)
+     SPLASH SCREEN — video-driven dismissal
+     Exits when the video ends, with a 6s safety fallback.
      ========================================== */
 export function initSplash() {
   var splash = document.getElementById("splash");
   if (!splash) return;
 
-  // Lock scroll during splash
+  var video = document.getElementById("splash-video");
+
   document.body.classList.add("splash-active");
 
-  // At 1.9s: begin exit animation (animations finish ~1.7s)
-  setTimeout(function () {
-    splash.classList.add("splash--exit");
-  }, 1900);
-
-  // At 2.5s: fade the entire overlay out
-  setTimeout(function () {
+  var dismissed = false;
+  function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
     splash.classList.add("splash--done");
-  }, 2500);
+    setTimeout(function () {
+      document.body.classList.remove("splash-active");
+      splash.remove();
+    }, 600);
+  }
 
-  // At 3.1s: remove from DOM + unlock scroll (after 600ms fade transition)
-  setTimeout(function () {
-    document.body.classList.remove("splash-active");
-    splash.remove();
-  }, 2200);
+  if (video) {
+    video.addEventListener("ended", dismiss);
+    video.addEventListener("error", dismiss);
+    var playAttempt = video.play();
+    if (playAttempt && typeof playAttempt.catch === "function") {
+      playAttempt.catch(dismiss);
+    }
+  }
+
+  setTimeout(dismiss, 6000);
 }
