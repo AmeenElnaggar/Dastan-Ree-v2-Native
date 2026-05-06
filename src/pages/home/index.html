@@ -84,6 +84,85 @@
     <!-- Explore by Location -->
     <div id="locations-root"></div>
 
+    <!-- Featured Projects Slider -->
+    <section id="featured" class="py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-12 fade-up">
+          <div>
+            <span class="section-header__eyebrow">Our Portfolio</span>
+            <h2 class="section-header__title">Featured Projects</h2>
+            <p class="text-gray-500 opacity-75 mt-1">
+              Handpicked developments worth exploring
+            </p>
+          </div>
+          <a href="#" class="action-link">
+            <span class="action-link__text uppercase">browse all</span>
+            <span class="action-link__line"></span>
+          </a>
+        </div>
+        <div
+          id="featured-slider-root"
+          class="fade-up"
+          style="transition-delay: 0.15s"></div>
+      </div>
+    </section>
+
+    <!-- Property Listings (Cinematic) -->
+    <section class="properties-section py-20" id="properties">
+      <div class="properties-section__bg" aria-hidden="true"></div>
+      <div class="properties-section__container max-w-7xl mx-auto px-6">
+        <div class="properties-section__header-row fade-up">
+          <div class="properties-section__heading">
+            <span class="properties-section__eyebrow">
+              <span class="properties-section__eyebrow-line"></span>Exclusive
+              Listings
+            </span>
+            <h2 class="properties-section__title">Our Latest Properties</h2>
+            <p class="properties-section__subtitle">
+              Handpicked residences combining exceptional design, prime
+              locations, and unmatched quality.
+            </p>
+          </div>
+          <div class="properties-section__nav">
+            <button
+              class="properties-section__nav-btn"
+              id="propertiesPrev"
+              aria-label="Previous">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              class="properties-section__nav-btn"
+              id="propertiesNext"
+              aria-label="Next">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div
+          id="properties-slider-root"
+          class="fade-up"
+          style="transition-delay: 0.15s"></div>
+      </div>
+    </section>
+
     <!-- Why Choose Us -->
     <section id="why-choose-us" class="why-choose-us py-20 bg-gray-50">
       <div class="why-choose-us__bg-accent" aria-hidden="true"></div>
@@ -161,71 +240,6 @@
       </div>
     </section>
 
-    <!-- Featured Projects Slider -->
-    <section id="featured" class="py-20">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-12 fade-up">
-          <div>
-            <span class="section-header__eyebrow">Our Portfolio</span>
-            <h2 class="section-header__title">Featured Projects</h2>
-            <p class="text-gray-500 opacity-75 mt-1">
-              Handpicked developments worth exploring
-            </p>
-          </div>
-          <a href="#" class="action-link">
-            <span class="action-link__text uppercase">browse all</span>
-            <span class="action-link__line"></span>
-          </a>
-        </div>
-        <div
-          id="featured-slider-root"
-          class="fade-up"
-          style="transition-delay: 0.15s"></div>
-      </div>
-    </section>
-
-    <section class="partners-section bg-gray-50 py-20">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-12 fade-up">
-          <span class="section-header__eyebrow">Trusted By</span>
-          <h2 class="section-header__title">Partners</h2>
-          <p class="text-gray-500 opacity-75 mt-1">
-            Working alongside the region's leading developers and collaborators
-          </p>
-        </div>
-        <div
-          id="partners-slider-root"
-          class="fade-up"
-          style="transition-delay: 0.15s"></div>
-      </div>
-    </section>
-
-    <!-- Property Listings -->
-    <section class="py-20">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-12 fade-up">
-          <div>
-            <span class="section-header__eyebrow">Curated For You</span>
-            <h2 class="section-header__title">Recommended For You</h2>
-            <p class="text-gray-500 opacity-75 mt-1">
-              Listings we think you’ll love.
-            </p>
-          </div>
-          <a href="../properties/index.html" class="action-link">
-            <span class="action-link__text uppercase">browse all</span>
-            <span class="action-link__line"></span>
-          </a>
-        </div>
-        <div
-          id="properties-slider-root"
-          class="fade-up"
-          style="transition-delay: 0.15s"></div>
-      </div>
-    </section>
-
-    <!-- CTA Ribbon -->
-    <div id="cta-root"></div>
-
     <!-- Blogs Section -->
     <section class="py-20">
       <div class="max-w-7xl mx-auto px-6">
@@ -244,6 +258,25 @@
         </div>
         <div
           id="blogs-slider-root"
+          class="fade-up"
+          style="transition-delay: 0.15s"></div>
+      </div>
+    </section>
+
+    <!-- CTA Ribbon -->
+    <div id="cta-root"></div>
+
+    <section class="partners-section py-10">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12 fade-up">
+          <span class="section-header__eyebrow">Trusted By</span>
+          <h2 class="section-header__title">Partners</h2>
+          <p class="text-gray-500 opacity-75 mt-1">
+            Working alongside the region's leading developers and collaborators
+          </p>
+        </div>
+        <div
+          id="partners-slider-root"
           class="fade-up"
           style="transition-delay: 0.15s"></div>
       </div>
