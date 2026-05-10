@@ -4,7 +4,8 @@
   "description": "Real Estate Front-End — Dastan",
   "scripts": {
     "dev": "npx serve . -l 3000",
-    "build:css": "npx tailwindcss -i ./src/styles/global.css -o ./dist/styles.css --minify"
+    "build:css": "npx tailwindcss -i ./src/styles/global.css -o ./dist/styles.css --minify",
+    "version:css": "node scripts/version-css.js"
   },
   "dependencies": {
     "swiper": "^11.0.0"
