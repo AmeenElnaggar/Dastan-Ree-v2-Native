@@ -37,51 +37,39 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initSplash() {
-  const splash = document.getElementById("splash-root");
+  const splash = document.getElementById("splash");
   if (!splash) return;
 
-  const layer = splash.querySelector("#splash-particles");
-  if (layer) {
-    const count = 40;
-    const W = window.innerWidth;
-    const H = window.innerHeight;
-    for (let i = 0; i < count; i++) {
-      const p = document.createElement("span");
-      p.className = "splash-screen__particle";
-      const angle = Math.random() * Math.PI * 2;
-      const radius = 200 + Math.random() * Math.min(W, H) * 0.4;
-      const sx = Math.cos(angle) * radius;
-      const sy = Math.sin(angle) * radius;
-      p.style.left = "50%";
-      p.style.top = "50%";
-      p.style.setProperty("--sx", sx + "px");
-      p.style.setProperty("--sy", sy + "px");
-      p.style.animationDelay = Math.random() * 1.2 + "s";
-      p.style.animationDuration = 2.4 + Math.random() * 1.6 + "s";
-      layer.appendChild(p);
-    }
+  const layer = document.getElementById("particles");
+  const count = 40;
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("span");
+    p.className = "particle";
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 200 + Math.random() * Math.min(W, H) * 0.4;
+    p.style.left = "50%";
+    p.style.top = "50%";
+    p.style.setProperty("--sx", Math.cos(angle) * radius + "px");
+    p.style.setProperty("--sy", Math.sin(angle) * radius + "px");
+    p.style.animationDelay = Math.random() * 1.2 + "s";
+    p.style.animationDuration = 2.4 + Math.random() * 1.6 + "s";
+    layer.appendChild(p);
   }
 
-  document.body.classList.add("splash-active");
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("stage").classList.add("is-settled");
+    }, 2400);
 
-  const stage = splash.querySelector("#splash-stage");
-
-  setTimeout(() => {
-    if (stage) stage.classList.add("is-settled");
-  }, 2400);
-
-  setTimeout(() => {
-    splash.classList.add("is-leaving");
-    let removed = false;
-    const cleanup = () => {
-      if (removed) return;
-      removed = true;
-      document.body.classList.remove("splash-active");
-      splash.remove();
-    };
-    splash.addEventListener("transitionend", cleanup, { once: true });
-    setTimeout(cleanup, 1200);
-  }, 3500);
+    setTimeout(() => {
+      splash.classList.add("is-leaving");
+      splash.addEventListener("transitionend", () => splash.remove(), {
+        once: true,
+      });
+    }, 3500);
+  });
 }
 
 function initPropertiesSlider(selector) {

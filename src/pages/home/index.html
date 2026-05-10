@@ -63,37 +63,32 @@
     <!-- Splash Screen -->
     <div
       class="splash-screen"
-      id="splash-root"
+      id="splash"
       aria-hidden="false"
       role="status"
-      aria-label="Loading Dastan">
-      <div class="splash-screen__noise"></div>
-      <div class="splash-screen__particles" id="splash-particles"></div>
+      aria-label="Loading Dastant">
+      <div class="noise"></div>
+      <div class="particles" id="particles"></div>
 
-      <div class="splash-screen__stage" id="splash-stage">
+      <div class="stage" id="stage">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 488 206"
           fill="none"
           role="img"
-          aria-label="Dastan">
+          aria-label="Dastant">
           <defs>
-            <clipPath id="splash-clip">
+            <clipPath id="clip0_5_3">
               <rect width="488" height="206" fill="white" />
             </clipPath>
 
-            <linearGradient id="splash-brand-grad" x1="0" y1="0" x2="1" y2="1">
+            <linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#0A1E77" />
               <stop offset="55%" stop-color="#1F47C9" />
               <stop offset="100%" stop-color="#4F8FFF" />
             </linearGradient>
 
-            <filter
-              id="splash-turb-morph"
-              x="-50%"
-              y="-50%"
-              width="200%"
-              height="200%">
+            <filter id="turbMorph" x="-50%" y="-50%" width="200%" height="200%">
               <feTurbulence
                 type="fractalNoise"
                 baseFrequency="0.6"
@@ -130,12 +125,7 @@
               </feDisplacementMap>
             </filter>
 
-            <filter
-              id="splash-goo"
-              x="-20%"
-              y="-20%"
-              width="140%"
-              height="140%">
+            <filter id="goo" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur">
                 <animate
                   attributeName="stdDeviation"
@@ -157,16 +147,16 @@
             </filter>
           </defs>
 
-          <g clip-path="url(#splash-clip)">
-            <g filter="url(#splash-goo)">
-              <g class="splash-screen__letter splash-screen__letter--d">
+          <g clip-path="url(#clip0_5_3)">
+            <g filter="url(#goo)">
+              <g class="letter L-D">
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
                   d="M129.78 162.21V107.98H153.48C159.373 107.98 164.54 109.117 168.98 111.39C173.42 113.663 176.88 116.813 179.36 120.84C181.84 124.873 183.08 129.627 183.08 135.1C183.08 140.52 181.84 145.257 179.36 149.31C176.88 153.363 173.42 156.527 168.98 158.8C164.54 161.073 159.373 162.21 153.48 162.21H129.78ZM139.85 153.69H153.02C157.093 153.69 160.62 152.917 163.6 151.37C166.567 149.817 168.86 147.643 170.48 144.85C172.113 142.063 172.93 138.813 172.93 135.1C172.93 131.327 172.113 128.06 170.48 125.3C168.86 122.54 166.567 120.383 163.6 118.83C160.62 117.283 157.093 116.51 153.02 116.51H139.85V153.69Z"
                   fill="#ffffff" />
               </g>
-              <g class="splash-screen__letter splash-screen__letter--a1">
+              <g class="letter L-A1">
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
@@ -179,17 +169,17 @@
                   d="M235.95 149.66H239.01L236.3 141.76H232.55L235.95 149.66Z"
                   fill="#ffffff" />
               </g>
-              <g class="splash-screen__letter splash-screen__letter--s">
+              <g class="letter L-S">
                 <path
                   d="M283.32 162.98C279.087 162.98 275.033 162.373 271.16 161.16C267.28 159.953 264.207 158.39 261.94 156.47L265.43 148.65C267.59 150.357 270.273 151.777 273.48 152.91C276.68 154.05 279.96 154.62 283.32 154.62C286.16 154.613 288.457 154.3 290.21 153.68C291.97 153.067 293.263 152.23 294.09 151.17C294.91 150.117 295.323 148.917 295.33 147.57C295.33 145.923 294.733 144.593 293.54 143.58C292.353 142.573 290.817 141.77 288.93 141.17C287.05 140.577 284.96 140.027 282.66 139.52C280.36 138.993 278.063 138.383 275.77 137.69C273.463 136.997 271.37 136.093 269.49 134.98C267.603 133.873 266.067 132.39 264.88 130.53C263.693 128.67 263.1 126.293 263.1 123.4C263.093 120.46 263.88 117.76 265.46 115.3C267.033 112.853 269.433 110.893 272.66 109.42C275.893 107.94 279.987 107.2 284.94 107.2C288.193 107.207 291.42 107.623 294.62 108.45C297.827 109.277 300.617 110.463 302.99 112.01L299.82 119.84C297.387 118.393 294.88 117.32 292.3 116.62C289.72 115.92 287.243 115.57 284.87 115.57C282.083 115.57 279.823 115.907 278.09 116.58C276.357 117.253 275.093 118.13 274.3 119.21C273.493 120.297 273.09 121.537 273.09 122.93C273.097 124.583 273.677 125.913 274.83 126.92C275.997 127.927 277.523 128.713 279.41 129.28C281.29 129.853 283.393 130.41 285.72 130.95C288.047 131.497 290.357 132.103 292.65 132.77C294.943 133.443 297.037 134.323 298.93 135.41C300.817 136.497 302.337 137.967 303.49 139.82C304.657 141.68 305.24 144.03 305.24 146.87C305.24 149.763 304.453 152.437 302.88 154.89C301.307 157.343 298.893 159.307 295.64 160.78C292.38 162.247 288.273 162.98 283.32 162.98Z"
                   fill="#ffffff" />
               </g>
-              <g class="splash-screen__letter splash-screen__letter--t1">
+              <g class="letter L-T1">
                 <path
                   d="M333.21 162.21V116.5H315.23V107.98H361.25V116.5H343.27V162.21H333.21Z"
                   fill="#ffffff" />
               </g>
-              <g class="splash-screen__letter splash-screen__letter--a2">
+              <g class="letter L-A2">
                 <path
                   fill-rule="evenodd"
                   clip-rule="evenodd"
@@ -202,14 +192,14 @@
                   d="M409.07 149.66H414.47L409.08 149.66L405.68 141.76L405.68 141.76L409.07 149.66Z"
                   fill="#ffffff" />
               </g>
-              <g class="splash-screen__letter splash-screen__letter--n">
+              <g class="letter L-N">
                 <path
                   d="M439.64 162.21V107.98H447.93L481.94 149.73H477.84V107.98H487.83V162.21H479.54L445.53 120.46H449.63V162.21H439.64Z"
                   fill="#ffffff" />
               </g>
             </g>
 
-            <g class="splash-screen__tagline">
+            <g class="tagline">
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
@@ -254,7 +244,7 @@
                 fill="#ffffff" />
             </g>
 
-            <g class="splash-screen__logo-icon" filter="url(#splash-turb-morph)">
+            <g class="logo-icon" filter="url(#turbMorph)">
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"
@@ -265,6 +255,8 @@
         </svg>
       </div>
     </div>
+
+    <div class="oop"></div>
 
     <!-- Navbar -->
     <div id="navbar-root"></div>
