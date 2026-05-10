@@ -36,37 +36,52 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".fade-up, .why-choose-us__feature").forEach((el) => fadeObs.observe(el));
 });
 
-/* ==========================================
-   SPLASH SCREEN — visibility only.
-   Hides the splash when the video ends, errors,
-   or after 6s as a safety fallback.
-   ========================================== */
 function initSplash() {
   const splash = document.getElementById("splash-root");
   if (!splash) return;
 
-  const video = document.getElementById("splash-video");
+  const layer = splash.querySelector("#splash-particles");
+  if (layer) {
+    const count = 40;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement("span");
+      p.className = "splash-screen__particle";
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 200 + Math.random() * Math.min(W, H) * 0.4;
+      const sx = Math.cos(angle) * radius;
+      const sy = Math.sin(angle) * radius;
+      p.style.left = "50%";
+      p.style.top = "50%";
+      p.style.setProperty("--sx", sx + "px");
+      p.style.setProperty("--sy", sy + "px");
+      p.style.animationDelay = Math.random() * 1.2 + "s";
+      p.style.animationDuration = 2.4 + Math.random() * 1.6 + "s";
+      layer.appendChild(p);
+    }
+  }
+
   document.body.classList.add("splash-active");
 
-  let dismissed = false;
-  function dismiss() {
-    if (dismissed) return;
-    dismissed = true;
-    splash.classList.add("splash--done");
-    setTimeout(() => {
+  const stage = splash.querySelector("#splash-stage");
+
+  setTimeout(() => {
+    if (stage) stage.classList.add("is-settled");
+  }, 2400);
+
+  setTimeout(() => {
+    splash.classList.add("is-leaving");
+    let removed = false;
+    const cleanup = () => {
+      if (removed) return;
+      removed = true;
       document.body.classList.remove("splash-active");
       splash.remove();
-    }, 600);
-  }
-
-  if (video) {
-    video.addEventListener("ended", dismiss);
-    video.addEventListener("error", dismiss);
-    const p = video.play();
-    if (p && typeof p.catch === "function") p.catch(dismiss);
-  }
-
-  setTimeout(dismiss, 6000);
+    };
+    splash.addEventListener("transitionend", cleanup, { once: true });
+    setTimeout(cleanup, 1200);
+  }, 3500);
 }
 
 function initPropertiesSlider(selector) {
