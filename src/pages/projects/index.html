@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projects — Dastan Real Estate</title>
-    <link rel="icon" type="image/svg+xml" href="../../../src/assets/images/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../../src/assets/images/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,56 +19,298 @@
     <link rel="stylesheet" href="../../../src/styles/variables.css?v=c71a22c9" />
     <link rel="stylesheet" href="../../../src/styles/global.css?v=204951af" />
     <link rel="stylesheet" href="../../../src/styles/utilities.css?v=3dab98b6" />
-    <link
-      rel="stylesheet"
-      href="../../../src/shared/components/navbar/navbar.css?v=139a8091" />
-    <link
-      rel="stylesheet"
-      href="../../../src/shared/components/footer/footer.css?v=c36d886e" />
-    <link
-      rel="stylesheet"
-      href="../../../src/shared/components/project-card/project-card.css?v=2463b508" />
-    <link
-      rel="stylesheet"
-      href="../../../src/shared/components/action-link/action-link.css?v=9fa1394e" />
-    <link rel="stylesheet" href="projects.css?v=05735dc9" />
+    <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css?v=139a8091" />
+    <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css?v=c36d886e" />
+    <link rel="stylesheet" href="../../../src/shared/components/project-card/project-card.css?v=2463b508" />
+    <link rel="stylesheet" href="../../../src/shared/components/action-link/action-link.css?v=9fa1394e" />
+    <link rel="stylesheet" href="../../../src/shared/components/filter-banner/filter-banner.css?v=8cc34df0" />
+    <link rel="stylesheet" href="../properties/properties.css?v=90f210d4" />
+    <link rel="stylesheet" href="projects.css?v=00000001" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
   </head>
   <body class="font-sans bg-white text-gray-900">
     <div id="navbar-root"></div>
-
-    <!-- Page Header -->
     <div id="page-header-root"></div>
+    <div id="filter-banner-root"></div>
 
-    <!-- Filters -->
-    <section id="filters-root"></section>
+    <!-- Projects Section -->
+    <section class="properties-section">
+      <div class="properties-section__container">
+        <div class="properties-layout">
 
-    <!-- Projects Grid -->
-    <section class="py-16">
-      <div class="max-w-7xl mx-auto px-6">
-        <p id="results-count" class="text-sm text-gray-500 mb-8"></p>
-        <div
-          id="projects-grid"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-        <div id="load-more-wrap" class="text-center mt-12 hidden">
-          <button
-            id="load-more-btn"
-            class="bg-primary-500 hover:bg-primary-600 text-white font-semibold px-10 py-3 rounded-2xl transition-colors">
-            Load More
-          </button>
+          <!-- Filters Sidebar -->
+          <aside class="filters-sidebar" id="filtersSidebar" aria-label="Advanced filters">
+            <div class="filters-sidebar__header">
+              <h2 class="filters-sidebar__title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+                Refine Results
+              </h2>
+              <button class="filters-sidebar__clear-all" id="clearAllFilters">Clear All</button>
+            </div>
+
+            <!-- Purpose -->
+            <div class="filter-section" data-section="purpose">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Purpose
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body">
+                <label class="filter-check"><input type="checkbox" name="purpose" value="Residential" class="adv-filter"/><span class="filter-check__box"></span>Residential</label>
+                <label class="filter-check"><input type="checkbox" name="purpose" value="Commercial" class="adv-filter"/><span class="filter-check__box"></span>Commercial</label>
+                <label class="filter-check"><input type="checkbox" name="purpose" value="Investment" class="adv-filter"/><span class="filter-check__box"></span>Investment</label>
+              </div>
+            </div>
+
+            <!-- Project Type -->
+            <div class="filter-section" data-section="type">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Project Type
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body">
+                <label class="filter-check"><input type="checkbox" name="type" value="apartment" class="adv-filter"/><span class="filter-check__box"></span>Apartment</label>
+                <label class="filter-check"><input type="checkbox" name="type" value="villa" class="adv-filter"/><span class="filter-check__box"></span>Villa</label>
+                <label class="filter-check"><input type="checkbox" name="type" value="townhouse" class="adv-filter"/><span class="filter-check__box"></span>Townhouse</label>
+                <label class="filter-check"><input type="checkbox" name="type" value="penthouse" class="adv-filter"/><span class="filter-check__box"></span>Penthouse</label>
+                <label class="filter-check"><input type="checkbox" name="type" value="office" class="adv-filter"/><span class="filter-check__box"></span>Office</label>
+                <label class="filter-check"><input type="checkbox" name="type" value="retail" class="adv-filter"/><span class="filter-check__box"></span>Retail</label>
+              </div>
+            </div>
+
+            <!-- Availability -->
+            <div class="filter-section" data-section="status">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Availability
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body">
+                <label class="filter-check"><input type="checkbox" name="status" value="Available" class="adv-filter"/><span class="filter-check__box"></span>Available</label>
+                <label class="filter-check"><input type="checkbox" name="status" value="Limited Units" class="adv-filter"/><span class="filter-check__box"></span>Limited Units</label>
+                <label class="filter-check"><input type="checkbox" name="status" value="Sold Out" class="adv-filter"/><span class="filter-check__box"></span>Sold Out</label>
+                <label class="filter-check"><input type="checkbox" name="status" value="Under Construction" class="adv-filter"/><span class="filter-check__box"></span>Under Construction</label>
+                <label class="filter-check"><input type="checkbox" name="status" value="Off-Plan" class="adv-filter"/><span class="filter-check__box"></span>Off-Plan</label>
+              </div>
+            </div>
+
+            <!-- Developer (populated dynamically) -->
+            <div class="filter-section" data-section="developer">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Developer
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body" id="developerList"></div>
+            </div>
+
+            <!-- Bedrooms -->
+            <div class="filter-section" data-section="beds">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Bedrooms
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body">
+                <div class="filter-pills" id="bedsPills" data-filter="beds" data-multi="true">
+                  <button class="filter-pill" data-value="0" type="button">Studio</button>
+                  <button class="filter-pill" data-value="1" type="button">1</button>
+                  <button class="filter-pill" data-value="2" type="button">2</button>
+                  <button class="filter-pill" data-value="3" type="button">3</button>
+                  <button class="filter-pill" data-value="4" type="button">4</button>
+                  <button class="filter-pill" data-value="5" type="button">5+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bathrooms -->
+            <div class="filter-section" data-section="baths">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Bathrooms
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-pills" id="bathsPills" data-filter="baths" data-multi="true">
+                  <button class="filter-pill" data-value="1" type="button">1</button>
+                  <button class="filter-pill" data-value="2" type="button">2</button>
+                  <button class="filter-pill" data-value="3" type="button">3</button>
+                  <button class="filter-pill" data-value="4" type="button">4+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-section" data-section="price">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Starting Price (EGP)
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body">
+                <div class="filter-range">
+                  <input type="number" class="filter-range__input" id="priceMin" placeholder="Min" min="0"/>
+                  <span class="filter-range__sep">—</span>
+                  <input type="number" class="filter-range__input" id="priceMax" placeholder="Max" min="0"/>
+                </div>
+              </div>
+            </div>
+
+            <!-- Area Size -->
+            <div class="filter-section" data-section="area">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Area Size (sqm)
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-range">
+                  <input type="number" class="filter-range__input" id="areaMin" placeholder="Min sqm" min="0"/>
+                  <span class="filter-range__sep">—</span>
+                  <input type="number" class="filter-range__input" id="areaMax" placeholder="Max sqm" min="0"/>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivery Year -->
+            <div class="filter-section" data-section="year">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Delivery Year
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-pills" id="yearPills" data-filter="year" data-multi="true">
+                  <button class="filter-pill" data-value="2023" type="button">2023</button>
+                  <button class="filter-pill" data-value="2024" type="button">2024</button>
+                  <button class="filter-pill" data-value="2025" type="button">2025</button>
+                  <button class="filter-pill" data-value="2026" type="button">2026+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Finishing -->
+            <div class="filter-section" data-section="finishing">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Finishing
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-pills filter-pills--col" id="finishingPills" data-filter="finishing" data-multi="false">
+                  <button class="filter-pill" data-value="Fully Finished" type="button">Fully Finished</button>
+                  <button class="filter-pill" data-value="Semi-Finished" type="button">Semi-Finished</button>
+                  <button class="filter-pill" data-value="Core & Shell" type="button">Core &amp; Shell</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Furnishing -->
+            <div class="filter-section" data-section="furnishing">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Furnishing
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-pills filter-pills--col" id="furnishingPills" data-filter="furnishing" data-multi="false">
+                  <button class="filter-pill" data-value="Fully Furnished" type="button">Fully Furnished</button>
+                  <button class="filter-pill" data-value="Unfurnished" type="button">Unfurnished</button>
+                  <button class="filter-pill" data-value="Semi-Furnished" type="button">Semi-Furnished</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Featured Only -->
+            <div class="filter-section" data-section="featured">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Featured
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <label class="filter-toggle-switch">
+                  <input type="checkbox" id="featuredFilter" class="adv-filter" data-filter="featured"/>
+                  <span class="filter-toggle-switch__track">
+                    <span class="filter-toggle-switch__thumb"></span>
+                  </span>
+                  <span class="filter-toggle-switch__label">Featured only</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Amenities -->
+            <div class="filter-section" data-section="amenities">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Amenities
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-tags" id="amenitiesTags" data-filter="amenities">
+                  <button class="filter-tag" data-value="pool" type="button">Pool</button>
+                  <button class="filter-tag" data-value="gym" type="button">Gym</button>
+                  <button class="filter-tag" data-value="parking" type="button">Parking</button>
+                  <button class="filter-tag" data-value="security" type="button">Security</button>
+                  <button class="filter-tag" data-value="beach" type="button">Beach</button>
+                  <button class="filter-tag" data-value="garden" type="button">Garden</button>
+                  <button class="filter-tag" data-value="concierge" type="button">Concierge</button>
+                  <button class="filter-tag" data-value="spa" type="button">Spa</button>
+                  <button class="filter-tag" data-value="playground" type="button">Playground</button>
+                  <button class="filter-tag" data-value="rooftop" type="button">Rooftop</button>
+                  <button class="filter-tag" data-value="cafe" type="button">Café</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Results Area -->
+          <div class="properties-results">
+            <div class="results-bar">
+              <span class="results-bar__count" id="results-count"></span>
+              <div class="results-bar__sort">
+                <label class="results-bar__sort-label" for="sort-select">Sort by</label>
+                <div class="results-bar__select-wrap">
+                  <select id="sort-select" class="results-bar__select">
+                    <option value="default">Default</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="area-asc">Area: Small to Large</option>
+                    <option value="year-asc">Delivery: Soonest</option>
+                    <option value="year-desc">Delivery: Latest</option>
+                  </select>
+                  <svg class="results-bar__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="active-filters" id="activeFilters" aria-live="polite"></div>
+
+            <div id="projects-grid" class="projects-grid" role="list"></div>
+
+            <div class="properties-empty" id="propertiesEmpty" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <h3>No projects found</h3>
+              <p>Try adjusting your filters to see more results.</p>
+              <button class="btn-reset" id="emptyResetBtn">Reset All Filters</button>
+            </div>
+
+            <nav class="pagination" id="pagination" aria-label="Projects pagination"></nav>
+          </div>
+
         </div>
       </div>
     </section>
 
+    <!-- Mobile Filters Button -->
+    <button class="filters-mobile-btn" id="filtersMobileBtn" aria-label="Open filters" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      </svg>
+      Filters
+      <span class="filters-mobile-btn__badge" id="filtersBadge" hidden>0</span>
+    </button>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
     <div id="footer-root"></div>
 
-    <script
-      type="module"
-      src="../../../src/shared/components/navbar/Navbar.js"></script>
-    <script
-      type="module"
-      src="../../../src/shared/components/footer/Footer.js"></script>
+    <script type="module" src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script type="module" src="../../../src/shared/components/footer/Footer.js"></script>
     <script type="module" src="projects.js"></script>
   </body>
 </html>
