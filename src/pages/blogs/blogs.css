@@ -1,0 +1,59 @@
+/* ===== Blogs Page — Overrides ===== */
+/* Filter, layout, header, sidebar, pagination and empty-state styles
+   are inherited from ../properties/properties.css to keep the design in sync.
+   This file only contains tweaks specific to the blogs listing. */
+
+.blogs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 1100px) {
+  .blogs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .blogs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Search input inside filter sidebar */
+.filter-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: 8px;
+  background: #fff;
+  transition: border-color var(--transition-fast);
+}
+
+.filter-search:focus-within {
+  border-color: var(--color-primary-500);
+}
+
+.filter-search svg {
+  color: var(--color-gray-400);
+  flex-shrink: 0;
+}
+
+.filter-search__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--color-gray-800);
+}
+
+.filter-search__input::placeholder {
+  color: var(--color-gray-400);
+}

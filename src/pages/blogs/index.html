@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blogs — Dastan Real Estate</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../../src/assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css?v=c71a22c9" />
+    <link rel="stylesheet" href="../../../src/styles/global.css?v=204951af" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css?v=3dab98b6" />
+    <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css?v=139a8091" />
+    <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css?v=c36d886e" />
+    <link rel="stylesheet" href="../../../src/shared/components/blog-card/blog-card.css?v=b98e45b4" />
+    <link rel="stylesheet" href="../../../src/shared/components/action-link/action-link.css?v=9fa1394e" />
+    <link rel="stylesheet" href="../properties/properties.css?v=90f210d4" />
+    <link rel="stylesheet" href="blogs.css?v=00000001" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-white text-gray-900">
+    <div id="navbar-root"></div>
+    <div id="page-header-root"></div>
+
+    <!-- Blogs Section -->
+    <section class="properties-section">
+      <div class="properties-section__container">
+        <div class="properties-layout">
+
+          <!-- Filters Sidebar -->
+          <aside class="filters-sidebar" id="filtersSidebar" aria-label="Advanced filters">
+            <div class="filters-sidebar__header">
+              <h2 class="filters-sidebar__title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+                </svg>
+                Refine Results
+              </h2>
+              <button class="filters-sidebar__clear-all" id="clearAllFilters">Clear All</button>
+            </div>
+
+            <!-- Search -->
+            <div class="filter-section" data-section="search">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Search
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body">
+                <div class="filter-search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="searchInput" class="filter-search__input" placeholder="Search articles..." aria-label="Search blog posts" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Category (populated dynamically) -->
+            <div class="filter-section" data-section="category">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Category
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body" id="categoryList"></div>
+            </div>
+
+            <!-- Year -->
+            <div class="filter-section" data-section="year">
+              <button class="filter-section__toggle" aria-expanded="true">
+                Year
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body">
+                <div class="filter-pills" id="yearPills" data-filter="years" data-multi="true"></div>
+              </div>
+            </div>
+
+            <!-- Month -->
+            <div class="filter-section" data-section="month">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Month
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-pills" id="monthPills" data-filter="months" data-multi="true">
+                  <button class="filter-pill" data-value="1" type="button">Jan</button>
+                  <button class="filter-pill" data-value="2" type="button">Feb</button>
+                  <button class="filter-pill" data-value="3" type="button">Mar</button>
+                  <button class="filter-pill" data-value="4" type="button">Apr</button>
+                  <button class="filter-pill" data-value="5" type="button">May</button>
+                  <button class="filter-pill" data-value="6" type="button">Jun</button>
+                  <button class="filter-pill" data-value="7" type="button">Jul</button>
+                  <button class="filter-pill" data-value="8" type="button">Aug</button>
+                  <button class="filter-pill" data-value="9" type="button">Sep</button>
+                  <button class="filter-pill" data-value="10" type="button">Oct</button>
+                  <button class="filter-pill" data-value="11" type="button">Nov</button>
+                  <button class="filter-pill" data-value="12" type="button">Dec</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Read Time -->
+            <div class="filter-section" data-section="readTime">
+              <button class="filter-section__toggle" aria-expanded="false">
+                Read Time
+                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="filter-section__body filter-section__body--collapsed">
+                <div class="filter-pills filter-pills--col" id="readTimePills" data-filter="readTime" data-multi="false">
+                  <button class="filter-pill" data-value="quick" type="button">Quick · under 4 min</button>
+                  <button class="filter-pill" data-value="medium" type="button">Medium · 4–5 min</button>
+                  <button class="filter-pill" data-value="long" type="button">Long · 6+ min</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Results Area -->
+          <div class="properties-results">
+            <div class="results-bar">
+              <span class="results-bar__count" id="results-count"></span>
+              <div class="results-bar__sort">
+                <label class="results-bar__sort-label" for="sort-select">Sort by</label>
+                <div class="results-bar__select-wrap">
+                  <select id="sort-select" class="results-bar__select">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="title-asc">Title: A → Z</option>
+                    <option value="title-desc">Title: Z → A</option>
+                  </select>
+                  <svg class="results-bar__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="active-filters" id="activeFilters" aria-live="polite"></div>
+
+            <div id="blogs-grid" class="blogs-grid" role="list"></div>
+
+            <div class="properties-empty" id="propertiesEmpty" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <h3>No articles found</h3>
+              <p>Try adjusting your filters to see more results.</p>
+              <button class="btn-reset" id="emptyResetBtn">Reset All Filters</button>
+            </div>
+
+            <nav class="pagination" id="pagination" aria-label="Blogs pagination"></nav>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile Filters Button -->
+    <button class="filters-mobile-btn" id="filtersMobileBtn" aria-label="Open filters" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      </svg>
+      Filters
+      <span class="filters-mobile-btn__badge" id="filtersBadge" hidden>0</span>
+    </button>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+
+    <div id="footer-root"></div>
+
+    <script type="module" src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script type="module" src="../../../src/shared/components/footer/Footer.js"></script>
+    <script type="module" src="blogs.js"></script>
+  </body>
+</html>
