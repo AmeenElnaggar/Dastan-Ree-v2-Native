@@ -1,0 +1,117 @@
+PROJECT FIELDS
+
+
+1. GENERAL / DETAILS
+--------------------
+Field Name                          | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+title_en                            | string (191)       | Required. Auto-generates slug on blur.
+title_ar                            | string (191)       | Required.
+project_slug                        | string (191)       | Required, unique (ignoreRecord).
+project_number                      | string (191)       | Optional.
+developer_id                        | foreignId (BIGINT) | Required. Relationship: developer.
+video_iframe                        | string / text      | Optional embed code. Full column span.
+
+
+2. SEO
+------
+Field Name                          | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+(SeoTab fields)                     | various            | Provided by App\Filament\Components\SeoTab.
+
+
+3. DESCRIPTIONS
+---------------
+Field Name                          | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+short_description_en                | text               | Textarea, 3 rows.
+short_description_ar                | text               | Textarea, 3 rows.
+description_en                      | longText / HTML    | RichEditor.
+description_ar                      | longText / HTML    | RichEditor.
+
+
+4. LOCATION
+-----------
+Field Name                          | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+country_id                          | foreignId (BIGINT) | Required. Relationship: country. Live.
+region_id                           | foreignId (BIGINT) | Required. Relationship: region (parent_id = country).
+city_id                             | foreignId (BIGINT) | Required. Relationship: city (parent_id = region).
+latitude                            | string (191)       | Optional.
+longitude                           | string (191)       | Optional.
+address_en                          | string (191)       | Optional.
+address_ar                          | string (191)       | Optional.
+
+
+5. PRICING & FINANCE
+--------------------
+Field Name                          | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+price_from                          | decimal / numeric  | Prefix: EGP.
+price_to                            | decimal / numeric  | Prefix: EGP.
+area_from                           | decimal / numeric  | Suffix: m².
+area_to                             | decimal / numeric  | Suffix: m².
+down_payment                        | decimal / numeric  | Suffix: %.
+number_of_installments_years_from   | integer            |
+number_of_installments_years_to     | integer            |
+delivery_date                       | date               | DatePicker.
+is_featured                         | boolean            | Toggle.
+is_published                        | boolean            | Toggle.
+
+
+6. ASSOCIATIONS (many-to-many via lookup polymorphic pivot)
+-----------------------------------------------------------
+Field Name                          | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+amenities                           | relation (M:N)     | Pivot lookup_type = 'amenities'.
+facilities                          | relation (M:N)     | Pivot lookup_type = 'facility'.
+purposes                            | relation (M:N)     | Pivot lookup_type = 'purposes'.
+views                               | relation (M:N)     | Pivot lookup_type = 'views'.
+finishingTypes                      | relation (M:N)     | Pivot lookup_type = 'finishingtype'.
+saleTypes                           | relation (M:N)     | Pivot lookup_type = 'saletype'.
+paymentMethods                      | relation (M:N)     | Pivot lookup_type = 'paymentmethod'.
+
+
+7. MEDIA (Spatie Media Library collections)
+-------------------------------------------
+Collection Name                     | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+featured_image                      | media (image)      | Single image.
+logo                                | media (image)      | Single image.
+gallery                             | media (image[])    | Multiple images.
+master_plan                         | media (image)      | Single image.
+map_image                           | media (image)      | Single image.
+about_image                         | media (image)      | Single image.
+
+
+8. SYSTEM / INHERITED COLUMNS (inferred from queries & bulk actions)
+-------------------------------------------------------------------
+Field Name                          | Data Type          | Notes
+------------------------------------|--------------------|--------------------------------------------------
+id                                  | bigIncrements      | Primary key.
+unit_types_count                    | integer (computed) | Eloquent withCount('unitTypes').
+created_at                          | timestamp          |
+updated_at                          | timestamp          | Set by publish/unpublish bulk actions.
+updated_by                          | foreignId (BIGINT) | Set by publish/unpublish bulk actions (auth()->id()).
+deleted_at                          | timestamp (null)   | Soft deletes (TrashedFilter present).
+
+
+RELATIONSHIPS USED IN RESOURCE
+------------------------------
+- developer       (BelongsTo)
+- country         (BelongsTo)
+- region          (BelongsTo)
+- city            (BelongsTo)
+- unitTypes       (HasMany — see UnitTypesRelationManager)
+- amenities       (BelongsToMany via lookup pivot)
+- facilities      (BelongsToMany via lookup pivot)
+- purposes        (BelongsToMany via lookup pivot)
+- views           (BelongsToMany via lookup pivot)
+- finishingTypes  (BelongsToMany via lookup pivot)
+- saleTypes       (BelongsToMany via lookup pivot)
+- paymentMethods  (BelongsToMany via lookup pivot)
+
+
+GLOBALLY SEARCHABLE ATTRIBUTES
+------------------------------
+title_en, title_ar, project_number, project_slug

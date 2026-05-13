@@ -33,7 +33,7 @@ export function renderProjectCard(project) {
     : `<div></div>`;
 
   return `
-    <a href="#" class="project-card" data-id="${id}">
+    <a href="${detailsUrl}" class="project-card" data-id="${id}">
       <img class="project-card__img" src="../${image}" alt="${name}" loading="lazy" />
       <div class="project-card__gradient"></div>
       ${developerBadge}

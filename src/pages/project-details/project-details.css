@@ -1,0 +1,685 @@
+/* ===== Project Details — Overrides ===== */
+/* Layout, sticky bar, gallery, sidebar, amenities, masterplan, map, lightbox
+   and similar-swiper styles are inherited from
+   ../property-details/property-details.css. This file adds the project-only
+   pieces: hero slider, location breadcrumbs, unit types, sale/payment
+   summary and video. */
+
+/* ── Hero Slider (replaces pd-intro + pd-gallery-info on this page) ── */
+@keyframes pdHeroIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pd-hero {
+  position: relative;
+  padding: 1.25rem 1.5rem 2rem;
+  background: #fff;
+}
+
+.pd-hero__inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.pd-hero__swiper {
+  position: relative;
+  width: 100%;
+  height: calc(100svh - var(--navbar-height, 72px) - 1.25rem);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(6, 12, 45, 0.18);
+  background: #0a1230;
+}
+
+.pd-hero__swiper .swiper-wrapper,
+.pd-hero__swiper .swiper-slide {
+  height: 100%;
+}
+
+.pd-hero-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.pd-hero-slide__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.pd-hero-slide__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(6, 12, 45, 0.92) 0%,
+    rgba(6, 12, 45, 0.6) 30%,
+    rgba(6, 12, 45, 0.12) 58%,
+    transparent 82%
+  );
+  pointer-events: none;
+}
+
+/* Bottom overlay — badge / title / price range / location */
+.pd-hero__overlay {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 2rem clamp(1.25rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.pd-hero__overlay > * {
+  animation: pdHeroIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.pd-hero__overlay > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.pd-hero__overlay > *:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.pd-hero__overlay > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.pd-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #0a1230;
+  background: #f59e0b;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.pd-hero__title {
+  font-size: clamp(1.8rem, 3.6vw, 2.75rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+  max-width: 80%;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+}
+
+.pd-hero__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+}
+
+.pd-hero__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.pd-hero__meta-item i {
+  color: #f59e0b;
+  font-size: 0.75rem;
+}
+
+.pd-hero__meta-item--price {
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Nav arrows */
+.pd-hero__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pd-hero__nav:hover {
+  background: rgba(15, 23, 42, 0.75);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.pd-hero__nav--prev {
+  inset-inline-start: 1rem;
+}
+.pd-hero__nav--next {
+  inset-inline-end: 1rem;
+}
+
+[dir="rtl"] .pd-hero__nav i {
+  transform: scaleX(-1);
+}
+
+@media (max-width: 640px) {
+  .pd-hero__nav {
+    display: none;
+  }
+}
+
+/* Pagination chip (top-right) */
+.pd-hero__pagination {
+  position: absolute;
+  top: 1.25rem;
+  inset-inline-end: 1.25rem;
+  z-index: 6;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  padding: 0.4rem 0.85rem;
+  background: rgba(10, 18, 48, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.pd-hero__page-current {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pd-hero__page-sep {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-inline: 2px;
+}
+
+.pd-hero__page-total {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .pd-hero {
+    padding: 1rem 1rem 1.5rem;
+  }
+
+  .pd-hero__swiper {
+    border-radius: 18px;
+    height: calc(100svh - var(--navbar-height, 72px) - 1rem);
+  }
+
+  .pd-hero__overlay {
+    padding: 1.4rem 1.25rem 1.6rem;
+    gap: 0.55rem;
+  }
+
+  .pd-hero__title {
+    max-width: 100%;
+  }
+
+  .pd-hero__meta-item {
+    font-size: 0.78rem;
+    padding: 0.32rem 0.7rem;
+  }
+}
+
+/* ── Read More button override ───────────────────────────────────── */
+.pd-about__readmore {
+  color: #080f1f;
+}
+
+.pd-about__readmore:hover {
+  color: #1e293b;
+}
+
+/* ── About section — same card treatment as Project Details ─────── */
+#about-section,
+#unittypes-section,
+#amenities-section,
+#saleinfo-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.06);
+  padding: 2.5rem;
+}
+
+@media (max-width: 600px) {
+  #about-section,
+  #unittypes-section,
+  #amenities-section,
+  #saleinfo-section {
+    padding: 1.5rem 1.25rem;
+    border-radius: 12px;
+  }
+}
+
+/* ── Project Details section ─────────────────────────────────────── */
+.pd-overview {
+  background: transparent;
+  padding: 2.5rem 1.5rem 3rem;
+}
+
+/* Overview sits between hero and body, so the body's top padding can shrink. */
+.pd-body {
+  padding-top: 2.5rem;
+}
+
+.pd-overview__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 32px rgba(15, 23, 42, 0.06);
+  padding: 2.5rem 2.5rem 2rem;
+}
+
+.pd-overview__desc {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #475569;
+  max-width: 80ch;
+  margin: 0 0 1.75rem;
+}
+
+/* Highlighted price range */
+.pd-overview__price {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #080f1f;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pd-overview__price-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.pd-overview__price-label i {
+  color: #080f1f;
+  font-size: 0.8rem;
+}
+
+.pd-overview__price-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.pd-overview__price-currency {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: 0.04em;
+}
+
+/* Info grid — label+icon on the left, value on the right */
+.pd-overview__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pd-overview__stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  min-width: 0;
+}
+
+/* Drop the right border on the rightmost column and bottom on the last row */
+.pd-overview__stat:nth-child(3n) {
+  border-right: none;
+}
+
+.pd-overview__stat:nth-last-child(-n + 3):nth-child(3n + 1),
+.pd-overview__stat:nth-last-child(-n + 3):nth-child(3n + 1) ~ .pd-overview__stat {
+  border-bottom: none;
+}
+
+.pd-overview__stat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.pd-overview__stat-label i {
+  color: #080f1f;
+  width: 16px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.pd-overview__stat-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: end;
+  word-break: break-word;
+}
+
+@media (max-width: 900px) {
+  .pd-overview__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Reset column borders for 2-col layout */
+  .pd-overview__stat,
+  .pd-overview__stat:nth-child(3n) {
+    border-right: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .pd-overview__stat:nth-child(2n) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .pd-overview {
+    padding: 1.75rem 1rem 2rem;
+  }
+
+  .pd-overview__inner {
+    padding: 1.5rem 1.25rem 1.25rem;
+    border-radius: 12px;
+  }
+
+  .pd-overview__price {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 1.1rem 1.25rem;
+  }
+
+  .pd-overview__price-value {
+    font-size: 1.25rem;
+  }
+
+  .pd-overview__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-overview__stat,
+  .pd-overview__stat:nth-child(3n),
+  .pd-overview__stat:nth-child(2n) {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+}
+
+/* ── Location breadcrumbs (city / region / country) ───────────────── */
+.pd-loc-crumbs {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.pd-loc-crumbs svg {
+  flex-shrink: 0;
+  color: #f59e0b;
+}
+
+.pd-loc-crumbs__sep {
+  color: #cbd5e1;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.pd-loc-crumbs__item {
+  white-space: nowrap;
+}
+
+.pd-loc-crumbs__item--strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* ── About image (after the about row, full-width banner) ─────────── */
+.pd-about-image {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-top: 1.5rem;
+  border: 1px solid #f1f5f9;
+}
+
+/* ── Unit Types (HasMany) ─────────────────────────────────────────── */
+.pd-unittypes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.pd-unittype {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pd-unittype:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+.pd-unittype__media {
+  aspect-ratio: 4 / 3;
+  background: #f1f5f9;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pd-unittype__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pd-unittype__media--empty i {
+  font-size: 2rem;
+  color: #cbd5e1;
+}
+
+.pd-unittype__body {
+  padding: 1rem 1.1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pd-unittype__name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pd-unittype__specs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.85rem;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.pd-unittype__spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.pd-unittype__spec i {
+  color: #080f1f;
+  font-size: 0.75rem;
+}
+
+.pd-unittype__price {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.pd-unittype__price-label {
+  display: block;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 0.15rem;
+}
+
+/* ── Sale & Payment summary stats ─────────────────────────────────── */
+.pd-payment-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.pd-payment-stat {
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.pd-payment-stat__label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.pd-payment-stat__value {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+/* ── Video Tour ───────────────────────────────────────────────────── */
+.pd-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+}
+
+.pd-video iframe,
+.pd-video video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .pd-about-image {
+    max-height: 220px;
+    border-radius: 12px;
+  }
+
+  .pd-unittypes {
+    grid-template-columns: 1fr;
+  }
+}
