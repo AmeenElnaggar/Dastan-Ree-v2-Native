@@ -573,6 +573,14 @@ export const projects = [
     furnishingStatus: "Semi-Furnished",
     purposeTypes: ["Residential", "Investment"],
     image: "../assets/images/projects/project1.jpeg",
+    images: [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+      "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200",
+    ],
     amenityIds: [
       "pool",
       "gym",
