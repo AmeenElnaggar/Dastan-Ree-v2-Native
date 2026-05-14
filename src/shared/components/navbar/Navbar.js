@@ -3,9 +3,9 @@ const NAV_LINKS = [
   { label: "Projects", href: "../projects/index.html" },
   { label: "Properties", href: "../properties/index.html" },
   { label: "Blogs", href: "../blogs/index.html" },
-  { label: "About Us", href: "#" },
-  { label: "Careers", href: "#" },
-  { label: "Contact Us", href: "#" },
+  { label: "About Us", href: "../about-us/index.html" },
+  { label: "Careers", href: "../careers/index.html" },
+  { label: "Contact Us", href: "../contact-us/index.html" },
 ];
 
 const GLOBE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><path d="M2 12h20"/></svg>`;

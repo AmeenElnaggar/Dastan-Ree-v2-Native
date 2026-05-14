@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us — Dastan Real Estate</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../../src/assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css" />
+    <link rel="stylesheet" href="../../../src/styles/global.css" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/cta/cta.css" />
+
+    <link rel="stylesheet" href="contact-us.css" />
+    <script>
+      history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-white text-gray-900">
+    <!-- Navbar -->
+    <div id="navbar-root"></div>
+
+    <!-- Page Header (Hero) -->
+    <header class="contact-hero">
+      <div class="contact-hero__bg"></div>
+      <div class="contact-hero__overlay"></div>
+      <div class="contact-hero__content max-w-7xl mx-auto px-6 text-center">
+        <span class="contact-hero__eyebrow fade-up">Get in Touch</span>
+        <h1 class="contact-hero__title fade-up" style="transition-delay: 0.1s">
+          We're Here to Help
+        </h1>
+        <p class="contact-hero__subtitle fade-up" style="transition-delay: 0.2s">
+          Whether you have a question about properties, pricing, or our services, our team is ready to answer all your questions.
+        </p>
+      </div>
+    </header>
+
+    <!-- Contact Info & Form Section -->
+    <section class="contact-main py-20 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="contact-grid">
+          
+          <!-- Contact Details (Left Column) -->
+          <div class="contact-details fade-up">
+            <h2 class="contact-details__title">Contact Information</h2>
+            <p class="contact-details__text">
+              Reach out to us through any of the following methods. We typically respond within 24 hours.
+            </p>
+
+            <div class="contact-info-list">
+              <!-- Location -->
+              <div class="contact-item">
+                <div class="contact-item__icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="contact-item__content">
+                  <h3 class="contact-item__label">Our Office</h3>
+                  <p class="contact-item__value">
+                    123 Luxury Avenue, Suite 500<br />
+                    Dubai, UAE
+                  </p>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="contact-item">
+                <div class="contact-item__icon">
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="contact-item__content">
+                  <h3 class="contact-item__label">Phone Number</h3>
+                  <a href="tel:+971501234567" class="contact-item__link">+971 50 123 4567</a>
+                  <a href="tel:+97141234567" class="contact-item__link">+971 4 123 4567</a>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="contact-item">
+                <div class="contact-item__icon">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="contact-item__content">
+                  <h3 class="contact-item__label">Email Address</h3>
+                  <a href="mailto:info@dastanrealestate.com" class="contact-item__link">info@dastanrealestate.com</a>
+                  <a href="mailto:sales@dastanrealestate.com" class="contact-item__link">sales@dastanrealestate.com</a>
+                </div>
+              </div>
+
+              <!-- Office Hours -->
+              <div class="contact-item">
+                <div class="contact-item__icon">
+                  <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="contact-item__content">
+                  <h3 class="contact-item__label">Business Hours</h3>
+                  <p class="contact-item__value">
+                    Monday - Friday: 9:00 AM - 6:00 PM<br />
+                    Saturday: 10:00 AM - 4:00 PM<br />
+                    Sunday: Closed
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="contact-social">
+              <span class="contact-social__label">Follow Us:</span>
+              <div class="contact-social__links">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form (Right Column) -->
+          <div class="contact-form-wrapper fade-up" style="transition-delay: 0.2s">
+            <h2 class="contact-form__title">Send Us A Message</h2>
+            <form class="contact-form" id="contactForm">
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
+                  <input type="text" id="firstName" name="firstName" class="form-input" placeholder="John" required />
+                </div>
+                <div class="form-group">
+                  <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
+                  <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Doe" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                  <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone" class="form-label">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" class="form-input" placeholder="+971 50 000 0000" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="subject" class="form-label">Subject</label>
+                <div class="custom-select-wrapper">
+                  <select id="subject" name="subject" class="form-input custom-select">
+                    <option value="general">General Inquiry</option>
+                    <option value="buy">Buying a Property</option>
+                    <option value="rent">Renting a Property</option>
+                    <option value="sell">Selling a Property</option>
+                    <option value="support">Customer Support</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="message" class="form-label">Your Message <span class="required">*</span></label>
+                <textarea id="message" name="message" class="form-input form-textarea" placeholder="How can we help you?" rows="5" required></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">
+                <span>Send Message</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+
+              <div class="form-status" id="formStatus"></div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section (Optional Visual Placeholder) -->
+    <section class="contact-map fade-up">
+      <!-- We can embed a Google Map iframe here, or use an image placeholder -->
+      <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Office Location Map Placeholder" class="contact-map__image" />
+      <div class="contact-map__overlay">
+        <a href="#" class="map-link-btn" target="_blank">
+          <i class="fa-solid fa-map-location-dot"></i> Get Directions
+        </a>
+      </div>
+    </section>
+
+    <!-- CTA Ribbon -->
+    <div id="cta-root"></div>
+
+    <!-- Footer -->
+    <div id="footer-root"></div>
+
+    <!-- Scripts -->
+    <script
+      type="module"
+      src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/components/footer/Footer.js"></script>
+    <script type="module" src="contact-us.js"></script>
+    <script type="module">
+      import { renderCta } from "../../../src/shared/components/cta/Cta.js";
+      renderCta("#cta-root");
+    </script>
+  </body>
+</html>

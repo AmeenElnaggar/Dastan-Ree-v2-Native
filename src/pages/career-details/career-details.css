@@ -1,0 +1,51 @@
+/* ==========================================================================
+   CAREER DETAILS PAGE STYLES
+   ========================================================================== */
+
+/* Navbar Spacer - since we use solid navbar here, we need space at top */
+body {
+  background-color: #f9fafb; /* gray-50 */
+}
+
+/* Animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Typography tweaks */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Job Section Hover Effects */
+.job-section {
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background-color: transparent;
+}
+
+.job-section:hover {
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* File Drop Zone */
+#drop-zone {
+  transition: all 0.2s ease-in-out;
+}
+#drop-zone:hover {
+  background-color: #f0fdf4; /* subtle highlight */
+}

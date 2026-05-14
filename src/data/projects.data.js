@@ -175,66 +175,66 @@ export const projects = [
       "Al Maqsad Residences, developed by City Edge, is a distinguished residential project in the New Administrative Capital designed to offer a blend of elegance, comfort, and modern living.",
     amenityIds: ["pool", "beach", "gym", "parking", "security", "garden"],
   },
-  {
-    id: "dejoya-4",
-    name: "DeJoya 4",
-    shortDescription:
-      "De Joya 4 by Taj Misr Development represents a thoughtful addition to the New Administrative Capital's residential landscape",
-    location: "Cairo, New Capital, EGY",
-    developer: "Taj Misr Development",
-    developerLogo:
-      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=100&h=100&fit=crop&crop=center",
-    type: "apartment",
-    status: "Available",
-    price: 950_000,
-    units: 280,
-    year: 2025,
-    bedrooms: 1,
-    bathrooms: 1,
-    area: 88,
-    featured: true,
-    deliveryDate: "March 2025",
-    finishingType: "Semi-Finished",
-    furnishingStatus: "Semi-Furnished",
-    masterplanImage:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200",
-    facilities: [
-      "Grand Lobby",
-      "Retail Promenade",
-      "Valet Parking",
-      "Club Room",
-    ],
-    purposeTypes: ["Residential"],
-    image: "../assets/images/projects/project4.jpeg",
-    images: [
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200",
-      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200",
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
-    ],
-    floorPlans: [
-      {
-        name: "Studio — 45 m²",
-        image:
-          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
-      },
-      {
-        name: "1 Bedroom — 88 m²",
-        image:
-          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
-      },
-      {
-        name: "3 Bedroom — 180 m²",
-        image:
-          "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
-      },
-    ],
-    latitude: 25.0777,
-    longitude: 55.1397,
-    description:
-      "De Joya 4 by Taj Misr Development represents a thoughtful addition to the New Administrative Capital's residential landscape",
-    amenityIds: ["pool", "gym", "parking", "concierge", "spa"],
-  },
+  // {
+  //   id: "dejoya-4",
+  //   name: "DeJoya 4",
+  //   shortDescription:
+  //     "De Joya 4 by Taj Misr Development represents a thoughtful addition to the New Administrative Capital's residential landscape",
+  //   location: "Cairo, New Capital, EGY",
+  //   developer: "Taj Misr Development",
+  //   developerLogo:
+  //     "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=100&h=100&fit=crop&crop=center",
+  //   type: "apartment",
+  //   status: "Available",
+  //   price: 950_000,
+  //   units: 280,
+  //   year: 2025,
+  //   bedrooms: 1,
+  //   bathrooms: 1,
+  //   area: 88,
+  //   featured: true,
+  //   deliveryDate: "March 2025",
+  //   finishingType: "Semi-Finished",
+  //   furnishingStatus: "Semi-Furnished",
+  //   masterplanImage:
+  //     "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200",
+  //   facilities: [
+  //     "Grand Lobby",
+  //     "Retail Promenade",
+  //     "Valet Parking",
+  //     "Club Room",
+  //   ],
+  //   purposeTypes: ["Residential"],
+  //   image: "../assets/images/projects/project4.jpeg",
+  //   images: [
+  //     "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1200",
+  //     "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200",
+  //     "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
+  //     "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+  //   ],
+  //   floorPlans: [
+  //     {
+  //       name: "Studio — 45 m²",
+  //       image:
+  //         "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+  //     },
+  //     {
+  //       name: "1 Bedroom — 88 m²",
+  //       image:
+  //         "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+  //     },
+  //     {
+  //       name: "3 Bedroom — 180 m²",
+  //       image:
+  //         "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+  //     },
+  //   ],
+  //   latitude: 25.0777,
+  //   longitude: 55.1397,
+  //   description:
+  //     "De Joya 4 by Taj Misr Development represents a thoughtful addition to the New Administrative Capital's residential landscape",
+  //   amenityIds: ["pool", "gym", "parking", "concierge", "spa"],
+  // },
 
   /* ──────────────────────────────────────────────────────────────────
      Reference project — exercises every field from project_fields.txt:

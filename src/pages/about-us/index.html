@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us — Dastan Real Estate</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../../src/assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css" />
+    <link rel="stylesheet" href="../../../src/styles/global.css" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/cta/cta.css" />
+
+    <link rel="stylesheet" href="about-us.css" />
+    <script>
+      history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-white text-gray-900">
+    <!-- Navbar -->
+    <div id="navbar-root"></div>
+
+    <!-- Page Header (Hero) -->
+    <header class="about-hero">
+      <div class="about-hero__bg"></div>
+      <div class="about-hero__overlay"></div>
+      <div class="about-hero__content max-w-7xl mx-auto px-6 text-center">
+        <span class="about-hero__eyebrow fade-up">Our Journey</span>
+        <h1 class="about-hero__title fade-up" style="transition-delay: 0.1s">
+          Redefining Real Estate <br /> Since 2005
+        </h1>
+        <p class="about-hero__subtitle fade-up" style="transition-delay: 0.2s">
+          Discover the passion, expertise, and commitment behind Dastan Real Estate.
+        </p>
+      </div>
+    </header>
+
+    <!-- Our Story Section -->
+    <section class="about-story py-20">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row items-center gap-12">
+          <!-- Text Content -->
+          <div class="about-story__text flex-1 fade-up">
+            <span class="section-header__eyebrow">Our Story</span>
+            <h2 class="section-header__title mb-6">Built on Trust and Vision</h2>
+            <p class="text-gray-600 mb-4 leading-relaxed">
+              At Dastan Real Estate, we believe that finding a home is more than just a transaction; it's a life-changing decision. Established over a decade ago, our mission has always been to provide exceptional service rooted in integrity, transparency, and a profound understanding of the market.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+              Our curated portfolio of properties represents the pinnacle of luxury, comfort, and architectural excellence. We work tirelessly to match our clients with spaces that not only meet their needs but exceed their wildest dreams.
+            </p>
+          </div>
+          <!-- Image Content -->
+          <div class="about-story__image-wrapper flex-1 fade-up" style="transition-delay: 0.2s">
+            <img 
+              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+              alt="Luxurious Dastan Property" 
+              class="about-story__image rounded-lg shadow-2xl" 
+            />
+            <div class="about-story__badge shadow-lg">
+              <span class="about-story__badge-number">18+</span>
+              <span class="about-story__badge-text">Years of Excellence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Values Section -->
+    <section class="about-values py-20 bg-gray-50 relative overflow-hidden">
+      <!-- Decorative element -->
+      <div class="about-values__decor" aria-hidden="true"></div>
+      
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-16 fade-up">
+          <span class="section-header__eyebrow">Why Choose Us</span>
+          <h2 class="section-header__title">Our Core Values</h2>
+          <p class="text-gray-500 mt-4 max-w-2xl mx-auto">
+            The principles that guide our everyday decisions and shape our client relationships.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Value Card 1 -->
+          <div class="value-card fade-up" style="transition-delay: 0.1s">
+            <div class="value-card__icon">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="value-card__title">Integrity</h3>
+            <p class="value-card__text">
+              We operate with absolute transparency and honesty, ensuring our clients feel confident and secure in every decision.
+            </p>
+          </div>
+          <!-- Value Card 2 -->
+          <div class="value-card fade-up" style="transition-delay: 0.2s">
+            <div class="value-card__icon">
+              <i class="fa-solid fa-gem"></i>
+            </div>
+            <h3 class="value-card__title">Excellence</h3>
+            <p class="value-card__text">
+              From our property selection to our customer service, we strive for perfection and deliver premium experiences.
+            </p>
+          </div>
+          <!-- Value Card 3 -->
+          <div class="value-card fade-up" style="transition-delay: 0.3s">
+            <div class="value-card__icon">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <h3 class="value-card__title">Client-Centric</h3>
+            <p class="value-card__text">
+              Your vision is our priority. We listen, adapt, and go above and beyond to fulfill your unique real estate needs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stat/Impact Section -->
+    <section class="about-stats py-16 text-white relative">
+      <div class="about-stats__bg absolute inset-0 bg-blue-900"></div>
+      <div class="about-stats__overlay absolute inset-0 bg-black/40"></div>
+      <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/20">
+          <div class="stat-item fade-up">
+            <div class="stat-item__number">5K+</div>
+            <div class="stat-item__label">Happy Clients</div>
+          </div>
+          <div class="stat-item fade-up" style="transition-delay: 0.1s">
+            <div class="stat-item__number">1.2K</div>
+            <div class="stat-item__label">Properties Sold</div>
+          </div>
+          <div class="stat-item fade-up" style="transition-delay: 0.2s">
+            <div class="stat-item__number">45</div>
+            <div class="stat-item__label">Awards Won</div>
+          </div>
+          <div class="stat-item fade-up" style="transition-delay: 0.3s">
+            <div class="stat-item__number">100%</div>
+            <div class="stat-item__label">Commitment</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Ribbon -->
+    <div id="cta-root"></div>
+
+    <!-- Footer -->
+    <div id="footer-root"></div>
+
+    <!-- Scripts -->
+    <script
+      type="module"
+      src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/components/footer/Footer.js"></script>
+    <script type="module" src="about-us.js"></script>
+    <script type="module">
+      import { renderCta } from "../../../src/shared/components/cta/Cta.js";
+      renderCta("#cta-root");
+    </script>
+  </body>
+</html>
