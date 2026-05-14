@@ -60,11 +60,12 @@
 }
 
 .contact-hero__title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
   line-height: 1.1;
+  letter-spacing: -0.5px;
   margin-bottom: 1.5rem;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .contact-hero__subtitle {
