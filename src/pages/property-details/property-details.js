@@ -398,7 +398,7 @@ function initGallerySwipers(p) {
     },
   });
 
-  new window.Swiper("#gallery-main", {
+  const mainSwiper = new window.Swiper("#gallery-main", {
     spaceBetween: 12,
     slidesPerView: 1,
     speed: 500,
@@ -410,13 +410,14 @@ function initGallerySwipers(p) {
       prevEl: "#gallery-main-prev",
     },
     thumbs: { swiper: thumbsSwiper },
-    on: {
-      click: (swiper, event) => {
-        if (event.target.closest(".pd-gallery-main__nav")) return;
-        openLightbox(images, swiper.realIndex, p.name);
-      },
-    },
   });
+
+  const previewBtn = document.querySelector("#gallery-main-preview");
+  if (previewBtn) {
+    previewBtn.addEventListener("click", () => {
+      openLightbox(images, mainSwiper.realIndex, p.name);
+    });
+  }
 }
 
 function openLightbox(images, startIndex, alt = "") {
