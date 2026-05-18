@@ -42,9 +42,15 @@ export function renderLocations(selector) {
     <section class="explore-locations py-20">
       <div class="max-w-7xl mx-auto px-6">
         <div class="explore-locations__header">
-          <span class="explore-locations__eyebrow">Explore by Location</span>
-          <h2 class="explore-locations__title">Find Your Perfect Address</h2>
-          <p class="explore-locations__subtitle">Browse premium properties across Egypt's most coveted destinations</p>
+          <div class="explore-locations__heading">
+            <span class="explore-locations__eyebrow">Explore by Location</span>
+            <h2 class="explore-locations__title">Find Your Perfect Address</h2>
+            <p class="explore-locations__subtitle">Browse premium properties across Egypt's most coveted destinations</p>
+          </div>
+          <a href="#filter-banner-root" class="action-link explore-locations__see-more" data-see-more-locations>
+            <span class="action-link__text uppercase">see more</span>
+            <span class="action-link__line"></span>
+          </a>
         </div>
         <div class="explore-locations__grid">
           ${locations.map(locationCard).join("")}
@@ -55,6 +61,47 @@ export function renderLocations(selector) {
 
   const header = el.querySelector(".explore-locations__header");
   const cards = el.querySelectorAll(".location-card");
+  const seeMoreLink = el.querySelector("[data-see-more-locations]");
+
+  if (seeMoreLink) {
+    seeMoreLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const banner =
+        document.querySelector(".filter-banner") ||
+        document.getElementById("filter-banner-root");
+      const select = document.getElementById("filterLocation");
+      if (!banner) return;
+
+      const navbarHeight =
+        parseInt(
+          getComputedStyle(document.documentElement).getPropertyValue(
+            "--navbar-height",
+          ),
+          10,
+        ) || 72;
+      const gap = 16;
+      const top =
+        banner.getBoundingClientRect().top +
+        window.pageYOffset -
+        navbarHeight -
+        gap;
+
+      window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+
+      if (!select) return;
+      const openPicker = () => {
+        select.focus({ preventScroll: true });
+        if (typeof select.showPicker === "function") {
+          try {
+            select.showPicker();
+          } catch (_) {
+            /* unsupported — focus is enough */
+          }
+        }
+      };
+      setTimeout(openPicker, 650);
+    });
+  }
 
   const obs = new IntersectionObserver(
     (entries) => {

@@ -20,8 +20,11 @@ export const properties = [
     deliveryDate: "December 2027",
     finishingType: "Fully Finished",
     furnishingStatus: "Unfurnished",
+    paymentMethod: "Cash / Installments",
     masterplanImage:
       "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
+    video_iframe:
+      '<iframe width="560" height="315" src="https://www.youtube.com/embed/4jnzf1yj48M?si=yvMkzyfVyP2UwAMd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
     facilities: [
       "Infinity Pool",
       "Sky Lounge",
@@ -41,6 +44,7 @@ export const properties = [
         name: "4 Bedroom — 350 m²",
         image:
           "https://pixelprime.co/themes/resideo-wp/demo-1/wp-content/uploads/2020/08/floor-plan-1-1920x1280.jpg",
+        pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
       },
     ],
     latitude: 27.2574,

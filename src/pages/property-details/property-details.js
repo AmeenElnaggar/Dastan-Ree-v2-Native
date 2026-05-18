@@ -49,6 +49,7 @@ function renderProperty(p) {
   renderQuickInfo(p);
   renderAbout(p);
   renderAmenities(p);
+  renderVideo(p);
   renderFloorPlans(p.floorPlans || []);
   renderMasterplan(p);
   renderMap(p);
@@ -102,14 +103,14 @@ function renderIntro(p) {
 
 function renderQuickInfo(p) {
   const rows = [
-    { label: "Status", value: p.status || "—", icon: "fa-circle-check" },
+    { label: "Payment Method", value: p.paymentMethod || "—", icon: "fa-credit-card" },
     { label: "Type", value: TYPE_LABEL[p.type] || capitalize(p.type), icon: "fa-building" },
     { label: "Bedrooms", value: p.bedrooms != null ? p.bedrooms : "—", icon: "fa-bed" },
     { label: "Bathrooms", value: p.bathrooms != null ? p.bathrooms : "—", icon: "fa-bath" },
     { label: "Area", value: p.area ? `${p.area} m²` : "—", icon: "fa-ruler-combined" },
     { label: "Delivery", value: p.deliveryDate || "—", icon: "fa-calendar-check" },
     { label: "Finishing", value: p.finishingType || "—", icon: "fa-paint-roller" },
-    { label: "Year", value: p.year || "—", icon: "fa-clock" },
+    { label: "Offering Type", value: p.purpose ? `For ${capitalize(p.purpose)}` : "—", icon: "fa-handshake" },
   ];
 
   document.querySelector("#quick-info").innerHTML = `
@@ -227,10 +228,19 @@ function renderFloorPlans(floorPlans) {
 
   const tabsEl = document.querySelector("#floorplan-tabs");
   const imgEl = document.querySelector("#floorplan-active-img");
+  const pdfEl = document.querySelector("#floorplan-pdf-link");
 
   const activate = (index) => {
-    imgEl.src = floorPlans[index].image;
-    imgEl.alt = floorPlans[index].name;
+    const fp = floorPlans[index];
+    imgEl.src = fp.image;
+    imgEl.alt = fp.name;
+    if (fp.pdf) {
+      pdfEl.href = fp.pdf;
+      pdfEl.hidden = false;
+    } else {
+      pdfEl.removeAttribute("href");
+      pdfEl.hidden = true;
+    }
     tabsEl
       .querySelectorAll(".pd-floorplan-tab")
       .forEach((t, i) => t.classList.toggle("active", i === index));
@@ -243,14 +253,24 @@ function renderFloorPlans(floorPlans) {
     )
     .join("");
 
-  imgEl.src = floorPlans[0].image;
-  imgEl.alt = floorPlans[0].name;
+  activate(0);
 
   tabsEl.addEventListener("click", (e) => {
     const btn = e.target.closest(".pd-floorplan-tab");
     if (!btn) return;
     activate(Number(btn.dataset.index));
   });
+}
+
+function renderVideo(p) {
+  const iframe = p.video_iframe || p.videoIframe || p.video;
+  if (!iframe) return;
+  const section = document.querySelector("#video-section");
+  const wrap = document.querySelector("#video-wrap");
+  if (/<iframe|<video/i.test(iframe)) wrap.innerHTML = iframe;
+  else
+    wrap.innerHTML = `<iframe src="${iframe}" title="Property video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  section.hidden = false;
 }
 
 function renderMasterplan(p) {

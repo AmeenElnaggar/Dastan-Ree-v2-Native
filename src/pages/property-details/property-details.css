@@ -615,7 +615,7 @@
   padding: 0;
   background: none;
   border: none;
-  color: var(--color-gold-500);
+  color: #080f1f;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -627,7 +627,7 @@
 }
 
 .pd-about__readmore:hover {
-  color: var(--color-gold-600);
+  color: #1e293b;
   gap: 0.65rem;
 }
 
@@ -792,6 +792,7 @@
 }
 
 .pd-floorplans__image-wrap {
+  position: relative;
   border-radius: 16px;
   overflow: hidden;
   background: #f8fafc;
@@ -802,12 +803,77 @@
   justify-content: center;
 }
 
+.pd-floorplans__pdf {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.15s;
+}
+
+.pd-floorplans__pdf i {
+  color: #f59e0b;
+  font-size: 0.95rem;
+}
+
+.pd-floorplans__pdf:hover {
+  background: #f59e0b;
+  border-color: transparent;
+  color: #0f172a;
+  transform: translateY(-1px);
+}
+
+.pd-floorplans__pdf:hover i {
+  color: #0f172a;
+}
+
+[dir="rtl"] .pd-floorplans__pdf {
+  right: auto;
+  left: 1rem;
+}
+
 .pd-floorplans__img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   padding: 1.5rem;
   transition: opacity 0.3s ease;
+}
+
+/* ── Video Tour ─────────────────────────────────────────────────── */
+.pd-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+}
+
+.pd-video iframe,
+.pd-video video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
 }
 
 /* ── Masterplan ─────────────────────────────────────────────────── */
