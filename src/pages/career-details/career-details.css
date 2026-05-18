@@ -21,18 +21,14 @@ body {
 
 /* Typography tweaks */
 .font-playfair {
-  font-family: 'Playfair Display', serif;
+  font-family: "Roboto", sans-serif;
 }
 
-/* Job Section Hover Effects */
+/* Job Section — card treatment applied by default */
 .job-section {
   transition: all 0.3s ease;
   padding: 1.5rem;
   border-radius: 0.75rem;
-  background-color: transparent;
-}
-
-.job-section:hover {
   background-color: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }

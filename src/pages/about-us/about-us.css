@@ -131,7 +131,7 @@
 .about-story__badge-number {
   font-size: 2.5rem;
   font-weight: 700;
-  font-family: "Playfair Display", serif;
+  font-family: "Roboto", sans-serif;
   color: var(--color-accent, #c9a45c);
   line-height: 1;
 }
@@ -170,7 +170,7 @@
   font-weight: 700;
   color: #1a1a1a;
   line-height: 1.25;
-  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-family: "Roboto", sans-serif;
 }
 
 /* --- Core Values Section --- */
@@ -253,7 +253,7 @@
   color: #0a1e77;
   opacity: 0.08;
   line-height: 1;
-  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-family: "Roboto", sans-serif;
   pointer-events: none;
   user-select: none;
 }
@@ -302,7 +302,7 @@
 .stat-item__number {
   font-size: 3rem;
   font-weight: 700;
-  font-family: "Playfair Display", serif;
+  font-family: "Roboto", sans-serif;
   color: var(--color-accent, #c9a45c);
   margin-bottom: 0.5rem;
 }

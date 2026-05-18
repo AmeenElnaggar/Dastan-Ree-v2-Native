@@ -102,7 +102,7 @@
   font-weight: 700;
   color: #1a1a1a;
   line-height: 1.25;
-  font-family: var(--font-display, "Playfair Display", Georgia, serif);
+  font-family: "Roboto", sans-serif;
 }
 
 /* --- Benefits Section --- */
@@ -208,7 +208,7 @@
   font-weight: 700;
   color: var(--color-primary, #0a1e77);
   margin-bottom: 0.75rem;
-  font-family: 'Playfair Display', serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .job-item__meta {

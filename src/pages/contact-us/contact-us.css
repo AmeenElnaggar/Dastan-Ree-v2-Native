@@ -100,7 +100,7 @@
 }
 
 .contact-details__title {
-  font-family: 'Playfair Display', serif;
+  font-family: "Roboto", sans-serif;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -223,7 +223,7 @@
 }
 
 .contact-form__title {
-  font-family: 'Playfair Display', serif;
+  font-family: "Roboto", sans-serif;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
