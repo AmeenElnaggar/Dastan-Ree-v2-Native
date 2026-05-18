@@ -37,32 +37,52 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ==========================================
-   SPLASH SCREEN — orchestration + cleanup
-   Timeline: draw(0-2s) → fill(1.8s) → words(1.6-1.85s)
-             → sweep(2.2s) → exit(3s) → remove(3.6s)
+   SPLASH SCREEN — morph: particles converge, letters drift,
+   tagline drips, stage settles, then fade + remove
    ========================================== */
+const SPLASH_SETTLE_MS = 2400;
+const SPLASH_LEAVE_MS = 3500;
+const SPLASH_PARTICLE_COUNT = 40;
+
 function initSplash() {
   const splash = document.getElementById("splash");
   if (!splash) return;
 
-  // Lock scroll during splash
   document.body.classList.add("splash-active");
 
-  // At 1.9s: begin exit animation (animations finish ~1.7s)
-  setTimeout(function () {
-    splash.classList.add("splash--exit");
-  }, 1900);
+  const particles = document.getElementById("splash-particles");
+  if (particles) {
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    for (let i = 0; i < SPLASH_PARTICLE_COUNT; i++) {
+      const p = document.createElement("span");
+      p.className = "splash__particle";
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 200 + Math.random() * Math.min(W, H) * 0.4;
+      p.style.left = "50%";
+      p.style.top = "50%";
+      p.style.setProperty("--sx", Math.cos(angle) * radius + "px");
+      p.style.setProperty("--sy", Math.sin(angle) * radius + "px");
+      p.style.animationDelay = Math.random() * 1.2 + "s";
+      p.style.animationDuration = 2.4 + Math.random() * 1.6 + "s";
+      particles.appendChild(p);
+    }
+  }
 
-  // At 2.5s: fade the entire overlay out
-  setTimeout(function () {
-    splash.classList.add("splash--done");
-  }, 2500);
+  setTimeout(() => {
+    const stage = document.getElementById("splash-stage");
+    if (stage) stage.classList.add("is-settled");
+  }, SPLASH_SETTLE_MS);
 
-  // At 3.1s: remove from DOM + unlock scroll
-  setTimeout(function () {
-    document.body.classList.remove("splash-active");
-    splash.remove();
-  }, 3100);
+  setTimeout(() => {
+    splash.classList.add("is-leaving");
+    const cleanup = () => {
+      document.body.classList.remove("splash-active");
+      splash.remove();
+    };
+    splash.addEventListener("transitionend", cleanup, { once: true });
+    setTimeout(cleanup, 1200);
+  }, SPLASH_LEAVE_MS);
 }
 
 function initPropertiesSlider(selector) {
