@@ -2,7 +2,16 @@ import { locations } from "../../../data/locations.data.js";
 import { projects } from "../../../data/projects.data.js";
 import { properties } from "../../../data/properties.data.js";
 
+// Bento grid expects exactly 5 cards: 1 spanning featured + 4 regular.
+const HOME_DISPLAY_LIMIT = 5;
 const allListings = [...projects, ...properties];
+
+function pickHomeLocations(all) {
+  return all.slice(0, HOME_DISPLAY_LIMIT).map((loc, i) => ({
+    ...loc,
+    featured: i === 0,
+  }));
+}
 
 function getCount(searchKey) {
   return allListings.filter((item) =>
@@ -14,7 +23,7 @@ function locationCard(loc, idx) {
   const count = getCount(loc.searchKey);
   const label = count === 1 ? "Listing" : "Listings";
   return `
-    <a href="#" class="location-card${loc.featured ? " location-card--featured" : ""}" data-idx="${idx}">
+    <a href="../location-details/index.html?id=${encodeURIComponent(loc.id)}" class="location-card${loc.featured ? " location-card--featured" : ""}" data-idx="${idx}">
       <div class="location-card__image-wrap">
         <img src="${loc.image}" alt="${loc.name}" class="location-card__img" loading="lazy" />
         <div class="location-card__overlay"></div>
@@ -47,13 +56,13 @@ export function renderLocations(selector) {
             <h2 class="explore-locations__title">Find Your Perfect Address</h2>
             <p class="explore-locations__subtitle">Browse premium properties across Egypt's most coveted destinations</p>
           </div>
-          <a href="#filter-banner-root" class="action-link explore-locations__see-more" data-see-more-locations>
+          <a href="../locations/index.html" class="action-link explore-locations__see-more">
             <span class="action-link__text uppercase">see more</span>
             <span class="action-link__line"></span>
           </a>
         </div>
         <div class="explore-locations__grid">
-          ${locations.map(locationCard).join("")}
+          ${pickHomeLocations(locations).map(locationCard).join("")}
         </div>
       </div>
     </section>
@@ -61,47 +70,6 @@ export function renderLocations(selector) {
 
   const header = el.querySelector(".explore-locations__header");
   const cards = el.querySelectorAll(".location-card");
-  const seeMoreLink = el.querySelector("[data-see-more-locations]");
-
-  if (seeMoreLink) {
-    seeMoreLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      const banner =
-        document.querySelector(".filter-banner") ||
-        document.getElementById("filter-banner-root");
-      const select = document.getElementById("filterLocation");
-      if (!banner) return;
-
-      const navbarHeight =
-        parseInt(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            "--navbar-height",
-          ),
-          10,
-        ) || 72;
-      const gap = 16;
-      const top =
-        banner.getBoundingClientRect().top +
-        window.pageYOffset -
-        navbarHeight -
-        gap;
-
-      window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
-
-      if (!select) return;
-      const openPicker = () => {
-        select.focus({ preventScroll: true });
-        if (typeof select.showPicker === "function") {
-          try {
-            select.showPicker();
-          } catch (_) {
-            /* unsupported — focus is enough */
-          }
-        }
-      };
-      setTimeout(openPicker, 650);
-    });
-  }
 
   const obs = new IntersectionObserver(
     (entries) => {

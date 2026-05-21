@@ -1,21 +1,36 @@
-import { developers } from "../../data/developers.data.js";
+import { locations } from "../../data/locations.data.js";
+import { projects } from "../../data/projects.data.js";
+import { properties } from "../../data/properties.data.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 
 const PAGE_SIZE = 8;
+const allListings = [...projects, ...properties];
+
+function getListingCount(searchKey) {
+  const needle = searchKey.toLowerCase();
+  return allListings.filter((item) =>
+    (item.location || "").toLowerCase().includes(needle)
+  ).length;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root", { transparent: true });
   renderFooter("#footer-root");
 
-  const grid = document.getElementById("developersGrid");
-  const empty = document.getElementById("developersEmpty");
-  const countEl = document.getElementById("developersCount");
-  const input = document.getElementById("developersSearch");
-  const clearBtn = document.getElementById("developersSearchClear");
-  const paginationEl = document.getElementById("developersPagination");
+  const grid = document.getElementById("locationsGrid");
+  const empty = document.getElementById("locationsEmpty");
+  const countEl = document.getElementById("locationsCount");
+  const input = document.getElementById("locationsSearch");
+  const clearBtn = document.getElementById("locationsSearchClear");
+  const paginationEl = document.getElementById("locationsPagination");
 
-  let filtered = developers.slice();
+  // Sort featured first for a more curated feel on the first page
+  const sorted = [...locations].sort(
+    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))
+  );
+
+  let filtered = sorted.slice();
   let currentPage = 1;
 
   const fadeObs = new IntersectionObserver(
@@ -38,12 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const start = (currentPage - 1) * PAGE_SIZE;
     const pageItems = filtered.slice(start, start + PAGE_SIZE);
 
-    grid.innerHTML = pageItems.map(renderDeveloperCard).join("");
+    grid.innerHTML = pageItems.map(renderLocationCard).join("");
     grid.hidden = total === 0;
     empty.hidden = total > 0;
 
     countEl.innerHTML = `<strong>${total}</strong> ${
-      total === 1 ? "developer" : "developers"
+      total === 1 ? "location" : "locations"
     }`;
 
     grid.querySelectorAll(".fade-up").forEach((el) => fadeObs.observe(el));
@@ -62,18 +77,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const chevLeft = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
     const chevRight = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
 
-    let html = `<button class="developers-pagination__btn" data-action="prev" aria-label="Previous page"${currentPage === 1 ? " disabled" : ""}>${chevLeft}<span>Prev</span></button>`;
+    let html = `<button class="locations-pagination__btn" data-action="prev" aria-label="Previous page"${currentPage === 1 ? " disabled" : ""}>${chevLeft}<span>Prev</span></button>`;
 
     buildPageRange(currentPage, totalPages).forEach((p) => {
       if (p === "…") {
-        html += `<span class="developers-pagination__ellipsis">…</span>`;
+        html += `<span class="locations-pagination__ellipsis">…</span>`;
       } else {
         const active = p === currentPage;
-        html += `<button class="developers-pagination__page${active ? " developers-pagination__page--active" : ""}" data-page="${p}" aria-label="Page ${p}"${active ? ' aria-current="page"' : ""}>${p}</button>`;
+        html += `<button class="locations-pagination__page${active ? " locations-pagination__page--active" : ""}" data-page="${p}" aria-label="Page ${p}"${active ? ' aria-current="page"' : ""}>${p}</button>`;
       }
     });
 
-    html += `<button class="developers-pagination__btn" data-action="next" aria-label="Next page"${currentPage === totalPages ? " disabled" : ""}><span>Next</span>${chevRight}</button>`;
+    html += `<button class="locations-pagination__btn" data-action="next" aria-label="Next page"${currentPage === totalPages ? " disabled" : ""}><span>Next</span>${chevRight}</button>`;
 
     paginationEl.innerHTML = html;
 
@@ -108,14 +123,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const q = input.value.trim().toLowerCase();
     clearBtn.hidden = q.length === 0;
     filtered = q
-      ? developers.filter((d) => {
-          const haystack = [d.name, d.location, d.tagline]
+      ? sorted.filter((loc) => {
+          const haystack = [loc.name, loc.region, loc.searchKey]
             .filter(Boolean)
             .join(" ")
             .toLowerCase();
           return haystack.includes(q);
         })
-      : developers.slice();
+      : sorted.slice();
     currentPage = 1;
     renderPage();
   }
@@ -152,18 +167,29 @@ function buildPageRange(current, total) {
   return range;
 }
 
-function renderDeveloperCard(d, index) {
+function renderLocationCard(loc, index) {
   const delay = Math.min(index * 0.05, 0.4);
+  const count = getListingCount(loc.searchKey);
+  const label = count === 1 ? "Listing" : "Listings";
+  const href = `../location-details/index.html?id=${encodeURIComponent(loc.id)}`;
+
   return `
-    <a href="../developer-details/index.html?id=${d.id}" class="developer-card fade-up" role="listitem" style="transition-delay: ${delay}s" aria-label="${escapeAttr(d.name)}">
-      <div class="developer-card__logo-wrap">
-        <img class="developer-card__logo" src="${d.logo}" alt="${escapeAttr(d.alt || d.name)}" loading="lazy" />
+    <a href="${href}" class="location-listing-card fade-up" role="listitem" style="transition-delay: ${delay}s" aria-label="${escapeAttr(loc.name)}">
+      <div class="location-listing-card__image-wrap">
+        <img class="location-listing-card__img" src="${loc.image}" alt="${escapeAttr(loc.name)}" loading="lazy" />
+        <div class="location-listing-card__overlay"></div>
       </div>
-      <h3 class="developer-card__name">${escapeHtml(d.name)}</h3>
-      ${d.tagline ? `<p class="developer-card__tagline">${escapeHtml(d.tagline)}</p>` : ""}
-      <div class="developer-card__meta">
-        ${d.location ? `<span class="developer-card__meta-item"><i class="fa-solid fa-location-dot"></i>${escapeHtml(d.location)}</span>` : ""}
-        ${d.projects ? `<span class="developer-card__meta-item"><i class="fa-solid fa-building"></i>${d.projects} projects</span>` : ""}
+      ${loc.featured ? `<span class="location-listing-card__featured-badge">Featured</span>` : ""}
+      <div class="location-listing-card__body">
+        <span class="location-listing-card__region">${escapeHtml(loc.region)}</span>
+        <h3 class="location-listing-card__name">${escapeHtml(loc.name)}</h3>
+        <div class="location-listing-card__footer">
+          <span class="location-listing-card__count">${count} ${label}</span>
+          <span class="location-listing-card__explore">
+            Explore
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
       </div>
     </a>
   `;

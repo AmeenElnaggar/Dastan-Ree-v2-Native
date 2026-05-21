@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Location — Dastan Real Estate</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../../src/assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css" />
+    <link rel="stylesheet" href="../../../src/styles/global.css" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/project-card/project-card.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/property-card/property-card.css" />
+    <link rel="stylesheet" href="location-details.css" />
+    <script>
+      history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-gray-50 text-gray-900">
+    <div id="navbar-root"></div>
+
+    <!-- Hero -->
+    <header class="ld-hero" id="ld-hero">
+      <div class="ld-hero__bg" id="ld-hero-bg" aria-hidden="true"></div>
+      <div class="ld-hero__overlay" aria-hidden="true"></div>
+      <div class="ld-hero__container max-w-6xl mx-auto px-6">
+        <a href="../locations/index.html" class="ld-back-link fade-up">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Locations</span>
+        </a>
+
+        <div class="ld-hero__content fade-up" style="transition-delay: 0.1s">
+          <span class="ld-hero__region" id="ld-region"></span>
+          <h1 class="ld-hero__title" id="ld-name">Loading…</h1>
+          <p class="ld-hero__subtitle" id="ld-subtitle"></p>
+
+          <div class="ld-hero__stats" id="ld-hero-stats"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Overview -->
+    <section class="ld-overview fade-up" style="transition-delay: 0.15s">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="ld-card">
+          <h2 class="ld-section-title">About <span id="ld-name-inline">this location</span></h2>
+          <p class="ld-description" id="ld-description"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects in this location -->
+    <section class="ld-listings fade-up" id="ld-projects-section" hidden>
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="ld-listings__header">
+          <div>
+            <span class="ld-listings__eyebrow">Projects</span>
+            <h2 class="ld-listings__title">Featured Projects Here</h2>
+            <p class="ld-listings__subtitle">
+              Notable developments rising in this area.
+            </p>
+          </div>
+          <div class="ld-listings__nav">
+            <button class="ld-listings__nav-btn" id="ld-projects-prev" type="button" aria-label="Previous">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="ld-listings__count">
+              <span id="ld-projects-current">01</span>
+              <span class="ld-listings__count-sep">/</span>
+              <span id="ld-projects-total">01</span>
+            </div>
+            <button class="ld-listings__nav-btn" id="ld-projects-next" type="button" aria-label="Next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="ld-projects-root"></div>
+      </div>
+    </section>
+
+    <!-- Properties in this location -->
+    <section class="ld-listings fade-up" id="ld-properties-section" hidden>
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="ld-listings__header">
+          <div>
+            <span class="ld-listings__eyebrow">Properties</span>
+            <h2 class="ld-listings__title">Available Properties</h2>
+            <p class="ld-listings__subtitle">
+              Listings ready to view in this neighbourhood.
+            </p>
+          </div>
+          <div class="ld-listings__nav">
+            <button class="ld-listings__nav-btn" id="ld-properties-prev" type="button" aria-label="Previous">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="ld-listings__count">
+              <span id="ld-properties-current">01</span>
+              <span class="ld-listings__count-sep">/</span>
+              <span id="ld-properties-total">01</span>
+            </div>
+            <button class="ld-listings__nav-btn" id="ld-properties-next" type="button" aria-label="Next">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div id="ld-properties-root"></div>
+      </div>
+    </section>
+
+    <!-- Empty state when no listings exist for this location -->
+    <section class="ld-no-listings fade-up" id="ld-no-listings" hidden>
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <div class="ld-no-listings__icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h3>No listings available yet</h3>
+        <p>We're still curating projects and properties for this location. In the meantime, get in touch and we'll match you with off-market opportunities.</p>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="module" src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script type="module" src="../../../src/shared/components/footer/Footer.js"></script>
+    <script type="module" src="location-details.js"></script>
+  </body>
+</html>
