@@ -1281,7 +1281,6 @@
   justify-content: center;
   opacity: 0;
   transition: opacity 0.25s ease;
-  cursor: zoom-out;
   padding: 4rem 1.5rem;
 }
 
@@ -1295,7 +1294,6 @@
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  cursor: default;
   user-select: none;
 }
 

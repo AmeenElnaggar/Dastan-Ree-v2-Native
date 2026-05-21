@@ -49,7 +49,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  cursor: zoom-in;
 }
 
 .pd-hero-slide__bg {
@@ -239,6 +238,59 @@
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
   font-variant-numeric: tabular-nums;
+}
+
+/* Preview pill — mirrors property-details `.pd-gallery-main__preview` */
+.pd-hero__preview {
+  position: absolute;
+  top: 1.25rem;
+  inset-inline-start: 1.25rem;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.pd-hero__preview i {
+  font-size: 0.9rem;
+  color: #f59e0b;
+  transition: color 0.2s ease;
+}
+
+.pd-hero__swiper:hover .pd-hero__preview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pd-hero__preview:hover {
+  background: #f59e0b;
+  border-color: transparent;
+  color: #0f172a;
+}
+
+.pd-hero__preview:hover i {
+  color: #0f172a;
 }
 
 @media (max-width: 768px) {

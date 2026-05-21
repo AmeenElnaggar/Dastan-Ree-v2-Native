@@ -785,7 +785,7 @@ function initGallerySwipers(p) {
 
   const isRTL = document.documentElement.dir === "rtl";
 
-  new window.Swiper("#gallery-main", {
+  const mainSwiper = new window.Swiper("#gallery-main", {
     spaceBetween: 0,
     slidesPerView: 1,
     speed: 700,
@@ -807,17 +807,26 @@ function initGallerySwipers(p) {
         }
       },
       click: (swiper, event) => {
-        /* Ignore clicks on overlay text, nav arrows, pagination chip. */
+        /* Ignore clicks on overlay text, nav arrows, pagination chip,
+           and the preview button (which has its own handler below). */
         if (
           event.target.closest(".pd-hero__nav") ||
           event.target.closest(".pd-hero__pagination") ||
-          event.target.closest(".pd-hero__overlay")
+          event.target.closest(".pd-hero__overlay") ||
+          event.target.closest(".pd-hero__preview")
         )
           return;
         openLightbox(unique, swiper.realIndex, name);
       },
     },
   });
+
+  const previewBtn = document.querySelector("#gallery-main-preview");
+  if (previewBtn) {
+    previewBtn.addEventListener("click", () => {
+      openLightbox(unique, mainSwiper.realIndex, name);
+    });
+  }
 }
 
 function openLightbox(images, startIndex, alt = "") {

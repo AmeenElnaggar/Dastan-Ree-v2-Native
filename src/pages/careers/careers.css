@@ -194,7 +194,7 @@
 }
 
 .job-item:hover {
-  border-color: var(--color-accent, #c9a45c);
+  border-color: #d97706;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   transform: translateX(5px);
 }
@@ -228,7 +228,7 @@
 }
 
 .job-item__meta span i {
-  color: var(--color-accent, #c9a45c);
+  color: #d97706;
 }
 
 .job-item__desc {

@@ -61,10 +61,10 @@ export function renderFooter(selector) {
           <h4 class="footer__heading">Navigate</h4>
           <ul class="footer__list">
             <li><a href="../home/index.html" class="footer__link">Home</a></li>
-            <li><a href="#" class="footer__link">All Projects</a></li>
-            <li><a href="#" class="footer__link">About Us</a></li>
-            <li><a href="#" class="footer__link">Blog</a></li>
-            <li><a href="#" class="footer__link">Careers</a></li>
+            <li><a href="../projects/index.html" class="footer__link">All Projects</a></li>
+            <li><a href="../about-us/index.html" class="footer__link">About Us</a></li>
+            <li><a href="../blogs/index.html" class="footer__link">Blogs</a></li>
+            <li><a href="../careers/index.html" class="footer__link">Careers</a></li>
           </ul>
         </div>
 

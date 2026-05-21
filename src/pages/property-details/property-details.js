@@ -103,19 +103,51 @@ function renderIntro(p) {
 
 function renderQuickInfo(p) {
   const rows = [
-    { label: "Payment Method", value: p.paymentMethod || "—", icon: "fa-credit-card" },
-    { label: "Type", value: TYPE_LABEL[p.type] || capitalize(p.type), icon: "fa-building" },
-    { label: "Bedrooms", value: p.bedrooms != null ? p.bedrooms : "—", icon: "fa-bed" },
-    { label: "Bathrooms", value: p.bathrooms != null ? p.bathrooms : "—", icon: "fa-bath" },
-    { label: "Area", value: p.area ? `${p.area} m²` : "—", icon: "fa-ruler-combined" },
-    { label: "Delivery", value: p.deliveryDate || "—", icon: "fa-calendar-check" },
-    { label: "Finishing", value: p.finishingType || "—", icon: "fa-paint-roller" },
-    { label: "Offering Type", value: p.purpose ? `For ${capitalize(p.purpose)}` : "—", icon: "fa-handshake" },
+    {
+      label: "Payment Method",
+      value: p.paymentMethod || "—",
+      icon: "fa-credit-card",
+    },
+    {
+      label: "Type",
+      value: TYPE_LABEL[p.type] || capitalize(p.type),
+      icon: "fa-building",
+    },
+    {
+      label: "Bedrooms",
+      value: p.bedrooms != null ? p.bedrooms : "—",
+      icon: "fa-bed",
+    },
+    {
+      label: "Bathrooms",
+      value: p.bathrooms != null ? p.bathrooms : "—",
+      icon: "fa-bath",
+    },
+    {
+      label: "Area",
+      value: p.area ? `${p.area} m²` : "—",
+      icon: "fa-ruler-combined",
+    },
+    {
+      label: "Delivery",
+      value: p.deliveryDate || "—",
+      icon: "fa-calendar-check",
+    },
+    {
+      label: "Finishing",
+      value: p.finishingType || "—",
+      icon: "fa-paint-roller",
+    },
+    {
+      label: "Offering Type",
+      value: p.purpose ? `For ${capitalize(p.purpose)}` : "—",
+      icon: "fa-handshake",
+    },
   ];
 
   document.querySelector("#quick-info").innerHTML = `
     <div class="pd-quick-info__price">
-      <div class="pd-quick-info__price-label">Starting From</div>
+      <div class="pd-quick-info__price-label">Unit Price</div>
       <div class="pd-quick-info__price-row">
         <span class="pd-quick-info__price-currency">EGP</span>
         <span class="pd-quick-info__price-amount">${formatNumber(p.price)}</span>
@@ -356,7 +388,8 @@ function renderSidebar(p) {
 // ── Sliders ───────────────────────────────────────────────────────
 
 function initGallerySwipers(p) {
-  const images = p.images && p.images.length ? p.images : p.image ? [p.image] : [];
+  const images =
+    p.images && p.images.length ? p.images : p.image ? [p.image] : [];
   if (!images.length) {
     document.querySelector("#pd-gallery-info").style.display = "none";
     return;

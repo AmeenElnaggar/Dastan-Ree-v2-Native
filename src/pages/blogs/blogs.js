@@ -4,7 +4,6 @@ import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderBlogCard } from "../../shared/components/blog-card/BlogCard.js";
 
 const PER_PAGE = 6;
-const READ_TIMES = [5, 4, 6, 3, 5, 4];
 let page = 1;
 let sortOrder = "newest";
 
@@ -12,19 +11,6 @@ const filters = {
   search: "",
   categories: [],
   years: [],
-  months: [],
-  readTime: null,
-};
-
-const MONTH_LABELS = {
-  1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun",
-  7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec",
-};
-
-const READ_TIME_LABELS = {
-  quick: "Quick read",
-  medium: "Medium read",
-  long: "Long read",
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -59,16 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function parseDate(str) {
   const d = new Date(str);
   return isNaN(d.getTime()) ? null : d;
-}
-
-function getReadTime(blog) {
-  return READ_TIMES[(blog.id - 1) % READ_TIMES.length];
-}
-
-function readTimeBucket(minutes) {
-  if (minutes < 4) return "quick";
-  if (minutes <= 5) return "medium";
-  return "long";
 }
 
 // ── Header ────────────────────────────────────────────────────────
@@ -304,21 +280,14 @@ function renderActiveFilters() {
   if (filters.search) addChip(`"${filters.search}"`, "search", null);
   filters.categories.forEach((v) => addChip(v, "categories", v));
   filters.years.forEach((v) => addChip(v, "years", v));
-  filters.months.forEach((v) => addChip(MONTH_LABELS[v] || v, "months", v));
-  if (filters.readTime) addChip(READ_TIME_LABELS[filters.readTime], "readTime", null);
 
   updateFilterBadge();
 }
 
 function removeFilter(key, value) {
-  if (["categories", "years", "months"].includes(key)) {
+  if (["categories", "years"].includes(key)) {
     filters[key] = filters[key].filter((v) => v !== value);
     syncFilterUI(key, value, false);
-  } else if (key === "readTime") {
-    filters.readTime = null;
-    document
-      .querySelectorAll("#readTimePills .filter-pill")
-      .forEach((p) => p.classList.remove("filter-pill--active"));
   } else if (key === "search") {
     filters.search = "";
     const el = document.querySelector("#searchInput");
@@ -336,12 +305,9 @@ function syncFilterUI(key, value, active) {
     if (el) el.checked = active;
     return;
   }
-  const groupSel = { years: "#yearPills", months: "#monthPills" }[key];
-  if (groupSel) {
-    const el = document.querySelector(`${groupSel} [data-value="${value}"]`);
-    if (el) {
-      el.classList.toggle("filter-pill--active", active);
-    }
+  if (key === "years") {
+    const el = document.querySelector(`#yearPills [data-value="${value}"]`);
+    if (el) el.classList.toggle("filter-pill--active", active);
   }
 }
 
@@ -349,8 +315,6 @@ function clearAllFilters() {
   filters.search = "";
   filters.categories = [];
   filters.years = [];
-  filters.months = [];
-  filters.readTime = null;
 
   const search = document.querySelector("#searchInput");
   if (search) search.value = "";
@@ -372,9 +336,7 @@ function updateFilterBadge() {
   const count =
     (filters.search ? 1 : 0) +
     filters.categories.length +
-    filters.years.length +
-    filters.months.length +
-    (filters.readTime ? 1 : 0);
+    filters.years.length;
 
   const badge = document.querySelector("#filtersBadge");
   if (!badge) return;
@@ -478,17 +440,6 @@ function getFiltered() {
       const d = parseDate(b.date);
       return d && filters.years.includes(String(d.getFullYear()));
     });
-  }
-
-  if (filters.months.length) {
-    list = list.filter((b) => {
-      const d = parseDate(b.date);
-      return d && filters.months.includes(String(d.getMonth() + 1));
-    });
-  }
-
-  if (filters.readTime) {
-    list = list.filter((b) => readTimeBucket(getReadTime(b)) === filters.readTime);
   }
 
   if (sortOrder === "newest") {

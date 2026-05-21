@@ -10,9 +10,9 @@ export function renderFilterBanner(selector) {
       <div class="filter-banner__container">
         <div class="filter-banner__inner">
           <div class="filter-banner__tabs" role="tablist" aria-label="Property purpose">
-            <button class="filter-banner__tab filter-banner__tab--active" role="tab" aria-selected="true" data-purpose="buy">Buy</button>
-            <button class="filter-banner__tab" role="tab" aria-selected="false" data-purpose="rent">Rent</button>
-            <button class="filter-banner__tab" role="tab" aria-selected="false" data-purpose="offplan">Off-Plan</button>
+            <button class="filter-banner__tab filter-banner__tab--active" role="tab" aria-selected="true" data-purpose="buy">Primary</button>
+            <button class="filter-banner__tab" role="tab" aria-selected="false" data-purpose="rent">Resale</button>
+            <button class="filter-banner__tab" role="tab" aria-selected="false" data-purpose="offplan">Rent</button>
           </div>
           <form class="filter-banner__form" aria-label="Property search filters">
             <div class="filter-banner__field">
@@ -104,21 +104,21 @@ export function renderFilterBanner(selector) {
     </section>
   `;
 
-  const tabs = el.querySelectorAll('.filter-banner__tab');
-  const purposeSelect = el.querySelector('#filterPurpose');
+  const tabs = el.querySelectorAll(".filter-banner__tab");
+  const purposeSelect = el.querySelector("#filterPurpose");
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function () {
-      tabs.forEach(t => {
-        t.classList.remove('filter-banner__tab--active');
-        t.setAttribute('aria-selected', 'false');
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", function () {
+      tabs.forEach((t) => {
+        t.classList.remove("filter-banner__tab--active");
+        t.setAttribute("aria-selected", "false");
       });
-      this.classList.add('filter-banner__tab--active');
-      this.setAttribute('aria-selected', 'true');
+      this.classList.add("filter-banner__tab--active");
+      this.setAttribute("aria-selected", "true");
       if (purposeSelect) purposeSelect.value = this.dataset.purpose;
     });
   });
 
-  const form = el.querySelector('.filter-banner__form');
-  if (form) form.addEventListener('submit', e => e.preventDefault());
+  const form = el.querySelector(".filter-banner__form");
+  if (form) form.addEventListener("submit", (e) => e.preventDefault());
 }

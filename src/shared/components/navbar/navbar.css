@@ -56,7 +56,6 @@
 .navbar__brand {
   display: flex;
   align-items: center;
-  flex: 1;
   text-decoration: none;
 }
 
@@ -82,6 +81,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: auto;
 }
 
 .navbar__link {
@@ -137,19 +137,20 @@
   align-items: center;
   justify-content: flex-end;
   gap: 1.25rem;
-  flex: 1;
+  margin-left: auto;
 }
 
-/* ── Phone ─────────────────────────────────────────────────────────── */
+/* ── CTA (Add Property) — filled dark, matches former phone btn style ── */
 
-.navbar__phone {
-  display: flex;
+.navbar__cta-outline {
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 0.8125rem;
+  font-weight: 500;
   letter-spacing: 0.5px;
   text-decoration: none;
+  white-space: nowrap;
   padding: 0.3rem 0.65rem;
   border-radius: 4px;
   background: #080f1f;
@@ -159,32 +160,32 @@
     transform 0.2s ease;
 }
 
-.navbar__phone svg {
+.navbar__cta-outline svg {
   flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
-.navbar__phone:hover {
+.navbar__cta-outline:hover {
   background: #1a2540;
   transform: translateY(-1px);
 }
 
-.navbar__phone:hover svg {
-  transform: rotate(-10deg) scale(1.1);
+.navbar__cta-outline:hover svg {
+  transform: rotate(90deg);
 }
 
-.navbar__phone:active {
+.navbar__cta-outline:active {
   transform: translateY(0);
 }
 
-/* Override navbar state rules — always dark */
-.navbar--transparent .navbar__phone,
-.navbar--solid .navbar__phone {
+/* Always dark regardless of navbar state */
+.navbar--transparent .navbar__cta-outline,
+.navbar--solid .navbar__cta-outline {
   color: #ffffff !important;
 }
 
-.navbar--transparent .navbar__phone:hover,
-.navbar--solid .navbar__phone:hover {
+.navbar--transparent .navbar__cta-outline:hover,
+.navbar--solid .navbar__cta-outline:hover {
   color: #ffffff !important;
 }
 
@@ -220,6 +221,82 @@
 
 .navbar--solid .navbar__lang-btn:hover {
   color: var(--navbar-brand);
+}
+
+/* ── Phone icon (with tooltip) ─────────────────────────────────────── */
+
+.navbar__phone-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.375rem;
+  line-height: 1;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.navbar__phone-icon svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.navbar__phone-icon:hover svg {
+  transform: rotate(-10deg) scale(1.08);
+}
+
+.navbar--transparent .navbar__phone-icon {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.navbar--transparent .navbar__phone-icon:hover {
+  color: #ffffff;
+}
+
+.navbar--solid .navbar__phone-icon {
+  color: #6b7280;
+}
+
+.navbar--solid .navbar__phone-icon:hover {
+  color: var(--navbar-brand);
+}
+
+/* Tooltip */
+.navbar__tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  background: #080f1f;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  z-index: 10;
+}
+
+.navbar__tooltip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #080f1f;
+}
+
+.navbar__phone-icon:hover .navbar__tooltip,
+.navbar__phone-icon:focus-visible .navbar__tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* ── Hamburger ─────────────────────────────────────────────────────── */
@@ -307,9 +384,13 @@
   border-top: 1px solid #f3f4f6;
 }
 
-.navbar__mobile-footer .navbar__phone {
+.navbar__mobile-footer .navbar__cta-outline {
   background: #080f1f;
   color: #ffffff !important;
+}
+
+.navbar__mobile-footer .navbar__cta-outline:hover {
+  background: #1a2540;
 }
 
 .navbar__mobile-footer .navbar__lang-btn {
@@ -327,7 +408,7 @@
     display: none;
   }
 
-  .navbar__phone {
+  .navbar__right > .navbar__cta-outline {
     display: none;
   }
 

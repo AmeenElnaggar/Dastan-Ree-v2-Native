@@ -104,40 +104,6 @@
               <div class="filter-section__body" id="developerList"></div>
             </div>
 
-            <!-- Bedrooms -->
-            <div class="filter-section" data-section="beds">
-              <button class="filter-section__toggle" aria-expanded="true">
-                Bedrooms
-                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="filter-section__body">
-                <div class="filter-pills" id="bedsPills" data-filter="beds" data-multi="true">
-                  <button class="filter-pill" data-value="0" type="button">Studio</button>
-                  <button class="filter-pill" data-value="1" type="button">1</button>
-                  <button class="filter-pill" data-value="2" type="button">2</button>
-                  <button class="filter-pill" data-value="3" type="button">3</button>
-                  <button class="filter-pill" data-value="4" type="button">4</button>
-                  <button class="filter-pill" data-value="5" type="button">5+</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bathrooms -->
-            <div class="filter-section" data-section="baths">
-              <button class="filter-section__toggle" aria-expanded="false">
-                Bathrooms
-                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="filter-section__body filter-section__body--collapsed">
-                <div class="filter-pills" id="bathsPills" data-filter="baths" data-multi="true">
-                  <button class="filter-pill" data-value="1" type="button">1</button>
-                  <button class="filter-pill" data-value="2" type="button">2</button>
-                  <button class="filter-pill" data-value="3" type="button">3</button>
-                  <button class="filter-pill" data-value="4" type="button">4+</button>
-                </div>
-              </div>
-            </div>
-
             <!-- Price Range -->
             <div class="filter-section" data-section="price">
               <button class="filter-section__toggle" aria-expanded="true">
@@ -149,21 +115,6 @@
                   <input type="number" class="filter-range__input" id="priceMin" placeholder="Min" min="0"/>
                   <span class="filter-range__sep">—</span>
                   <input type="number" class="filter-range__input" id="priceMax" placeholder="Max" min="0"/>
-                </div>
-              </div>
-            </div>
-
-            <!-- Area Size -->
-            <div class="filter-section" data-section="area">
-              <button class="filter-section__toggle" aria-expanded="false">
-                Area Size (sqm)
-                <svg class="filter-section__chevron" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-              <div class="filter-section__body filter-section__body--collapsed">
-                <div class="filter-range">
-                  <input type="number" class="filter-range__input" id="areaMin" placeholder="Min sqm" min="0"/>
-                  <span class="filter-range__sep">—</span>
-                  <input type="number" class="filter-range__input" id="areaMax" placeholder="Max sqm" min="0"/>
                 </div>
               </div>
             </div>
@@ -266,7 +217,6 @@
                     <option value="default">Default</option>
                     <option value="price-asc">Price: Low to High</option>
                     <option value="price-desc">Price: High to Low</option>
-                    <option value="area-asc">Area: Small to Large</option>
                     <option value="year-asc">Delivery: Soonest</option>
                     <option value="year-desc">Delivery: Latest</option>
                   </select>

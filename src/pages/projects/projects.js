@@ -13,12 +13,8 @@ const filters = {
   types: [],
   statuses: [],
   developers: [],
-  beds: [],
-  baths: [],
   priceMin: null,
   priceMax: null,
-  areaMin: null,
-  areaMax: null,
   year: [],
   finishing: null,
   furnishing: null,
@@ -53,7 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root");
   renderFooter("#footer-root");
   renderHeader("#page-header-root");
-  renderFilterBanner("#filter-banner-root");
+  renderFilterBanner("#filter-banner-root", {
+    tabs: [
+      { label: "Primary", value: "primary" },
+      { label: "Resale", value: "resale" },
+      { label: "Rent", value: "rent" },
+    ],
+  });
   populateDeveloperFilters();
   renderProjects();
 
@@ -253,7 +255,7 @@ function initTagFilters() {
 
 // ── Range filters (debounced 400ms) ───────────────────────────────
 function initRangeFilters() {
-  ["priceMin", "priceMax", "areaMin", "areaMax"].forEach((id) => {
+  ["priceMin", "priceMax"].forEach((id) => {
     const el = document.querySelector(`#${id}`);
     if (!el) return;
     let timer;
@@ -338,12 +340,6 @@ function renderActiveFilters() {
   filters.types.forEach((v) => addChip(TYPE_LABELS[v] || v, "types", v));
   filters.statuses.forEach((v) => addChip(v, "statuses", v));
   filters.developers.forEach((v) => addChip(v, "developers", v));
-  filters.beds.forEach((v) =>
-    addChip(v === "0" ? "Studio" : `${v === "5" ? "5+" : v} Beds`, "beds", v),
-  );
-  filters.baths.forEach((v) =>
-    addChip(`${v === "4" ? "4+" : v} Baths`, "baths", v),
-  );
   filters.year.forEach((v) => addChip(v === "2026" ? "2026+" : v, "year", v));
   if (filters.finishing) addChip(filters.finishing, "finishing", null);
   if (filters.furnishing) addChip(filters.furnishing, "furnishing", null);
@@ -355,10 +351,6 @@ function renderActiveFilters() {
     addChip(`From ${filters.priceMin.toLocaleString()} EGP`, "priceMin", null);
   if (filters.priceMax !== null)
     addChip(`Up to ${filters.priceMax.toLocaleString()} EGP`, "priceMax", null);
-  if (filters.areaMin !== null)
-    addChip(`From ${filters.areaMin} sqm`, "areaMin", null);
-  if (filters.areaMax !== null)
-    addChip(`Up to ${filters.areaMax} sqm`, "areaMax", null);
 
   updateFilterBadge();
 }
@@ -370,8 +362,6 @@ function removeFilter(key, value) {
       "types",
       "statuses",
       "developers",
-      "beds",
-      "baths",
       "year",
       "amenities",
     ].includes(key)
@@ -418,8 +408,6 @@ function syncFilterUI(key, value, active) {
     if (el) el.checked = active;
   }
   const groupSel = {
-    beds: "#bedsPills",
-    baths: "#bathsPills",
     year: "#yearPills",
     amenities: "#amenitiesTags",
   }[key];
@@ -443,12 +431,8 @@ function clearAllFilters() {
   filters.types = [];
   filters.statuses = [];
   filters.developers = [];
-  filters.beds = [];
-  filters.baths = [];
   filters.priceMin = null;
   filters.priceMax = null;
-  filters.areaMin = null;
-  filters.areaMax = null;
   filters.year = [];
   filters.finishing = null;
   filters.furnishing = null;
@@ -464,7 +448,7 @@ function clearAllFilters() {
   document
     .querySelectorAll(".filter-tag")
     .forEach((t) => t.classList.remove("filter-tag--active"));
-  ["priceMin", "priceMax", "areaMin", "areaMax"].forEach((id) => {
+  ["priceMin", "priceMax"].forEach((id) => {
     const el = document.querySelector(`#${id}`);
     if (el) el.value = "";
   });
@@ -481,17 +465,13 @@ function updateFilterBadge() {
     filters.types.length +
     filters.statuses.length +
     filters.developers.length +
-    filters.beds.length +
-    filters.baths.length +
     filters.year.length +
     filters.amenities.length +
     (filters.finishing ? 1 : 0) +
     (filters.furnishing ? 1 : 0) +
     (filters.featured ? 1 : 0) +
     (filters.priceMin !== null ? 1 : 0) +
-    (filters.priceMax !== null ? 1 : 0) +
-    (filters.areaMin !== null ? 1 : 0) +
-    (filters.areaMax !== null ? 1 : 0);
+    (filters.priceMax !== null ? 1 : 0);
 
   const badge = document.querySelector("#filtersBadge");
   if (!badge) return;
@@ -597,33 +577,10 @@ function getFiltered() {
   if (filters.developers.length)
     list = list.filter((p) => filters.developers.includes(p.developer));
 
-  if (filters.beds.length) {
-    list = list.filter((p) =>
-      filters.beds.some((b) =>
-        b === "0"
-          ? p.bedrooms === 0
-          : b === "5"
-            ? p.bedrooms >= 5
-            : p.bedrooms === Number(b),
-      ),
-    );
-  }
-  if (filters.baths.length) {
-    list = list.filter((p) =>
-      filters.baths.some((b) =>
-        b === "4" ? p.bathrooms >= 4 : p.bathrooms === Number(b),
-      ),
-    );
-  }
-
   if (filters.priceMin !== null)
     list = list.filter((p) => p.price >= filters.priceMin);
   if (filters.priceMax !== null)
     list = list.filter((p) => p.price <= filters.priceMax);
-  if (filters.areaMin !== null)
-    list = list.filter((p) => p.area >= filters.areaMin);
-  if (filters.areaMax !== null)
-    list = list.filter((p) => p.area <= filters.areaMax);
 
   if (filters.year.length) {
     list = list.filter((p) =>
@@ -649,7 +606,6 @@ function getFiltered() {
 
   if (sortOrder === "price-asc") list.sort((a, b) => a.price - b.price);
   else if (sortOrder === "price-desc") list.sort((a, b) => b.price - a.price);
-  else if (sortOrder === "area-asc") list.sort((a, b) => a.area - b.area);
   else if (sortOrder === "year-asc") list.sort((a, b) => a.year - b.year);
   else if (sortOrder === "year-desc") list.sort((a, b) => b.year - a.year);
 
