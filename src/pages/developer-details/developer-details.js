@@ -1,6 +1,8 @@
 import { developers } from "../../data/developers.data.js";
+import { projects } from "../../data/projects.data.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
+import { renderProjectCard } from "../../shared/components/project-card/ProjectCard.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root");
@@ -23,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   hydrateDeveloper(developer);
   setupForm(developer);
+  initProjectsSlider(developer);
   initFadeUp();
 });
 
@@ -74,6 +77,81 @@ function hydrateDeveloper(d) {
 
   document.getElementById("dd-form-subtitle").textContent =
     `Speak with our team about ${d.name}'s available units and upcoming launches.`;
+}
+
+function initProjectsSlider(developer) {
+  const section = document.getElementById("dd-projects");
+  const root = document.getElementById("dd-projects-slider-root");
+  if (!section || !root) return;
+
+  const matched = projects.filter((p) => projectBelongsTo(p, developer));
+  const list = matched.length ? matched : pickProjectsFor(developer);
+
+  if (!list.length) {
+    section.hidden = true;
+    return;
+  }
+
+  section.hidden = false;
+  document.getElementById("dd-projects-title").textContent =
+    `Projects by ${developer.name}`;
+
+  root.innerHTML = `
+    <div class="swiper dd-projects-swiper">
+      <div class="swiper-wrapper">
+        ${list.map((p) => `<div class="swiper-slide">${renderProjectCard(p)}</div>`).join("")}
+      </div>
+    </div>
+  `;
+
+  const prevBtn = document.getElementById("dd-projects-prev");
+  const nextBtn = document.getElementById("dd-projects-next");
+  const currentEl = document.getElementById("dd-projects-current");
+  const totalEl = document.getElementById("dd-projects-total");
+
+  function updateControls(sw) {
+    currentEl.textContent = String(sw.snapIndex + 1).padStart(2, "0");
+    totalEl.textContent = String(sw.snapGrid.length).padStart(2, "0");
+    prevBtn.disabled = sw.isBeginning;
+    nextBtn.disabled = sw.isEnd;
+  }
+
+  const swiper = new Swiper(root.querySelector(".dd-projects-swiper"), {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: false,
+    breakpoints: {
+      640: { slidesPerView: 2, spaceBetween: 24 },
+      1024: { slidesPerView: 3, spaceBetween: 28 },
+    },
+    on: {
+      init(sw) { updateControls(sw); },
+      slideChange(sw) { updateControls(sw); },
+      breakpoint(sw) { updateControls(sw); },
+    },
+  });
+
+  prevBtn.addEventListener("click", () => swiper.slidePrev());
+  nextBtn.addEventListener("click", () => swiper.slideNext());
+}
+
+function projectBelongsTo(project, developer) {
+  const target = developer.name.toLowerCase();
+  if (typeof project.developer === "string") {
+    return project.developer.toLowerCase().includes(target);
+  }
+  if (project.developer && typeof project.developer === "object") {
+    const name = project.developer.name_en || project.developer.name || "";
+    return name.toLowerCase().includes(target);
+  }
+  return false;
+}
+
+function pickProjectsFor(developer) {
+  if (!projects.length) return [];
+  const offset = ((developer.id - 1) % projects.length + projects.length) % projects.length;
+  const take = Math.min(6, projects.length);
+  return Array.from({ length: take }, (_, i) => projects[(offset + i) % projects.length]);
 }
 
 function setupForm(developer) {

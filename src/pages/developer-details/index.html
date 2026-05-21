@@ -16,6 +16,9 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="../../../src/styles/variables.css" />
     <link rel="stylesheet" href="../../../src/styles/global.css" />
     <link rel="stylesheet" href="../../../src/styles/utilities.css" />
@@ -25,6 +28,9 @@
     <link
       rel="stylesheet"
       href="../../../src/shared/components/footer/footer.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/project-card/project-card.css" />
     <link rel="stylesheet" href="developer-details.css" />
     <script>
       history.scrollRestoration = "manual";
@@ -149,8 +155,69 @@
       </div>
     </main>
 
+    <!-- Projects by this developer -->
+    <section class="dd-projects fade-up" id="dd-projects" hidden>
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="dd-projects__header">
+          <div>
+            <span class="dd-projects__eyebrow">Selected Work</span>
+            <h2 class="dd-projects__title" id="dd-projects-title">Projects</h2>
+            <p class="dd-projects__subtitle">
+              A look at standout developments from this developer's portfolio.
+            </p>
+          </div>
+          <div class="dd-projects__nav">
+            <button
+              class="dd-projects__nav-btn"
+              id="dd-projects-prev"
+              type="button"
+              aria-label="Previous projects">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <div class="dd-projects__count">
+              <span id="dd-projects-current">01</span>
+              <span class="dd-projects__count-sep">/</span>
+              <span id="dd-projects-total">01</span>
+            </div>
+            <button
+              class="dd-projects__nav-btn"
+              id="dd-projects-next"
+              type="button"
+              aria-label="Next projects">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="dd-projects-slider-root"></div>
+      </div>
+    </section>
+
     <div id="footer-root"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script
       type="module"
       src="../../../src/shared/components/navbar/Navbar.js"></script>
