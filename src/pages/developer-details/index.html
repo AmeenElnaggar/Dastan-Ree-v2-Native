@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Developer — Dastan Real Estate</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../../src/assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css" />
+    <link rel="stylesheet" href="../../../src/styles/global.css" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/navbar/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/footer/footer.css" />
+    <link rel="stylesheet" href="developer-details.css" />
+    <script>
+      history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-gray-50 text-gray-900">
+    <div id="navbar-root"></div>
+
+    <!-- Hero -->
+    <header class="dd-hero" id="dd-hero">
+      <div class="dd-hero__bg" id="dd-hero-bg" aria-hidden="true"></div>
+      <div class="dd-hero__overlay" aria-hidden="true"></div>
+      <div class="dd-hero__container max-w-6xl mx-auto px-6">
+        <a href="../developers/index.html" class="dd-back-link fade-up">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Developers</span>
+        </a>
+
+        <div class="dd-hero__content fade-up" style="transition-delay: 0.1s">
+          <div class="dd-hero__logo-wrap">
+            <img id="dd-logo" class="dd-hero__logo" src="" alt="" />
+          </div>
+          <div class="dd-hero__text">
+            <span class="dd-hero__eyebrow">Developer</span>
+            <h1 class="dd-hero__title" id="dd-name">Loading…</h1>
+            <p class="dd-hero__tagline" id="dd-tagline"></p>
+            <div class="dd-hero__meta" id="dd-meta"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Body -->
+    <main class="dd-main">
+      <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <!-- About -->
+        <section class="lg:col-span-2 space-y-10 fade-up" style="transition-delay: 0.15s">
+          <article class="dd-card">
+            <h2 class="dd-section-title">About the Developer</h2>
+            <p class="dd-description" id="dd-description"></p>
+
+            <div class="dd-stats" id="dd-stats"></div>
+          </article>
+
+          <article class="dd-card">
+            <h2 class="dd-section-title">What to Expect</h2>
+            <ul class="dd-list">
+              <li>
+                <i class="fa-solid fa-check"></i>
+                <span>Carefully curated developments in landmark locations.</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>
+                <span>Transparent payment plans and verified delivery timelines.</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>
+                <span>End-to-end support from inquiry through handover.</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i>
+                <span>Access to exclusive launches and pre-market opportunities.</span>
+              </li>
+            </ul>
+          </article>
+        </section>
+
+        <!-- Get in Touch Form -->
+        <aside class="lg:col-span-1 fade-up" style="transition-delay: 0.25s" id="contact-section">
+          <div class="dd-form-card">
+            <h3 class="dd-form-title">Get in Touch</h3>
+            <p class="dd-form-subtitle" id="dd-form-subtitle">
+              Speak with our team about this developer's available units.
+            </p>
+
+            <form id="contactForm" class="dd-form" novalidate>
+              <div class="dd-field">
+                <label for="cf-name">Full Name <span aria-hidden="true">*</span></label>
+                <input id="cf-name" name="name" type="text" required placeholder="John Doe" autocomplete="name" />
+              </div>
+
+              <div class="dd-field">
+                <label for="cf-email">Email Address <span aria-hidden="true">*</span></label>
+                <input id="cf-email" name="email" type="email" required placeholder="john@example.com" autocomplete="email" />
+              </div>
+
+              <div class="dd-field">
+                <label for="cf-phone">Phone Number <span aria-hidden="true">*</span></label>
+                <input id="cf-phone" name="phone" type="tel" required placeholder="+971 50 000 0000" autocomplete="tel" />
+              </div>
+
+              <div class="dd-field">
+                <label for="cf-interest">I'm interested in</label>
+                <div class="dd-select-wrap">
+                  <select id="cf-interest" name="interest">
+                    <option value="general">General Inquiry</option>
+                    <option value="off-plan">Off-Plan Investment</option>
+                    <option value="ready">Ready Properties</option>
+                    <option value="commercial">Commercial Units</option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down dd-select-chev" aria-hidden="true"></i>
+                </div>
+              </div>
+
+              <div class="dd-field">
+                <label for="cf-message">Message</label>
+                <textarea id="cf-message" name="message" rows="4" placeholder="Tell us a bit about what you're looking for…"></textarea>
+              </div>
+
+              <button type="submit" class="dd-submit">
+                <span>Send Message</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+
+              <div id="cf-message-box" class="dd-form-message" hidden></div>
+            </form>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div id="footer-root"></div>
+
+    <script
+      type="module"
+      src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script
+      type="module"
+      src="../../../src/shared/components/footer/Footer.js"></script>
+    <script type="module" src="developer-details.js"></script>
+  </body>
+</html>

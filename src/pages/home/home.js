@@ -1,5 +1,5 @@
 import { blogs } from "../../data/blogs.data.js";
-import { partners } from "../../data/partners.data.js";
+import { developers } from "../../data/developers.data.js";
 import { properties } from "../../data/properties.data.js";
 import { renderBlogCard } from "../../shared/components/blog-card/BlogCard.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
@@ -140,7 +140,7 @@ function initPartnersSlider(selector) {
     <div class="partners-slider-container">
       <div class="swiper partners-swiper">
         <div class="swiper-wrapper">
-          ${partners
+          ${developers
             .map(
               (p) => `
             <div class="swiper-slide">
