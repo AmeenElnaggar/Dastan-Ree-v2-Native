@@ -40,6 +40,7 @@ const UNIT_REQUEST_FIELDS = [
 
   // Media
   { name: "featured_image", label: "Featured Image", type: "file", group: "media", accept: "image/*" },
+  { name: "images",         label: "Gallery Images", type: "file", group: "media", accept: "image/*", multiple: true },
 
   // Lookups (taxonomy)
   { name: "amenities",         label: "Amenities",          type: "multi-select", group: "lookups", lookupType: "amenities" },
@@ -98,6 +99,7 @@ function createEmptyUnitRequest() {
     purpose_types: [],
     offering_types: [],
     furnishing_status: [],
+    images: [],
   };
 }
 
@@ -374,15 +376,21 @@ function renderInput(field) {
         </div>`;
     }
 
-    case "file":
+    case "file": {
+      const multiple = field.multiple ? "multiple" : "";
+      const emptyText = field.multiple ? "No files selected" : "No file selected";
+      const hint = field.multiple
+        ? `${field.accept ? escape(field.accept) : "Any file"} • select multiple`
+        : (field.accept ? escape(field.accept) : "Any file");
       return `
         <label class="file-drop" for="${id}">
           <i class="fa-solid fa-cloud-arrow-up"></i>
           <span class="file-drop__primary">Click to upload</span>
-          <span class="file-drop__hint">${field.accept ? escape(field.accept) : "Any file"}</span>
-          <span class="file-drop__name" data-empty="No file selected">No file selected</span>
-          <input id="${id}" name="${field.name}" type="file" class="file-drop__input" ${field.accept ? `accept="${escape(field.accept)}"` : ""} />
+          <span class="file-drop__hint">${hint}</span>
+          <span class="file-drop__name" data-empty="${emptyText}">${emptyText}</span>
+          <input id="${id}" name="${field.name}" type="file" class="file-drop__input" ${field.accept ? `accept="${escape(field.accept)}"` : ""} ${multiple} />
         </label>`;
+    }
 
     default:
       return `<input id="${id}" name="${field.name}" type="${field.type}" class="form-input" ${placeholder} ${min} ${step} ${required} />`;
@@ -688,9 +696,13 @@ function bindFileInputs(form) {
     const input = wrap.querySelector(".file-drop__input");
     const nameEl = wrap.querySelector(".file-drop__name");
     input.addEventListener("change", () => {
-      const file = input.files && input.files[0];
-      nameEl.textContent = file ? file.name : nameEl.dataset.empty;
-      wrap.classList.toggle("file-drop--has-file", Boolean(file));
+      const files = input.files;
+      const count = files ? files.length : 0;
+      let label = nameEl.dataset.empty;
+      if (count === 1) label = files[0].name;
+      else if (count > 1) label = `${count} files selected`;
+      nameEl.textContent = label;
+      wrap.classList.toggle("file-drop--has-file", count > 0);
     });
   });
 }
@@ -701,7 +713,12 @@ function buildPayload(form) {
   for (const field of UNIT_REQUEST_FIELDS) {
     if (field.type === "file") {
       const el = form.elements.namedItem(field.name);
-      if (el && el.files && el.files[0]) payload[field.name] = el.files[0];
+      if (!el || !el.files || !el.files.length) continue;
+      if (field.multiple) {
+        payload[field.name] = Array.from(el.files);
+      } else {
+        payload[field.name] = el.files[0];
+      }
       continue;
     }
 
