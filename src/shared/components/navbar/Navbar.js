@@ -8,6 +8,8 @@ const NAV_LINKS = [
   { label: "Contact Us", href: "../contact-us/index.html" },
 ];
 
+const UNIT_REQUEST_HREF = "../unit-request/index.html";
+
 const GLOBE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20A14.5 14.5 0 0 0 12 2"/><path d="M2 12h20"/></svg>`;
 
 function getCurrentLang() {
@@ -99,9 +101,9 @@ export function renderNavbar(selector, options = {}) {
             <span class="navbar__tooltip">${PHONE_NUMBER}</span>
           </a>
 
-          <a href="#" class="navbar__cta-outline">
+          <a href="${UNIT_REQUEST_HREF}" class="navbar__cta-outline">
             ${PLUS_ICON}
-            <span>Add Property</span>
+            <span>Submit Property</span>
           </a>
 
           <button class="navbar__hamburger" id="hamburger-btn" aria-label="Toggle mobile menu" aria-expanded="false">
@@ -115,9 +117,9 @@ export function renderNavbar(selector, options = {}) {
       <nav class="navbar__mobile" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
         ${NAV_LINKS.map((link) => `<a href="${link.href}" class="navbar__mobile-link">${link.label}</a>`).join("")}
         <div class="navbar__mobile-footer">
-          <a href="#" class="navbar__cta-outline">
+          <a href="${UNIT_REQUEST_HREF}" class="navbar__cta-outline">
             ${PLUS_ICON}
-            <span>Add Property</span>
+            <span>Submit Property</span>
           </a>
           ${langBtn}
         </div>
