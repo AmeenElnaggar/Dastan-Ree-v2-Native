@@ -144,7 +144,7 @@ function initPartnersSlider(selector) {
             .map(
               (p) => `
             <div class="swiper-slide">
-              <div class="partner-card">
+              <a href="../developer-details/index.html?id=${p.id}" class="partner-card" aria-label="${p.name}">
                 <div class="partner-card__logo-wrap ">
                   <img
                     src="${p.logo}"
@@ -154,7 +154,7 @@ function initPartnersSlider(selector) {
                   />
                 </div>
                 <p class="partner-card__name">${p.name}</p>
-              </div>
+              </a>
             </div>
           `,
             )

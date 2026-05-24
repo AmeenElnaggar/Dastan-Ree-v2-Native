@@ -656,7 +656,9 @@ body.splash-active {
   justify-content: center;
   gap: 10px;
   padding: 8px;
-  cursor: default;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .partner-card__logo-wrap {
