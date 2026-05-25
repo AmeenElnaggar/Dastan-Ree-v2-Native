@@ -1,68 +1,292 @@
-import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
-import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { amenities } from "../../data/amenities.data.js";
+import { renderFooter } from "../../shared/components/footer/Footer.js";
+import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 
 /** Field schema for the Unit Request form. */
 const UNIT_REQUEST_FIELDS = [
   // Contact / seller
-  { name: "seller_name", label: "Seller Name",   type: "text",  group: "contact", required: true,  placeholder: "Full name" },
-  { name: "email",       label: "Email Address", type: "email", group: "contact",                  placeholder: "name@example.com" },
-  { name: "phone",       label: "Phone Number",  type: "tel",   group: "contact", required: true,  placeholder: "+20 100 000 0000" },
+  {
+    name: "seller_name",
+    label: "Name",
+    type: "text",
+    group: "contact",
+    required: true,
+    placeholder: "Full name",
+  },
+  {
+    name: "email",
+    label: "Email Address",
+    type: "email",
+    group: "contact",
+    placeholder: "name@example.com",
+  },
+  {
+    name: "phone",
+    label: "Phone Number",
+    type: "tel",
+    group: "contact",
+    required: true,
+    placeholder: "+20 100 000 0000",
+    width: "full",
+  },
 
   // Unit name (bilingual)
-  { name: "name_en", label: "Unit Name (English)", type: "text", group: "details", required: true, placeholder: "Sky Villa 23" },
-  { name: "name_ar", label: "Unit Name (Arabic)",  type: "text", group: "details",                 placeholder: "اسم الوحدة" },
+  {
+    name: "name_en",
+    label: "Unit Name",
+    type: "text",
+    group: "details",
+    required: true,
+    placeholder: "Sky Villa 23",
+    lang: "en",
+    width: "full",
+  },
+  {
+    name: "name_ar",
+    label: "Unit Name",
+    type: "text",
+    group: "details",
+    placeholder: "اسم الوحدة",
+    lang: "ar",
+    width: "full",
+  },
 
   // Location (cascading)
-  { name: "country_id",    label: "Country",      type: "select", group: "location", required: true, lookupType: "country" },
-  { name: "region_id",     label: "Region",       type: "select", group: "location",                 lookupType: "region" },
-  { name: "city_id",       label: "City",         type: "select", group: "location",                 lookupType: "city" },
-  { name: "area_place_id", label: "Area / Place", type: "select", group: "location",                 lookupType: "areaplace" },
-  { name: "address",       label: "Address",      type: "text",   group: "location",                 placeholder: "Street, district, building no.", width: "full" },
+  {
+    name: "country_id",
+    label: "Country",
+    type: "select",
+    group: "location",
+    required: true,
+    lookupType: "country",
+  },
+  {
+    name: "region_id",
+    label: "Region",
+    type: "select",
+    group: "location",
+    lookupType: "region",
+  },
+  {
+    name: "city_id",
+    label: "City",
+    type: "select",
+    group: "location",
+    lookupType: "city",
+  },
+  {
+    name: "area_place_id",
+    label: "Area / Place",
+    type: "select",
+    group: "location",
+    lookupType: "areaplace",
+  },
+  {
+    name: "address",
+    label: "Address",
+    type: "text",
+    group: "location",
+    placeholder: "Street, district, building no.",
+    width: "full",
+  },
 
   // Pricing
-  { name: "price",        label: "Price",        type: "number", group: "pricing", required: true, min: 0, step: 0.01, placeholder: "0.00" },
-  { name: "down_payment", label: "Down Payment", type: "number", group: "pricing",                 min: 0, step: 0.01, placeholder: "0.00" },
-  { name: "number_of_installments_years_from", label: "Installments From (years)", type: "number", group: "pricing", min: 0, placeholder: "0" },
-  { name: "number_of_installments_years_to",   label: "Installments To (years)",   type: "number", group: "pricing", min: 0, placeholder: "10" },
-  { name: "currencies",      label: "Currency",       type: "select", group: "pricing", lookupType: "currencies",    required: true },
-  { name: "payment_methods", label: "Payment Method", type: "select", group: "pricing", lookupType: "paymentmethod" },
+  {
+    name: "price",
+    label: "Price",
+    type: "number",
+    group: "pricing",
+    required: true,
+    min: 0,
+    step: 0.01,
+    placeholder: "0.00",
+  },
+  {
+    name: "down_payment",
+    label: "Down Payment",
+    type: "number",
+    group: "pricing",
+    min: 0,
+    step: 0.01,
+    placeholder: "0.00",
+  },
+  {
+    name: "number_of_installments_years_from",
+    label: "Installments From (years)",
+    type: "number",
+    group: "pricing",
+    min: 0,
+    placeholder: "0",
+  },
+  {
+    name: "number_of_installments_years_to",
+    label: "Installments To (years)",
+    type: "number",
+    group: "pricing",
+    min: 0,
+    placeholder: "10",
+  },
+  {
+    name: "currencies",
+    label: "Currency",
+    type: "select",
+    group: "pricing",
+    lookupType: "currencies",
+    required: true,
+  },
+  {
+    name: "payment_methods",
+    label: "Payment Method",
+    type: "select",
+    group: "pricing",
+    lookupType: "paymentmethod",
+  },
 
   // Specs
-  { name: "area",      label: "Area",      type: "number", group: "specs", required: true, min: 0, step: 0.01, placeholder: "120" },
-  { name: "area_unit", label: "Area Unit", type: "select", group: "specs", lookupType: "areaUnit", required: true },
-  { name: "bedrooms",  label: "Bedrooms",  type: "number", group: "specs", min: 0, placeholder: "3" },
-  { name: "bathrooms", label: "Bathrooms", type: "number", group: "specs", min: 0, placeholder: "2" },
+  {
+    name: "area",
+    label: "Area",
+    type: "number",
+    group: "specs",
+    required: true,
+    min: 0,
+    step: 0.01,
+    placeholder: "120",
+  },
+  {
+    name: "area_unit",
+    label: "Area Unit",
+    type: "select",
+    group: "specs",
+    lookupType: "areaUnit",
+    required: true,
+  },
+  {
+    name: "bedrooms",
+    label: "Bedrooms",
+    type: "number",
+    group: "specs",
+    min: 0,
+    placeholder: "3",
+  },
+  {
+    name: "bathrooms",
+    label: "Bathrooms",
+    type: "number",
+    group: "specs",
+    min: 0,
+    placeholder: "2",
+  },
 
   // Description
-  { name: "description_en", label: "Description (English)", type: "textarea", group: "details", placeholder: "Tell us about the unit…" },
-  { name: "description_ar", label: "Description (Arabic)",  type: "textarea", group: "details", placeholder: "وصف الوحدة…" },
+  {
+    name: "description_en",
+    label: "Description",
+    type: "textarea",
+    group: "details",
+    placeholder: "Tell us about the unit…",
+    lang: "en",
+  },
+  {
+    name: "description_ar",
+    label: "Description",
+    type: "textarea",
+    group: "details",
+    placeholder: "وصف الوحدة…",
+    lang: "ar",
+  },
 
   // Media
-  { name: "featured_image", label: "Featured Image", type: "file", group: "media", accept: "image/*" },
-  { name: "images",         label: "Gallery Images", type: "file", group: "media", accept: "image/*", multiple: true },
+  {
+    name: "featured_image",
+    label: "Featured Image",
+    type: "file",
+    group: "media",
+    accept: "image/*",
+  },
+  {
+    name: "images",
+    label: "Gallery Images",
+    type: "file",
+    group: "media",
+    accept: "image/*",
+    multiple: true,
+  },
 
   // Lookups (taxonomy)
-  { name: "amenities",         label: "Amenities",          type: "multi-select", group: "lookups", lookupType: "amenities" },
-  { name: "facilities",        label: "Facilities",         type: "multi-select", group: "lookups", lookupType: "facility" },
-  { name: "views",             label: "Views",              type: "multi-select", group: "lookups", lookupType: "views" },
-  { name: "services",          label: "Services",           type: "multi-select", group: "lookups", lookupType: "services" },
-  { name: "finishing_types",   label: "Finishing Type",     type: "select", group: "lookups", lookupType: "finishingtype" },
-  { name: "furnishing_status", label: "Furnishing Status",  type: "select", group: "lookups", lookupType: "furnishingstatus" },
-  { name: "sale_types",        label: "Sale Type",          type: "select", group: "lookups", lookupType: "saletype" },
-  { name: "offering_types",    label: "Offering Type",      type: "select", group: "lookups", lookupType: "offeringtype" },
-  { name: "purposes",          label: "Purpose",            type: "select", group: "lookups", lookupType: "purposes" },
-  { name: "purpose_types",     label: "Purpose Type",       type: "select", group: "lookups", lookupType: "purposetype" },
+  {
+    name: "amenities",
+    label: "Amenities",
+    type: "multi-select",
+    group: "lookups",
+    lookupType: "amenities",
+  },
+  {
+    name: "facilities",
+    label: "Facilities",
+    type: "multi-select",
+    group: "lookups",
+    lookupType: "facility",
+  },
+  {
+    name: "views",
+    label: "Views",
+    type: "multi-select",
+    group: "lookups",
+    lookupType: "views",
+  },
+  {
+    name: "services",
+    label: "Services",
+    type: "multi-select",
+    group: "lookups",
+    lookupType: "services",
+  },
+  {
+    name: "finishing_types",
+    label: "Finishing Type",
+    type: "select",
+    group: "lookups",
+    lookupType: "finishingtype",
+  },
+  {
+    name: "furnishing_status",
+    label: "Furnishing Status",
+    type: "select",
+    group: "lookups",
+    lookupType: "furnishingstatus",
+  },
+  {
+    name: "offering_types",
+    label: "Offering Type",
+    type: "select",
+    group: "lookups",
+    lookupType: "offeringtype",
+  },
+  {
+    name: "purposes",
+    label: "Unit Type",
+    type: "select",
+    group: "lookups",
+    lookupType: "purposes",
+  },
+  {
+    name: "purpose_types",
+    label: "Purpose Type",
+    type: "select",
+    group: "lookups",
+    lookupType: "purposetype",
+  },
 ];
 
 const UNIT_REQUEST_GROUPS = {
-  contact:  { title: "Your Details",      icon: "fa-user" },
-  details:  { title: "Unit Details",      icon: "fa-circle-info" },
-  location: { title: "Location",          icon: "fa-location-dot" },
-  pricing:  { title: "Pricing & Payment", icon: "fa-money-bill-wave" },
-  specs:    { title: "Specifications",    icon: "fa-ruler-combined" },
-  lookups:  { title: "Features",          icon: "fa-list-check" },
-  media:    { title: "Media",             icon: "fa-image" },
+  contact: { title: "Personal Details", icon: "fa-user" },
+  details: { title: "Unit Details", icon: "fa-circle-info" },
+  location: { title: "Location", icon: "fa-location-dot" },
+  pricing: { title: "Pricing & Payment", icon: "fa-money-bill-wave" },
+  specs: { title: "Specifications", icon: "fa-ruler-combined" },
+  lookups: { title: "Features", icon: "fa-list-check" },
+  media: { title: "Media", icon: "fa-image" },
 };
 
 function createEmptyUnitRequest() {
@@ -90,7 +314,6 @@ function createEmptyUnitRequest() {
     facilities: [],
     area_unit: [],
     currencies: [],
-    sale_types: [],
     amenities: [],
     services: [],
     payment_methods: [],
@@ -103,7 +326,14 @@ function createEmptyUnitRequest() {
   };
 }
 
-const NARROW_TYPES = new Set(["text", "email", "tel", "number", "select", "multi-select"]);
+const NARROW_TYPES = new Set([
+  "text",
+  "email",
+  "tel",
+  "number",
+  "select",
+  "multi-select",
+]);
 
 /**
  * Hierarchical location data for the cascading country → region → city → area selects.
@@ -168,14 +398,33 @@ const LOCATION_TREE = {
       { id: 1121, name: "Beverly Hills" },
       { id: 1122, name: "Dreamland" },
     ],
-    113: [{ id: 1131, name: "Allegria" }, { id: 1132, name: "Westown" }],
-    114: [{ id: 1141, name: "Madinaty Phase 1" }, { id: 1142, name: "Madinaty Phase 2" }],
-    115: [{ id: 1151, name: "R3" }, { id: 1152, name: "R7" }, { id: 1153, name: "R8" }],
-    121: [{ id: 1211, name: "Marassi" }, { id: 1212, name: "Hacienda Bay" }],
+    113: [
+      { id: 1131, name: "Allegria" },
+      { id: 1132, name: "Westown" },
+    ],
+    114: [
+      { id: 1141, name: "Madinaty Phase 1" },
+      { id: 1142, name: "Madinaty Phase 2" },
+    ],
+    115: [
+      { id: 1151, name: "R3" },
+      { id: 1152, name: "R7" },
+      { id: 1153, name: "R8" },
+    ],
+    121: [
+      { id: 1211, name: "Marassi" },
+      { id: 1212, name: "Hacienda Bay" },
+    ],
     122: [{ id: 1221, name: "June" }],
-    131: [{ id: 1311, name: "Sahl Hasheesh" }, { id: 1312, name: "El Gouna" }],
+    131: [
+      { id: 1311, name: "Sahl Hasheesh" },
+      { id: 1312, name: "El Gouna" },
+    ],
     132: [{ id: 1321, name: "Stella Di Mare" }],
-    211: [{ id: 2111, name: "Atlantis" }, { id: 2112, name: "Shoreline" }],
+    211: [
+      { id: 2111, name: "Atlantis" },
+      { id: 2112, name: "Shoreline" },
+    ],
     212: [{ id: 2121, name: "Burj Khalifa District" }],
     213: [{ id: 2131, name: "Marina Walk" }],
     221: [{ id: 2211, name: "Yas Acres" }],
@@ -220,11 +469,6 @@ const LOOKUPS = {
   areaUnit: [
     { id: 1, name: "m²" },
     { id: 2, name: "ft²" },
-  ],
-  saletype: [
-    { id: 1, name: "Sale" },
-    { id: 2, name: "Rent" },
-    { id: 3, name: "Resale" },
   ],
   offeringtype: [
     { id: 1, name: "Primary" },
@@ -283,8 +527,12 @@ const LOOKUPS = {
 };
 
 const escape = (s) =>
-  String(s ?? "").replace(/[&<>"']/g, (c) =>
-    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])
+  String(s ?? "").replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
   );
 
 const fieldId = (field) => `ur-${field.name}`;
@@ -299,7 +547,9 @@ function renderLabel(field) {
 function renderInput(field) {
   const id = fieldId(field);
   const required = field.required ? "required" : "";
-  const placeholder = field.placeholder ? `placeholder="${escape(field.placeholder)}"` : "";
+  const placeholder = field.placeholder
+    ? `placeholder="${escape(field.placeholder)}"`
+    : "";
   const min = field.min !== undefined ? `min="${field.min}"` : "";
   const step = field.step !== undefined ? `step="${field.step}"` : "";
 
@@ -308,8 +558,15 @@ function renderInput(field) {
       return `<textarea id="${id}" name="${field.name}" class="form-input form-textarea" ${placeholder} ${required} rows="4"></textarea>`;
 
     case "select": {
-      const isLocationCascade = ["country", "region", "city", "areaplace"].includes(field.lookupType);
-      const opts = isLocationCascade ? locationOptionsFor(field) : (LOOKUPS[field.lookupType] || []);
+      const isLocationCascade = [
+        "country",
+        "region",
+        "city",
+        "areaplace",
+      ].includes(field.lookupType);
+      const opts = isLocationCascade
+        ? locationOptionsFor(field)
+        : LOOKUPS[field.lookupType] || [];
       const nativeOptions = opts
         .map((o) => `<option value="${o.id}">${escape(o.name)}</option>`)
         .join("");
@@ -319,7 +576,7 @@ function renderInput(field) {
             <button type="button" class="ms-option ms-option--single" role="option" aria-selected="false" data-value="${o.id}">
               <span class="ms-option__label">${escape(o.name)}</span>
               <i class="fa-solid fa-check ms-option__tick" aria-hidden="true"></i>
-            </button>`
+            </button>`,
         )
         .join("");
       const isChildCascade = field.name in LOCATION_PARENT;
@@ -356,7 +613,7 @@ function renderInput(field) {
               <input type="checkbox" name="${field.name}" value="${o.id}" />
               <span class="ms-option__check"><i class="fa-solid fa-check"></i></span>
               <span class="ms-option__label">${escape(o.name)}</span>
-            </label>`
+            </label>`,
         )
         .join("");
       return `
@@ -378,10 +635,14 @@ function renderInput(field) {
 
     case "file": {
       const multiple = field.multiple ? "multiple" : "";
-      const emptyText = field.multiple ? "No files selected" : "No file selected";
+      const emptyText = field.multiple
+        ? "No files selected"
+        : "No file selected";
       const hint = field.multiple
         ? `${field.accept ? escape(field.accept) : "Any file"} • select multiple`
-        : (field.accept ? escape(field.accept) : "Any file");
+        : field.accept
+          ? escape(field.accept)
+          : "Any file";
       return `
         <label class="file-drop" for="${id}">
           <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -403,7 +664,9 @@ function isNarrow(field) {
 }
 
 function renderField(field) {
-  const widthClass = isNarrow(field) ? "form-group--narrow" : "form-group--full";
+  const widthClass = isNarrow(field)
+    ? "form-group--narrow"
+    : "form-group--full";
   return `
     <div class="form-group ${widthClass}" data-field="${field.name}">
       ${renderLabel(field)}
@@ -411,42 +674,47 @@ function renderField(field) {
     </div>`;
 }
 
-function chunkFields(fields) {
-  const rows = [];
-  let buffer = [];
-  for (const f of fields) {
-    if (!isNarrow(f)) {
-      if (buffer.length) {
-        rows.push(buffer);
-        buffer = [];
-      }
-      rows.push([f]);
-    } else {
-      buffer.push(f);
-      if (buffer.length === 2) {
-        rows.push(buffer);
-        buffer = [];
-      }
-    }
-  }
-  if (buffer.length) rows.push(buffer);
-  return rows;
-}
-
-function renderRow(fields) {
-  if (fields.length === 1) return renderField(fields[0]);
-  return `<div class="form-row">${fields.map(renderField).join("")}</div>`;
+function renderGrid(fields) {
+  if (!fields.length) return "";
+  return `<div class="form-grid">${fields.map(renderField).join("")}</div>`;
 }
 
 function renderSection(groupKey, fields) {
-  const meta = UNIT_REQUEST_GROUPS[groupKey] || { title: groupKey, icon: "fa-list" };
-  const rows = chunkFields(fields);
+  const meta = UNIT_REQUEST_GROUPS[groupKey] || {
+    title: groupKey,
+    icon: "fa-list",
+  };
+
+  const nonLangFields = fields.filter(
+    (f) => f.lang !== "en" && f.lang !== "ar",
+  );
+  const enFields = fields.filter((f) => f.lang === "en");
+  const arFields = fields.filter((f) => f.lang === "ar");
+
+  const nonLangGrid = renderGrid(nonLangFields);
+
+  let langBlock = "";
+  if (enFields.length || arFields.length) {
+    langBlock = `
+      <div class="ur-lang">
+        <div class="ur-lang__tabs" role="tablist" aria-label="Language">
+          <button type="button" class="ur-lang__tab is-active" role="tab" aria-selected="true" data-lang="en">English</button>
+          <button type="button" class="ur-lang__tab" role="tab" aria-selected="false" data-lang="ar">العربية</button>
+        </div>
+        <div class="ur-lang__panels">
+          <div class="ur-lang__panel is-active" data-lang="en" role="tabpanel">${renderGrid(enFields)}</div>
+          <div class="ur-lang__panel" data-lang="ar" role="tabpanel" dir="rtl">${renderGrid(arFields)}</div>
+        </div>
+      </div>`;
+  }
+
   return `
     <div class="form-section">
       <h3 class="form-section__title">
         <i class="fa-solid ${meta.icon}"></i> ${escape(meta.title)}
       </h3>
-      ${rows.map(renderRow).join("")}
+      ${nonLangGrid}
+      ${langBlock}
     </div>`;
 }
 
@@ -480,7 +748,7 @@ function renderForm() {
             <span>I confirm the information above is accurate and authorize Dastan Real Estate to list and market this property. <span class="required">*</span></span>
           </label>
         </div>
-      </div>`
+      </div>`,
   );
 }
 
@@ -488,7 +756,9 @@ function setSelectOptions(select, options, placeholderLabel) {
   if (!select) return;
   const opts = options || [];
   const placeholder = `<option value="">Select ${escape(placeholderLabel)}</option>`;
-  const list = opts.map((o) => `<option value="${o.id}">${escape(o.name)}</option>`).join("");
+  const list = opts
+    .map((o) => `<option value="${o.id}">${escape(o.name)}</option>`)
+    .join("");
   select.innerHTML = placeholder + list;
   select.disabled = opts.length === 0;
   select.value = "";
@@ -497,8 +767,12 @@ function setSelectOptions(select, options, placeholderLabel) {
 function bindLocationCascade(form) {
   const cascadeData = {
     country_id: { childKey: "region", child: "region_id", label: "Region" },
-    region_id:  { childKey: "city", child: "city_id", label: "City" },
-    city_id:    { childKey: "areaplace", child: "area_place_id", label: "Area / Place" },
+    region_id: { childKey: "city", child: "city_id", label: "City" },
+    city_id: {
+      childKey: "areaplace",
+      child: "area_place_id",
+      label: "Area / Place",
+    },
   };
 
   Object.entries(cascadeData).forEach(([parentName, cfg]) => {
@@ -507,7 +781,9 @@ function bindLocationCascade(form) {
     parent.addEventListener("change", () => {
       const parentValue = parent.value;
       const childSelect = form.elements.namedItem(cfg.child);
-      const options = parentValue ? LOCATION_TREE[cfg.childKey][parentValue] || [] : [];
+      const options = parentValue
+        ? LOCATION_TREE[cfg.childKey][parentValue] || []
+        : [];
       setSelectOptions(childSelect, options, cfg.label);
       childSelect.dispatchEvent(new Event("change", { bubbles: true }));
     });
@@ -515,11 +791,13 @@ function bindLocationCascade(form) {
 }
 
 function closeAllDropdowns(except) {
-  document.querySelectorAll(".multi-select.is-open, .select-field.is-open").forEach((el) => {
-    if (el === except) return;
-    el.classList.remove("is-open");
-    el.querySelector(".ms-trigger")?.setAttribute("aria-expanded", "false");
-  });
+  document
+    .querySelectorAll(".multi-select.is-open, .select-field.is-open")
+    .forEach((el) => {
+      if (el === except) return;
+      el.classList.remove("is-open");
+      el.querySelector(".ms-trigger")?.setAttribute("aria-expanded", "false");
+    });
 }
 
 let dropdownGlobalListenersBound = false;
@@ -527,7 +805,10 @@ function bindDropdownGlobalListeners() {
   if (dropdownGlobalListenersBound) return;
   dropdownGlobalListenersBound = true;
   document.addEventListener("click", (e) => {
-    if (!e.target.closest(".multi-select") && !e.target.closest(".select-field")) {
+    if (
+      !e.target.closest(".multi-select") &&
+      !e.target.closest(".select-field")
+    ) {
       closeAllDropdowns(null);
     }
   });
@@ -648,7 +929,7 @@ function bindMultiSelects(form) {
               <button type="button" class="ms-tag__remove" aria-label="Remove ${escape(labelFor(cb))}">
                 <i class="fa-solid fa-xmark"></i>
               </button>
-            </span>`
+            </span>`,
         )
         .join("");
       placeholder.style.display = checked.length ? "none" : "";
@@ -691,6 +972,26 @@ function bindMultiSelects(form) {
   bindDropdownGlobalListeners();
 }
 
+function bindLangTabs(form) {
+  form.querySelectorAll(".ur-lang").forEach((wrap) => {
+    const tabs = wrap.querySelectorAll(".ur-lang__tab");
+    const panels = wrap.querySelectorAll(".ur-lang__panel");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const lang = tab.dataset.lang;
+        tabs.forEach((t) => {
+          const active = t.dataset.lang === lang;
+          t.classList.toggle("is-active", active);
+          t.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        panels.forEach((p) => {
+          p.classList.toggle("is-active", p.dataset.lang === lang);
+        });
+      });
+    });
+  });
+}
+
 function bindFileInputs(form) {
   form.querySelectorAll(".file-drop").forEach((wrap) => {
     const input = wrap.querySelector(".file-drop__input");
@@ -724,7 +1025,7 @@ function buildPayload(form) {
 
     if (field.type === "multi-select") {
       const checked = form.querySelectorAll(
-        `input[type="checkbox"][name="${field.name}"]:checked`
+        `input[type="checkbox"][name="${field.name}"]:checked`,
       );
       payload[field.name] = Array.from(checked).map((c) => Number(c.value));
       continue;
@@ -779,11 +1080,14 @@ function validate(form) {
   if (consent && !consent.checked && !firstInvalid) firstInvalid = consent;
 
   // Cross-field sanity: installments range
-  const yFrom = parseFloat(form.elements.number_of_installments_years_from?.value) || 0;
-  const yTo = parseFloat(form.elements.number_of_installments_years_to?.value) || 0;
+  const yFrom =
+    parseFloat(form.elements.number_of_installments_years_from?.value) || 0;
+  const yTo =
+    parseFloat(form.elements.number_of_installments_years_to?.value) || 0;
   if (yFrom && yTo && yTo < yFrom) {
     form.elements.number_of_installments_years_to.classList.add("is-invalid");
-    if (!firstInvalid) firstInvalid = form.elements.number_of_installments_years_to;
+    if (!firstInvalid)
+      firstInvalid = form.elements.number_of_installments_years_to;
   }
 
   return firstInvalid;
@@ -795,8 +1099,13 @@ document.addEventListener("DOMContentLoaded", () => {
   renderForm();
 
   // Grid columns fade in on page load (chained after the hero) — not scroll-gated.
-  const immediateFadeSelectors = [".ur-aside.fade-up", ".ur-form-wrapper.fade-up"];
-  const immediateFadeEls = document.querySelectorAll(immediateFadeSelectors.join(", "));
+  const immediateFadeSelectors = [
+    ".ur-aside.fade-up",
+    ".ur-form-wrapper.fade-up",
+  ];
+  const immediateFadeEls = document.querySelectorAll(
+    immediateFadeSelectors.join(", "),
+  );
   requestAnimationFrame(() => {
     immediateFadeEls.forEach((el) => el.classList.add("visible"));
   });
@@ -811,10 +1120,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { root: null, rootMargin: "0px", threshold: 0.1 }
+    { root: null, rootMargin: "0px", threshold: 0.1 },
   );
   document.querySelectorAll(".fade-up").forEach((el) => {
-    if (!el.classList.contains("visible") && !immediateFadeEls.length) return observer.observe(el);
+    if (!el.classList.contains("visible") && !immediateFadeEls.length)
+      return observer.observe(el);
     if (![...immediateFadeEls].includes(el)) observer.observe(el);
   });
 
@@ -826,10 +1136,13 @@ document.addEventListener("DOMContentLoaded", () => {
   bindSelectFields(form);
   bindLocationCascade(form);
   bindMultiSelects(form);
+  bindLangTabs(form);
 
   form.querySelectorAll(".form-input").forEach((input) => {
     input.addEventListener("input", () => input.classList.remove("is-invalid"));
-    input.addEventListener("change", () => input.classList.remove("is-invalid"));
+    input.addEventListener("change", () =>
+      input.classList.remove("is-invalid"),
+    );
   });
 
   form.addEventListener("submit", (e) => {
@@ -837,7 +1150,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const firstInvalid = validate(form);
     if (firstInvalid) {
-      formStatus.textContent = "Please fix the highlighted fields and try again.";
+      formStatus.textContent =
+        "Please fix the highlighted fields and try again.";
       formStatus.className = "form-status error";
       firstInvalid.focus({ preventScroll: false });
       firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -848,7 +1162,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const submitBtn = form.querySelector(".submit-btn");
     const originalContent = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    submitBtn.innerHTML =
+      '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
     submitBtn.disabled = true;
     formStatus.className = "form-status";
     formStatus.textContent = "";
@@ -860,17 +1175,15 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.disabled = false;
 
       formStatus.innerHTML =
-        '<strong>Thank you!</strong> Your property has been submitted for review. A Dastan consultant will reach out within one business day.';
+        "<strong>Thank you!</strong> Your property has been submitted for review. A Dastan consultant will reach out within one business day.";
       formStatus.className = "form-status success";
 
       form.reset();
-      form
-        .querySelectorAll(".file-drop")
-        .forEach((w) => {
-          w.classList.remove("file-drop--has-file");
-          const n = w.querySelector(".file-drop__name");
-          if (n) n.textContent = n.dataset.empty;
-        });
+      form.querySelectorAll(".file-drop").forEach((w) => {
+        w.classList.remove("file-drop--has-file");
+        const n = w.querySelector(".file-drop__name");
+        if (n) n.textContent = n.dataset.empty;
+      });
       form.scrollIntoView({ behavior: "smooth", block: "start" });
 
       setTimeout(() => {

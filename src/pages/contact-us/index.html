@@ -163,15 +163,27 @@
 
               <div class="form-group">
                 <label for="subject" class="form-label">Subject</label>
-                <div class="custom-select-wrapper">
-                  <select id="subject" name="subject" class="form-input custom-select">
+                <div class="select-field" data-name="subject">
+                  <select id="subject" name="subject" class="select-field__hidden" tabindex="-1" aria-hidden="true">
+                    <option value="">Select a subject</option>
                     <option value="general">General Inquiry</option>
                     <option value="buy">Buying a Property</option>
                     <option value="rent">Renting a Property</option>
                     <option value="sell">Selling a Property</option>
                     <option value="support">Customer Support</option>
                   </select>
-                  <i class="fa-solid fa-chevron-down select-icon"></i>
+                  <button type="button" class="ms-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="ms-display">
+                      <span class="ms-placeholder">Select a subject…</span>
+                      <span class="ms-value"></span>
+                    </span>
+                    <svg class="ms-caret" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                      <path d="M5.5 8L10 12.5L14.5 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <div class="ms-dropdown" role="listbox">
+                    <div class="ms-options"></div>
+                  </div>
                 </div>
               </div>
 
