@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../../../src/styles/utilities.css" />
     <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css" />
     <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css" />
+    <link rel="stylesheet" href="../../../src/shared/components/filter-banner/filter-banner.css" />
     <link rel="stylesheet" href="locations.css" />
     <script>
       history.scrollRestoration = "manual";
@@ -32,70 +33,16 @@
   <body class="font-sans bg-white text-gray-900">
     <div id="navbar-root"></div>
 
-    <!-- Hero -->
-    <header class="locations-hero">
-      <div class="locations-hero__bg" aria-hidden="true"></div>
-      <div class="locations-hero__overlay" aria-hidden="true"></div>
-      <div class="locations-hero__content max-w-7xl mx-auto px-6 text-center">
-        <span class="locations-hero__eyebrow fade-up">Explore by Location</span>
-        <h1 class="locations-hero__title fade-up" style="transition-delay: 0.1s">
-          Find Your Perfect Address
-        </h1>
-        <p class="locations-hero__subtitle fade-up" style="transition-delay: 0.2s">
-          Browse premium properties and projects across the region's most
-          coveted destinations.
-        </p>
-      </div>
-    </header>
+    <!-- Page header (matches projects/properties style) -->
+    <div id="page-header-root"></div>
+
+    <!-- Cascading filter banner: Country → Region → City → Area -->
+    <div id="filter-banner-root"></div>
 
     <!-- Listing -->
     <section class="locations-section">
       <div class="max-w-7xl mx-auto px-6">
         <div class="locations-toolbar fade-up">
-          <div class="locations-search">
-            <svg
-              class="locations-search__icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <input
-              id="locationsSearch"
-              type="search"
-              class="locations-search__input"
-              placeholder="Search locations by name or region…"
-              autocomplete="off"
-              aria-label="Search locations" />
-            <button
-              id="locationsSearchClear"
-              class="locations-search__clear"
-              type="button"
-              aria-label="Clear search"
-              hidden>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-          </div>
           <span class="locations-count" id="locationsCount"></span>
         </div>
 
