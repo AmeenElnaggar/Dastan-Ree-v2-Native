@@ -29,6 +29,49 @@ a {
   color: inherit;
 }
 
+/* ===== Custom Scrollbar (project-wide) =====
+   Every scrollbar part uses the same color (--scrollbar-color).
+   Firefox uses the standard properties; Chrome / Edge / Safari use
+   the WebKit pseudo-elements below. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: var(--scrollbar-size);
+  height: var(--scrollbar-size);
+  background: transparent;
+}
+
+*::-webkit-scrollbar-button {
+  background: var(--scrollbar-color);
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color);
+  border-radius: 999px;
+  /* transparent border + clip floats the thumb inside the track */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--scrollbar-color);
+}
+
+*::-webkit-resizer {
+  background: var(--scrollbar-color);
+}
+
 button {
   font-family: inherit;
 }

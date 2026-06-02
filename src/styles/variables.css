@@ -77,4 +77,8 @@
 
   /* Radius */
   --radius-sm: 0.25rem;
+
+  /* Scrollbar */
+  --scrollbar-size: 10px;
+  --scrollbar-color: var(--color-gray-400) var(--color-gray-100);
 }

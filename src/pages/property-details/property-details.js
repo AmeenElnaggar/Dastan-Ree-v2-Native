@@ -619,14 +619,66 @@ function openViewingModal(propertyName) {
     title: "Schedule a Viewing",
     content: `
       <form id="viewing-form" class="flex flex-col gap-4">
-        <input type="text" placeholder="Your Full Name" required class="input" />
-        <input type="email" placeholder="Email Address" required class="input" />
-        <input type="tel" placeholder="Phone Number" class="input" />
-        <input type="date" class="input" />
-        <textarea placeholder="Any specific requests for ${propertyName}..." rows="3" class="input resize-none"></textarea>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex flex-col flex-1 min-w-0">
+            <input id="vf-name" type="text" placeholder="Full Name *" aria-label="Full Name" required class="input" />
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <input id="vf-email" type="email" placeholder="Email Address *" aria-label="Email Address" required class="input" />
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <input id="vf-phone" type="tel" placeholder="Phone Number" aria-label="Phone Number" class="input" />
+        </div>
+        <div class="pd-meet-types">
+          <span class="pd-meet-types__label">Meeting Type</span>
+          <div class="pd-meet-tabs" role="tablist">
+            <button type="button" class="pd-meet-tab is-active" data-meet="site-visit" aria-pressed="true">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>Site Visit</span>
+            </button>
+            <button type="button" class="pd-meet-tab" data-meet="meeting" aria-pressed="false">
+              <i class="fa-solid fa-handshake" aria-hidden="true"></i><span>Meeting</span>
+            </button>
+            <button type="button" class="pd-meet-tab" data-meet="video-call" aria-pressed="false">
+              <i class="fa-solid fa-video" aria-hidden="true"></i><span>Video Call</span>
+            </button>
+            <button type="button" class="pd-meet-tab" data-meet="phone" aria-pressed="false">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i><span>Phone</span>
+            </button>
+          </div>
+          <input type="hidden" name="meetType" id="viewing-meet-type" value="site-visit" />
+        </div>
+        <div class="flex flex-col">
+          <input id="vf-date" type="date" aria-label="Preferred Date" class="input" data-placeholder="Preferred Date" />
+        </div>
+        <div class="flex flex-col">
+          <textarea id="vf-notes" placeholder="Additional Notes — any specific requests for ${propertyName}..." aria-label="Additional Notes" rows="3" class="input resize-none"></textarea>
+        </div>
         <button type="submit" class="btn-primary">Confirm Viewing Request</button>
       </form>`,
     onOpen: (modal) => {
+      const meetTabs = modal.querySelectorAll(".pd-meet-tab");
+      const meetInput = modal.querySelector("#viewing-meet-type");
+      meetTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          meetTabs.forEach((t) => {
+            t.classList.remove("is-active");
+            t.setAttribute("aria-pressed", "false");
+          });
+          tab.classList.add("is-active");
+          tab.setAttribute("aria-pressed", "true");
+          meetInput.value = tab.dataset.meet;
+        });
+      });
+
+      // Date inputs ignore `placeholder`, so toggle a class that drives a
+      // CSS overlay showing `data-placeholder` while the field is empty.
+      const dateInput = modal.querySelector("#vf-date");
+      const syncDatePlaceholder = () =>
+        dateInput.classList.toggle("has-value", !!dateInput.value);
+      dateInput.addEventListener("change", syncDatePlaceholder);
+      dateInput.addEventListener("input", syncDatePlaceholder);
+
       modal.querySelector("#viewing-form").addEventListener("submit", (ev) => {
         ev.preventDefault();
         modal.querySelector("#viewing-form").innerHTML =
