@@ -642,9 +642,6 @@ function openViewingModal(propertyName) {
             <button type="button" class="pd-meet-tab" data-meet="video-call" aria-pressed="false">
               <i class="fa-solid fa-video" aria-hidden="true"></i><span>Video Call</span>
             </button>
-            <button type="button" class="pd-meet-tab" data-meet="phone" aria-pressed="false">
-              <i class="fa-solid fa-phone" aria-hidden="true"></i><span>Phone</span>
-            </button>
           </div>
           <input type="hidden" name="meetType" id="viewing-meet-type" value="site-visit" />
         </div>
