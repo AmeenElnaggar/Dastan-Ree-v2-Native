@@ -285,8 +285,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  min-height: calc(100vh - 320px);
-  max-height: calc(100vh - 120px);
 }
 
 .pd-gallery-info__gallery {
