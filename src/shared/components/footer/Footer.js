@@ -105,8 +105,8 @@ export function renderFooter(selector) {
       <div class="footer__bottom">
         <p class="footer__bottom-text">© Copyright 2026. All Rights Reserved To <a href="https://8worx.com" target="_blank" rel="noopener" class="footer__8worx-link">8WORX</a></p>
         <div class="footer__bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
+          <a href="../privacy-policy/index.html">Privacy Policy</a>
+          <a href="../terms-of-use/index.html">Terms of Use</a>
         </div>
       </div>
     </footer>

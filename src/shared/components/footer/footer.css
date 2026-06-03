@@ -244,11 +244,11 @@
 .footer__bottom-links a {
   color: #a8aaad;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.4s ease;
 }
 
 .footer__bottom-links a:hover {
-  color: rgba(255, 255, 255, 0.5);
+  color: #fff;
 }
 
 .footer__bottom-text {
@@ -256,15 +256,19 @@
 }
 
 .footer__8worx-link {
-  color: #a8aaad;
-  font-weight: 700;
+  color: var(--color-gold, #f59e0b);
+  font-weight: 800;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  transition: color 0.2s;
+
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
 }
 
 .footer__8worx-link:hover {
-  color: #a8aaad;
-  text-decoration: underline;
+  color: var(--color-gold-400, #fbbf24);
+  text-shadow: 0 0 12px rgba(245, 158, 11, 0.45);
 }
 
 .footer__contact-date:hover {
