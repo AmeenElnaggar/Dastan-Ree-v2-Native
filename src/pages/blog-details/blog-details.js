@@ -7,7 +7,7 @@ import { getParam } from "../../utils/router.js";
 const FALLBACK_READ_TIMES = [5, 4, 6, 3, 5, 4];
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderNavbar("#navbar-root");
+  renderNavbar("#navbar-root", { transparent: true });
   renderFooter("#footer-root");
 
   const id = getParam("id");

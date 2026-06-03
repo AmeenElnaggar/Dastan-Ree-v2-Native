@@ -63,7 +63,8 @@ export function initHeroSlider(selector) {
         `<i class="fas fa-calendar-alt" aria-hidden="true"></i> Completion ${project.year}`;
       infoLeft.querySelector(".hero-slider__info-desc").textContent =
         project.description;
-      infoLeft.querySelector(".hero-slider__cta-link").href = `#`;
+      infoLeft.querySelector(".hero-slider__cta-link").href =
+        `../project-details/index.html?id=${project.id}`;
 
       if (nextSibling) {
         parent.insertBefore(infoLeft, nextSibling);
@@ -153,7 +154,7 @@ function buildHTML(featured, totalLabel) {
             </span>
             <div class="hero-slider__desc-row">
               <p class="hero-slider__info-desc">${first.description}</p>
-              <a href="#" class="hero-slider__cta-link">
+              <a href="../project-details/index.html?id=${first.id}" class="hero-slider__cta-link">
                 <span class="hero-slider__cta-text">VIEW DETAILS</span>
                 <span class="hero-slider__cta-line" aria-hidden="true"></span>
               </a>

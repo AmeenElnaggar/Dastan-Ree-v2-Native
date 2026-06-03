@@ -5,7 +5,7 @@ import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderProjectCard } from "../../shared/components/project-card/ProjectCard.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderNavbar("#navbar-root");
+  renderNavbar("#navbar-root", { transparent: true });
   renderFooter("#footer-root");
 
   const id = Number(new URLSearchParams(window.location.search).get("id"));

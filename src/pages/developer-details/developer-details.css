@@ -9,8 +9,8 @@ body {
 /* --- Hero --- */
 .dd-hero {
   position: relative;
-  padding-top: calc(var(--navbar-height, 80px) + 2.5rem);
-  padding-bottom: 3.5rem;
+  padding-top: calc(var(--navbar-height, 80px) + 4.5rem);
+  padding-bottom: 5.5rem;
   color: #fff;
   overflow: hidden;
   isolation: isolate;

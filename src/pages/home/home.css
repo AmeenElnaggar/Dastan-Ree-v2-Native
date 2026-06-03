@@ -766,6 +766,15 @@ body.splash-active {
   max-width: 640px;
 }
 
+.properties-section__link {
+  margin-top: 1.75rem;
+  color: #fff;
+}
+
+.properties-section__link .action-link__line {
+  background: #fff;
+}
+
 .properties-section__eyebrow {
   display: inline-flex;
   align-items: center;
