@@ -417,29 +417,21 @@ function renderLocationCard(loc, index) {
   const count = getListingCount(loc.searchKey);
   const label = count === 1 ? "Listing" : "Listings";
   const href = `../location-details/index.html?id=${encodeURIComponent(loc.id)}`;
-  const featuredBadge = loc.featured
-    ? `<div class="location-listing-card__featured-badge">Featured</div>`
-    : "";
 
   return `
-    <a href="${href}" class="location-listing-card fade-up" role="listitem" style="transition-delay: ${delay}s" aria-label="${escapeAttr(loc.name)}">
-      <img class="location-listing-card__img" src="${loc.image}" alt="${escapeAttr(loc.name)}" loading="lazy" />
-      <div class="location-listing-card__gradient"></div>
-      ${featuredBadge}
-      <div class="location-listing-card__body">
-        <span class="location-listing-card__region">
-          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          ${escapeHtml(loc.region)}
-        </span>
-        <h3 class="location-listing-card__name">${escapeHtml(loc.name)}</h3>
-        <div class="location-listing-card__divider"></div>
-        <div class="location-listing-card__footer">
-          <div class="location-listing-card__count">
-            <span class="location-listing-card__count-label">Available</span>
-            <span class="location-listing-card__count-value">${count} ${label}</span>
-          </div>
-          <span class="location-listing-card__cta" aria-label="Explore ${escapeAttr(loc.name)}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    <a href="${href}" class="location-card fade-up" role="listitem" style="transition-delay: ${delay}s" aria-label="${escapeAttr(loc.name)}">
+      <div class="location-card__image-wrap">
+        <img src="${loc.image}" alt="${escapeAttr(loc.name)}" class="location-card__img" loading="lazy" />
+        <div class="location-card__overlay"></div>
+      </div>
+      <div class="location-card__body">
+        <span class="location-card__region">${escapeHtml(loc.region)}</span>
+        <h3 class="location-card__name">${escapeHtml(loc.name)}</h3>
+        <div class="location-card__footer">
+          <span class="location-card__count">${count} ${label}</span>
+          <span class="location-card__explore">
+            Explore
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
         </div>
       </div>
