@@ -1,6 +1,10 @@
 import { locations } from "../../data/locations.data.js";
 import { projects } from "../../data/projects.data.js";
 import { properties } from "../../data/properties.data.js";
+import {
+  initFilterReset,
+  initFilterSelects,
+} from "../../shared/components/filter-banner/FilterBanner.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 
@@ -67,14 +71,33 @@ const LOCATION_TREE = {
       { id: 1121, name: "Beverly Hills" },
       { id: 1122, name: "Dreamland" },
     ],
-    113: [{ id: 1131, name: "Allegria" }, { id: 1132, name: "Westown" }],
-    114: [{ id: 1141, name: "Madinaty Phase 1" }, { id: 1142, name: "Madinaty Phase 2" }],
-    115: [{ id: 1151, name: "R3" }, { id: 1152, name: "R7" }, { id: 1153, name: "R8" }],
-    121: [{ id: 1211, name: "Marassi" }, { id: 1212, name: "Hacienda Bay" }],
+    113: [
+      { id: 1131, name: "Allegria" },
+      { id: 1132, name: "Westown" },
+    ],
+    114: [
+      { id: 1141, name: "Madinaty Phase 1" },
+      { id: 1142, name: "Madinaty Phase 2" },
+    ],
+    115: [
+      { id: 1151, name: "R3" },
+      { id: 1152, name: "R7" },
+      { id: 1153, name: "R8" },
+    ],
+    121: [
+      { id: 1211, name: "Marassi" },
+      { id: 1212, name: "Hacienda Bay" },
+    ],
     122: [{ id: 1221, name: "June" }],
-    131: [{ id: 1311, name: "Sahl Hasheesh" }, { id: 1312, name: "El Gouna" }],
+    131: [
+      { id: 1311, name: "Sahl Hasheesh" },
+      { id: 1312, name: "El Gouna" },
+    ],
     132: [{ id: 1321, name: "Stella Di Mare" }],
-    211: [{ id: 2111, name: "Atlantis" }, { id: 2112, name: "Shoreline" }],
+    211: [
+      { id: 2111, name: "Atlantis" },
+      { id: 2112, name: "Shoreline" },
+    ],
     212: [{ id: 2121, name: "Burj Khalifa District" }],
     213: [{ id: 2131, name: "Marina Walk" }],
     221: [{ id: 2211, name: "Yas Acres" }],
@@ -92,10 +115,37 @@ const ICONS = {
 };
 
 const CASCADE_FIELDS = [
-  { key: "country", label: "Country",      placeholder: "All Countries", icon: ICONS.globe,    lookup: "country" },
-  { key: "region",  label: "Region",       placeholder: "All Regions",   icon: ICONS.map,      lookup: "region",   parent: "country" },
-  { key: "city",    label: "City",         placeholder: "All Cities",    icon: ICONS.building, lookup: "city",     parent: "region" },
-  { key: "area",    label: "Area / Place", placeholder: "All Areas",     icon: ICONS.pin,      lookup: "areaplace", parent: "city" },
+  {
+    key: "country",
+    label: "Country",
+    placeholder: "All Countries",
+    icon: ICONS.globe,
+    lookup: "country",
+  },
+  {
+    key: "region",
+    label: "Region",
+    placeholder: "All Regions",
+    icon: ICONS.map,
+    lookup: "region",
+    parent: "country",
+  },
+  {
+    key: "city",
+    label: "City",
+    placeholder: "All Cities",
+    icon: ICONS.building,
+    lookup: "city",
+    parent: "region",
+  },
+  {
+    key: "area",
+    label: "Area / Place",
+    placeholder: "All Areas",
+    icon: ICONS.pin,
+    lookup: "areaplace",
+    parent: "city",
+  },
 ];
 
 const ORDER = CASCADE_FIELDS.map((f) => f.key);
@@ -104,7 +154,7 @@ const cascadeState = { country: "", region: "", city: "", area: "" };
 function getListingCount(searchKey) {
   const needle = (searchKey || "").toLowerCase();
   return allListings.filter((item) =>
-    (item.location || "").toLowerCase().includes(needle)
+    (item.location || "").toLowerCase().includes(needle),
   ).length;
 }
 
@@ -119,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const paginationEl = document.getElementById("locationsPagination");
 
   const sorted = [...locations].sort(
-    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))
+    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)),
   );
 
   let filtered = sorted.slice();
@@ -134,12 +184,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
 
   function applyFilter() {
-    const terms = ORDER
-      .map((k) => cascadeState[k])
+    const terms = ORDER.map((k) => cascadeState[k])
       .filter(Boolean)
       .map((t) => t.toLowerCase());
 
@@ -208,20 +257,24 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollToGrid();
       });
     });
-    paginationEl.querySelector('[data-action="prev"]')?.addEventListener("click", () => {
-      if (currentPage > 1) {
-        currentPage -= 1;
-        renderPage();
-        scrollToGrid();
-      }
-    });
-    paginationEl.querySelector('[data-action="next"]')?.addEventListener("click", () => {
-      if (currentPage < totalPages) {
-        currentPage += 1;
-        renderPage();
-        scrollToGrid();
-      }
-    });
+    paginationEl
+      .querySelector('[data-action="prev"]')
+      ?.addEventListener("click", () => {
+        if (currentPage > 1) {
+          currentPage -= 1;
+          renderPage();
+          scrollToGrid();
+        }
+      });
+    paginationEl
+      .querySelector('[data-action="next"]')
+      ?.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+          currentPage += 1;
+          renderPage();
+          scrollToGrid();
+        }
+      });
   }
 
   function scrollToGrid() {
@@ -248,9 +301,8 @@ function renderHeader(selector) {
   if (!root) return;
 
   const totalLocations = locations.length;
-  const totalRegions = new Set(
-    locations.map((l) => l.region).filter(Boolean)
-  ).size;
+  const totalRegions = new Set(locations.map((l) => l.region).filter(Boolean))
+    .size;
   const totalCountries = LOCATION_TREE.country.length;
 
   root.innerHTML = `
@@ -305,13 +357,22 @@ function renderLocationsFilterBanner(rootSelector, { onApply } = {}) {
         <div class="filter-banner__inner">
           <form class="filter-banner__form" aria-label="Location filters" id="locationsFilterForm">
             ${CASCADE_FIELDS.map(renderBannerField).join('<div class="filter-banner__divider" aria-hidden="true"></div>')}
-            <button type="button" class="filter-banner__search-btn" id="locationsFilterApply" aria-label="Apply filters">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              </svg>
-              <span>Apply</span>
-            </button>
+            <div class="filter-banner__actions">
+              <button type="button" class="filter-banner__reset-btn" id="locationsFilterReset" aria-label="Reset filters">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1 4 1 10 7 10"/>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+                <span>Reset</span>
+              </button>
+              <button type="button" class="filter-banner__search-btn" id="locationsFilterApply" aria-label="Search filters">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <span>Search</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -330,6 +391,11 @@ function renderLocationsFilterBanner(rootSelector, { onApply } = {}) {
   root.querySelector("#locationsFilterApply").addEventListener("click", () => {
     fireApply(root, onApply);
   });
+
+  initFilterSelects(root);
+
+  const form = root.querySelector(".filter-banner__form");
+  initFilterReset(form, { onReset: () => fireApply(root, onApply) });
 }
 
 function fireApply(root, onApply) {
@@ -338,7 +404,7 @@ function fireApply(root, onApply) {
   CASCADE_FIELDS.forEach((f) => {
     const s = root.querySelector(`#filter_${f.key}`);
     const opt = s.options[s.selectedIndex];
-    state[f.key] = s.value ? (opt?.text || "") : "";
+    state[f.key] = s.value ? opt?.text || "" : "";
   });
   onApply(state);
 }
@@ -372,7 +438,7 @@ function handleCascadeChange(root, changedKey) {
 
   const childField = CASCADE_FIELDS[idx + 1];
   const lookup = LOCATION_TREE[childField.lookup];
-  const childOpts = changedSel.value ? (lookup[changedSel.value] || []) : [];
+  const childOpts = changedSel.value ? lookup[changedSel.value] || [] : [];
   populate(root, childKey, childOpts);
 
   // Cascade-clear deeper levels (their parents are now empty/changed)

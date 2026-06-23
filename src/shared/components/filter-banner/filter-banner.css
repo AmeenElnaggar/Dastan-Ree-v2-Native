@@ -5,7 +5,7 @@
   background: rgba(6, 12, 45);
   position: relative;
   overflow: hidden;
-  padding: 2.25rem 0 2.5rem;
+  padding: 1.5rem 0 1.75rem;
   z-index: 1;
 }
 
@@ -82,14 +82,14 @@
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 8px;
   overflow: hidden;
-  min-height: 80px;
+  min-height: 60px;
 }
 
 /* Individual filter field */
 .filter-banner__field {
   flex: 1;
   min-width: 0;
-  padding: 1rem 1.5rem;
+  padding: 0.625rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,7 +140,7 @@
   color: #fff;
   font-family: var(--font-sans);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 400;
   width: 5rem;
   min-width: 0;
   cursor: text;
@@ -208,9 +208,181 @@
     color var(--transition-fast);
 }
 
-.filter-banner__field:focus-within .filter-banner__chevron {
+.filter-banner__field:focus-within .filter-banner__chevron,
+.filter-banner__select-wrap.is-open .filter-banner__chevron {
   color: var(--color-gold-500);
   transform: translateY(-50%) rotate(180deg);
+}
+
+/* ============================================
+   CUSTOM SELECT (dropdown ref: contact-us)
+   ============================================ */
+
+/* Native <select> kept for form state, visually hidden */
+.fb-select__native {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  pointer-events: none;
+}
+
+.filter-banner__select-wrap.fb-select {
+  cursor: pointer;
+}
+
+.filter-banner__select-wrap.fb-select.is-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* Trigger value text */
+.fb-select__value {
+  flex: 1;
+  min-width: 0;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 2.75rem;
+}
+
+.fb-select.is-empty .fb-select__value {
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+}
+
+/* Per-select clear button */
+.fb-select__clear {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%) scale(0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transition-fast),
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.fb-select.has-selection .fb-select__clear {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1);
+}
+
+.fb-select__clear:hover {
+  background: var(--color-gold-600);
+}
+
+.fb-select__clear svg {
+  width: 9px;
+  height: 9px;
+}
+
+/* Floating dropdown panel (rendered in body layer to escape form overflow) */
+.fb-select__dropdown {
+  position: fixed;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s;
+}
+
+.fb-select__dropdown.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.fb-select__options {
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+.fb-select__options::-webkit-scrollbar {
+  width: 6px;
+}
+
+.fb-select__options::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 3px;
+}
+
+.fb-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: #374151;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.fb-select__option:hover {
+  background-color: #f9fafb;
+}
+
+.fb-select__option.is-selected {
+  background-color: rgba(10, 30, 119, 0.06);
+  color: var(--color-primary, #0a1e77);
+  font-weight: 500;
+}
+
+.fb-select__tick {
+  width: 14px;
+  height: 14px;
+  color: var(--color-primary, #0a1e77);
+  opacity: 0;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+
+.fb-select__option.is-selected .fb-select__tick {
+  opacity: 1;
 }
 
 /* Vertical dividers between fields */
@@ -218,7 +390,7 @@
   width: 1px;
   background: rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
-  margin: 1rem 0;
+  margin: 0.75rem 0;
   align-self: stretch;
 }
 
@@ -228,9 +400,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
-  font-family: var(--font-sans);
   font-size: 0.875rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #fff;
@@ -268,6 +439,68 @@
   left: 125%;
 }
 
+/* ---- Actions: reset + search side by side (reset first) ---- */
+.filter-banner__actions {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* Both action buttons share identical width */
+.filter-banner__actions .filter-banner__search-btn,
+.filter-banner__actions .filter-banner__reset-btn {
+  flex: 1 1 0;
+  width: 132px;
+  min-width: 132px;
+  padding: 0 1.25rem;
+}
+
+/* Reset button — secondary, ghost style; always visible, sits first */
+.filter-banner__reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  min-width: 124px;
+  padding: 0 1.75rem;
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.06);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.filter-banner__reset-btn svg {
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.filter-banner__reset-btn:hover {
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+
+.filter-banner__reset-btn:hover svg {
+  transform: rotate(-180deg);
+}
+
+/* Subtle emphasis once filters are actually active */
+.filter-banner__form--has-filters .filter-banner__reset-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 1024px) {
   .filter-banner__form {
@@ -289,6 +522,23 @@
     padding: 1rem;
     min-width: auto;
     min-height: 54px;
+  }
+
+  .filter-banner__actions {
+    flex: 1 0 100%;
+    min-width: auto;
+  }
+
+  .filter-banner__actions .filter-banner__search-btn {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .filter-banner__reset-btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 54px;
+    padding: 1rem;
   }
 }
 

@@ -91,13 +91,22 @@ export function renderFilterBanner(selector) {
               </div>
             </div>
 
-            <button type="submit" class="filter-banner__search-btn" aria-label="Search properties">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              </svg>
-              <span>Search</span>
-            </button>
+            <div class="filter-banner__actions">
+              <button type="button" class="filter-banner__reset-btn" aria-label="Reset filters">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1 4 1 10 7 10"/>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+                <span>Reset</span>
+              </button>
+              <button type="submit" class="filter-banner__search-btn" aria-label="Search properties">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <span>Search</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -121,4 +130,238 @@ export function renderFilterBanner(selector) {
 
   const form = el.querySelector(".filter-banner__form");
   if (form) form.addEventListener("submit", (e) => e.preventDefault());
+
+  initFilterSelects(el);
+  initFilterReset(form);
+}
+
+/**
+ * Reveals the reset button (splitting the search button) whenever any filter
+ * control in the form holds a value, with a smooth CSS transition. Clicking
+ * reset clears every control and collapses the button again.
+ *
+ * Works on any markup using the `.filter-banner__form` / `.filter-banner__actions`
+ * structure, so it is shared across all pages that render a filter banner.
+ */
+export function initFilterReset(form, { ignore = [], onReset } = {}) {
+  if (!form) return;
+
+  const controls = () =>
+    Array.from(form.querySelectorAll("select, input")).filter((c) => {
+      if (c.type === "submit" || c.type === "button" || c.type === "hidden") {
+        return false;
+      }
+      if (c.id === "filterPurpose") return false;
+      return !ignore.includes(c.id);
+    });
+
+  const hasValue = () =>
+    controls().some((c) => !c.disabled && String(c.value ?? "").trim() !== "");
+
+  const update = () => {
+    form.classList.toggle("filter-banner__form--has-filters", hasValue());
+  };
+
+  controls().forEach((c) => {
+    c.addEventListener("change", update);
+    c.addEventListener("input", update);
+  });
+
+  const resetBtn = form.querySelector(".filter-banner__reset-btn");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      controls().forEach((c) => {
+        if (c.value === "") return;
+        c.value = "";
+        c.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+      if (typeof onReset === "function") onReset();
+      update();
+    });
+  }
+
+  update();
+}
+
+/* ============================================================
+   Custom select dropdown (style ref: contact-us select)
+   Enhances every .filter-banner__select-wrap into a styled
+   dropdown over the (now hidden) native <select>, plus a
+   per-select clear button.
+   ============================================================ */
+
+const escHtml = (s) =>
+  String(s ?? "").replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+  );
+const escAttr = escHtml;
+
+const fbOpenSelects = new Set();
+let fbSelectGlobalsBound = false;
+
+function closeAllFbSelects() {
+  fbOpenSelects.forEach((inst) => inst.close());
+}
+
+function bindFbSelectGlobals() {
+  if (fbSelectGlobalsBound) return;
+  fbSelectGlobalsBound = true;
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest(".fb-select") || e.target.closest(".fb-select__dropdown")) {
+      return;
+    }
+    closeAllFbSelects();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeAllFbSelects();
+  });
+  window.addEventListener(
+    "scroll",
+    () => fbOpenSelects.forEach((inst) => inst.position()),
+    true,
+  );
+  window.addEventListener("resize", closeAllFbSelects);
+}
+
+/**
+ * Enhances all native selects inside a filter banner into custom dropdowns.
+ * Safe to call once per rendered banner; already-enhanced wraps are skipped.
+ * Rebuilds itself when option lists change (e.g. the locations cascade).
+ */
+export function initFilterSelects(root) {
+  if (!root) return;
+  root.querySelectorAll(".filter-banner__select-wrap").forEach(enhanceFilterSelect);
+}
+
+function enhanceFilterSelect(wrap) {
+  if (wrap.dataset.fbEnhanced) return;
+  const select = wrap.querySelector("select");
+  if (!select) return;
+
+  wrap.dataset.fbEnhanced = "true";
+  wrap.classList.add("fb-select");
+  select.classList.add("fb-select__native");
+  select.setAttribute("tabindex", "-1");
+  select.setAttribute("aria-hidden", "true");
+
+  const chevron = wrap.querySelector(".filter-banner__chevron");
+
+  const valueEl = document.createElement("span");
+  valueEl.className = "fb-select__value";
+
+  const clearBtn = document.createElement("button");
+  clearBtn.type = "button";
+  clearBtn.className = "fb-select__clear";
+  clearBtn.setAttribute("aria-label", "Clear selection");
+  clearBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>`;
+
+  const dropdown = document.createElement("div");
+  dropdown.className = "fb-select__dropdown";
+  const optionsEl = document.createElement("div");
+  optionsEl.className = "fb-select__options";
+  dropdown.appendChild(optionsEl);
+
+  if (chevron) {
+    wrap.insertBefore(valueEl, chevron);
+    wrap.insertBefore(clearBtn, chevron);
+  } else {
+    wrap.appendChild(valueEl);
+    wrap.appendChild(clearBtn);
+  }
+  document.body.appendChild(dropdown);
+
+  const placeholder = () => select.options[0]?.text || "Select";
+
+  const renderOptions = () => {
+    const opts = Array.from(select.options).filter((o) => o.value !== "");
+    optionsEl.innerHTML = opts
+      .map((o) => {
+        const sel = select.value !== "" && o.value === select.value;
+        return `
+          <button type="button" class="fb-select__option${sel ? " is-selected" : ""}" role="option" aria-selected="${sel}" data-value="${escAttr(o.value)}">
+            <span>${escHtml(o.text)}</span>
+            <svg class="fb-select__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>`;
+      })
+      .join("");
+  };
+
+  const updateDisplay = () => {
+    const opt = select.options[select.selectedIndex];
+    const hasValue = select.value !== "" && opt && opt.value !== "";
+    valueEl.textContent = hasValue ? opt.text : placeholder();
+    wrap.classList.toggle("has-selection", hasValue);
+    wrap.classList.toggle("is-empty", !hasValue);
+    wrap.classList.toggle("is-disabled", select.disabled);
+  };
+
+  const position = () => {
+    const r = wrap.getBoundingClientRect();
+    dropdown.style.top = `${r.bottom + 6}px`;
+    dropdown.style.left = `${r.left}px`;
+    dropdown.style.minWidth = `${r.width}px`;
+  };
+
+  const close = () => {
+    dropdown.classList.remove("is-open");
+    wrap.classList.remove("is-open");
+    fbOpenSelects.delete(inst);
+  };
+
+  const open = () => {
+    if (select.disabled) return;
+    closeAllFbSelects();
+    renderOptions();
+    position();
+    dropdown.classList.add("is-open");
+    wrap.classList.add("is-open");
+    fbOpenSelects.add(inst);
+  };
+
+  const inst = { close, position };
+
+  wrap.addEventListener("click", (e) => {
+    if (e.target.closest(".fb-select__clear")) return;
+    if (wrap.classList.contains("is-open")) close();
+    else open();
+  });
+
+  clearBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (select.value === "") return;
+    select.value = "";
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+    close();
+  });
+
+  optionsEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".fb-select__option");
+    if (!btn) return;
+    select.value = btn.dataset.value;
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+    close();
+  });
+
+  select.addEventListener("change", () => {
+    renderOptions();
+    updateDisplay();
+  });
+
+  // Rebuild when the option list or disabled state changes (cascade selects).
+  const mo = new MutationObserver(() => {
+    renderOptions();
+    updateDisplay();
+  });
+  mo.observe(select, {
+    childList: true,
+    attributes: true,
+    attributeFilter: ["disabled"],
+  });
+
+  renderOptions();
+  updateDisplay();
+  bindFbSelectGlobals();
 }
