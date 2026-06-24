@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="max-w-3xl mx-auto px-6 text-center py-20">
         <h2 class="text-2xl font-bold text-gray-800 mb-2">Developer not found</h2>
         <p class="text-gray-500 mb-6">The developer you're looking for doesn't exist.</p>
-        <a href="../developers/index.html" class="dd-submit" style="text-decoration:none;display:inline-flex;">
+        <a href="../developers/index.html" class="dd-cta__btn dd-cta__btn--primary" style="text-decoration:none;display:inline-flex;">
           Back to Developers
         </a>
       </div>`;
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   hydrateDeveloper(developer);
-  setupForm(developer);
   initProjectsSlider(developer);
   initFadeUp();
 });
@@ -75,8 +74,9 @@ function hydrateDeveloper(d) {
     .filter(Boolean)
     .join("");
 
-  document.getElementById("dd-form-subtitle").textContent =
-    `Speak with our team about ${d.name}'s available units and upcoming launches.`;
+  document.getElementById("dd-cta-title").textContent = `Considering ${d.name}?`;
+  document.getElementById("dd-cta-subtitle").textContent =
+    `Speak with a Dastan advisor about ${d.name}'s available units, upcoming launches, and exclusive pre-market opportunities.`;
 }
 
 function initProjectsSlider(developer) {
@@ -152,48 +152,6 @@ function pickProjectsFor(developer) {
   const offset = ((developer.id - 1) % projects.length + projects.length) % projects.length;
   const take = Math.min(6, projects.length);
   return Array.from({ length: take }, (_, i) => projects[(offset + i) % projects.length]);
-}
-
-function setupForm(developer) {
-  const form = document.getElementById("contactForm");
-  const messageBox = document.getElementById("cf-message-box");
-  const submitBtn = form.querySelector(".dd-submit");
-  const originalBtnHTML = submitBtn.innerHTML;
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    if (!form.checkValidity()) {
-      showMessage(messageBox, "Please fill in all required fields.", "error");
-      form.reportValidity();
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Sending…</span>`;
-
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalBtnHTML;
-
-      showMessage(
-        messageBox,
-        `Thanks! Your inquiry about ${developer.name} has been received. We'll be in touch shortly.`,
-        "success"
-      );
-      form.reset();
-
-      setTimeout(() => {
-        messageBox.hidden = true;
-      }, 6000);
-    }, 1200);
-  });
-}
-
-function showMessage(box, text, type) {
-  box.textContent = text;
-  box.className = `dd-form-message dd-form-message--${type}`;
-  box.hidden = false;
 }
 
 function initFadeUp() {

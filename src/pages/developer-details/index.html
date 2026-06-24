@@ -66,93 +66,74 @@
       </div>
     </header>
 
+    <!-- Floating stat band (signature element) -->
+    <div class="dd-statband-wrap max-w-5xl mx-auto px-6">
+      <div class="dd-statband fade-up" id="dd-stats"></div>
+    </div>
+
     <!-- Body -->
     <main class="dd-main">
-      <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <!-- About -->
-        <section class="lg:col-span-2 space-y-10 fade-up" style="transition-delay: 0.15s">
-          <article class="dd-card">
-            <h2 class="dd-section-title">About the Developer</h2>
-            <p class="dd-description" id="dd-description"></p>
+      <!-- About -->
+      <section class="dd-about max-w-3xl mx-auto px-6 fade-up">
+        <span class="dd-eyebrow">Developer Profile</span>
+        <h2 class="dd-section-title dd-section-title--center">About the Developer</h2>
+        <p class="dd-about__lead" id="dd-description"></p>
+      </section>
 
-            <div class="dd-stats" id="dd-stats"></div>
-          </article>
-
-          <article class="dd-card">
-            <h2 class="dd-section-title">What to Expect</h2>
-            <ul class="dd-list">
-              <li>
-                <i class="fa-solid fa-check"></i>
-                <span>Carefully curated developments in landmark locations.</span>
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i>
-                <span>Transparent payment plans and verified delivery timelines.</span>
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i>
-                <span>End-to-end support from inquiry through handover.</span>
-              </li>
-              <li>
-                <i class="fa-solid fa-check"></i>
-                <span>Access to exclusive launches and pre-market opportunities.</span>
-              </li>
-            </ul>
-          </article>
-        </section>
-
-        <!-- Get in Touch Form -->
-        <aside class="lg:col-span-1 fade-up" style="transition-delay: 0.25s" id="contact-section">
-          <div class="dd-form-card">
-            <h3 class="dd-form-title">Get in Touch</h3>
-            <p class="dd-form-subtitle" id="dd-form-subtitle">
-              Speak with our team about this developer's available units.
-            </p>
-
-            <form id="contactForm" class="dd-form" novalidate>
-              <div class="dd-field">
-                <label for="cf-name">Full Name <span aria-hidden="true">*</span></label>
-                <input id="cf-name" name="name" type="text" required placeholder="John Doe" autocomplete="name" />
-              </div>
-
-              <div class="dd-field">
-                <label for="cf-email">Email Address <span aria-hidden="true">*</span></label>
-                <input id="cf-email" name="email" type="email" required placeholder="john@example.com" autocomplete="email" />
-              </div>
-
-              <div class="dd-field">
-                <label for="cf-phone">Phone Number <span aria-hidden="true">*</span></label>
-                <input id="cf-phone" name="phone" type="tel" required placeholder="+971 50 000 0000" autocomplete="tel" />
-              </div>
-
-              <div class="dd-field">
-                <label for="cf-interest">I'm interested in</label>
-                <div class="dd-select-wrap">
-                  <select id="cf-interest" name="interest">
-                    <option value="general">General Inquiry</option>
-                    <option value="off-plan">Off-Plan Investment</option>
-                    <option value="ready">Ready Properties</option>
-                    <option value="commercial">Commercial Units</option>
-                  </select>
-                  <i class="fa-solid fa-chevron-down dd-select-chev" aria-hidden="true"></i>
-                </div>
-              </div>
-
-              <div class="dd-field">
-                <label for="cf-message">Message</label>
-                <textarea id="cf-message" name="message" rows="4" placeholder="Tell us a bit about what you're looking for…"></textarea>
-              </div>
-
-              <button type="submit" class="dd-submit">
-                <span>Send Message</span>
-                <i class="fa-solid fa-paper-plane"></i>
-              </button>
-
-              <div id="cf-message-box" class="dd-form-message" hidden></div>
-            </form>
+      <!-- What to Expect -->
+      <section class="dd-expect">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="dd-expect__head fade-up">
+            <span class="dd-eyebrow">The Dastan Standard</span>
+            <h2 class="dd-section-title dd-section-title--center">What to Expect</h2>
           </div>
-        </aside>
-      </div>
+          <div class="dd-expect__grid">
+            <article class="dd-expect__card fade-up">
+              <span class="dd-expect__icon"><i class="fa-solid fa-location-dot"></i></span>
+              <h3 class="dd-expect__title">Landmark Locations</h3>
+              <p class="dd-expect__text">Carefully curated developments anchored in the area's most sought-after addresses.</p>
+            </article>
+            <article class="dd-expect__card fade-up" style="transition-delay: 0.08s">
+              <span class="dd-expect__icon"><i class="fa-solid fa-file-signature"></i></span>
+              <h3 class="dd-expect__title">Clear Terms</h3>
+              <p class="dd-expect__text">Transparent payment plans and verified delivery timelines on every unit.</p>
+            </article>
+            <article class="dd-expect__card fade-up" style="transition-delay: 0.16s">
+              <span class="dd-expect__icon"><i class="fa-solid fa-headset"></i></span>
+              <h3 class="dd-expect__title">End-to-End Support</h3>
+              <p class="dd-expect__text">A dedicated advisor with you from first inquiry through to handover.</p>
+            </article>
+            <article class="dd-expect__card fade-up" style="transition-delay: 0.24s">
+              <span class="dd-expect__icon"><i class="fa-solid fa-key"></i></span>
+              <h3 class="dd-expect__title">Early Access</h3>
+              <p class="dd-expect__text">First look at exclusive launches and pre-market investment opportunities.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA band (new section) -->
+      <section class="dd-cta">
+        <div class="dd-cta__inner max-w-5xl mx-auto px-6 fade-up">
+          <div class="dd-cta__text">
+            <span class="dd-cta__eyebrow">Ready to explore?</span>
+            <h2 class="dd-cta__title" id="dd-cta-title">Considering this developer?</h2>
+            <p class="dd-cta__subtitle" id="dd-cta-subtitle">
+              Speak with a Dastan advisor about available units, upcoming launches, and exclusive pre-market opportunities.
+            </p>
+          </div>
+          <div class="dd-cta__actions">
+            <a href="../contact-us/index.html" class="dd-cta__btn dd-cta__btn--primary">
+              <i class="fa-solid fa-comments"></i>
+              <span>Talk to an advisor</span>
+            </a>
+            <a href="#dd-projects" class="dd-cta__btn dd-cta__btn--ghost">
+              <span>Browse projects</span>
+              <i class="fa-solid fa-arrow-down"></i>
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Projects by this developer -->
