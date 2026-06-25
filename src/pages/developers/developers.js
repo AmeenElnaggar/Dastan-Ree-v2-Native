@@ -154,16 +154,23 @@ function buildPageRange(current, total) {
 
 function renderDeveloperCard(d, index) {
   const delay = Math.min(index * 0.05, 0.4);
+  const cover = d.cover || d.logo;
   return `
     <a href="../developer-details/index.html?id=${d.id}" class="developer-card fade-up" role="listitem" style="transition-delay: ${delay}s" aria-label="${escapeAttr(d.name)}">
-      <div class="developer-card__logo-wrap">
-        <img class="developer-card__logo" src="${d.logo}" alt="${escapeAttr(d.alt || d.name)}" loading="lazy" />
+      <div class="developer-card__cover">
+        <img class="developer-card__cover-img" src="${cover}" alt="" aria-hidden="true" loading="lazy" />
+        ${d.projects ? `<span class="developer-card__projects"><strong>${d.projects}</strong> Projects</span>` : ""}
       </div>
-      <h3 class="developer-card__name">${escapeHtml(d.name)}</h3>
-      ${d.tagline ? `<p class="developer-card__tagline">${escapeHtml(d.tagline)}</p>` : ""}
-      <div class="developer-card__meta">
-        ${d.location ? `<span class="developer-card__meta-item"><i class="fa-solid fa-location-dot"></i>${escapeHtml(d.location)}</span>` : ""}
-        ${d.projects ? `<span class="developer-card__meta-item"><i class="fa-solid fa-building"></i>${d.projects} projects</span>` : ""}
+      <div class="developer-card__body">
+        <div class="developer-card__crest">
+          <img class="developer-card__logo" src="${d.logo}" alt="${escapeAttr(d.alt || d.name)}" loading="lazy" />
+        </div>
+        <h3 class="developer-card__name">${escapeHtml(d.name)}</h3>
+        ${d.tagline ? `<p class="developer-card__tagline">${escapeHtml(d.tagline)}</p>` : ""}
+        <div class="developer-card__footer">
+          ${d.location ? `<span class="developer-card__location"><i class="fa-solid fa-location-dot"></i>${escapeHtml(d.location)}</span>` : "<span></span>"}
+          <span class="developer-card__cta">View<i class="fa-solid fa-arrow-right"></i></span>
+        </div>
       </div>
     </a>
   `;

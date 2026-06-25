@@ -43,33 +43,41 @@ function hydrateDeveloper(d) {
   document.getElementById("dd-tagline").textContent = d.tagline || "";
   document.getElementById("dd-description").textContent = d.description || "";
 
+  const devProjects = projects.filter((p) => projectBelongsTo(p, d));
+  const availableCount = (devProjects.length ? devProjects : pickProjectsFor(d)).length;
+
   const meta = document.getElementById("dd-meta");
   meta.innerHTML = [
     d.location
       ? `<span class="dd-hero__meta-item"><i class="fa-solid fa-location-dot"></i>${escapeHtml(d.location)}</span>`
       : "",
-    d.founded
-      ? `<span class="dd-hero__meta-item"><i class="fa-solid fa-calendar"></i>Founded ${d.founded}</span>`
+    d.projects
+      ? `<span class="dd-hero__meta-item"><i class="fa-solid fa-building"></i>${d.projects} Projects</span>`
       : "",
-    d.website && d.website !== "#"
-      ? `<span class="dd-hero__meta-item"><i class="fa-solid fa-globe"></i><a href="${d.website}" target="_blank" rel="noopener noreferrer">Visit Website</a></span>`
+    availableCount
+      ? `<span class="dd-hero__meta-item"><i class="fa-solid fa-layer-group"></i>${availableCount} Available Properties</span>`
       : "",
   ]
     .filter(Boolean)
     .join("");
 
-  const stats = document.getElementById("dd-stats");
-  const yearsActive = d.founded ? new Date().getFullYear() - d.founded : null;
-  stats.innerHTML = [
-    d.projects
-      ? `<div class="dd-stat"><div class="dd-stat__value">${d.projects}+</div><div class="dd-stat__label">Projects</div></div>`
+  const facts = document.getElementById("dd-facts");
+  facts.innerHTML = [
+    d.phone
+      ? renderFact(
+          "phone",
+          "Phone",
+          `<a href="tel:${d.phone.replace(/\s+/g, "")}" class="dd-fact__link">${escapeHtml(d.phone)}</a>`
+        )
       : "",
-    yearsActive
-      ? `<div class="dd-stat"><div class="dd-stat__value">${yearsActive}</div><div class="dd-stat__label">Years Active</div></div>`
+    d.email
+      ? renderFact(
+          "envelope",
+          "Email",
+          `<a href="mailto:${escapeHtml(d.email)}" class="dd-fact__link">${escapeHtml(d.email)}</a>`
+        )
       : "",
-    d.location
-      ? `<div class="dd-stat"><div class="dd-stat__value">${escapeHtml(d.location.split(",")[0])}</div><div class="dd-stat__label">Headquarters</div></div>`
-      : "",
+    d.location ? renderFact("location-dot", "Address", escapeHtml(d.location)) : "",
   ]
     .filter(Boolean)
     .join("");
@@ -167,6 +175,16 @@ function initFadeUp() {
     { threshold: 0.1 }
   );
   document.querySelectorAll(".fade-up").forEach((el) => obs.observe(el));
+}
+
+function renderFact(icon, label, value) {
+  return `<li class="dd-fact">
+    <span class="dd-fact__icon"><i class="fa-solid fa-${icon}"></i></span>
+    <div class="dd-fact__body">
+      <div class="dd-fact__label">${label}</div>
+      <div class="dd-fact__value">${value}</div>
+    </div>
+  </li>`;
 }
 
 function escapeHtml(str) {
