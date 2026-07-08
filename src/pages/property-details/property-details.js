@@ -50,6 +50,7 @@ function renderProperty(p) {
   renderAbout(p);
   renderAmenities(p);
   renderVideo(p);
+  renderTour360(p);
   renderFloorPlans(p.floorPlans || []);
   renderMasterplan(p);
   renderMap(p);
@@ -302,6 +303,17 @@ function renderVideo(p) {
   if (/<iframe|<video/i.test(iframe)) wrap.innerHTML = iframe;
   else
     wrap.innerHTML = `<iframe src="${iframe}" title="Property video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  section.hidden = false;
+}
+
+function renderTour360(p) {
+  const iframe = p.tour360_iframe || p.tour360Iframe || p.tour360;
+  if (!iframe) return;
+  const section = document.querySelector("#tour360-section");
+  const wrap = document.querySelector("#tour360-wrap");
+  if (/<iframe/i.test(iframe)) wrap.innerHTML = iframe;
+  else
+    wrap.innerHTML = `<iframe src="${iframe}" title="360° image tour" loading="lazy" allow="xr-spatial-tracking; gyroscope; accelerometer" allowfullscreen scrolling="no"></iframe>`;
   section.hidden = false;
 }
 

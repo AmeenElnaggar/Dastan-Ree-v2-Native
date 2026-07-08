@@ -25,6 +25,8 @@ export const properties = [
       "https://media.istockphoto.com/id/1372968020/vector/imaginary-general-urban-plan-with-indications-of-urban-destinations-with-buildings-roads.jpg?s=1024x1024&w=is&k=20&c=KZLeFkaqBu_iM536HpdPlfusFvvQ41oUwVBemu7h4xw=",
     video_iframe:
       '<iframe width="560" height="315" src="https://www.youtube.com/embed/4jnzf1yj48M?si=yvMkzyfVyP2UwAMd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+    tour360_iframe:
+      '<iframe width="100%" height="640" frameborder="0" allow="xr-spatial-tracking; gyroscope; accelerometer" allowfullscreen scrolling="no" src="https://kuula.co/share/5GssB?logo=1&info=1&fs=1&vr=0&sd=1&thumbs=1"></iframe>',
     facilities: [
       "Infinity Pool",
       "Sky Lounge",
