@@ -31,6 +31,9 @@
       href="../../../src/shared/components/footer/footer.css"
     />
     <link rel="stylesheet" href="../../../src/shared/components/cta/cta.css" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/pagination/pagination.css" />
 
     <link rel="stylesheet" href="careers.css" />
     <script>
@@ -75,75 +78,13 @@
           </p>
         </div>
 
-        <div class="job-list">
-          <!-- Job Item 1 -->
-          <div class="job-item fade-up">
-            <div class="job-item__content">
-              <h3 class="job-item__title">Senior Property Consultant</h3>
-              <div class="job-item__meta">
-                <span><i class="fa-solid fa-location-dot"></i> Dubai, UAE</span>
-                <span><i class="fa-solid fa-clock"></i> Full-Time</span>
-                <span><i class="fa-solid fa-briefcase"></i> Sales</span>
-              </div>
-              <p class="job-item__desc">
-                We are looking for an experienced Property Consultant to join
-                our top-tier sales team. The ideal candidate will have a proven
-                track record in luxury real estate.
-              </p>
-            </div>
-            <div class="job-item__action">
-              <a href="../career-details/index.html" class="job-item__btn"
-                >Apply Now</a
-              >
-            </div>
-          </div>
+        <div class="job-list" id="job-list"></div>
 
-          <!-- Job Item 2 -->
-          <div class="job-item fade-up" style="transition-delay: 0.1s">
-            <div class="job-item__content">
-              <h3 class="job-item__title">Marketing Manager</h3>
-              <div class="job-item__meta">
-                <span><i class="fa-solid fa-location-dot"></i> Dubai, UAE</span>
-                <span><i class="fa-solid fa-clock"></i> Full-Time</span>
-                <span><i class="fa-solid fa-bullhorn"></i> Marketing</span>
-              </div>
-              <p class="job-item__desc">
-                Lead our marketing initiatives across digital and traditional
-                channels. You'll be responsible for brand positioning, campaign
-                execution, and lead generation.
-              </p>
-            </div>
-            <div class="job-item__action">
-              <a href="../career-details/index.html" class="job-item__btn"
-                >Apply Now</a
-              >
-            </div>
-          </div>
-
-          <!-- Job Item 3 -->
-          <div class="job-item fade-up" style="transition-delay: 0.2s">
-            <div class="job-item__content">
-              <h3 class="job-item__title">Real Estate Photographer</h3>
-              <div class="job-item__meta">
-                <span
-                  ><i class="fa-solid fa-location-dot"></i> Remote / Field</span
-                >
-                <span><i class="fa-solid fa-clock"></i> Contract</span>
-                <span><i class="fa-solid fa-camera"></i> Media</span>
-              </div>
-              <p class="job-item__desc">
-                Capture the essence of our premium properties. We need a
-                creative photographer with experience in architectural and
-                interior photography.
-              </p>
-            </div>
-            <div class="job-item__action">
-              <a href="../career-details/index.html" class="job-item__btn"
-                >Apply Now</a
-              >
-            </div>
-          </div>
-        </div>
+        <nav
+          id="careersPagination"
+          class="pagination"
+          aria-label="Careers pagination"
+          hidden></nav>
 
         <div class="text-center mt-12 fade-up" style="transition-delay: 0.3s">
           <p class="text-gray-500 mb-4">

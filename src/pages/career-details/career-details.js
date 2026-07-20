@@ -1,5 +1,92 @@
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
+import { careers } from "../../data/careers.data.js";
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function renderJobDetails(job) {
+  // Page title + heading
+  document.title = `${job.title} — Dastan Real Estate`;
+
+  const titleEl = document.getElementById("jd-title");
+  if (titleEl) titleEl.textContent = job.title;
+
+  const subtitleEl = document.getElementById("jd-form-subtitle");
+  if (subtitleEl)
+    subtitleEl.textContent = `Submit your application for ${job.title}`;
+
+  // Header meta
+  const metaEl = document.getElementById("jd-meta");
+  if (metaEl) {
+    metaEl.innerHTML = `
+      <span class="flex items-center gap-2"
+        ><i class="fa-solid fa-location-dot text-[var(--color-gold-accent)]"></i>
+        ${escapeHtml(job.location)}</span
+      >
+      <span class="flex items-center gap-2"
+        ><i class="fa-solid fa-clock text-[var(--color-gold-accent)]"></i>
+        ${escapeHtml(job.type)}</span
+      >
+      <span class="flex items-center gap-2"
+        ><i class="fa-solid ${job.departmentIcon} text-[var(--color-gold-accent)]"></i>
+        ${escapeHtml(job.department)} Department</span
+      >`;
+  }
+
+  // About
+  const aboutEl = document.getElementById("jd-about");
+  if (aboutEl) aboutEl.textContent = job.about;
+
+  // Responsibilities
+  const respEl = document.getElementById("jd-responsibilities");
+  if (respEl) {
+    respEl.innerHTML = job.responsibilities
+      .map(
+        (item) => `
+        <li class="flex items-start">
+          <i class="fa-solid fa-check text-[var(--color-gold-accent)] mt-1 mr-3"></i>
+          <span class="text-gray-600 leading-relaxed">${escapeHtml(item)}</span>
+        </li>`
+      )
+      .join("");
+  }
+
+  // Requirements
+  const reqEl = document.getElementById("jd-requirements");
+  if (reqEl) {
+    reqEl.innerHTML = job.requirements
+      .map(
+        (item) => `
+        <li class="flex items-start">
+          <i class="fa-solid fa-circle-dot text-[var(--color-gold-accent)] text-xs mt-1.5 mr-3"></i>
+          <span class="text-gray-600 leading-relaxed">${escapeHtml(item)}</span>
+        </li>`
+      )
+      .join("");
+  }
+
+  // Benefits
+  const benefitsEl = document.getElementById("jd-benefits");
+  if (benefitsEl) {
+    benefitsEl.innerHTML = job.benefits
+      .map(
+        (b) => `
+        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#f8fafc] flex items-center justify-center text-[var(--color-gold-accent)]">
+            <i class="fa-solid ${b.icon}"></i>
+          </div>
+          <span class="font-medium text-gray-800">${escapeHtml(b.label)}</span>
+        </div>`
+      )
+      .join("");
+  }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Render global components
@@ -7,7 +94,12 @@ document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root", { transparent: false });
   renderFooter("#footer-root");
 
-  // 2. Initialize Intersection Observer for fade-up animations
+  // 2. Render the selected job from mock data (?id=)
+  const id = Number(new URLSearchParams(window.location.search).get("id"));
+  const job = careers.find((c) => c.id === id) || careers[0];
+  renderJobDetails(job);
+
+  // 3. Initialize Intersection Observer for fade-up animations
   const fadeUpElements = document.querySelectorAll(".fade-up");
   const observerOptions = {
     root: null,
@@ -28,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(el);
   });
 
-  // 3. Handle File Input Display
+  // 4. Handle File Input Display
   const fileInput = document.getElementById("file-upload");
   const fileNameDisplay = document.getElementById("file-name-display");
 
@@ -46,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. Handle Form Submission
+  // 5. Handle Form Submission
   const form = document.getElementById("applicationForm");
   const formMessage = document.getElementById("form-message");
 

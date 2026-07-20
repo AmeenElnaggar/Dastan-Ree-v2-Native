@@ -398,13 +398,18 @@ function renderPagination(total) {
 }
 
 function buildPageRange(current, total) {
-  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
-  const pages = [1];
-  if (current > 3) pages.push("…");
-  for (let j = Math.max(2, current - 1); j <= Math.min(total - 1, current + 1); j++) pages.push(j);
-  if (current < total - 2) pages.push("…");
-  pages.push(total);
-  return pages;
+  const range = [];
+  const delta = 1;
+  const left = Math.max(2, current - delta);
+  const right = Math.min(total - 1, current + delta);
+
+  range.push(1);
+  if (left > 2) range.push("…");
+  for (let i = left; i <= right; i++) range.push(i);
+  if (right < total - 1) range.push("…");
+  if (total > 1) range.push(total);
+
+  return range;
 }
 
 function scrollToResults() {

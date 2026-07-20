@@ -64,7 +64,7 @@
 .blog-card__date-month {
   font-size: 0.6rem;
   font-weight: 600;
-  color: var(--color-gold, #f59e0b);
+  color: var(--color-gold-accent);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-top: 3px;
@@ -166,7 +166,9 @@
   color: #0a1e77;
   text-decoration: none;
   letter-spacing: 0.03em;
-  transition: gap var(--transition-fast), color var(--transition-fast);
+  transition:
+    gap var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .blog-card__cta span {
@@ -185,7 +187,7 @@
 }
 
 .blog-card:hover .blog-card__cta {
-  color: var(--color-gold, #f59e0b);
+  color: var(--color-gold-accent);
   gap: 10px;
 }
 

@@ -40,7 +40,7 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #c9a84c;
+  color: var(--color-gold-accent);
   margin-bottom: 0.875rem;
 }
 
@@ -49,7 +49,7 @@
   display: inline-block;
   width: 32px;
   height: 1px;
-  background: #c9a84c;
+  background: var(--color-gold-accent);
   vertical-align: middle;
   margin-inline-start: 0.5rem;
   opacity: 0.7;

@@ -62,18 +62,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const chevLeft = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
     const chevRight = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
 
-    let html = `<button class="developers-pagination__btn" data-action="prev" aria-label="Previous page"${currentPage === 1 ? " disabled" : ""}>${chevLeft}<span>Prev</span></button>`;
+    let html = `<button class="pagination__btn" data-action="prev" aria-label="Previous page"${currentPage === 1 ? " disabled" : ""}>${chevLeft}<span>Prev</span></button>`;
 
     buildPageRange(currentPage, totalPages).forEach((p) => {
       if (p === "…") {
-        html += `<span class="developers-pagination__ellipsis">…</span>`;
+        html += `<span class="pagination__ellipsis">…</span>`;
       } else {
         const active = p === currentPage;
-        html += `<button class="developers-pagination__page${active ? " developers-pagination__page--active" : ""}" data-page="${p}" aria-label="Page ${p}"${active ? ' aria-current="page"' : ""}>${p}</button>`;
+        html += `<button class="pagination__page${active ? " pagination__page--active" : ""}" data-page="${p}" aria-label="Page ${p}"${active ? ' aria-current="page"' : ""}>${p}</button>`;
       }
     });
 
-    html += `<button class="developers-pagination__btn" data-action="next" aria-label="Next page"${currentPage === totalPages ? " disabled" : ""}><span>Next</span>${chevRight}</button>`;
+    html += `<button class="pagination__btn" data-action="next" aria-label="Next page"${currentPage === totalPages ? " disabled" : ""}><span>Next</span>${chevRight}</button>`;
 
     paginationEl.innerHTML = html;
 

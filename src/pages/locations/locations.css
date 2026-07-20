@@ -149,27 +149,6 @@
   background: #fafafa;
 }
 
-.locations-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-
-.locations-count {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #6b7280;
-  letter-spacing: 0.02em;
-}
-
-.locations-count strong {
-  color: #0a1e77;
-  font-weight: 700;
-}
-
 /* --- Locations filter banner overrides --- */
 .locations-filter-banner .filter-banner__select:disabled {
   opacity: 0.45;
@@ -412,11 +391,6 @@
 @media (max-width: 640px) {
   .locations-section {
     padding: 3rem 0 4rem;
-  }
-
-  .locations-toolbar {
-    flex-direction: column;
-    align-items: stretch;
   }
 
   .locations-grid {

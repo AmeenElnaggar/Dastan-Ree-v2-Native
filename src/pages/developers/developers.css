@@ -57,7 +57,7 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 1rem;
-  color: var(--color-accent, #c9a45c);
+  color: var(--color-gold-accent);
 }
 
 .developers-hero__title {
@@ -240,7 +240,7 @@
   background: rgba(4, 13, 51, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(201, 164, 92, 0.5);
+  border: 1px solid rgb(from var(--color-gold-accent) r g b / 0.5);
   color: #fff;
   font-size: 0.68rem;
   font-weight: 500;
@@ -284,7 +284,7 @@
 }
 
 .developer-card:hover .developer-card__crest::before {
-  border-color: #c9a45c;
+  border-color: var(--color-gold-accent);
 }
 
 .developer-card__logo {
@@ -310,7 +310,7 @@
   width: 28px;
   height: 2px;
   margin-top: 0.6rem;
-  background: #c9a45c;
+  background: var(--color-gold-accent);
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -344,7 +344,7 @@
 }
 
 .developer-card__location i {
-  color: #c9a45c;
+  color: var(--color-gold-accent);
   font-size: 0.8rem;
 }
 
@@ -356,7 +356,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #c9a45c;
+  color: var(--color-gold-accent);
   white-space: nowrap;
 }
 
@@ -367,67 +367,6 @@
 
 .developer-card:hover .developer-card__cta i {
   transform: translateX(4px);
-}
-
-/* --- Pagination --- */
-.developers-pagination {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 3rem;
-}
-
-.developers-pagination[hidden] {
-  display: none;
-}
-
-.developers-pagination__btn,
-.developers-pagination__page {
-  min-width: 40px;
-  height: 40px;
-  padding: 0 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  border: 1px solid #e5e7eb;
-  background: #fff;
-  color: #334155;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-.developers-pagination__btn:hover:not(:disabled),
-.developers-pagination__page:hover:not(.developers-pagination__page--active) {
-  border-color: #0a1e77;
-  color: #0a1e77;
-}
-
-.developers-pagination__btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.developers-pagination__page--active {
-  background: #0a1e77;
-  border-color: #0a1e77;
-  color: #fff;
-  cursor: default;
-}
-
-.developers-pagination__ellipsis {
-  min-width: 28px;
-  text-align: center;
-  color: #94a3b8;
-  font-weight: 600;
 }
 
 /* --- Empty State --- */

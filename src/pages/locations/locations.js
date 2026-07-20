@@ -165,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const grid = document.getElementById("locationsGrid");
   const empty = document.getElementById("locationsEmpty");
-  const countEl = document.getElementById("locationsCount");
   const paginationEl = document.getElementById("locationsPagination");
 
   const sorted = [...locations].sort(
@@ -214,10 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
     grid.innerHTML = pageItems.map(renderLocationCard).join("");
     grid.hidden = total === 0;
     empty.hidden = total > 0;
-
-    countEl.innerHTML = `<strong>${total}</strong> ${
-      total === 1 ? "location" : "locations"
-    }`;
 
     grid.querySelectorAll(".fade-up").forEach((el) => fadeObs.observe(el));
 
