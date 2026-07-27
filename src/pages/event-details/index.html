@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event — Dastan Real Estate</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../../../src/assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../../src/styles/variables.css?v=ff653729" />
+    <link rel="stylesheet" href="../../../src/styles/global.css?v=dcb3a4ea" />
+    <link rel="stylesheet" href="../../../src/styles/utilities.css?v=3dab98b6" />
+    <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css?v=9be797a8" />
+    <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css?v=f1bd47e4" />
+    <link rel="stylesheet" href="../../../src/shared/components/event-card/event-card.css?v=766895df" />
+    <link rel="stylesheet" href="../blog-details/blog-details.css?v=a1765b2a" />
+    <link rel="stylesheet" href="event-details.css?v=42a1bbb0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../../tailwind.config.js"></script>
+  </head>
+  <body class="font-sans bg-white text-gray-900">
+    <div id="navbar-root"></div>
+
+    <!-- ── Hero ─────────────────────────────────────────────────────── -->
+    <section class="bd-hero" id="bd-hero">
+      <div class="bd-hero__bg" id="bd-hero-bg"></div>
+      <div class="bd-hero__gradient" aria-hidden="true"></div>
+      <div class="bd-hero__inner">
+        <nav class="bd-breadcrumb" aria-label="Breadcrumb">
+          <a href="../home/index.html" class="bd-breadcrumb__crumb">Home</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <a href="../events/index.html" class="bd-breadcrumb__crumb">Events</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+          <span class="bd-breadcrumb__crumb bd-breadcrumb__crumb--active" id="bd-breadcrumb-current"></span>
+        </nav>
+
+        <h1 class="bd-hero__title" id="bd-title"></h1>
+
+        <div class="bd-hero__meta" id="bd-meta">
+          <div class="bd-hero__author">
+            <img class="bd-hero__avatar" id="bd-host-avatar" src="" alt="" loading="lazy" />
+            <div class="bd-hero__author-info">
+              <span class="bd-hero__author-label">Hosted by</span>
+              <span class="bd-hero__author-name" id="bd-host-name"></span>
+            </div>
+          </div>
+          <div class="bd-hero__meta-div"></div>
+          <div class="bd-hero__meta-item">
+            <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+            <span id="bd-date"></span>
+          </div>
+          <div class="bd-hero__meta-div" id="bd-time-div"></div>
+          <div class="bd-hero__meta-item" id="bd-time-item">
+            <i class="fa-regular fa-clock" aria-hidden="true"></i>
+            <span id="bd-time"></span>
+          </div>
+          <div class="bd-hero__meta-div" id="bd-location-div"></div>
+          <div class="bd-hero__meta-item" id="bd-location-item">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <span id="bd-location"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Reading Progress Bar ────────────────────────────────────── -->
+    <div class="bd-progress" id="bd-progress" aria-hidden="true" role="progressbar"></div>
+
+    <!-- ── Body ────────────────────────────────────────────────────── -->
+    <div class="bd-body">
+      <div class="bd-body__inner">
+        <!-- Main Content -->
+        <main class="bd-main">
+          <p class="bd-excerpt" id="bd-excerpt"></p>
+
+          <article class="bd-article" id="bd-article"></article>
+
+          <!-- Related Project -->
+          <section class="ed-project" id="ed-project" hidden>
+            <h2 class="ed-project__title">Related Project</h2>
+            <p class="ed-project__subtitle">This event is held for the following project.</p>
+            <div class="ed-project__card" id="ed-project-card"></div>
+          </section>
+
+          <!-- Video -->
+          <section class="ed-video" id="ed-video" hidden>
+            <h2 class="ed-video__title">Event Video</h2>
+            <div class="ed-video__frame">
+              <iframe
+                id="ed-video-iframe"
+                src=""
+                title="Event video"
+                loading="lazy"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+            </div>
+          </section>
+
+          <!-- Inline Share -->
+          <div class="bd-share-inline">
+            <span class="bd-share-inline__label">Share this event</span>
+            <div class="bd-share-inline__btns" id="bd-share-inline"></div>
+          </div>
+
+          <!-- Host Card -->
+          <section class="bd-author-card" id="bd-host-card"></section>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="bd-sidebar" id="bd-sidebar">
+          <!-- Register / Details -->
+          <div class="bd-sidebar-block ed-details" id="ed-details-block">
+            <div class="bd-sidebar-block__header">
+              <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+              <span>Event Details</span>
+            </div>
+            <ul class="ed-details__list" id="ed-details-list"></ul>
+          </div>
+
+          <!-- TOC -->
+          <div class="bd-sidebar-block bd-toc" id="bd-toc-block" hidden>
+            <div class="bd-sidebar-block__header">
+              <i class="fa-solid fa-list" aria-hidden="true"></i>
+              <span>In this event</span>
+            </div>
+            <ol class="bd-toc__list" id="bd-toc-list"></ol>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- ── Related Events ──────────────────────────────────────────── -->
+    <section class="bd-related" id="bd-related-section" hidden>
+      <div class="bd-related__inner">
+        <div class="bd-related__header">
+          <h2 class="bd-related__title">More Events</h2>
+          <a href="../events/index.html" class="bd-related__all">
+            View all events
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+        </div>
+        <div class="bd-related__grid" id="bd-related-grid"></div>
+      </div>
+    </section>
+
+    <div id="footer-root"></div>
+
+    <script type="module" src="../../../src/shared/components/navbar/Navbar.js"></script>
+    <script type="module" src="../../../src/shared/components/footer/Footer.js"></script>
+    <script type="module" src="event-details.js"></script>
+  </body>
+</html>

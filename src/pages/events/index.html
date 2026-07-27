@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blogs — Dastan Real Estate</title>
+    <title>Events — Dastan Real Estate</title>
     <link
       rel="icon"
       type="image/svg+xml"
@@ -21,11 +21,11 @@
     <link rel="stylesheet" href="../../../src/styles/utilities.css?v=3dab98b6" />
     <link rel="stylesheet" href="../../../src/shared/components/navbar/navbar.css?v=9be797a8" />
     <link rel="stylesheet" href="../../../src/shared/components/footer/footer.css?v=f1bd47e4" />
-    <link rel="stylesheet" href="../../../src/shared/components/blog-card/blog-card.css?v=be94fc13" />
+    <link rel="stylesheet" href="../../../src/shared/components/event-card/event-card.css?v=766895df" />
     <link rel="stylesheet" href="../../../src/shared/components/action-link/action-link.css?v=9fa1394e" />
     <link rel="stylesheet" href="../../../src/shared/components/pagination/pagination.css?v=1c2037ff" />
     <link rel="stylesheet" href="../properties/properties.css?v=e5f163cf" />
-    <link rel="stylesheet" href="blogs.css?v=ff2a6e64" />
+    <link rel="stylesheet" href="events.css?v=2f1e68e5" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../../tailwind.config.js"></script>
   </head>
@@ -33,7 +33,7 @@
     <div id="navbar-root"></div>
     <div id="page-header-root"></div>
 
-    <!-- Blogs Section -->
+    <!-- Events Section -->
     <section class="properties-section">
       <div class="properties-section__container">
         <div class="properties-layout">
@@ -59,7 +59,7 @@
               <div class="filter-section__body">
                 <div class="filter-search">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  <input type="text" id="searchInput" class="filter-search__input" placeholder="Search articles..." aria-label="Search blog posts" />
+                  <input type="text" id="searchInput" class="filter-search__input" placeholder="Search events..." aria-label="Search events" />
                 </div>
               </div>
             </div>
@@ -106,18 +106,18 @@
 
             <div class="active-filters" id="activeFilters" aria-live="polite"></div>
 
-            <div id="blogs-grid" class="blogs-grid" role="list"></div>
+            <div id="events-grid" class="events-grid" role="list"></div>
 
             <div class="properties-empty" id="propertiesEmpty" hidden>
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
-              <h3>No articles found</h3>
+              <h3>No events found</h3>
               <p>Try adjusting your filters to see more results.</p>
               <button class="btn-reset" id="emptyResetBtn">Reset All Filters</button>
             </div>
 
-            <nav class="pagination" id="pagination" aria-label="Blogs pagination"></nav>
+            <nav class="pagination" id="pagination" aria-label="Events pagination"></nav>
           </div>
 
         </div>
@@ -140,6 +140,6 @@
 
     <script type="module" src="../../../src/shared/components/navbar/Navbar.js"></script>
     <script type="module" src="../../../src/shared/components/footer/Footer.js"></script>
-    <script type="module" src="blogs.js"></script>
+    <script type="module" src="events.js"></script>
   </body>
 </html>
