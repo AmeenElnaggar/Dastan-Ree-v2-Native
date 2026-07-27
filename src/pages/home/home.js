@@ -9,6 +9,7 @@ import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
 import { renderLocations } from "../../shared/components/locations/Locations.js";
 import { renderFilterBanner } from "../../shared/components/filter-banner/FilterBanner.js";
+import { initEventPopup } from "../../shared/components/event-popup/EventPopup.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initSplash();
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initPropertiesSlider("#properties-slider-root");
   renderLocations("#locations-root");
   initBlogsSlider("#blogs-slider-root");
+  initEventPopup();
 
   const fadeObs = new IntersectionObserver(
     (entries) => {
