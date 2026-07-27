@@ -2,7 +2,13 @@ const NAV_LINKS = [
   { label: "Home", href: "../home/index.html" },
   { label: "Projects", href: "../projects/index.html" },
   { label: "Properties", href: "../properties/index.html" },
-  { label: "Events", href: "../events/index.html" },
+  {
+    label: "Society",
+    children: [
+      { label: "Events", href: "../events/index.html" },
+      { label: "Blogs", href: "../blogs/index.html" },
+    ],
+  },
   { label: "About Us", href: "../about-us/index.html" },
   { label: "Careers", href: "../careers/index.html" },
   { label: "Contact Us", href: "../contact-us/index.html" },
@@ -27,6 +33,8 @@ const PLUS_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16
 const PHONE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
 
 const CLOSE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+
+const CARET_ICON = `<svg class="navbar__caret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
 
 const PHONE_NUMBER = "+20 224 000 000";
 const PHONE_TEL = "+20224000000";
@@ -63,6 +71,53 @@ export function renderNavbar(selector, options = {}) {
     }
   };
 
+  const isActiveHref = (href) =>
+    href &&
+    href !== "#" &&
+    normalizePath(resolveHref(href)) === normalizedCurrent;
+
+  const renderDesktopLink = (link) => {
+    if (link.children) {
+      const active = link.children.some((c) => isActiveHref(c.href));
+      return `
+        <div class="navbar__dropdown" data-dropdown>
+          <button class="navbar__link navbar__dropdown-toggle${active ? " navbar__link--active" : ""}" type="button" aria-haspopup="true" aria-expanded="false">
+            <span>${link.label}</span>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            ${link.children
+              .map(
+                (c) =>
+                  `<a href="${c.href}" class="navbar__dropdown-item${isActiveHref(c.href) ? " navbar__dropdown-item--active" : ""}" role="menuitem">${c.label}</a>`,
+              )
+              .join("")}
+          </div>
+        </div>`;
+    }
+    return `<a href="${link.href}" class="navbar__link${isActiveHref(link.href) ? " navbar__link--active" : ""}">${link.label}</a>`;
+  };
+
+  const renderMobileLink = (link) => {
+    if (link.children) {
+      const active = link.children.some((c) => isActiveHref(c.href));
+      return `
+        <div class="navbar__mobile-group" data-mobile-dropdown>
+          <button class="navbar__mobile-link navbar__mobile-dropdown-toggle${active ? " navbar__mobile-link--active" : ""}" type="button" aria-expanded="false">
+            <span>${link.label}</span>${CARET_ICON}
+          </button>
+          <div class="navbar__mobile-submenu">
+            ${link.children
+              .map(
+                (c) =>
+                  `<a href="${c.href}" class="navbar__mobile-sublink${isActiveHref(c.href) ? " navbar__mobile-sublink--active" : ""}">${c.label}</a>`,
+              )
+              .join("")}
+          </div>
+        </div>`;
+    }
+    return `<a href="${link.href}" class="navbar__mobile-link${isActiveHref(link.href) ? " navbar__mobile-link--active" : ""}">${link.label}</a>`;
+  };
+
   const initialClass = transparent
     ? "navbar--transparent"
     : "navbar--solid navbar--scrolled";
@@ -85,12 +140,7 @@ export function renderNavbar(selector, options = {}) {
 
         <!-- Desktop Nav Links -->
         <nav class="navbar__nav" aria-label="Main navigation">
-          ${NAV_LINKS.map((link) => {
-            const isActive =
-              link.href !== "#" &&
-              normalizePath(resolveHref(link.href)) === normalizedCurrent;
-            return `<a href="${link.href}" class="navbar__link${isActive ? " navbar__link--active" : ""}">${link.label}</a>`;
-          }).join("")}
+          ${NAV_LINKS.map(renderDesktopLink).join("")}
         </nav>
 
         <!-- Right: phone + language + hamburger -->
@@ -127,12 +177,7 @@ export function renderNavbar(selector, options = {}) {
         </div>
 
         <div class="navbar__mobile-links">
-          ${NAV_LINKS.map((link) => {
-            const isActive =
-              link.href !== "#" &&
-              normalizePath(resolveHref(link.href)) === normalizedCurrent;
-            return `<a href="${link.href}" class="navbar__mobile-link${isActive ? " navbar__mobile-link--active" : ""}">${link.label}</a>`;
-          }).join("")}
+          ${NAV_LINKS.map(renderMobileLink).join("")}
         </div>
 
         <div class="navbar__mobile-footer">
@@ -171,6 +216,44 @@ export function renderNavbar(selector, options = {}) {
   });
 
   mobileCloseBtn?.addEventListener("click", () => setMobileNav(false));
+
+  // ── Desktop dropdowns (click to open) ────────────────────────────────
+  const desktopDropdowns = root.querySelectorAll("[data-dropdown]");
+
+  const closeDropdowns = (except) => {
+    desktopDropdowns.forEach((dd) => {
+      if (dd === except) return;
+      dd.classList.remove("navbar__dropdown--open");
+      dd.querySelector(".navbar__dropdown-toggle")
+        ?.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  desktopDropdowns.forEach((dd) => {
+    const toggle = dd.querySelector(".navbar__dropdown-toggle");
+    toggle?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = dd.classList.toggle("navbar__dropdown--open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+      closeDropdowns(dd);
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("[data-dropdown]")) closeDropdowns();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDropdowns();
+  });
+
+  // ── Mobile submenus (accordion) ──────────────────────────────────────
+  root.querySelectorAll("[data-mobile-dropdown]").forEach((grp) => {
+    const toggle = grp.querySelector(".navbar__mobile-dropdown-toggle");
+    toggle?.addEventListener("click", () => {
+      const isOpen = grp.classList.toggle("navbar__mobile-group--open");
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
 
   // ── Language toggle ──────────────────────────────────────────────────
   root.querySelectorAll(".navbar__lang-toggle").forEach((btn) => {

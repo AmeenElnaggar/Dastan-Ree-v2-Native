@@ -130,6 +130,97 @@
   color: var(--navbar-brand);
 }
 
+/* ── Desktop dropdown (Society) ────────────────────────────────────── */
+
+.navbar__dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar__dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: 0.5px;
+}
+
+/* The dropdown toggle uses a caret instead of the underline effect */
+.navbar__dropdown-toggle::after {
+  display: none;
+}
+
+.navbar__caret {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.navbar__dropdown--open .navbar__caret {
+  transform: rotate(180deg);
+}
+
+.navbar__dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  min-width: 120px;
+  --arrow-size: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-8px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+  z-index: 120;
+}
+
+/* Upward arrow centered at the top of the menu */
+.navbar__dropdown-menu::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: var(--arrow-size) solid transparent;
+  border-bottom-color: #ffffff;
+}
+
+.navbar__dropdown--open .navbar__dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.navbar__dropdown-item {
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.navbar__dropdown-item:hover,
+.navbar__dropdown-item--active {
+  background: #f8f9ff;
+  color: var(--navbar-brand);
+}
+
 /* ── Right section ─────────────────────────────────────────────────── */
 
 .navbar__right {
@@ -553,6 +644,57 @@ body.nav-open {
 
 .navbar__mobile-link:hover,
 .navbar__mobile-link--active {
+  color: var(--navbar-brand);
+  background: #f8f9ff;
+}
+
+/* Mobile dropdown group (Society) */
+.navbar__mobile-dropdown-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-align: inherit;
+}
+
+.navbar__mobile-dropdown-toggle .navbar__caret {
+  transition: transform 0.25s ease;
+}
+
+.navbar__mobile-group--open .navbar__mobile-dropdown-toggle .navbar__caret {
+  transform: rotate(180deg);
+}
+
+.navbar__mobile-submenu {
+  display: flex;
+  flex-direction: column;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.navbar__mobile-group--open .navbar__mobile-submenu {
+  max-height: 320px;
+}
+
+.navbar__mobile-sublink {
+  padding: 0.7rem 1.5rem 0.7rem 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.navbar__mobile-sublink:hover,
+.navbar__mobile-sublink--active {
   color: var(--navbar-brand);
   background: #f8f9ff;
 }
