@@ -4,7 +4,7 @@
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  height: 500px;
+  aspect-ratio: 4 / 5;
   cursor: pointer;
   display: flex;
   flex-direction: column;

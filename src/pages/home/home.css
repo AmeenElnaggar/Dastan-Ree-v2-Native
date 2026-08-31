@@ -565,7 +565,7 @@ body.splash-active {
 
 .feature__icon {
   width: 56px;
-  height: 56px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: 1.5px solid rgba(10, 30, 119, 0.12);
   box-shadow: 0 2px 8px rgba(10, 30, 119, 0.08);
@@ -578,7 +578,7 @@ body.splash-active {
 
 .feature__icon img {
   width: 36px;
-  height: 36px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
 }
 
@@ -677,7 +677,7 @@ body.splash-active {
 
 .partner-card__logo-wrap {
   width: 120px;
-  height: 120px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: #f9f9f9;
   border: 3px solid #e5e7eb;

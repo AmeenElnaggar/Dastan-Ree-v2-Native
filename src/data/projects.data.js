@@ -33,7 +33,7 @@ export const projects = [
       "Covered Parking",
     ],
     purposeTypes: ["Residential"],
-    image: "../assets/images/projects/project1.jpeg",
+    image: "../assets/images/home/project-card.jpg",
     images: [
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
       "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200",

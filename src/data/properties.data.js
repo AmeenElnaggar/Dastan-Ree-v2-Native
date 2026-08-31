@@ -34,8 +34,7 @@ export const properties = [
       "Smart Home System",
     ],
     purposeTypes: ["Residential", "Investment"],
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop&q=80",
+    image: "../../assets/images/home/property-card.jpg",
     images: [
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1312&h=894&fit=crop&q=80",
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1312&h=894&fit=crop&q=80",

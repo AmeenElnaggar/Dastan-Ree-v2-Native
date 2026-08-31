@@ -21,7 +21,7 @@
 /* Image */
 .property-card__image-wrap {
   position: relative;
-  height: 220px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   flex-shrink: 0;
 }

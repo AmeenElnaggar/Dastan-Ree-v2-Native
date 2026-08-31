@@ -4,8 +4,7 @@ export const locations = [
     name: "Madinaty",
     region: "Greater Cairo",
     searchKey: "madinaty",
-    image:
-      "https://new-projects-media.propertyfinder.com/project/32ff46e5-0268-4bd2-874f-94a20479c3be/gallery/image/LKiGiJ0tw3XHXd1LApxKW7KPxBWnOTxunWjRK4WRuEM=/original.webp",
+    image: "../../assets/images/home/featured-loc.jpg",
     featured: true,
   },
   {
@@ -13,8 +12,7 @@ export const locations = [
     name: "New Capital",
     region: "Eastern Cairo",
     searchKey: "new capital",
-    image:
-      "https://new-projects-media.propertyfinder.com/project/52832183-7cdf-4186-8749-2a16ba499fc5/gallery/image/9I8Z3Gq91-uwYSbIAUMmsDMxDeNSwN-DeNNDSDjyfrk=/original.webp",
+    image: "../../assets/images/home/standard-loc.jpg",
     featured: true,
   },
   {
