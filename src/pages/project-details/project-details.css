@@ -18,6 +18,16 @@
 }
 
 .pd-hero {
+  /* The slider is a crop box, so its height comes from a ratio rather than
+     from the viewport. 16:9 matches the recommended 1920 × 1080 source, so
+     the photo shows in full at desktop widths and is never cropped.
+     The ratio lives on the section: media queries reshape the whole hero by
+     overriding this one variable, and the section's own height follows from
+     the ratio box plus its padding. */
+  --pd-hero-ratio: 16 / 9;
+  /* Floor for the ratio box — a wide ratio on a boxed, narrow column would
+     otherwise leave too little height for the overlay copy. */
+  --pd-hero-min-h: 420px;
   position: relative;
   padding: 1.25rem 1.5rem 2rem;
   background: #fff;
@@ -32,7 +42,12 @@
 .pd-hero__swiper {
   position: relative;
   width: 100%;
-  height: calc(100svh - var(--navbar-height, 72px) - 1.25rem);
+  aspect-ratio: var(--pd-hero-ratio);
+  min-height: var(--pd-hero-min-h);
+  /* Viewport ceiling, not the driver: the ratio decides the shape, and this
+     only stops a tall ratio on a short window from pushing the page content
+     off-screen. When it binds, `object-fit: cover` crops the slide. */
+  max-height: calc(100svh - var(--navbar-height, 72px) - 1.25rem);
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(6, 12, 45, 0.18);
@@ -44,6 +59,30 @@
   height: 100%;
 }
 
+/* Ratio steps — kept together and ordered widest → narrowest so the narrower
+   rule always wins. A 16:9 hero on a phone would be a ~200px letterbox, so the
+   shape turns squarer, then portrait, as the column narrows. */
+@media (max-width: 1024px) {
+  .pd-hero {
+    --pd-hero-ratio: 3 / 2;
+    --pd-hero-min-h: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pd-hero {
+    --pd-hero-ratio: 4 / 3;
+    --pd-hero-min-h: 380px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pd-hero {
+    --pd-hero-ratio: 4 / 5;
+    --pd-hero-min-h: 340px;
+  }
+}
+
 .pd-hero-slide {
   position: relative;
   width: 100%;
@@ -51,12 +90,16 @@
   overflow: hidden;
 }
 
+/* Real <img>, not a background: it fills the slide and the slider's
+   aspect-ratio decides the crop. */
 .pd-hero-slide__bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .pd-hero-slide__gradient {
@@ -300,7 +343,7 @@
 
   .pd-hero__swiper {
     border-radius: 18px;
-    height: calc(100svh - var(--navbar-height, 72px) - 1rem);
+    max-height: calc(100svh - var(--navbar-height, 72px) - 1rem);
   }
 
   .pd-hero__overlay {

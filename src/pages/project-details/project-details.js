@@ -58,6 +58,16 @@ const VIEW_ICONS = {
 const capitalize = (s) =>
   s ? s.charAt(0).toUpperCase() + s.slice(1).replace(/[-_]/g, " ") : "—";
 
+/* For values interpolated into an HTML attribute — a project title or an
+   image URL carrying a quote would otherwise break out of the attribute. */
+const escapeAttr = (s) =>
+  String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
 const isAr = () =>
   (document.documentElement.lang || "").toLowerCase().startsWith("ar");
 
@@ -762,14 +772,21 @@ function initGallerySwipers(p) {
   const mainSlides = document.querySelector("#gallery-main-slides");
   const name = txt(p, "title") || p.name;
 
-  /* Each slide carries its own background div so the Ken-Burns animation
-     runs cleanly without flashing on the lightbox click handler. */
+  /* A real <img> rather than a background image, so the slide is croppable by
+     the slider's `aspect-ratio` and the first frame can be prioritised as the
+     page's largest paint. */
   mainSlides.innerHTML = unique
     .map(
       (src, i) =>
         `<div class="swiper-slide">
-           <div class="pd-hero-slide" aria-label="${name} — image ${i + 1}">
-             <div class="pd-hero-slide__bg" style="background-image:url('${src}')"></div>
+           <div class="pd-hero-slide">
+             <img
+               class="pd-hero-slide__bg"
+               src="${escapeAttr(src)}"
+               alt="${escapeAttr(name)} — image ${i + 1}"
+               loading="${i === 0 ? "eager" : "lazy"}"
+               fetchpriority="${i === 0 ? "high" : "auto"}"
+               decoding="async" />
              <div class="pd-hero-slide__gradient" aria-hidden="true"></div>
            </div>
          </div>`,
