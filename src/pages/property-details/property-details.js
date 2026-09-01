@@ -403,7 +403,7 @@ function initGallerySwipers(p) {
   const images =
     p.images && p.images.length ? p.images : p.image ? [p.image] : [];
   if (!images.length) {
-    document.querySelector("#pd-gallery-info").style.display = "none";
+    document.querySelector("#pd-gallery-block").style.display = "none";
     return;
   }
 
@@ -414,7 +414,7 @@ function initGallerySwipers(p) {
     .map(
       (src, i) =>
         `<div class="swiper-slide">
-           <img src="${src}" alt="${p.name} — image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
+           <img src="../../assets/images/properties/property-main-gallery.jfif" alt="${p.name} — image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
          </div>`,
     )
     .join("");
@@ -570,7 +570,7 @@ function initSimilarSwiper(currentProperty) {
 function initStickyBar() {
   const bar = document.querySelector("#propStickyBar");
   const trigger =
-    document.querySelector("#pd-gallery-info") ||
+    document.querySelector("#pd-gallery-block") ||
     document.querySelector("#pd-intro");
   const progress = document.querySelector("#stickyProgress");
   if (!bar || !trigger) return;

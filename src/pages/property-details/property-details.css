@@ -38,7 +38,7 @@
 
 .pd-intro__logo {
   width: 64px;
-  height: 64px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #e2e8f0;
@@ -276,38 +276,49 @@
 /* ── Gallery + Quick Info (9 / 3) ──────────────────────────────── */
 .pd-gallery-info {
   background: #fff;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 3rem;
 }
 
 .pd-gallery-info__inner {
   max-width: 1280px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  column-gap: 1.5rem;
+  row-gap: 4rem;
+  align-items: start;
 }
 
 .pd-gallery-info__gallery {
-  flex: 1;
+  grid-column: 1;
+  grid-row: 1;
   min-width: 0;
-  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
 }
 
-.pd-gallery-info__quick {
+.pd-main-col {
+  grid-column: 1;
+  grid-row: 2;
   min-width: 0;
-  min-height: 0;
+}
+
+.pd-gallery-info__quick {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: stretch;
+  min-width: 0;
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* ── Gallery Main Slider ───────────────────────────────────────── */
 .pd-gallery-main {
   position: relative;
   width: 100%;
-  flex: 1 1 0;
-  min-height: 320px;
+  aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
   background: #f1f5f9;
@@ -469,8 +480,7 @@
 
 .pd-gallery-thumbs .swiper-slide img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
@@ -492,8 +502,6 @@
   flex-direction: column;
   gap: 1.1rem;
   box-shadow: 0 12px 36px rgba(8, 15, 31, 0.18);
-  min-height: 0;
-  overflow-y: auto;
 }
 
 .pd-quick-info__price-label {
@@ -601,20 +609,6 @@
   transform: translateY(-1px);
 }
 
-/* ── Body Layout ────────────────────────────────────────────────── */
-.pd-body {
-  padding: 4rem 1.5rem 3rem;
-}
-
-.pd-body__inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 3.5rem;
-  align-items: start;
-}
-
 /* ── Section Heading ────────────────────────────────────────────── */
 .pd-section {
   margin-bottom: 4rem;
@@ -703,7 +697,7 @@
 
 .pd-developer-card__logo {
   width: 64px;
-  height: 64px;
+  aspect-ratio: 1 / 1;
   border-radius: 12px;
   object-fit: cover;
   margin: 0 auto 0.75rem;
@@ -809,7 +803,6 @@
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 1.5rem;
-  min-height: 350px;
 }
 
 .pd-floorplans__tabs {
@@ -1014,7 +1007,7 @@
 }
 
 .pd-map {
-  height: 400px;
+  aspect-ratio: 3 / 2;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid #e2e8f0;
@@ -1076,18 +1069,10 @@
   flex-shrink: 0;
 }
 
-/* ── Sidebar ────────────────────────────────────────────────────── */
-.pd-sidebar {
-  position: sticky;
-  top: 80px;
-  align-self: start;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Contact form card */
+/* ── Contact Form Card ──────────────────────────────────────────── */
 .pd-contact-form-card {
+  position: sticky;
+  top: 160px;
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 20px;
@@ -1453,7 +1438,8 @@
   position: relative;
 }
 
-#viewing-form input[type="date"]:not(.has-value):not(:focus)::-webkit-datetime-edit {
+#viewing-form
+  input[type="date"]:not(.has-value):not(:focus)::-webkit-datetime-edit {
   color: transparent;
 }
 
@@ -1478,30 +1464,21 @@
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
   .pd-gallery-info__inner {
-    min-height: 0;
-    max-height: none;
-  }
-
-  .pd-gallery-info__gallery,
-  .pd-gallery-info__quick {
-    flex: 1 1 100%;
-  }
-
-  .pd-gallery-main {
-    flex: none;
-    min-height: 0;
-    aspect-ratio: 16 / 10;
-  }
-
-  .pd-quick-info {
-    overflow-y: visible;
-  }
-
-  .pd-body__inner {
     grid-template-columns: 1fr;
+    row-gap: 2.5rem;
   }
 
-  .pd-sidebar {
+  .pd-gallery-info__quick {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .pd-main-col {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .pd-contact-form-card {
     position: static;
   }
 }
@@ -1518,11 +1495,10 @@
 
   .pd-intro__logo {
     width: 52px;
-    height: 52px;
   }
 
   .pd-gallery-info {
-    padding: 0 1rem 2.5rem;
+    padding: 0 1rem 2rem;
   }
 
   .pd-gallery-main {
@@ -1537,10 +1513,6 @@
 
   .pd-quick-info {
     padding: 1.4rem 1.2rem;
-  }
-
-  .pd-body {
-    padding: 2.5rem 1rem 2rem;
   }
 
   .pd-about-body {
@@ -1561,7 +1533,7 @@
   }
 
   .pd-map {
-    height: 300px;
+    aspect-ratio: 4 / 3;
   }
 }
 

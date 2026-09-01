@@ -61,44 +61,6 @@
       </div>
     </section>
 
-    <!-- ── Gallery (9 cols) + Quick Info (3 cols) ──────────────────── -->
-    <section class="pd-gallery-info" id="pd-gallery-info">
-      <div class="pd-gallery-info__inner">
-        <div class="pd-gallery-info__gallery">
-          <div class="swiper pd-gallery-main" id="gallery-main">
-            <div class="swiper-wrapper" id="gallery-main-slides"></div>
-            <button
-              class="pd-gallery-main__nav pd-gallery-main__nav--prev"
-              id="gallery-main-prev"
-              type="button"
-              aria-label="Previous image">
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <button
-              class="pd-gallery-main__nav pd-gallery-main__nav--next"
-              id="gallery-main-next"
-              type="button"
-              aria-label="Next image">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-            <div
-              class="pd-gallery-main__preview"
-              id="gallery-main-preview"
-              aria-hidden="true">
-              <i class="fa-regular fa-eye" aria-hidden="true"></i>
-              <span>Preview</span>
-            </div>
-          </div>
-          <div class="swiper pd-gallery-thumbs" id="gallery-thumbs">
-            <div class="swiper-wrapper" id="gallery-thumb-slides"></div>
-          </div>
-        </div>
-        <aside class="pd-gallery-info__quick">
-          <div class="pd-quick-info" id="quick-info"></div>
-        </aside>
-      </div>
-    </section>
-
     <!-- ── Sticky Summary Bar ─────────────────────────────────────── -->
     <div
       class="prop-sticky-bar"
@@ -189,9 +151,38 @@
       <div class="prop-sticky-bar__progress" id="stickyProgress"></div>
     </div>
 
-    <!-- ── Body: Main Column + Sidebar ───────────────────────────── -->
-    <div class="pd-body">
-      <div class="pd-body__inner">
+    <!-- ── Gallery + Content (left) · Quick Info + Enquiry (right) ─── -->
+    <section class="pd-gallery-info" id="pd-gallery-info">
+      <div class="pd-gallery-info__inner">
+        <div class="pd-gallery-info__gallery" id="pd-gallery-block">
+          <div class="swiper pd-gallery-main" id="gallery-main">
+            <div class="swiper-wrapper" id="gallery-main-slides"></div>
+            <button
+              class="pd-gallery-main__nav pd-gallery-main__nav--prev"
+              id="gallery-main-prev"
+              type="button"
+              aria-label="Previous image">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button
+              class="pd-gallery-main__nav pd-gallery-main__nav--next"
+              id="gallery-main-next"
+              type="button"
+              aria-label="Next image">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div
+              class="pd-gallery-main__preview"
+              id="gallery-main-preview"
+              aria-hidden="true">
+              <i class="fa-regular fa-eye" aria-hidden="true"></i>
+              <span>Preview</span>
+            </div>
+          </div>
+          <div class="swiper pd-gallery-thumbs" id="gallery-thumbs">
+            <div class="swiper-wrapper" id="gallery-thumb-slides"></div>
+          </div>
+        </div>
         <!-- Main Column -->
         <main class="pd-main-col">
           <!-- About -->
@@ -290,14 +281,15 @@
           </section>
         </main>
 
-        <!-- Sidebar -->
-        <aside class="pd-sidebar" id="pd-sidebar">
+        <!-- Right rail: quick info + enquiry -->
+        <aside class="pd-gallery-info__quick">
+          <div class="pd-quick-info" id="quick-info"></div>
           <div class="pd-contact-form-card" id="contact-form-card"></div>
         </aside>
       </div>
-    </div>
+    </section>
 
-    <!-- ── Similar Properties ──────────────────────────────────── -->
+    <!-- ── Similar Properties (full width) ─────────────────────── -->
     <section class="pd-similar" id="similar-section">
       <div class="pd-similar__inner">
         <div class="pd-similar__header">
