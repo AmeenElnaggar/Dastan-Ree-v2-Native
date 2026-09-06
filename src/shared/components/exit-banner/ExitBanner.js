@@ -68,7 +68,7 @@ export function renderExitBanner(selector) {
               verified against the documents, and we carry the assignment through to completion.
             </p>
             <div class="exit-banner__actions">
-              <a href="${EXIT_HREF}#exit-seller-form" class="exit-banner__btn exit-banner__btn--primary">
+              <a href="${EXIT_HREF}" class="exit-banner__btn exit-banner__btn--primary">
                 Sell your unit ${ARROW_ICON}
               </a>
               <a href="${EXIT_HREF}#exit-opportunities" class="exit-banner__btn exit-banner__btn--ghost">

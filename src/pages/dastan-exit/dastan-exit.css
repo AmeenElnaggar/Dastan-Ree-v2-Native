@@ -1,0 +1,924 @@
+/* ============================================
+   DASTAN EXIT — PAGE
+   Navy + gold on white, with the money figures
+   carrying the only green and red on the page.
+   ============================================ */
+
+.page-header,
+.dx-section {
+  --dx-navy: #0a1e77;
+  --dx-ink: #060b1c;
+  --dx-gain: #0f8a63;
+  --dx-loss: #d1495b;
+  --dx-gold: var(--color-gold-accent);
+  --dx-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Reveal-on-scroll (this page does not load home.css) */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.fade-up.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Beat the utility layer for anything the page hides outright. */
+[hidden] {
+  display: none !important;
+}
+
+/* ── Shared shell ────────────────────────────────────────────────── */
+
+.dx-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.dx-section {
+  padding: 5.5rem 0;
+}
+
+.dx-section--tint {
+  background: #f7f8fb;
+}
+
+/* The tabbed explainer runs tighter than a full section: the tab row already
+   reads as a break, so it does not need the same air above and below. */
+.dx-section--tight {
+  padding: 3.5rem 0;
+}
+
+.dx-section__head {
+  max-width: 46rem;
+  margin-bottom: 3rem;
+}
+
+.dx-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dx-gold);
+  margin-bottom: 0.6rem;
+}
+
+.dx-eyebrow::after {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  vertical-align: middle;
+  margin-inline-start: 0.5rem;
+  opacity: 0.7;
+}
+
+.dx-title {
+  font-size: clamp(1.65rem, 2.8vw, 2.4rem);
+  font-weight: 700;
+  color: #10142a;
+  line-height: 1.25;
+}
+
+.dx-subtitle {
+  margin-top: 0.9rem;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--color-gray-500);
+}
+
+/* ── Page header (mirrors projects/properties/locations) ─────────── */
+
+.page-header {
+  position: relative;
+  background-color: #0a1e77;
+  background-image: url("../../assets/images/city-skyline.png");
+  background-blend-mode: multiply;
+  background-size: 53% auto;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.page-header__pattern {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(6, 20, 82, 0.22) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(6, 20, 82, 0.18) 100%
+    ),
+    linear-gradient(to right, #000c4c, rgb(0 20 123 / 36%));
+  pointer-events: none;
+}
+
+.page-header__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.page-header__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-header__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.page-header__breadcrumb svg {
+  color: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.page-header__crumb {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: var(--font-semibold);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.page-header__crumb:hover {
+  color: #fff;
+}
+
+.page-header__crumb--active {
+  color: #fff;
+}
+
+.page-header__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--font-extrabold);
+  color: #fff;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.page-header__subtitle {
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  max-width: 46rem;
+}
+
+/* Dastan Exit is the one header that carries a call to action: a glass pane
+   above the figures in the right-hand column. */
+.page-header__aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5rem;
+}
+
+/* Frosted glass carried in the widget itself rather than borrowed from the
+   header: a cool white body, a lit top-left face, rims top and bottom and an
+   inner bloom. It reads the same whatever sits behind it. */
+.page-header__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1rem 1.15rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.07) 40%,
+      rgba(255, 255, 255, 0.02) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(224, 233, 255, 0.15) 0%,
+      rgba(224, 233, 255, 0.05) 100%
+    );
+  box-shadow:
+    0 16px 40px rgba(2, 6, 20, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 40px rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  text-decoration: none;
+  transition:
+    border-color 0.35s var(--dx-ease),
+    box-shadow 0.35s var(--dx-ease);
+}
+
+/* The highlight where light catches the corner of a real pane. */
+.page-header__cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    120% 90% at 0% 0%,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.page-header__cta::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -30%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.16) 50%,
+    transparent 100%
+  );
+  transform: rotate(18deg) translateX(-140%);
+  transition: transform 0.9s var(--dx-ease);
+  pointer-events: none;
+}
+
+.page-header__cta:hover {
+  border-color: rgba(201, 164, 92, 0.65);
+  box-shadow:
+    0 22px 50px rgba(2, 6, 20, 0.44),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 46px rgba(255, 255, 255, 0.1);
+}
+
+.page-header__cta:hover::after {
+  transform: rotate(18deg) translateX(320%);
+}
+
+.page-header__cta:focus-visible {
+  outline: 2px solid var(--color-gold-accent);
+  outline-offset: 3px;
+}
+
+.page-header__cta-copy {
+  position: relative;
+}
+
+.page-header__cta-note {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: var(--font-semibold);
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--color-gold-accent);
+}
+
+.page-header__cta-action {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: var(--font-bold);
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.page-header__cta-chip {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  /* A defined ring, so the arrow reads as its own control on the pane. */
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  color: #fff;
+  transition:
+    background 0.35s var(--dx-ease),
+    border-color 0.35s var(--dx-ease),
+    color 0.35s var(--dx-ease),
+    transform 0.35s var(--dx-ease);
+}
+
+.page-header__cta:hover .page-header__cta-chip {
+  background: var(--color-gold-accent);
+  border-color: var(--color-gold-accent);
+  color: #10142a;
+  transform: translateX(0.25rem);
+}
+
+/* The arrow points the way the page reads. */
+[dir="rtl"] .page-header__cta-chip svg {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .page-header__cta:hover .page-header__cta-chip {
+  transform: translateX(-0.25rem);
+}
+
+.page-header__stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-bottom: 0.25rem;
+}
+
+.page-header__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.page-header__stat-value {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: var(--font-extrabold);
+  color: #fff;
+  line-height: 1;
+}
+
+.page-header__stat-label {
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: var(--font-semibold);
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.page-header__stat-div {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Explainer tabs ──────────────────────────────────────────────── */
+
+/* Never wraps: the sliding indicator is positioned from a tab's offsetLeft,
+   so the row scrolls instead of breaking onto a second line. */
+.dx-tablist {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2.25rem;
+  /* Scrolling clips both axes, so the row keeps a little headroom for the
+     focus ring and the indicator sits inside the box rather than under it. */
+  padding-top: 0.4rem;
+  margin-bottom: 2.75rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.dx-tablist::-webkit-scrollbar {
+  display: none;
+}
+
+.dx-tabbtn {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-shrink: 0;
+  padding: 0 0 1.1rem;
+  border: none;
+  background: none;
+  text-align: start;
+  white-space: nowrap;
+  color: var(--color-gray-400);
+  cursor: pointer;
+  transition: color 0.3s var(--dx-ease);
+}
+
+.dx-tabbtn:hover {
+  color: var(--dx-navy);
+}
+
+.dx-tabbtn:focus-visible {
+  outline: 2px solid var(--dx-navy);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.dx-tabbtn__idx {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-gray-300);
+  transition: color 0.3s var(--dx-ease);
+}
+
+.dx-tabbtn__label {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.dx-tabbtn--active {
+  color: #10142a;
+}
+
+.dx-tabbtn--active .dx-tabbtn__idx {
+  color: var(--dx-gold);
+}
+
+/* Physical `left` on purpose — the script drives this from offsetLeft, which
+   is measured from the left edge under both LTR and RTL. */
+.dx-tablist__indicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--dx-gold);
+  opacity: 0;
+}
+
+/* Motion starts once the first measurement is in, so nothing slides in from
+   zero on load. */
+.is-ready .dx-tablist__indicator {
+  opacity: 1;
+  transition:
+    transform 0.5s var(--dx-ease),
+    width 0.5s var(--dx-ease),
+    opacity 0.3s ease;
+}
+
+/* ── Tab panels ──────────────────────────────────────────────────── */
+
+/* The panels are stacked, so this wrapper carries the height and animates it
+   between panels rather than letting the page jump. */
+.dx-panels {
+  position: relative;
+}
+
+.is-ready .dx-panels {
+  transition: height 0.5s var(--dx-ease);
+}
+
+.dx-panel {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s var(--dx-ease),
+    visibility 0s linear 0.28s;
+}
+
+/* The incoming panel waits a beat so the outgoing one has begun to fade. */
+.dx-panel--active {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.36s ease 0.08s,
+    transform 0.44s var(--dx-ease) 0.08s,
+    visibility 0s;
+}
+
+.dx-panel__intro {
+  max-width: 46rem;
+  margin-bottom: 2rem;
+}
+
+.dx-panel__title {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 700;
+  color: #10142a;
+  line-height: 1.3;
+}
+
+.dx-panel__lead {
+  margin-top: 0.8rem;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--color-gray-500);
+}
+
+/* ── Two sides ───────────────────────────────────────────────────── */
+
+.dx-sides {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.dx-side {
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(10, 30, 119, 0.05);
+}
+
+.dx-side__tag {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(10, 30, 119, 0.07);
+  color: var(--dx-navy);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dx-side__title {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #10142a;
+  line-height: 1.35;
+}
+
+.dx-list {
+  margin-top: 1.25rem;
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.dx-list li {
+  position: relative;
+  padding-inline-start: 1.6rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--color-gray-500);
+}
+
+.dx-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.55rem;
+  width: 8px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid var(--dx-gold);
+}
+
+.dx-list strong {
+  color: #10142a;
+  font-weight: 600;
+}
+
+/* ── Comparison table ────────────────────────────────────────────── */
+
+.dx-table-scroll {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  background: #fff;
+}
+
+.dx-table {
+  width: 100%;
+  min-width: 44rem;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.dx-table th,
+.dx-table td {
+  padding: 1rem 1.15rem;
+  text-align: start;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-gray-100);
+  line-height: 1.6;
+}
+
+.dx-table thead th {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #10142a;
+  background: #f7f8fb;
+  white-space: nowrap;
+}
+
+.dx-table tbody th {
+  font-weight: 600;
+  color: var(--color-gray-700);
+  background: #fcfcfd;
+  width: 13rem;
+}
+
+.dx-table td {
+  color: var(--color-gray-500);
+}
+
+.dx-table__col--best {
+  background: rgba(15, 138, 99, 0.05) !important;
+  color: #0d5c45 !important;
+  font-weight: 500;
+}
+
+.dx-table thead .dx-table__col--best {
+  color: var(--dx-gain) !important;
+  box-shadow: inset 0 3px 0 var(--dx-gain);
+}
+
+.dx-table tbody tr:last-child th,
+.dx-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Steps ───────────────────────────────────────────────────────── */
+
+/* The seller / buyer switch inside the "step by step" panel. */
+.dx-tabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--color-gray-200);
+  margin-bottom: 2rem;
+}
+
+.dx-tab {
+  padding: 0.55rem 1.35rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-gray-500);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.25s var(--dx-ease),
+    color 0.25s var(--dx-ease);
+}
+
+.dx-tab:hover {
+  color: var(--dx-navy);
+}
+
+.dx-tab--active,
+.dx-tab--active:hover {
+  background: var(--dx-navy);
+  color: #fff;
+}
+
+.dx-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+  gap: 1.25rem;
+}
+
+/* Re-applied by the script on every track change, so the new five steps
+   arrive the same way a panel does. */
+.dx-steps--in {
+  animation: dx-swap-in 0.36s var(--dx-ease) both;
+}
+
+@keyframes dx-swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.dx-step {
+  padding: 1.5rem 1.35rem;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  border: 1px solid var(--color-gray-200);
+}
+
+.dx-step__num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--dx-gold);
+  line-height: 1;
+}
+
+.dx-step__title {
+  margin-top: 0.85rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #10142a;
+  line-height: 1.4;
+}
+
+.dx-step__text {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--color-gray-500);
+}
+
+.dx-note {
+  margin-top: 2rem;
+  font-size: 0.8125rem;
+  color: var(--color-gray-400);
+}
+
+/* ── Opportunity listing ─────────────────────────────────────────── */
+
+.dx-listing-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.dx-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.dx-chip {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-gray-500);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.dx-chip:hover {
+  border-color: rgba(10, 30, 119, 0.3);
+  color: var(--dx-navy);
+}
+
+.dx-chip--active {
+  background: var(--dx-navy);
+  border-color: var(--dx-navy);
+  color: #fff;
+}
+
+.dx-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-gray-500);
+}
+
+.dx-sort select {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 8px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: #10142a;
+}
+
+.dx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  gap: 1.5rem;
+}
+
+.dx-empty {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--color-gray-400);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .dx-sides {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 5rem 0 2rem;
+  }
+
+  .page-header__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .page-header__aside {
+    align-items: flex-start;
+    width: 100%;
+    gap: 1.25rem;
+  }
+
+  .page-header__cta {
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  .page-header__stats {
+    gap: 1.25rem;
+  }
+
+  .dx-tablist {
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .dx-tabbtn__label {
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .dx-section {
+    padding: 3.5rem 0;
+  }
+
+  .dx-section--tight {
+    padding: 2.5rem 0;
+  }
+
+  .dx-side {
+    padding: 1.35rem;
+  }
+
+  .dx-tabs {
+    display: flex;
+    width: 100%;
+  }
+
+  .dx-tab {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .is-ready .dx-panels,
+  .is-ready .dx-tablist__indicator,
+  .dx-panel,
+  .dx-panel--active {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+  }
+
+  .dx-steps--in {
+    animation: none;
+  }
+
+  .page-header__cta:hover .page-header__cta-chip {
+    transform: none;
+  }
+
+  .page-header__cta:hover::after {
+    transform: rotate(18deg) translateX(-140%);
+  }
+}

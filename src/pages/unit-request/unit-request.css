@@ -930,3 +930,364 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ==========================================================================
+   Step wizard (progress indicator, panels, nav, review)
+   ========================================================================== */
+
+/* --- Progress indicator --- */
+.ur-stepper {
+  margin-bottom: 1.75rem;
+}
+
+.ur-stepper__list {
+  display: flex;
+  align-items: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ur-stepper__item {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+}
+
+/* Connector line runs from the previous bubble's centre to this one's. */
+.ur-stepper__item + .ur-stepper__item::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: -50%;
+  right: 50%;
+  height: 2px;
+  background-color: #e5e7eb;
+  transition: background-color 0.3s ease;
+}
+
+.ur-stepper__item.is-done::before,
+.ur-stepper__item.is-active::before {
+  background-color: var(--color-primary, #0a1e77);
+}
+
+.ur-stepper__btn {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ur-stepper__btn:disabled {
+  cursor: default;
+}
+
+.ur-stepper__bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #e5e7eb;
+  color: #9ca3af;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.ur-stepper__tick {
+  display: none;
+  font-size: 0.75rem;
+}
+
+.ur-stepper__label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #9ca3af;
+  text-align: center;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+.ur-stepper__btn:not(:disabled):hover .ur-stepper__bubble {
+  border-color: var(--color-primary, #0a1e77);
+  color: var(--color-primary, #0a1e77);
+}
+
+.ur-stepper__item.is-done .ur-stepper__bubble {
+  background-color: var(--color-primary, #0a1e77);
+  border-color: var(--color-primary, #0a1e77);
+  color: #fff;
+}
+
+.ur-stepper__item.is-done .ur-stepper__num {
+  display: none;
+}
+
+.ur-stepper__item.is-done .ur-stepper__tick {
+  display: block;
+}
+
+.ur-stepper__item.is-done .ur-stepper__label {
+  color: #374151;
+}
+
+.ur-stepper__item.is-active .ur-stepper__bubble {
+  background-color: #fff;
+  border-color: var(--color-gold-accent);
+  color: var(--color-primary, #0a1e77);
+  box-shadow: 0 0 0 4px rgb(from var(--color-gold-accent) r g b / 0.18);
+}
+
+.ur-stepper__item.is-active .ur-stepper__label {
+  color: var(--color-primary, #0a1e77);
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .ur-stepper__label {
+    display: none;
+  }
+
+  .ur-stepper__bubble {
+    width: 28px;
+    height: 28px;
+  }
+
+  .ur-stepper__item + .ur-stepper__item::before {
+    top: 13px;
+  }
+}
+
+/* --- Current step heading --- */
+.ur-step-head {
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.ur-step-head__count {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-gold-accent);
+  margin-bottom: 0.35rem;
+}
+
+.ur-step-head__title {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.25;
+}
+
+.ur-step-head__hint {
+  margin-top: 0.35rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.55;
+}
+
+/* --- Step panels --- */
+.ur-step[hidden] {
+  display: none;
+}
+
+.ur-step.is-entering {
+  animation: urStepIn 0.35s ease both;
+}
+
+@keyframes urStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* --- Step navigation --- */
+.ur-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.ur-nav__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ur-nav__btn[hidden] {
+  display: none;
+}
+
+.ur-nav__btn--back {
+  background-color: #fff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.ur-nav__btn--back:hover {
+  border-color: var(--color-primary, #0a1e77);
+  color: var(--color-primary, #0a1e77);
+  background-color: #f9fafb;
+}
+
+.ur-nav__btn--next {
+  flex: 1;
+  background-color: var(--color-primary, #0a1e77);
+  color: #fff;
+}
+
+.ur-nav__btn--next:hover {
+  background-color: #08175e;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(10, 30, 119, 0.22);
+}
+
+/* The submit button lives in the nav row on the last step. */
+.ur-nav .submit-btn {
+  flex: 1;
+  width: auto;
+  margin-top: 0;
+}
+
+.ur-nav .submit-btn[hidden] {
+  display: none;
+}
+
+/* --- Review step --- */
+.ur-review {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.ur-review__block {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem 1.15rem;
+  background-color: #fafafa;
+}
+
+.ur-review__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.ur-review__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-primary, #0a1e77);
+}
+
+.ur-review__title i {
+  color: var(--color-gold-accent);
+}
+
+.ur-review__edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  padding: 0.2rem 0.4rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-gold-600, #d97706);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.ur-review__edit:hover {
+  background-color: rgba(217, 119, 6, 0.08);
+}
+
+.ur-review__list {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .ur-review__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ur-review__row {
+  min-width: 0;
+}
+
+.ur-review__key {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-bottom: 0.1rem;
+}
+
+.ur-review__val {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #111827;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.ur-review__empty {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+@media (max-width: 420px) {
+  .ur-nav__btn,
+  .ur-nav .submit-btn {
+    padding: 0.8rem 1rem;
+    letter-spacing: 0.5px;
+  }
+}

@@ -289,6 +289,71 @@ const UNIT_REQUEST_GROUPS = {
   media: { title: "Media", icon: "fa-image" },
 };
 
+/**
+ * Wizard steps. Each step renders one or more schema groups, in order.
+ * The last step has no groups — it renders the review summary + agreement.
+ */
+const UNIT_REQUEST_STEPS = [
+  {
+    key: "contact",
+    title: "Your Details",
+    short: "Contact",
+    icon: "fa-user",
+    hint: "Tell us who our consultant should reach out to.",
+    groups: ["contact"],
+  },
+  {
+    key: "unit",
+    title: "Unit Details",
+    short: "Unit",
+    icon: "fa-circle-info",
+    hint: "Name and describe the unit — Arabic is optional.",
+    groups: ["details"],
+  },
+  {
+    key: "location",
+    title: "Location",
+    short: "Location",
+    icon: "fa-location-dot",
+    hint: "Pick the country first, then narrow down to the exact place.",
+    groups: ["location"],
+  },
+  {
+    key: "pricing",
+    title: "Pricing & Specs",
+    short: "Pricing",
+    icon: "fa-money-bill-wave",
+    hint: "Asking price, payment terms and the unit's measurements.",
+    groups: ["pricing", "specs"],
+  },
+  {
+    key: "features",
+    title: "Features & Media",
+    short: "Features",
+    icon: "fa-list-check",
+    hint: "Highlight what makes the unit stand out, then add photos.",
+    groups: ["lookups", "media"],
+  },
+  {
+    key: "review",
+    title: "Review & Submit",
+    short: "Review",
+    icon: "fa-clipboard-check",
+    hint: "Check everything over before sending it to our team.",
+    groups: [],
+  },
+];
+
+const STEP_COUNT = UNIT_REQUEST_STEPS.length;
+const REVIEW_STEP = STEP_COUNT - 1;
+
+/** Fields belonging to a step, in schema order. */
+function stepFields(index) {
+  const step = UNIT_REQUEST_STEPS[index];
+  if (!step) return [];
+  return UNIT_REQUEST_FIELDS.filter((f) => step.groups.includes(f.group));
+}
+
 function createEmptyUnitRequest() {
   return {
     name_en: "",
@@ -718,38 +783,172 @@ function renderSection(groupKey, fields) {
     </div>`;
 }
 
+function renderStepper() {
+  const items = UNIT_REQUEST_STEPS.map(
+    (step, i) => `
+      <li class="ur-stepper__item" data-step="${i}">
+        <button type="button" class="ur-stepper__btn" data-goto="${i}" aria-current="false" ${i === 0 ? "" : "disabled"}>
+          <span class="ur-stepper__bubble">
+            <span class="ur-stepper__num">${i + 1}</span>
+            <i class="fa-solid fa-check ur-stepper__tick" aria-hidden="true"></i>
+          </span>
+          <span class="ur-stepper__label">${escape(step.short)}</span>
+        </button>
+      </li>`,
+  ).join("");
+
+  return `
+    <nav class="ur-stepper" aria-label="Form progress">
+      <ol class="ur-stepper__list">${items}</ol>
+    </nav>
+    <div class="ur-step-head">
+      <span class="ur-step-head__count" id="ur-step-count"></span>
+      <h3 class="ur-step-head__title" id="ur-step-title"></h3>
+      <p class="ur-step-head__hint" id="ur-step-hint"></p>
+    </div>`;
+}
+
+function renderStepNav() {
+  return `
+    <div class="ur-nav">
+      <button type="button" class="ur-nav__btn ur-nav__btn--back" id="ur-back">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back</span>
+      </button>
+      <button type="button" class="ur-nav__btn ur-nav__btn--next" id="ur-next">
+        <span>Continue</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+      <button type="submit" class="submit-btn" id="ur-submit" hidden>
+        <span>Submit Property</span>
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>`;
+}
+
+function renderReviewStep() {
+  return `
+    <div class="ur-review" id="ur-review"></div>
+
+    <div class="form-section">
+      <h3 class="form-section__title">
+        <i class="fa-solid fa-shield-halved"></i> Agreement
+      </h3>
+      <div class="form-group form-group--full">
+        <label class="checkbox-inline">
+          <input type="checkbox" id="consent" name="consent" required />
+          <span>I confirm the information above is accurate and authorize Dastan Real Estate to list and market this property. <span class="required">*</span></span>
+        </label>
+      </div>
+    </div>`;
+}
+
 function renderForm() {
   const root = document.getElementById("ur-form-sections");
   if (!root) return;
 
-  const groupKeys = Object.keys(UNIT_REQUEST_GROUPS);
-  const byGroup = new Map(groupKeys.map((g) => [g, []]));
+  const stepperRoot = document.getElementById("ur-form-stepper");
+  if (stepperRoot) stepperRoot.innerHTML = renderStepper();
+
+  const byGroup = new Map();
   for (const f of UNIT_REQUEST_FIELDS) {
     if (!byGroup.has(f.group)) byGroup.set(f.group, []);
     byGroup.get(f.group).push(f);
   }
 
-  root.innerHTML = Array.from(byGroup.entries())
-    .filter(([, fields]) => fields.length > 0)
-    .map(([key, fields]) => renderSection(key, fields))
-    .join("");
+  root.innerHTML = UNIT_REQUEST_STEPS.map((step, i) => {
+    const body =
+      step.key === "review"
+        ? renderReviewStep()
+        : step.groups
+            .filter((g) => (byGroup.get(g) || []).length > 0)
+            .map((g) => renderSection(g, byGroup.get(g)))
+            .join("");
 
-  // Add a consent section at the end of the form.
-  root.insertAdjacentHTML(
-    "beforeend",
-    `
-      <div class="form-section">
-        <h3 class="form-section__title">
-          <i class="fa-solid fa-shield-halved"></i> Agreement
-        </h3>
-        <div class="form-group">
-          <label class="checkbox-inline">
-            <input type="checkbox" id="consent" name="consent" required />
-            <span>I confirm the information above is accurate and authorize Dastan Real Estate to list and market this property. <span class="required">*</span></span>
-          </label>
-        </div>
-      </div>`,
-  );
+    return `
+      <div class="ur-step" data-step="${i}" role="group" aria-label="${escape(step.title)}" ${i === 0 ? "" : "hidden"}>
+        ${body}
+      </div>`;
+  }).join("");
+
+  const navRoot = document.getElementById("ur-form-nav");
+  if (navRoot) navRoot.innerHTML = renderStepNav();
+}
+
+/** Human-readable current value of a field, for the review step. */
+function displayValue(form, field) {
+  if (field.type === "file") {
+    const el = form.elements.namedItem(field.name);
+    const files = el && el.files ? Array.from(el.files) : [];
+    if (!files.length) return "";
+    return files.length === 1 ? files[0].name : `${files.length} files selected`;
+  }
+
+  if (field.type === "multi-select") {
+    const checked = form.querySelectorAll(
+      `input[type="checkbox"][name="${field.name}"]:checked`,
+    );
+    return Array.from(checked)
+      .map((c) =>
+        c.parentElement.querySelector(".ms-option__label").textContent.trim(),
+      )
+      .join(", ");
+  }
+
+  const el = form.elements.namedItem(field.name);
+  if (!el) return "";
+
+  if (field.type === "select") {
+    const opt = el.options ? el.options[el.selectedIndex] : null;
+    return el.value === "" || !opt || opt.value === "" ? "" : opt.text;
+  }
+
+  return String(el.value || "").trim();
+}
+
+function reviewLabel(field) {
+  const lang = field.lang ? ` (${field.lang.toUpperCase()})` : "";
+  return `${field.label}${lang}`;
+}
+
+function renderReviewSummary(form) {
+  const box = document.getElementById("ur-review");
+  if (!box) return;
+
+  box.innerHTML = UNIT_REQUEST_STEPS.slice(0, REVIEW_STEP)
+    .map((step, i) => {
+      const rows = stepFields(i)
+        .map((field) => ({ field, value: displayValue(form, field) }))
+        .filter((row) => row.value !== "");
+
+      const body = rows.length
+        ? `<dl class="ur-review__list">
+            ${rows
+              .map(
+                (row) => `
+                  <div class="ur-review__row">
+                    <dt class="ur-review__key">${escape(reviewLabel(row.field))}</dt>
+                    <dd class="ur-review__val">${escape(row.value)}</dd>
+                  </div>`,
+              )
+              .join("")}
+          </dl>`
+        : `<p class="ur-review__empty">Nothing filled in yet.</p>`;
+
+      return `
+        <div class="ur-review__block">
+          <div class="ur-review__head">
+            <h4 class="ur-review__title">
+              <i class="fa-solid ${step.icon}"></i> ${escape(step.title)}
+            </h4>
+            <button type="button" class="ur-review__edit" data-goto="${i}">
+              <i class="fa-solid fa-pen"></i> Edit
+            </button>
+          </div>
+          ${body}
+        </div>`;
+    })
+    .join("");
 }
 
 function setSelectOptions(select, options, placeholderLabel) {
@@ -1048,10 +1247,14 @@ function buildPayload(form) {
   return payload;
 }
 
-function validate(form) {
+/**
+ * Validates the required fields in `fields` (defaults to the whole schema) and
+ * returns the first element that needs attention, or null when all is well.
+ */
+function validate(form, fields = UNIT_REQUEST_FIELDS, { checkConsent = false } = {}) {
   let firstInvalid = null;
 
-  for (const field of UNIT_REQUEST_FIELDS) {
+  for (const field of fields) {
     if (!field.required) continue;
 
     if (field.type === "multi-select") continue; // none currently required
@@ -1076,21 +1279,188 @@ function validate(form) {
     }
   }
 
-  const consent = form.elements.namedItem("consent");
-  if (consent && !consent.checked && !firstInvalid) firstInvalid = consent;
+  // Cross-field sanity: installments range — only when both fields are in scope.
+  const rangeInScope = fields.some(
+    (f) => f.name === "number_of_installments_years_to",
+  );
+  if (rangeInScope) {
+    const yFrom =
+      parseFloat(form.elements.number_of_installments_years_from?.value) || 0;
+    const yTo =
+      parseFloat(form.elements.number_of_installments_years_to?.value) || 0;
+    if (yFrom && yTo && yTo < yFrom) {
+      form.elements.number_of_installments_years_to.classList.add("is-invalid");
+      if (!firstInvalid)
+        firstInvalid = form.elements.number_of_installments_years_to;
+    }
+  }
 
-  // Cross-field sanity: installments range
-  const yFrom =
-    parseFloat(form.elements.number_of_installments_years_from?.value) || 0;
-  const yTo =
-    parseFloat(form.elements.number_of_installments_years_to?.value) || 0;
-  if (yFrom && yTo && yTo < yFrom) {
-    form.elements.number_of_installments_years_to.classList.add("is-invalid");
-    if (!firstInvalid)
-      firstInvalid = form.elements.number_of_installments_years_to;
+  if (checkConsent) {
+    const consent = form.elements.namedItem("consent");
+    if (consent && !consent.checked && !firstInvalid) firstInvalid = consent;
   }
 
   return firstInvalid;
+}
+
+/** Restores every custom control's display after `form.reset()`. */
+function resetFormUi(form) {
+  form.querySelectorAll(".file-drop").forEach((wrap) => {
+    wrap.classList.remove("file-drop--has-file");
+    const nameEl = wrap.querySelector(".file-drop__name");
+    if (nameEl) nameEl.textContent = nameEl.dataset.empty;
+  });
+
+  form.querySelectorAll(".multi-select").forEach((ms) => {
+    // renderTags() reads every checkbox, so one event per group is enough.
+    ms.querySelector('input[type="checkbox"]')?.dispatchEvent(
+      new Event("change"),
+    );
+  });
+
+  // Re-runs the whole country → region → city → area cascade from the top.
+  form.elements
+    .namedItem("country_id")
+    ?.dispatchEvent(new Event("change", { bubbles: true }));
+
+  form.querySelectorAll(".select-field__hidden").forEach((select) => {
+    select.dispatchEvent(new Event("change"));
+  });
+
+  form
+    .querySelectorAll(".is-invalid")
+    .forEach((el) => el.classList.remove("is-invalid"));
+}
+
+/**
+ * Drives the step wizard: panel visibility, the stepper, the nav buttons and
+ * per-step validation on the way forward.
+ */
+function createStepper(form, formStatus) {
+  const panels = Array.from(form.querySelectorAll(".ur-step"));
+  const items = Array.from(form.querySelectorAll(".ur-stepper__item"));
+  const backBtn = form.querySelector("#ur-back");
+  const nextBtn = form.querySelector("#ur-next");
+  const submitBtn = form.querySelector("#ur-submit");
+  const countEl = form.querySelector("#ur-step-count");
+  const titleEl = form.querySelector("#ur-step-title");
+  const hintEl = form.querySelector("#ur-step-hint");
+
+  let current = 0;
+  let furthest = 0;
+
+  function clearStatus() {
+    formStatus.textContent = "";
+    formStatus.className = "form-status";
+    formStatus.style.display = "";
+  }
+
+  function paint() {
+    panels.forEach((panel, i) => {
+      const active = i === current;
+      panel.hidden = !active;
+      panel.classList.remove("is-entering");
+      if (active) {
+        void panel.offsetWidth; // restart the enter animation
+        panel.classList.add("is-entering");
+      }
+    });
+
+    items.forEach((item, i) => {
+      item.classList.toggle("is-active", i === current);
+      item.classList.toggle("is-done", i < furthest && i !== current);
+      const btn = item.querySelector(".ur-stepper__btn");
+      btn.disabled = i > furthest;
+      btn.setAttribute("aria-current", i === current ? "step" : "false");
+    });
+
+    const step = UNIT_REQUEST_STEPS[current];
+    countEl.textContent = `Step ${current + 1} of ${STEP_COUNT}`;
+    titleEl.textContent = step.title;
+    hintEl.textContent = step.hint;
+
+    const isLast = current === STEP_COUNT - 1;
+    backBtn.hidden = current === 0;
+    nextBtn.hidden = isLast;
+    submitBtn.hidden = !isLast;
+    if (isLast) renderReviewSummary(form);
+  }
+
+  function scrollToTop() {
+    const anchor = document.querySelector(".ur-form-wrapper") || form;
+    const top = anchor.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+  }
+
+  function flagInvalid(el) {
+    formStatus.textContent = "Please fix the highlighted fields to continue.";
+    formStatus.className = "form-status error";
+    formStatus.style.display = "";
+    el.focus({ preventScroll: true });
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  function goTo(index, { validateForward = true, scroll = true } = {}) {
+    const target = Math.max(0, Math.min(STEP_COUNT - 1, index));
+
+    if (validateForward && target > current) {
+      for (let i = current; i < target; i++) {
+        const invalid = validate(form, stepFields(i));
+        if (invalid) {
+          current = i;
+          paint();
+          flagInvalid(invalid);
+          return false;
+        }
+      }
+    }
+
+    clearStatus();
+    current = target;
+    furthest = Math.max(furthest, current);
+    paint();
+    if (scroll) scrollToTop();
+    return true;
+  }
+
+  nextBtn.addEventListener("click", () => goTo(current + 1));
+  backBtn.addEventListener("click", () =>
+    goTo(current - 1, { validateForward: false }),
+  );
+
+  // Stepper bubbles and the review step's "Edit" links.
+  form.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-goto]");
+    if (!btn || btn.disabled) return;
+    const target = Number(btn.dataset.goto);
+    goTo(target, { validateForward: target > current });
+  });
+
+  // Enter should advance the wizard, not submit it from step one.
+  form.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter") return;
+    if (e.target.tagName === "TEXTAREA") return;
+    if (current === STEP_COUNT - 1) return;
+    e.preventDefault();
+    goTo(current + 1);
+  });
+
+  paint();
+
+  return {
+    goTo,
+    reset: () => {
+      current = 0;
+      furthest = 0;
+      clearStatus();
+      paint();
+    },
+    stepOf: (el) => {
+      const panel = el.closest && el.closest(".ur-step");
+      return panel ? Number(panel.dataset.step) : REVIEW_STEP;
+    },
+    flagInvalid,
+  };
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -1138,6 +1508,8 @@ document.addEventListener("DOMContentLoaded", () => {
   bindMultiSelects(form);
   bindLangTabs(form);
 
+  const stepper = createStepper(form, formStatus);
+
   form.querySelectorAll(".form-input").forEach((input) => {
     input.addEventListener("input", () => input.classList.remove("is-invalid"));
     input.addEventListener("change", () =>
@@ -1148,13 +1520,15 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const firstInvalid = validate(form);
+    const firstInvalid = validate(form, UNIT_REQUEST_FIELDS, {
+      checkConsent: true,
+    });
     if (firstInvalid) {
-      formStatus.textContent =
-        "Please fix the highlighted fields and try again.";
-      formStatus.className = "form-status error";
-      firstInvalid.focus({ preventScroll: false });
-      firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+      stepper.goTo(stepper.stepOf(firstInvalid), {
+        validateForward: false,
+        scroll: false,
+      });
+      stepper.flagInvalid(firstInvalid);
       return;
     }
 
@@ -1174,16 +1548,14 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.innerHTML = originalContent;
       submitBtn.disabled = false;
 
+      form.reset();
+      resetFormUi(form);
+      stepper.reset();
+
       formStatus.innerHTML =
         "<strong>Thank you!</strong> Your property has been submitted for review. A Dastan consultant will reach out within one business day.";
       formStatus.className = "form-status success";
-
-      form.reset();
-      form.querySelectorAll(".file-drop").forEach((w) => {
-        w.classList.remove("file-drop--has-file");
-        const n = w.querySelector(".file-drop__name");
-        if (n) n.textContent = n.dataset.empty;
-      });
+      formStatus.style.display = "";
       form.scrollIntoView({ behavior: "smooth", block: "start" });
 
       setTimeout(() => {
