@@ -1,9 +1,10 @@
 import { amenities } from "../../data/amenities.data.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
+import { getParam } from "../../utils/router.js";
 
-/** Field schema for the Unit Request form. */
-const UNIT_REQUEST_FIELDS = [
+/** Field schema for the normal Property Submission form. */
+const NORMAL_FIELDS = [
   // Contact / seller
   {
     name: "seller_name",
@@ -279,7 +280,7 @@ const UNIT_REQUEST_FIELDS = [
   },
 ];
 
-const UNIT_REQUEST_GROUPS = {
+const NORMAL_GROUPS = {
   contact: { title: "Personal Details", icon: "fa-user" },
   details: { title: "Unit Details", icon: "fa-circle-info" },
   location: { title: "Location", icon: "fa-location-dot" },
@@ -290,10 +291,11 @@ const UNIT_REQUEST_GROUPS = {
 };
 
 /**
- * Wizard steps. Each step renders one or more schema groups, in order.
- * The last step has no groups — it renders the review summary + agreement.
+ * Wizard steps for the normal submission. Each step renders one or more
+ * schema groups, in order. The last step has no groups — it renders the
+ * review summary + agreement.
  */
-const UNIT_REQUEST_STEPS = [
+const NORMAL_STEPS = [
   {
     key: "contact",
     title: "Your Details",
@@ -344,52 +346,302 @@ const UNIT_REQUEST_STEPS = [
   },
 ];
 
-const STEP_COUNT = UNIT_REQUEST_STEPS.length;
-const REVIEW_STEP = STEP_COUNT - 1;
+/**
+ * Field schema for the Dastan Exit submission — an owner assigning an
+ * installment contract. Mirrors the shape a real exit listing needs (see
+ * src/data/exit-listings.data.js): identity, unit specs, contract financials,
+ * and the documents that let Dastan verify the figures before publishing.
+ */
+const EXIT_FIELDS = [
+  // Contact / seller
+  {
+    name: "seller_name",
+    label: "Name",
+    type: "text",
+    group: "contact",
+    required: true,
+    placeholder: "Full name",
+  },
+  {
+    name: "email",
+    label: "Email Address",
+    type: "email",
+    group: "contact",
+    placeholder: "name@example.com",
+  },
+  {
+    name: "phone",
+    label: "Phone Number",
+    type: "tel",
+    group: "contact",
+    required: true,
+    placeholder: "+20 100 000 0000",
+    width: "full",
+  },
 
-/** Fields belonging to a step, in schema order. */
-function stepFields(index) {
-  const step = UNIT_REQUEST_STEPS[index];
-  if (!step) return [];
-  return UNIT_REQUEST_FIELDS.filter((f) => step.groups.includes(f.group));
-}
+  // Unit & contract identity
+  {
+    name: "unit_code",
+    label: "Unit Code",
+    type: "text",
+    group: "unit",
+    placeholder: "U-15653",
+  },
+  {
+    name: "project",
+    label: "Project Name",
+    type: "text",
+    group: "unit",
+    required: true,
+    placeholder: "Kingsway",
+  },
+  {
+    name: "developer",
+    label: "Developer",
+    type: "text",
+    group: "unit",
+    required: true,
+    placeholder: "Mountain View",
+  },
+  {
+    name: "location",
+    label: "Location",
+    type: "text",
+    group: "unit",
+    required: true,
+    placeholder: "6th of October, Giza",
+    width: "full",
+  },
+  {
+    name: "unit_type",
+    label: "Unit Type",
+    type: "select",
+    group: "unit",
+    required: true,
+    lookupType: "exitunittype",
+  },
+  {
+    name: "contract_year",
+    label: "Contract Year",
+    type: "number",
+    group: "unit",
+    min: 0,
+    placeholder: "2024",
+  },
+  {
+    name: "bedrooms",
+    label: "Bedrooms",
+    type: "number",
+    group: "unit",
+    min: 0,
+    placeholder: "3",
+  },
+  {
+    name: "bathrooms",
+    label: "Bathrooms",
+    type: "number",
+    group: "unit",
+    min: 0,
+    placeholder: "2",
+  },
+  {
+    name: "area",
+    label: "Area (m²)",
+    type: "number",
+    group: "unit",
+    required: true,
+    min: 0,
+    step: 0.01,
+    placeholder: "140",
+  },
+  {
+    name: "finishing_types",
+    label: "Finishing",
+    type: "select",
+    group: "unit",
+    lookupType: "finishingtype",
+  },
+  {
+    name: "construction_status",
+    label: "Construction Status",
+    type: "select",
+    group: "unit",
+    lookupType: "constructionstatus",
+  },
+  {
+    name: "delivery_date",
+    label: "Expected Delivery",
+    type: "text",
+    group: "unit",
+    placeholder: "2028",
+  },
+  {
+    name: "seller_notes",
+    label: "Anything else our consultant should know?",
+    type: "textarea",
+    group: "unit",
+    placeholder:
+      "e.g. Developer already approved the assignment, contract signed before the last price revision…",
+    width: "full",
+  },
 
-function createEmptyUnitRequest() {
-  return {
-    name_en: "",
-    name_ar: "",
-    seller_name: "",
-    email: "",
-    phone: "",
-    country_id: 0,
-    region_id: 0,
-    city_id: 0,
-    area_place_id: 0,
-    address: "",
-    price: 0,
-    down_payment: 0,
-    number_of_installments_years_from: 0,
-    number_of_installments_years_to: 0,
-    area: 0,
-    bedrooms: 0,
-    bathrooms: 0,
-    description_en: "",
-    description_ar: "",
-    views: [],
-    facilities: [],
-    area_unit: [],
-    currencies: [],
-    amenities: [],
-    services: [],
-    payment_methods: [],
-    finishing_types: [],
-    purposes: [],
-    purpose_types: [],
-    offering_types: [],
-    furnishing_status: [],
-    images: [],
-  };
-}
+  // Contract financials
+  {
+    name: "contract_price",
+    label: "Total Contract Price",
+    type: "number",
+    group: "contract",
+    required: true,
+    min: 0,
+    step: 0.01,
+    placeholder: "0.00",
+  },
+  {
+    name: "paid_to_date",
+    label: "Paid To Date (Cash You Recover)",
+    type: "number",
+    group: "contract",
+    required: true,
+    min: 0,
+    step: 0.01,
+    placeholder: "0.00",
+  },
+  {
+    name: "remaining_to_developer",
+    label: "Remaining To Developer",
+    type: "number",
+    group: "contract",
+    required: true,
+    min: 0,
+    step: 0.01,
+    placeholder: "0.00",
+  },
+  {
+    name: "market_price_today",
+    label: "Market Price Today",
+    type: "number",
+    group: "contract",
+    required: true,
+    min: 0,
+    step: 0.01,
+    placeholder: "0.00",
+  },
+  {
+    name: "installment_amount",
+    label: "Installment Amount",
+    type: "number",
+    group: "contract",
+    min: 0,
+    step: 0.01,
+    placeholder: "0.00",
+  },
+  {
+    name: "installment_frequency",
+    label: "Installment Frequency",
+    type: "select",
+    group: "contract",
+    lookupType: "installmentfrequency",
+  },
+  {
+    name: "installments_remaining",
+    label: "Installments Remaining",
+    type: "number",
+    group: "contract",
+    min: 0,
+    placeholder: "29",
+  },
+  {
+    name: "transfer_status",
+    label: "Transfer Status",
+    type: "select",
+    group: "contract",
+    lookupType: "transferstatus",
+  },
+  {
+    name: "negotiable",
+    label: "Is the Price Negotiable?",
+    type: "select",
+    group: "contract",
+    lookupType: "yesno",
+  },
+
+  // Documents & photos
+  {
+    name: "contract_file",
+    label: "Signed Contract",
+    type: "file",
+    group: "media",
+    required: true,
+    accept: "application/pdf,image/*",
+  },
+  {
+    name: "receipt_files",
+    label: "Payment Receipts",
+    type: "file",
+    group: "media",
+    accept: "application/pdf,image/*",
+    multiple: true,
+  },
+  {
+    name: "unit_images",
+    label: "Unit Photos",
+    type: "file",
+    group: "media",
+    accept: "image/*",
+    multiple: true,
+  },
+];
+
+const EXIT_GROUPS = {
+  contact: { title: "Your Details", icon: "fa-user" },
+  unit: { title: "Unit & Contract Details", icon: "fa-building" },
+  contract: { title: "Contract Financials", icon: "fa-file-invoice-dollar" },
+  media: { title: "Documents & Photos", icon: "fa-folder-open" },
+};
+
+/** Wizard steps for the Dastan Exit submission. */
+const EXIT_STEPS = [
+  {
+    key: "contact",
+    title: "Your Details",
+    short: "Contact",
+    icon: "fa-user",
+    hint: "Tell us who our consultant should reach out to.",
+    groups: ["contact"],
+  },
+  {
+    key: "unit",
+    title: "Unit & Contract",
+    short: "Unit",
+    icon: "fa-building",
+    hint: "Identify the unit and where it sits in the developer's plan.",
+    groups: ["unit"],
+  },
+  {
+    key: "financials",
+    title: "Contract Financials",
+    short: "Financials",
+    icon: "fa-file-invoice-dollar",
+    hint: "The figures our team reconciles against your contract and receipts.",
+    groups: ["contract"],
+  },
+  {
+    key: "documents",
+    title: "Documents & Photos",
+    short: "Documents",
+    icon: "fa-folder-open",
+    hint: "Upload the signed contract and payment receipts so every figure is verified, not claimed.",
+    groups: ["media"],
+  },
+  {
+    key: "review",
+    title: "Review & Submit",
+    short: "Review",
+    icon: "fa-clipboard-check",
+    hint: "Check everything over before sending it to our team.",
+    groups: [],
+  },
+];
 
 const NARROW_TYPES = new Set([
   "text",
@@ -506,13 +758,6 @@ const LOCATION_PARENT = {
   area_place_id: "city_id",
 };
 
-/** Maps each cascade parent to its child field name. */
-const LOCATION_CHILD = {
-  country_id: "region_id",
-  region_id: "city_id",
-  city_id: "area_place_id",
-};
-
 function locationOptionsFor(field) {
   if (field.lookupType === "country") return LOCATION_TREE.country;
   return []; // children populate when parent is picked
@@ -589,6 +834,37 @@ const LOOKUPS = {
     { id: 3, name: "Mortgage" },
     { id: 4, name: "Bank Transfer" },
   ],
+  exitunittype: [
+    { id: 1, name: "Apartment" },
+    { id: 2, name: "Villa" },
+    { id: 3, name: "i-Villa" },
+    { id: 4, name: "Townhouse" },
+    { id: 5, name: "Twin House" },
+    { id: 6, name: "Duplex" },
+    { id: 7, name: "Chalet" },
+    { id: 8, name: "Penthouse" },
+    { id: 9, name: "Studio" },
+  ],
+  constructionstatus: [
+    { id: 1, name: "Under construction" },
+    { id: 2, name: "Near handover" },
+    { id: 3, name: "Delivered" },
+  ],
+  installmentfrequency: [
+    { id: 1, name: "Monthly" },
+    { id: 2, name: "Quarterly" },
+    { id: 3, name: "Semi-Annually" },
+    { id: 4, name: "Annually" },
+  ],
+  transferstatus: [
+    { id: 1, name: "Ready for transfer" },
+    { id: 2, name: "Under review" },
+    { id: 3, name: "Not yet eligible" },
+  ],
+  yesno: [
+    { id: 1, name: "Yes" },
+    { id: 2, name: "No" },
+  ],
 };
 
 const escape = (s) =>
@@ -600,17 +876,18 @@ const escape = (s) =>
       ],
   );
 
-const fieldId = (field) => `ur-${field.name}`;
+/** Every rendered id is namespaced by `prefix` so two form instances never collide. */
+const fieldId = (prefix, field) => `${prefix}-${field.name}`;
 
-function renderLabel(field) {
+function renderLabel(prefix, field) {
   return `
-    <label for="${fieldId(field)}" class="form-label">
+    <label for="${fieldId(prefix, field)}" class="form-label">
       ${escape(field.label)}${field.required ? ' <span class="required">*</span>' : ""}
     </label>`;
 }
 
-function renderInput(field) {
-  const id = fieldId(field);
+function renderInput(prefix, field) {
+  const id = fieldId(prefix, field);
   const required = field.required ? "required" : "";
   const placeholder = field.placeholder
     ? `placeholder="${escape(field.placeholder)}"`
@@ -728,24 +1005,24 @@ function isNarrow(field) {
   return NARROW_TYPES.has(field.type);
 }
 
-function renderField(field) {
+function renderField(prefix, field) {
   const widthClass = isNarrow(field)
     ? "form-group--narrow"
     : "form-group--full";
   return `
     <div class="form-group ${widthClass}" data-field="${field.name}">
-      ${renderLabel(field)}
-      ${renderInput(field)}
+      ${renderLabel(prefix, field)}
+      ${renderInput(prefix, field)}
     </div>`;
 }
 
-function renderGrid(fields) {
+function renderGrid(prefix, fields) {
   if (!fields.length) return "";
-  return `<div class="form-grid">${fields.map(renderField).join("")}</div>`;
+  return `<div class="form-grid">${fields.map((f) => renderField(prefix, f)).join("")}</div>`;
 }
 
-function renderSection(groupKey, fields) {
-  const meta = UNIT_REQUEST_GROUPS[groupKey] || {
+function renderSection(prefix, groups, groupKey, fields) {
+  const meta = groups[groupKey] || {
     title: groupKey,
     icon: "fa-list",
   };
@@ -756,7 +1033,7 @@ function renderSection(groupKey, fields) {
   const enFields = fields.filter((f) => f.lang === "en");
   const arFields = fields.filter((f) => f.lang === "ar");
 
-  const nonLangGrid = renderGrid(nonLangFields);
+  const nonLangGrid = renderGrid(prefix, nonLangFields);
 
   let langBlock = "";
   if (enFields.length || arFields.length) {
@@ -767,8 +1044,8 @@ function renderSection(groupKey, fields) {
           <button type="button" class="ur-lang__tab" role="tab" aria-selected="false" data-lang="ar">العربية</button>
         </div>
         <div class="ur-lang__panels">
-          <div class="ur-lang__panel is-active" data-lang="en" role="tabpanel">${renderGrid(enFields)}</div>
-          <div class="ur-lang__panel" data-lang="ar" role="tabpanel" dir="rtl">${renderGrid(arFields)}</div>
+          <div class="ur-lang__panel is-active" data-lang="en" role="tabpanel">${renderGrid(prefix, enFields)}</div>
+          <div class="ur-lang__panel" data-lang="ar" role="tabpanel" dir="rtl">${renderGrid(prefix, arFields)}</div>
         </div>
       </div>`;
   }
@@ -783,9 +1060,10 @@ function renderSection(groupKey, fields) {
     </div>`;
 }
 
-function renderStepper() {
-  const items = UNIT_REQUEST_STEPS.map(
-    (step, i) => `
+function renderStepper(steps) {
+  const items = steps
+    .map(
+      (step, i) => `
       <li class="ur-stepper__item" data-step="${i}">
         <button type="button" class="ur-stepper__btn" data-goto="${i}" aria-current="false" ${i === 0 ? "" : "disabled"}>
           <span class="ur-stepper__bubble">
@@ -795,40 +1073,41 @@ function renderStepper() {
           <span class="ur-stepper__label">${escape(step.short)}</span>
         </button>
       </li>`,
-  ).join("");
+    )
+    .join("");
 
   return `
     <nav class="ur-stepper" aria-label="Form progress">
       <ol class="ur-stepper__list">${items}</ol>
     </nav>
     <div class="ur-step-head">
-      <span class="ur-step-head__count" id="ur-step-count"></span>
-      <h3 class="ur-step-head__title" id="ur-step-title"></h3>
-      <p class="ur-step-head__hint" id="ur-step-hint"></p>
+      <span class="ur-step-head__count"></span>
+      <h3 class="ur-step-head__title"></h3>
+      <p class="ur-step-head__hint"></p>
     </div>`;
 }
 
-function renderStepNav() {
+function renderStepNav(submitLabel) {
   return `
     <div class="ur-nav">
-      <button type="button" class="ur-nav__btn ur-nav__btn--back" id="ur-back">
+      <button type="button" class="ur-nav__btn ur-nav__btn--back">
         <i class="fa-solid fa-arrow-left"></i>
         <span>Back</span>
       </button>
-      <button type="button" class="ur-nav__btn ur-nav__btn--next" id="ur-next">
+      <button type="button" class="ur-nav__btn ur-nav__btn--next">
         <span>Continue</span>
         <i class="fa-solid fa-arrow-right"></i>
       </button>
-      <button type="submit" class="submit-btn" id="ur-submit" hidden>
-        <span>Submit Property</span>
+      <button type="submit" class="submit-btn" hidden>
+        <span>${escape(submitLabel)}</span>
         <i class="fa-solid fa-paper-plane"></i>
       </button>
     </div>`;
 }
 
-function renderReviewStep() {
+function renderReviewStep(prefix, consentHtml) {
   return `
-    <div class="ur-review" id="ur-review"></div>
+    <div class="ur-review"></div>
 
     <div class="form-section">
       <h3 class="form-section__title">
@@ -836,43 +1115,33 @@ function renderReviewStep() {
       </h3>
       <div class="form-group form-group--full">
         <label class="checkbox-inline">
-          <input type="checkbox" id="consent" name="consent" required />
-          <span>I confirm the information above is accurate and authorize Dastan Real Estate to list and market this property. <span class="required">*</span></span>
+          <input type="checkbox" id="${prefix}-consent" name="consent" required />
+          <span>${consentHtml}</span>
         </label>
       </div>
     </div>`;
 }
 
-function renderForm() {
-  const root = document.getElementById("ur-form-sections");
-  if (!root) return;
+/** Fields belonging to a step, in schema order. */
+function stepFields(steps, fields, index) {
+  const step = steps[index];
+  if (!step) return [];
+  return fields.filter((f) => step.groups.includes(f.group));
+}
 
-  const stepperRoot = document.getElementById("ur-form-stepper");
-  if (stepperRoot) stepperRoot.innerHTML = renderStepper();
+/** Sensible empty default for a field, based on its type. */
+function defaultValueFor(field) {
+  if (field.type === "file") return field.multiple ? [] : null;
+  if (field.type === "multi-select") return [];
+  if (field.type === "number") return 0;
+  if (field.type === "select") return null;
+  return "";
+}
 
-  const byGroup = new Map();
-  for (const f of UNIT_REQUEST_FIELDS) {
-    if (!byGroup.has(f.group)) byGroup.set(f.group, []);
-    byGroup.get(f.group).push(f);
-  }
-
-  root.innerHTML = UNIT_REQUEST_STEPS.map((step, i) => {
-    const body =
-      step.key === "review"
-        ? renderReviewStep()
-        : step.groups
-            .filter((g) => (byGroup.get(g) || []).length > 0)
-            .map((g) => renderSection(g, byGroup.get(g)))
-            .join("");
-
-    return `
-      <div class="ur-step" data-step="${i}" role="group" aria-label="${escape(step.title)}" ${i === 0 ? "" : "hidden"}>
-        ${body}
-      </div>`;
-  }).join("");
-
-  const navRoot = document.getElementById("ur-form-nav");
-  if (navRoot) navRoot.innerHTML = renderStepNav();
+function createEmptyPayload(fields) {
+  const payload = {};
+  for (const field of fields) payload[field.name] = defaultValueFor(field);
+  return payload;
 }
 
 /** Human-readable current value of a field, for the review step. */
@@ -911,13 +1180,14 @@ function reviewLabel(field) {
   return `${field.label}${lang}`;
 }
 
-function renderReviewSummary(form) {
-  const box = document.getElementById("ur-review");
+function renderReviewSummary(form, steps, fields, reviewStepIndex) {
+  const box = form.querySelector(".ur-review");
   if (!box) return;
 
-  box.innerHTML = UNIT_REQUEST_STEPS.slice(0, REVIEW_STEP)
+  box.innerHTML = steps
+    .slice(0, reviewStepIndex)
     .map((step, i) => {
-      const rows = stepFields(i)
+      const rows = stepFields(steps, fields, i)
         .map((field) => ({ field, value: displayValue(form, field) }))
         .filter((row) => row.value !== "");
 
@@ -1207,10 +1477,10 @@ function bindFileInputs(form) {
   });
 }
 
-function buildPayload(form) {
-  const payload = createEmptyUnitRequest();
+function buildPayload(form, fields) {
+  const payload = createEmptyPayload(fields);
 
-  for (const field of UNIT_REQUEST_FIELDS) {
+  for (const field of fields) {
     if (field.type === "file") {
       const el = form.elements.namedItem(field.name);
       if (!el || !el.files || !el.files.length) continue;
@@ -1234,10 +1504,10 @@ function buildPayload(form) {
     if (!el) continue;
     const raw = el.value;
 
-    if (field.type === "number" || field.name === "location_id") {
+    if (field.type === "number") {
       payload[field.name] = raw === "" ? 0 : Number(raw);
     } else if (field.type === "select") {
-      // Schema treats currencies / area_unit / single-pick lookups as numeric IDs.
+      // Single-pick lookups are numeric IDs.
       payload[field.name] = raw === "" ? null : Number(raw);
     } else {
       payload[field.name] = raw;
@@ -1248,10 +1518,10 @@ function buildPayload(form) {
 }
 
 /**
- * Validates the required fields in `fields` (defaults to the whole schema) and
- * returns the first element that needs attention, or null when all is well.
+ * Validates the required fields in `fields` and returns the first element
+ * that needs attention, or null when all is well.
  */
-function validate(form, fields = UNIT_REQUEST_FIELDS, { checkConsent = false } = {}) {
+function validate(form, fields, { checkConsent = false } = {}) {
   let firstInvalid = null;
 
   for (const field of fields) {
@@ -1336,15 +1606,18 @@ function resetFormUi(form) {
  * Drives the step wizard: panel visibility, the stepper, the nav buttons and
  * per-step validation on the way forward.
  */
-function createStepper(form, formStatus) {
+function createStepper(form, formStatus, steps, fields) {
+  const stepCount = steps.length;
+  const reviewStepIndex = stepCount - 1;
+
   const panels = Array.from(form.querySelectorAll(".ur-step"));
   const items = Array.from(form.querySelectorAll(".ur-stepper__item"));
-  const backBtn = form.querySelector("#ur-back");
-  const nextBtn = form.querySelector("#ur-next");
-  const submitBtn = form.querySelector("#ur-submit");
-  const countEl = form.querySelector("#ur-step-count");
-  const titleEl = form.querySelector("#ur-step-title");
-  const hintEl = form.querySelector("#ur-step-hint");
+  const backBtn = form.querySelector(".ur-nav__btn--back");
+  const nextBtn = form.querySelector(".ur-nav__btn--next");
+  const submitBtn = form.querySelector(".submit-btn");
+  const countEl = form.querySelector(".ur-step-head__count");
+  const titleEl = form.querySelector(".ur-step-head__title");
+  const hintEl = form.querySelector(".ur-step-head__hint");
 
   let current = 0;
   let furthest = 0;
@@ -1374,20 +1647,20 @@ function createStepper(form, formStatus) {
       btn.setAttribute("aria-current", i === current ? "step" : "false");
     });
 
-    const step = UNIT_REQUEST_STEPS[current];
-    countEl.textContent = `Step ${current + 1} of ${STEP_COUNT}`;
+    const step = steps[current];
+    countEl.textContent = `Step ${current + 1} of ${stepCount}`;
     titleEl.textContent = step.title;
     hintEl.textContent = step.hint;
 
-    const isLast = current === STEP_COUNT - 1;
+    const isLast = current === stepCount - 1;
     backBtn.hidden = current === 0;
     nextBtn.hidden = isLast;
     submitBtn.hidden = !isLast;
-    if (isLast) renderReviewSummary(form);
+    if (isLast) renderReviewSummary(form, steps, fields, reviewStepIndex);
   }
 
   function scrollToTop() {
-    const anchor = document.querySelector(".ur-form-wrapper") || form;
+    const anchor = form.closest(".ur-form-wrapper") || form;
     const top = anchor.getBoundingClientRect().top + window.scrollY - 100;
     window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
   }
@@ -1401,11 +1674,11 @@ function createStepper(form, formStatus) {
   }
 
   function goTo(index, { validateForward = true, scroll = true } = {}) {
-    const target = Math.max(0, Math.min(STEP_COUNT - 1, index));
+    const target = Math.max(0, Math.min(stepCount - 1, index));
 
     if (validateForward && target > current) {
       for (let i = current; i < target; i++) {
-        const invalid = validate(form, stepFields(i));
+        const invalid = validate(form, stepFields(steps, fields, i));
         if (invalid) {
           current = i;
           paint();
@@ -1440,7 +1713,7 @@ function createStepper(form, formStatus) {
   form.addEventListener("keydown", (e) => {
     if (e.key !== "Enter") return;
     if (e.target.tagName === "TEXTAREA") return;
-    if (current === STEP_COUNT - 1) return;
+    if (current === stepCount - 1) return;
     e.preventDefault();
     goTo(current + 1);
   });
@@ -1457,19 +1730,182 @@ function createStepper(form, formStatus) {
     },
     stepOf: (el) => {
       const panel = el.closest && el.closest(".ur-step");
-      return panel ? Number(panel.dataset.step) : REVIEW_STEP;
+      return panel ? Number(panel.dataset.step) : reviewStepIndex;
     },
     flagInvalid,
   };
 }
 
+function renderForm(form, config) {
+  const { fields, groups, steps, prefix, submitLabel, consentHtml } = config;
+
+  const stepperRoot = form.querySelector('[data-slot="stepper"]');
+  if (stepperRoot) stepperRoot.innerHTML = renderStepper(steps);
+
+  const byGroup = new Map();
+  for (const f of fields) {
+    if (!byGroup.has(f.group)) byGroup.set(f.group, []);
+    byGroup.get(f.group).push(f);
+  }
+
+  const sectionsRoot = form.querySelector('[data-slot="sections"]');
+  sectionsRoot.innerHTML = steps
+    .map((step, i) => {
+      const body =
+        step.key === "review"
+          ? renderReviewStep(prefix, consentHtml)
+          : step.groups
+              .filter((g) => (byGroup.get(g) || []).length > 0)
+              .map((g) => renderSection(prefix, groups, g, byGroup.get(g)))
+              .join("");
+
+      return `
+      <div class="ur-step" data-step="${i}" role="group" aria-label="${escape(step.title)}" ${i === 0 ? "" : "hidden"}>
+        ${body}
+      </div>`;
+    })
+    .join("");
+
+  const navRoot = form.querySelector('[data-slot="nav"]');
+  if (navRoot) navRoot.innerHTML = renderStepNav(submitLabel);
+}
+
+/** Wires up one full wizard instance (rendering, bindings, submit handling). */
+function initUnitForm(config) {
+  const form = document.getElementById(config.formId);
+  if (!form) return;
+
+  const formStatus = form.querySelector('[data-slot="status"]');
+
+  renderForm(form, config);
+
+  bindFileInputs(form);
+  bindSelectFields(form);
+  bindLocationCascade(form);
+  bindMultiSelects(form);
+  bindLangTabs(form);
+
+  const stepper = createStepper(form, formStatus, config.steps, config.fields);
+
+  form.querySelectorAll(".form-input").forEach((input) => {
+    input.addEventListener("input", () => input.classList.remove("is-invalid"));
+    input.addEventListener("change", () =>
+      input.classList.remove("is-invalid"),
+    );
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const firstInvalid = validate(form, config.fields, {
+      checkConsent: true,
+    });
+    if (firstInvalid) {
+      stepper.goTo(stepper.stepOf(firstInvalid), {
+        validateForward: false,
+        scroll: false,
+      });
+      stepper.flagInvalid(firstInvalid);
+      return;
+    }
+
+    const payload = buildPayload(form, config.fields);
+
+    const submitBtn = form.querySelector(".submit-btn");
+    const originalContent = submitBtn.innerHTML;
+    submitBtn.innerHTML =
+      '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    submitBtn.disabled = true;
+    formStatus.className = "form-status";
+    formStatus.textContent = "";
+
+    setTimeout(() => {
+      console.log(`[${config.formId}] payload:`, payload);
+
+      submitBtn.innerHTML = originalContent;
+      submitBtn.disabled = false;
+
+      form.reset();
+      resetFormUi(form);
+      stepper.reset();
+
+      formStatus.innerHTML = config.successHtml;
+      formStatus.className = "form-status success";
+      formStatus.style.display = "";
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      setTimeout(() => {
+        formStatus.style.display = "none";
+        formStatus.className = "form-status";
+      }, 8000);
+    }, 1400);
+  });
+}
+
+const NORMAL_CONFIG = {
+  formId: "unitRequestForm",
+  prefix: "ur",
+  fields: NORMAL_FIELDS,
+  groups: NORMAL_GROUPS,
+  steps: NORMAL_STEPS,
+  submitLabel: "Submit Property",
+  consentHtml:
+    'I confirm the information above is accurate and authorize Dastan Real Estate to list and market this property. <span class="required">*</span>',
+  successHtml:
+    "<strong>Thank you!</strong> Your property has been submitted for review. A Dastan consultant will reach out within one business day.",
+};
+
+const EXIT_CONFIG = {
+  formId: "exitRequestForm",
+  prefix: "ex",
+  fields: EXIT_FIELDS,
+  groups: EXIT_GROUPS,
+  steps: EXIT_STEPS,
+  submitLabel: "Submit Exit Request",
+  consentHtml:
+    'I confirm the contract details above are accurate and authorize Dastan to review this unit for a Dastan Exit assignment. <span class="required">*</span>',
+  successHtml:
+    "<strong>Thank you!</strong> Your exit request has been submitted. A Dastan consultant will review your contract and reach out within one business day.",
+};
+
+/** Toggles between the Property Submission and Dastan Exit panel groups. */
+function initSubmissionTabs() {
+  const tabs = document.querySelectorAll(".ur-tabs__btn");
+  const panels = document.querySelectorAll("[data-panel-group]");
+  if (!tabs.length || !panels.length) return;
+
+  const activate = (key) => {
+    tabs.forEach((t) => {
+      const active = t.dataset.panel === key;
+      t.classList.toggle("is-active", active);
+      t.setAttribute("aria-selected", String(active));
+    });
+
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.panelGroup !== key;
+    });
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => activate(tab.dataset.panel));
+  });
+
+  // Dastan Exit links here with ?type=exit so the right tab is already
+  // open — e.g. "List your unit for assignment" on the Dastan Exit page.
+  if (getParam("type") === "exit") activate("exit");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root", { transparent: true });
   renderFooter("#footer-root");
-  renderForm();
+
+  initUnitForm(NORMAL_CONFIG);
+  initUnitForm(EXIT_CONFIG);
+  initSubmissionTabs();
 
   // Grid columns fade in on page load (chained after the hero) — not scroll-gated.
   const immediateFadeSelectors = [
+    ".ur-tabs.fade-up",
     ".ur-aside.fade-up",
     ".ur-form-wrapper.fade-up",
   ];
@@ -1496,72 +1932,5 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!el.classList.contains("visible") && !immediateFadeEls.length)
       return observer.observe(el);
     if (![...immediateFadeEls].includes(el)) observer.observe(el);
-  });
-
-  const form = document.getElementById("unitRequestForm");
-  const formStatus = document.getElementById("formStatus");
-  if (!form) return;
-
-  bindFileInputs(form);
-  bindSelectFields(form);
-  bindLocationCascade(form);
-  bindMultiSelects(form);
-  bindLangTabs(form);
-
-  const stepper = createStepper(form, formStatus);
-
-  form.querySelectorAll(".form-input").forEach((input) => {
-    input.addEventListener("input", () => input.classList.remove("is-invalid"));
-    input.addEventListener("change", () =>
-      input.classList.remove("is-invalid"),
-    );
-  });
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const firstInvalid = validate(form, UNIT_REQUEST_FIELDS, {
-      checkConsent: true,
-    });
-    if (firstInvalid) {
-      stepper.goTo(stepper.stepOf(firstInvalid), {
-        validateForward: false,
-        scroll: false,
-      });
-      stepper.flagInvalid(firstInvalid);
-      return;
-    }
-
-    const payload = buildPayload(form);
-
-    const submitBtn = form.querySelector(".submit-btn");
-    const originalContent = submitBtn.innerHTML;
-    submitBtn.innerHTML =
-      '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
-    submitBtn.disabled = true;
-    formStatus.className = "form-status";
-    formStatus.textContent = "";
-
-    setTimeout(() => {
-      console.log("[Submit Property] payload:", payload);
-
-      submitBtn.innerHTML = originalContent;
-      submitBtn.disabled = false;
-
-      form.reset();
-      resetFormUi(form);
-      stepper.reset();
-
-      formStatus.innerHTML =
-        "<strong>Thank you!</strong> Your property has been submitted for review. A Dastan consultant will reach out within one business day.";
-      formStatus.className = "form-status success";
-      formStatus.style.display = "";
-      form.scrollIntoView({ behavior: "smooth", block: "start" });
-
-      setTimeout(() => {
-        formStatus.style.display = "none";
-        formStatus.className = "form-status";
-      }, 8000);
-    }, 1400);
   });
 });

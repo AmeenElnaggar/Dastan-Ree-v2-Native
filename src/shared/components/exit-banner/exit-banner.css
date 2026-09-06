@@ -5,8 +5,8 @@
    ============================================ */
 
 .exit-banner {
-  --exit-accent: var(--color-gold-600);
-  --exit-accent-soft: var(--color-gold-500);
+  --exit-accent: #2fbf8e;
+  --exit-accent-soft: #5ddcae;
 
   /* Built like the quick-filters strip above it: one base navy, with the same
      white washes that strip uses — 0.07 for its form bar, 0.06 for a field.

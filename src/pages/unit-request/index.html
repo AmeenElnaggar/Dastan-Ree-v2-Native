@@ -59,7 +59,30 @@
     <!-- Form Section -->
     <section class="ur-main py-20 relative">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="ur-grid">
+        <!-- Submission Type Tabs -->
+        <div class="ur-tabs fade-up" role="tablist" aria-label="Submission type">
+          <button
+            type="button"
+            class="ur-tabs__btn is-active"
+            role="tab"
+            aria-selected="true"
+            data-panel="normal">
+            <i class="fa-solid fa-house"></i>
+            Property Submission
+          </button>
+          <button
+            type="button"
+            class="ur-tabs__btn"
+            role="tab"
+            aria-selected="false"
+            data-panel="exit">
+            <i class="fa-solid fa-right-left"></i>
+            Dastan Exit Submission
+          </button>
+        </div>
+
+        <!-- Normal Property Submission -->
+        <div class="ur-grid ur-panel-group" data-panel-group="normal">
           <!-- Why List With Dastan (Left Column) -->
           <aside class="ur-aside fade-up" style="transition-delay: 0.3s">
             <h2 class="ur-aside__title">Why List With Dastan?</h2>
@@ -133,13 +156,102 @@
               novalidate
               enctype="multipart/form-data">
               <!-- Step indicator, step panels and step nav are rendered from the schema -->
-              <div id="ur-form-stepper"></div>
-              <div id="ur-form-sections"></div>
-              <div id="ur-form-nav"></div>
+              <div data-slot="stepper"></div>
+              <div data-slot="sections"></div>
+              <div data-slot="nav"></div>
 
               <div
                 class="form-status"
-                id="formStatus"
+                data-slot="status"
+                role="status"
+                aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Dastan Exit Submission -->
+        <div class="ur-grid ur-panel-group" data-panel-group="exit" hidden>
+          <!-- Why Exit With Dastan (Left Column) -->
+          <aside class="ur-aside fade-up" style="transition-delay: 0.3s">
+            <h2 class="ur-aside__title">Why Exit With Dastan?</h2>
+            <p class="ur-aside__text">
+              Assign your installment contract with no overprice — recover
+              every pound you've paid and let us match you with a vetted
+              buyer.
+            </p>
+
+            <ul class="ur-benefits">
+              <li class="ur-benefit">
+                <div class="ur-benefit__icon">
+                  <i class="fa-solid fa-file-shield"></i>
+                </div>
+                <div>
+                  <h3 class="ur-benefit__title">0% Seller Fee</h3>
+                  <p class="ur-benefit__desc">
+                    You receive exactly what you've paid to date — no
+                    commission, no overprice.
+                  </p>
+                </div>
+              </li>
+
+              <li class="ur-benefit">
+                <div class="ur-benefit__icon">
+                  <i class="fa-solid fa-magnifying-glass-dollar"></i>
+                </div>
+                <div>
+                  <h3 class="ur-benefit__title">Verified Figures</h3>
+                  <p class="ur-benefit__desc">
+                    Every number is checked against your contract and payment
+                    receipts before we publish.
+                  </p>
+                </div>
+              </li>
+
+              <li class="ur-benefit">
+                <div class="ur-benefit__icon">
+                  <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                  <h3 class="ur-benefit__title">Private Matching</h3>
+                  <p class="ur-benefit__desc">
+                    Your file is shared only with buyers who can cover the
+                    cash and continue the plan — never listed publicly.
+                  </p>
+                </div>
+              </li>
+
+              <li class="ur-benefit">
+                <div class="ur-benefit__icon">
+                  <i class="fa-solid fa-handshake"></i>
+                </div>
+                <div>
+                  <h3 class="ur-benefit__title">Guided Transfer</h3>
+                  <p class="ur-benefit__desc">
+                    We walk you and the buyer through the developer's
+                    official assignment procedure end-to-end.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </aside>
+
+          <!-- Dastan Exit Form (Right Column) -->
+          <div class="ur-form-wrapper fade-up" style="transition-delay: 0.4s">
+            <h2 class="ur-form__title">Dastan Exit Submission Form</h2>
+
+            <form
+              class="ur-form"
+              id="exitRequestForm"
+              novalidate
+              enctype="multipart/form-data">
+              <!-- Step indicator, step panels and step nav are rendered from the schema -->
+              <div data-slot="stepper"></div>
+              <div data-slot="sections"></div>
+              <div data-slot="nav"></div>
+
+              <div
+                class="form-status"
+                data-slot="status"
                 role="status"
                 aria-live="polite"></div>
             </form>

@@ -34,12 +34,15 @@
       href="../../../src/shared/components/footer/footer.css?v=f1bd47e4" />
     <link
       rel="stylesheet"
-      href="../../../src/shared/components/cta/cta.css?v=92c9e27f" />
+      href="../../../src/shared/components/cta/cta.css?v=c568e47b" />
     <link
       rel="stylesheet"
-      href="../../../src/shared/components/exit-card/exit-card.css?v=35ff02ad" />
+      href="../../../src/shared/components/exit-card/exit-card.css?v=01b6a02e" />
+    <link
+      rel="stylesheet"
+      href="../../../src/shared/components/modal/modal.css?v=68539c0f" />
 
-    <link rel="stylesheet" href="dastan-exit.css?v=490cc212" />
+    <link rel="stylesheet" href="dastan-exit.css?v=574f4e1a" />
     <script>
       history.scrollRestoration = "manual";
     </script>
@@ -58,7 +61,7 @@
       <div class="dx-container">
         <div class="dx-section__head fade-up">
           <span class="dx-eyebrow">How an exit works</span>
-          <h2 class="dx-title">One deal, seen three ways</h2>
+          <h2 class="dx-title">One exit, three angles</h2>
         </div>
 
         <div class="dx-tablist fade-up" role="tablist" aria-label="How an exit works">
@@ -72,7 +75,7 @@
             tabindex="0"
             data-exit-panel="how-exit-helps">
             <span class="dx-tabbtn__idx">01</span>
-            <span class="dx-tabbtn__label">What it is</span>
+            <span class="dx-tabbtn__label">Seller &amp; buyer</span>
           </button>
           <button
             class="dx-tabbtn"
@@ -84,7 +87,7 @@
             tabindex="-1"
             data-exit-panel="exit-comparison">
             <span class="dx-tabbtn__idx">02</span>
-            <span class="dx-tabbtn__label">Cancel, resell, or exit</span>
+            <span class="dx-tabbtn__label">Exit vs. resale</span>
           </button>
           <button
             class="dx-tabbtn"
@@ -96,7 +99,7 @@
             tabindex="-1"
             data-exit-panel="exit-process">
             <span class="dx-tabbtn__idx">03</span>
-            <span class="dx-tabbtn__label">Step by step</span>
+            <span class="dx-tabbtn__label">Start to finish</span>
           </button>
           <span class="dx-tablist__indicator" aria-hidden="true"></span>
         </div>
@@ -118,62 +121,67 @@
             </div>
 
             <div class="dx-sides">
-              <article class="dx-side">
-                <span class="dx-side__tag">If you are selling</span>
+              <article class="dx-side dx-side--seller">
+                <span class="dx-side__tag">The seller &mdash; unit owner</span>
                 <h4 class="dx-side__title">
-                  Recover your cash instead of losing a slice of it
+                  Zero overprice = the fastest sale on the market
                 </h4>
+                <p class="dx-side__lead">
+                  Because your price is exactly what you paid, with nothing added,
+                  your unit becomes the best offer a buyer can find &mdash; so it
+                  moves first. You recover your money in full, in cash, instead of
+                  the developer deducting a share and repaying the rest over years.
+                </p>
                 <ul class="dx-list">
                   <li>
-                    <strong>100% of what you paid</strong>, in cash, on completion
-                    of the transfer.
+                    Recover <strong>100% of what you paid</strong> &mdash; cash on
+                    completion of the transfer
                   </li>
                   <li>
-                    <strong>No overprice</strong> — which is exactly why a buyer
-                    moves quickly.
+                    <strong>No public listing</strong> and no broker phone calls
                   </li>
                   <li>
-                    <strong>No cancellation deduction</strong> and no waiting years
-                    for a staged refund.
-                  </li>
-                  <li>
-                    <strong>No public listing and no broker calls.</strong> Your
-                    file is shown only to matched buyers.
-                  </li>
-                  <li>
-                    <strong>Zero commission.</strong> Dastan Exit charges the seller
-                    nothing.
+                    We prepare the assignment file with you and
+                    <strong>follow it through to signing</strong>
                   </li>
                 </ul>
+                <p class="dx-side__note">
+                  Completely free for you &mdash; Dastan Exit takes no commission
+                  from the seller.
+                </p>
+                <a class="dx-side__btn" href="../unit-request/index.html?type=exit">
+                  List your unit for assignment
+                </a>
               </article>
 
-              <article class="dx-side">
-                <span class="dx-side__tag">If you are buying</span>
+              <article class="dx-side dx-side--buyer">
+                <span class="dx-side__tag">The buyer</span>
                 <h4 class="dx-side__title">
-                  Step into an older contract at its original price
+                  An installment unit without paying anyone an overprice
                 </h4>
+                <p class="dx-side__lead">
+                  You take the unit at its old contract price &mdash; far below
+                  today's developer price &mdash; and continue the instalments as
+                  they stand. That difference is your gain from the day you sign,
+                  without a single pound of overprice.
+                </p>
                 <ul class="dx-list">
                   <li>
-                    <strong>The contract price</strong>, not today's launch price —
-                    the difference is yours.
+                    <strong>The old contract price as it stands</strong> &mdash;
+                    overprice is banned on the platform
                   </li>
                   <li>
-                    <strong>Verified figures</strong> read off the contract and the
-                    payment receipts.
+                    Contract, payments and remaining balance
+                    <strong>verified before you see the opportunity</strong>
                   </li>
                   <li>
-                    <strong>A plan already in motion</strong>: you continue the
-                    instalments as they stand.
-                  </li>
-                  <li>
-                    <strong>An official transfer</strong>, approved by the developer
-                    and documented.
-                  </li>
-                  <li>
-                    <strong>A 1.25% fee</strong>, charged only when the transfer
-                    actually completes.
+                    An <strong>official developer-approved assignment</strong>
+                    &mdash; not a power of attorney and a promise
                   </li>
                 </ul>
+                <a class="dx-side__btn" href="#exit-opportunities">
+                  See available opportunities
+                </a>
               </article>
             </div>
           </div>
@@ -185,74 +193,74 @@
             aria-labelledby="tab-exit-comparison"
             aria-hidden="true" data-exit-panel-body>
             <div class="dx-panel__intro">
-              <h3 class="dx-panel__title">Cancel, resell with an overprice, or exit</h3>
+              <h3 class="dx-panel__title">How is an exit different from a normal resale?</h3>
               <p class="dx-panel__lead">
-                The same unit, the same contract &mdash; three very different outcomes for
-                the money you have already paid.
+                The market is full of listings and brokers with an overprice attached
+                &mdash; an assignment through Dastan Exit works differently, deal by
+                deal.
               </p>
             </div>
 
             <div class="dx-table-scroll">
-              <table class="dx-table">
+              <table class="dx-table dx-table--duo">
                 <caption class="sr-only">
-                  Comparison of cancelling with the developer, reselling with an
-                  overprice, and assigning the contract through Dastan Exit
+                  Comparison of a normal resale and assigning the contract through
+                  Dastan Exit
                 </caption>
                 <thead>
                   <tr>
-                    <th scope="col">&nbsp;</th>
-                    <th scope="col">Hand it back to the developer</th>
-                    <th scope="col">Resell it with an overprice</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Normal resale</th>
                     <th scope="col" class="dx-table__col--best">Dastan Exit</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">What you get back</th>
-                    <td>What you paid, less a cancellation deduction</td>
+                    <th scope="row">Price</th>
                     <td>
-                      What you paid, plus an overprice — if a buyer accepts it
+                      <span class="dx-table__icon dx-table__icon--no" aria-hidden="true"></span>
+                      Overprice on top, inflated for haggling
                     </td>
                     <td class="dx-table__col--best">
-                      Every pound you paid, in cash
+                      <span class="dx-table__icon dx-table__icon--yes" aria-hidden="true"></span>
+                      Zero overprice &mdash; the price is exactly what was paid,
+                      checked against the receipts
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">Typical deduction</th>
-                    <td>10&ndash;15% of the full unit price, per your contract</td>
-                    <td>None from the developer</td>
-                    <td class="dx-table__col--best">None</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">How long it takes</th>
+                    <th scope="row">The numbers</th>
                     <td>
-                      Months of procedures, then a refund often paid in stages
+                      <span class="dx-table__icon dx-table__icon--no" aria-hidden="true"></span>
+                      Seller and broker claims, with no evidence
                     </td>
-                    <td>Open-ended — the overprice is what stalls the sale</td>
                     <td class="dx-table__col--best">
-                      As fast as a matched buyer and the developer's approval allow
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Are the figures documented?</th>
-                    <td>Set by the developer</td>
-                    <td>Usually claimed, rarely evidenced</td>
-                    <td class="dx-table__col--best">
-                      Checked against the contract and every receipt
+                      <span class="dx-table__icon dx-table__icon--yes" aria-hidden="true"></span>
+                      Contract, payments, and balance verified against the developer's
+                      own records
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">What it costs the seller</th>
-                    <td>The deduction, plus the time</td>
-                    <td>A brokerage commission</td>
-                    <td class="dx-table__col--best">Nothing</td>
+                    <th scope="row">The process</th>
+                    <td>
+                      <span class="dx-table__icon dx-table__icon--no" aria-hidden="true"></span>
+                      The broker introduces you, then you are on your own
+                    </td>
+                    <td class="dx-table__col--best">
+                      <span class="dx-table__icon dx-table__icon--yes" aria-hidden="true"></span>
+                      We walk every step of the assignment with you, through to
+                      signing and payment
+                    </td>
                   </tr>
                   <tr>
-                    <th scope="row">What the buyer pays</th>
-                    <td>Today's launch price, from the developer</td>
-                    <td>The contract price plus the overprice</td>
+                    <th scope="row">Fees</th>
+                    <td>
+                      <span class="dx-table__icon dx-table__icon--no" aria-hidden="true"></span>
+                      Brokerage from both sides, at every step, plus surprises
+                    </td>
                     <td class="dx-table__col--best">
-                      The original contract price, plus a 1.25% fee on completion
+                      <span class="dx-table__icon dx-table__icon--yes" aria-hidden="true"></span>
+                      Free for the seller &mdash; 1.25% from the buyer only, and
+                      only on a completed assignment
                     </td>
                   </tr>
                 </tbody>

@@ -5,13 +5,15 @@
  * wants to assign the contract. The field set mirrors what an exit listing
  * actually needs, which is different from a normal listing:
  *
- *   Identity      id, unitCode, project, developer, location, contractYear
+ *   Identity      id, propertyId (the matching listing on Properties),
+ *                 unitCode, project, developer, location, contractYear
  *   Unit          type, bedrooms, bathrooms, area, finishing, constructionStatus
  *   Contract      contractPrice, paidToDate, remainingToDeveloper,
  *                 installment { amount, frequency, remaining }, deliveryDate
  *   Market        marketPriceToday — what the same unit costs today
  *   Trust         verified (figures checked against contract + receipts),
  *                 transferStatus, negotiable, featured
+ *   Media         image (the card), images (the dialog's small gallery)
  *
  * The seller receives exactly `paidToDate` — no overprice — so that is also
  * the cash the buyer pays now. Everything else is derived: see exitMath().
@@ -23,6 +25,8 @@ export const BUYER_FEE_RATE = 0.0125;
 export const exitListings = [
   {
     id: "exit-001",
+    /** The full listing shown on the Properties page for this same unit. */
+    propertyId: "luxe-008",
     unitCode: "U-15653",
     project: "Kingsway",
     developer: "Mountain View",
@@ -51,9 +55,16 @@ export const exitListings = [
     ],
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=600&fit=crop&q=80",
+    /** A few extra angles for the mandatory-info dialog's small gallery. */
+    images: [
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=900&h=600&fit=crop&q=80",
+    ],
   },
   {
     id: "exit-002",
+    propertyId: "luxe-005",
     unitCode: "U-12478",
     project: "Stone Park",
     developer: "Rooya Group",
@@ -82,9 +93,15 @@ export const exitListings = [
     ],
     image:
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=900&h=600&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&h=600&fit=crop&q=80",
+    ],
   },
   {
     id: "exit-003",
+    propertyId: "luxe-010",
     unitCode: "U-09321",
     project: "Zed East",
     developer: "Ora Developers",
@@ -113,9 +130,15 @@ export const exitListings = [
     ],
     image:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&h=600&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1554995207-c18c203602cb?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=900&h=600&fit=crop&q=80",
+    ],
   },
   {
     id: "exit-004",
+    propertyId: "luxe-011",
     unitCode: "U-17740",
     project: "Bloomfields",
     developer: "Tatweer Misr",
@@ -144,9 +167,15 @@ export const exitListings = [
     ],
     image:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&h=600&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=900&h=600&fit=crop&q=80",
+    ],
   },
   {
     id: "exit-005",
+    propertyId: "luxe-009",
     unitCode: "U-14002",
     project: "Hyde Park Coast",
     developer: "Hyde Park",
@@ -175,9 +204,15 @@ export const exitListings = [
     ],
     image:
       "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&h=600&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=900&h=600&fit=crop&q=80",
+    ],
   },
   {
     id: "exit-006",
+    propertyId: "luxe-003",
     unitCode: "U-11185",
     project: "The Waterway",
     developer: "Equity Developments",
@@ -206,6 +241,11 @@ export const exitListings = [
     ],
     image:
       "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900&h=600&fit=crop&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&h=600&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=900&h=600&fit=crop&q=80",
+    ],
   },
 ];
 

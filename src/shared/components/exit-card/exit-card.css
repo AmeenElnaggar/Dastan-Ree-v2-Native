@@ -1,52 +1,82 @@
 /* ============================================
    DASTAN EXIT — OPPORTUNITY CARD
+   Same shape as the property card (image, title, location, bed/bath/area,
+   a price row with a circular arrow button) with the two figures a buyer
+   of an assigned contract actually decides on — cash now, gain today —
+   added as one extra row. The card only opens the mandatory-info dialog
+   below; the property page itself is one step further in, from there.
    ============================================ */
 
 .exit-card {
   --exit-gain: #0f8a63;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   background: #fff;
   border: 1px solid var(--color-gray-200);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease,
-    border-color 0.3s ease;
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
 }
 
 .exit-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(10, 30, 119, 0.18);
   box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
 }
 
-/* ── Media ───────────────────────────────────────────────────────── */
+/* Entry animation, borrowed as-is from the property card. */
+.exit-card-enter {
+  animation: cardIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
 
-.exit-card__media {
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Image ───────────────────────────────────────────────────────── */
+
+.exit-card__image-wrap {
   position: relative;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--color-gray-100);
+  flex-shrink: 0;
+}
+
+.exit-card__img-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .exit-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: block;
 }
 
 .exit-card:hover .exit-card__img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .exit-card__badges {
   position: absolute;
   top: 0.75rem;
   inset-inline-start: 0.75rem;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   gap: 0.375rem;
@@ -74,10 +104,35 @@
   color: #8fe3c1;
 }
 
+/* Where the transfer stands — the one status a buyer needs before they
+   even open the file, so it sits on the image like the other pills. */
+.exit-card__status {
+  position: absolute;
+  bottom: 0.75rem;
+  inset-inline-start: 0.75rem;
+  z-index: 2;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+}
+
+.exit-card__status--ready {
+  background: rgba(15, 138, 99, 0.9);
+  color: #fff;
+}
+
+.exit-card__status--review {
+  background: rgba(201, 164, 92, 0.92);
+  color: #10142a;
+}
+
 .exit-card__code {
   position: absolute;
   bottom: 0.75rem;
   inset-inline-end: 0.75rem;
+  z-index: 2;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   background: rgba(6, 11, 28, 0.72);
@@ -90,60 +145,109 @@
 /* ── Body ────────────────────────────────────────────────────────── */
 
 .exit-card__body {
+  padding: 1.125rem 1.25rem 1.25rem;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  padding: 1.25rem;
+  gap: 0.375rem;
 }
 
 .exit-card__title {
   font-size: 1.125rem;
   font-weight: 700;
   color: #10142a;
+  line-height: 1.35;
+  margin: 0;
 }
 
-.exit-card__meta {
-  display: flex;
+.exit-card__title-link {
+  display: block;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.exit-card__title-link:hover {
+  color: #0a1e77;
+}
+
+.exit-card__location {
+  display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin-top: 0.3rem;
   font-size: 0.8125rem;
   color: var(--color-gray-500);
 }
 
-.exit-card__meta svg {
+.exit-card__location svg {
   flex-shrink: 0;
 }
 
+/* Specs row — identical shape to the property card's. */
 .exit-card__specs {
-  margin-top: 0.85rem;
-  padding-bottom: 0.85rem;
-  border-bottom: 1px solid var(--color-gray-100);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--color-gray-700);
-}
-
-.exit-card__specs-sub {
-  display: block;
-  margin-top: 0.2rem;
-  font-weight: 400;
-  font-size: 0.75rem;
-  color: var(--color-gray-400);
-}
-
-/* ── Headline figures ────────────────────────────────────────────── */
-
-.exit-card__cash {
-  margin-top: 1rem;
-}
-
-.exit-card__cash-label {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  color: var(--color-gray-500);
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--color-gray-200);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.exit-card__spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--color-gray-700);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.exit-card__spec-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-gray-400);
+  flex-shrink: 0;
+}
+
+/* ── Cash / gain — the two exit-specific figures ────────────────── */
+
+.exit-card__cash-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.6rem;
+}
+
+.exit-card__cash,
+.exit-card__gain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.exit-card__gain {
+  align-items: flex-end;
+  text-align: end;
+}
+
+.exit-card__cash-label,
+.exit-card__gain-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.6875rem;
+  color: var(--color-gray-400);
 }
 
 .exit-card__negotiable {
@@ -156,75 +260,17 @@
 }
 
 .exit-card__cash-value {
-  display: block;
-  margin-top: 0.2rem;
-  font-size: 1.5rem;
+  font-size: 1.0625rem;
   font-weight: 700;
   color: #10142a;
   letter-spacing: -0.01em;
 }
 
-.exit-card__cash-note {
-  display: block;
-  margin-top: 0.2rem;
-  font-size: 0.6875rem;
-  color: var(--color-gray-400);
-}
-
-.exit-card__gain {
-  margin-top: 0.85rem;
-  padding: 0.7rem 0.85rem;
-  border-radius: 10px;
-  background: rgba(15, 138, 99, 0.07);
-}
-
-.exit-card__gain-label {
-  display: block;
-  font-size: 0.6875rem;
-  color: rgba(16, 20, 42, 0.55);
-}
-
 .exit-card__gain-value {
-  display: block;
-  margin-top: 0.15rem;
   font-size: 1.0625rem;
   font-weight: 700;
   color: var(--exit-gain);
-}
-
-.exit-card__gain-note {
-  display: block;
-  font-size: 0.6875rem;
-  color: rgba(16, 20, 42, 0.45);
-}
-
-/* ── Figure grid ─────────────────────────────────────────────────── */
-
-.exit-card__figures {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem 1rem;
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--color-gray-100);
-}
-
-.exit-card__figure dt {
-  font-size: 0.6875rem;
-  color: var(--color-gray-400);
-  line-height: 1.4;
-}
-
-.exit-card__figure dd {
-  margin-top: 0.15rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--color-gray-800);
-}
-
-.exit-card__figure dd span {
-  font-weight: 400;
-  color: var(--color-gray-400);
+  letter-spacing: -0.01em;
 }
 
 /* ── Footer ──────────────────────────────────────────────────────── */
@@ -233,48 +279,266 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.5rem;
   margin-top: auto;
-  padding-top: 1.1rem;
+  padding-top: 0.875rem;
 }
 
-.exit-card__status {
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.6875rem;
+.exit-card__price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.exit-card__price-label {
+  font-size: 0.6rem;
   font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-gray-800);
 }
 
-.exit-card__status--ready {
-  background: rgba(15, 138, 99, 0.1);
-  color: var(--exit-gain);
+.exit-card__price-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0a1e77;
+  line-height: 1.1;
 }
 
-.exit-card__status--review {
-  background: rgba(201, 164, 92, 0.14);
-  color: #8a6d2f;
-}
-
+/* Named for what it opens, not just an arrow — the card's only action is
+   the mandatory-info dialog, so the button says so. */
 .exit-card__cta {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 8px;
+  background: #0a1e77;
+  color: #fff;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #0a1e77;
-  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
 }
 
 .exit-card__cta svg {
   transition: transform 0.25s ease;
 }
 
+.exit-card__cta:hover {
+  background: #0c2591;
+}
+
 .exit-card__cta:hover svg {
   transform: translateX(3px);
 }
 
+[dir="rtl"] .exit-card__cta svg {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .exit-card__cta:hover svg {
+  transform: scaleX(-1) translateX(3px);
+}
+
 @media (max-width: 400px) {
-  .exit-card__figures {
+  .exit-card__cash-row {
+    flex-direction: column;
+  }
+
+  .exit-card__gain {
+    align-items: flex-start;
+    text-align: start;
+  }
+}
+
+/* ============================================
+   MANDATORY-INFO DIALOG
+   Opened from the card's image, title, or CTA — the disclosure a buyer
+   needs to read before the property page itself is worth opening.
+   ============================================ */
+
+/* A small gallery, not a hero — a bare scroll-snap strip of slides, sized
+   so the next one always peeks in at the edge as the cue to keep going. */
+.exit-dialog__gallery {
+  --gallery-gap: 0.6rem;
+  display: flex;
+  gap: var(--gallery-gap);
+  margin-bottom: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+}
+
+.exit-dialog__gallery--dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.exit-dialog__gallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* 1.75 slides in view at once — the .75 is the peek. */
+.exit-dialog__slide {
+  flex: 0 0 calc((100% - var(--gallery-gap)) / 1.75);
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-gray-100);
+  scroll-snap-align: start;
+}
+
+.exit-dialog__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Otherwise the browser's own "drag to save image" ghost fights the
+     click-drag scroll on every mouse gesture over a slide. */
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.exit-dialog__unit {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.exit-dialog__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #10142a;
+}
+
+.exit-dialog__specs {
+  margin-top: 0.3rem;
+  font-size: 0.8125rem;
+  color: var(--color-gray-500);
+}
+
+.exit-dialog__headline {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.exit-dialog__headline-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.exit-dialog__headline-item span {
+  font-size: 0.6875rem;
+  color: var(--color-gray-400);
+}
+
+.exit-dialog__headline-item strong {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #10142a;
+  letter-spacing: -0.01em;
+}
+
+.exit-dialog__headline-item--gain strong {
+  color: var(--exit-gain, #0f8a63);
+}
+
+.exit-dialog__headline-item small {
+  font-size: 0.6875rem;
+  color: var(--color-gray-400);
+}
+
+.exit-dialog__figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.exit-dialog__figure dt {
+  font-size: 0.6875rem;
+  color: var(--color-gray-400);
+  line-height: 1.4;
+}
+
+.exit-dialog__figure dd {
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+}
+
+.exit-dialog__figure dd span {
+  font-weight: 400;
+  color: var(--color-gray-400);
+}
+
+.exit-dialog__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem 0;
+}
+
+.exit-dialog__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.exit-dialog__trust-item--verified {
+  background: rgba(6, 11, 28, 0.06);
+  color: #0d5c45;
+}
+
+.exit-dialog__trust-item--status {
+  background: rgba(10, 30, 119, 0.07);
+  color: #0a1e77;
+}
+
+.exit-dialog__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  background: #0a1e77;
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.exit-dialog__cta:hover {
+  background: #0c2591;
+}
+
+@media (max-width: 400px) {
+  .exit-dialog__figures {
     grid-template-columns: 1fr;
   }
 }

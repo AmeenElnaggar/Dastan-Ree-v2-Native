@@ -1,6 +1,9 @@
 import { exitListings, exitMath } from "../../data/exit-listings.data.js";
 import { renderCta } from "../../shared/components/cta/Cta.js";
-import { renderExitCard } from "../../shared/components/exit-card/ExitCard.js";
+import {
+  renderExitCard,
+  initExitCardDialogs,
+} from "../../shared/components/exit-card/ExitCard.js";
 import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 
@@ -15,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSteps();
   initExplainerTabs();
   initListings();
+  initExitCardDialogs();
 });
 
 /* ==========================================
@@ -22,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
    ========================================== */
 
 /** Where an owner starts a file — the same page the navbar links to. */
-const UNIT_REQUEST_HREF = "../unit-request/index.html";
+const UNIT_REQUEST_HREF = "../unit-request/index.html?type=exit";
 
 function renderHeader(selector) {
   const root = document.querySelector(selector);
