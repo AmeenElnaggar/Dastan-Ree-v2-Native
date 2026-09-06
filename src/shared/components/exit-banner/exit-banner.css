@@ -1,0 +1,601 @@
+/* ============================================
+   DASTAN EXIT — HOME BANNER
+   Copy on a curved brand-navy block, the sample comparison on the
+   darker field beside it, guarantees as small cards along the bottom.
+   ============================================ */
+
+.exit-banner {
+  --exit-accent: var(--color-gold-600);
+  --exit-accent-soft: var(--color-gold-500);
+
+  /* Built like the quick-filters strip above it: one base navy, with the same
+     white washes that strip uses — 0.07 for its form bar, 0.06 for a field.
+     Each side re-lays the base under its own veil so the two never stack. */
+  --exit-base: #060c2d;
+  --exit-veil-block: rgba(255, 255, 255, 0.07);
+  --exit-veil-field: rgba(255, 255, 255, 0.06);
+
+  padding: 3rem 1.5rem;
+  background: #fff;
+}
+
+.exit-banner__panel {
+  position: relative;
+  isolation: isolate;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background:
+    linear-gradient(var(--exit-veil-field), var(--exit-veil-field)),
+    var(--exit-base);
+  color: #fff;
+}
+
+/* ── Stage: copy | comparison ────────────────────────────────────── */
+
+.exit-banner__stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2.5rem 2.75rem 1.75rem;
+}
+
+/* The half-moon: an ellipse anchored off the left edge, so the block bulges
+   into the darker field at mid-height and curves back at the ends. Absolute
+   to the panel — it runs the full height, behind the facts row too. */
+.exit-banner__canvas {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 0;
+  width: 60%;
+  /* The base is re-laid here so the field's veil underneath does not add to
+     this one — the block is exactly 0.07 over the base, not 0.07 over 0.06. */
+  background:
+    linear-gradient(var(--exit-veil-block), var(--exit-veil-block)),
+    var(--exit-base);
+  /* The panel does not clip, so the block rounds its own corners. */
+  border-radius: inherit;
+  clip-path: ellipse(100% 150% at 0% 50%);
+  pointer-events: none;
+}
+
+[dir="rtl"] .exit-banner__canvas {
+  clip-path: ellipse(100% 150% at 100% 50%);
+}
+
+.exit-banner__copy,
+.exit-torn {
+  position: relative;
+  z-index: 1;
+}
+
+.exit-banner__copy {
+  padding-inline-end: 2rem;
+}
+
+/* ── Copy ────────────────────────────────────────────────────────── */
+
+.exit-banner__brandline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.exit-banner__chip {
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  background: var(--exit-accent);
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.exit-banner__kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.exit-banner__title {
+  margin-top: 1.1rem;
+  font-size: clamp(1.5rem, 2.4vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.exit-banner__title-accent {
+  display: block;
+  color: var(--exit-accent-soft);
+}
+
+.exit-banner__text {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.exit-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+}
+
+.exit-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.exit-banner__btn svg {
+  transition: transform 0.25s ease;
+}
+
+.exit-banner__btn:hover svg {
+  transform: translateX(3px);
+}
+
+[dir="rtl"] .exit-banner__btn svg {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .exit-banner__btn:hover svg {
+  transform: scaleX(-1) translateX(3px);
+}
+
+.exit-banner__btn--primary {
+  background: var(--exit-accent);
+  color: #fff;
+}
+
+.exit-banner__btn--primary:hover {
+  background: var(--exit-accent-soft);
+}
+
+.exit-banner__btn--ghost {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.exit-banner__btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── The torn pieces ─────────────────────────────────────────────────
+   Two halves of one sheet, pulled apart. The tear is a clip-path with
+   the same offsets on both facing edges, so the two profiles are
+   complementary — they would fit back together. Each piece carries a
+   fraction of a degree of rotation, and the green half sits forward.
+
+   Structure per piece: an outer wrapper for the rotation and the
+   drop-shadow (clip-path would clip a box-shadow away, and a filter on
+   the clipped element itself is clipped too), then the clipped face.
+   The green half adds a rim element between the two: same clip, 2px of
+   padding, green background — a border that follows a torn edge. */
+
+.exit-torn {
+  /* Both pieces are filled with the section's own navy, so only their
+     borders draw them. Accents are therefore lifted to values that read
+     on that navy rather than on paper. */
+  --torn-loss: #e0637a;
+  --torn-loss-dim: rgba(224, 99, 122, 0.5);
+  --torn-gain: #2fbf8e;
+  --torn-gain-bright: #5ddcae;
+
+  /* One rectangle, torn on the diagonal — the break runs from 39% down the
+     left edge to 69% down the right, zig-zagging either side of that line.
+     The pair are percentages of the sheet, so they only ever divide it: to
+     grow one piece without shrinking the other, the sheet grows and these
+     move down by the matching amount. At 24.5rem tall, 39/69 leaves the
+     green half exactly the 11.25rem it had when the sheet was 22.5rem and
+     the tear sat at 35/65 — the extra 2rem all went to the red half. */
+  --torn-upper: polygon(
+    0 0,
+    100% 0,
+    100% 69%,
+    92% 64%,
+    84% 67%,
+    76% 60%,
+    68% 62%,
+    60% 55%,
+    52% 57%,
+    44% 50%,
+    36% 53%,
+    28% 46%,
+    20% 48%,
+    12% 41%,
+    4% 43%,
+    0 39%
+  );
+  --torn-lower: polygon(
+    0 39%,
+    4% 43%,
+    12% 41%,
+    20% 48%,
+    28% 46%,
+    36% 53%,
+    44% 50%,
+    52% 57%,
+    60% 55%,
+    68% 62%,
+    76% 60%,
+    84% 67%,
+    92% 64%,
+    100% 69%,
+    100% 100%,
+    0 100%
+  );
+
+  width: 100%;
+  max-width: 22rem;
+  margin-inline-start: auto;
+}
+
+.exit-torn__caption {
+  margin-bottom: 0.9rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ── Pieces ──────────────────────────────────────────────────────── */
+
+/* Both pieces are laid over the same near-square box and clipped to
+   complementary halves, so the diagonal is one continuous break rather
+   than two edges that happen to face each other. Each is then nudged a
+   few pixels perpendicular to the tear, which opens the gap. */
+.exit-torn__sheet {
+  position: relative;
+  /* Tall enough that five rows of copy clear the diagonal in the narrow
+     corner where each piece begins — this is what sets the floor on the
+     sheet's size, not the shapes themselves. */
+  min-height: 24.5rem;
+}
+
+.exit-torn__piece {
+  position: absolute;
+  inset: 0;
+}
+
+/* The red piece comes first: the half above the diagonal, so it holds the
+   top-right corner. Pushed up the slope, and left sitting flat on the
+   panel — a shallow shadow only. */
+.exit-torn__piece--loss {
+  transform: rotate(-0.7deg) translate(5px, -6px);
+  filter: drop-shadow(0 6px 14px rgba(3, 6, 22, 0.35));
+}
+
+/* The green piece follows: the half below the diagonal, holding the
+   bottom-left corner. Everything about it is a step forward — scaled up,
+   stacked above, and carrying two shadows: a deep one for the lift off
+   the panel, and a faint green bloom so the elevation reads as its own. */
+.exit-torn__piece--gain {
+  z-index: 1;
+  transform: rotate(0.6deg) translate(-5px, 7px) scale(1.025);
+  filter: drop-shadow(0 8px 16px rgba(3, 6, 22, 0.38))
+    drop-shadow(0 1px 9px rgba(47, 191, 142, 0.12));
+}
+
+.exit-torn__rim,
+.exit-torn__face {
+  height: 100%;
+}
+
+/* A border cannot follow a clip-path, so each piece is a rim element —
+   same clip, a hair of padding, the border colour as its background —
+   wrapped around a face filled with the section's navy. The padding is
+   the border width. */
+.exit-torn__rim {
+  border-radius: 15px;
+}
+
+.exit-torn__face {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-radius: 13px;
+  /* The section's own field colour, re-laid so the pieces sit flush with
+     the background instead of reading as cards on top of it. */
+  background:
+    linear-gradient(var(--exit-veil-field), var(--exit-veil-field)),
+    var(--exit-base);
+}
+
+/* ── The red piece: above the diagonal, 1px red border ──────────── */
+
+.exit-torn__piece--loss .exit-torn__rim {
+  clip-path: var(--torn-upper);
+  padding: 1px;
+  background: var(--torn-loss-dim);
+}
+
+.exit-torn__piece--loss .exit-torn__face {
+  clip-path: var(--torn-upper);
+  /* The wide inline-start padding holds the type clear of the diagonal,
+     which gathers the copy into the top-right corner. Relaxed now that this
+     half is the taller one — a wider column, so less wrapping. */
+  padding: 1.1rem 1.15rem 0 34%;
+  align-items: flex-end;
+  text-align: end;
+}
+
+.exit-torn__piece--loss .exit-torn__badge {
+  background: rgba(224, 99, 122, 0.12);
+  border-color: rgba(224, 99, 122, 0.4);
+  color: var(--torn-loss);
+}
+
+.exit-torn__piece--loss .exit-torn__title {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.exit-torn__piece--loss .exit-torn__label,
+.exit-torn__piece--loss .exit-torn__aside {
+  color: rgba(255, 255, 255, 0.38);
+}
+
+.exit-torn__piece--loss .exit-torn__figure {
+  color: var(--torn-loss);
+}
+
+.exit-torn__piece--loss .exit-torn__note {
+  background: rgba(224, 99, 122, 0.12);
+  color: rgba(240, 160, 176, 0.95);
+}
+
+/* ── The green piece: below the diagonal, 2px green border ──────── */
+
+.exit-torn__piece--gain .exit-torn__rim {
+  clip-path: var(--torn-lower);
+  /* A hair thicker than the red piece's, and at full strength where that
+     one is dimmed — enough to put this half forward on its own. */
+  padding: 1.5px;
+  background: var(--torn-gain);
+}
+
+.exit-torn__piece--gain .exit-torn__face {
+  clip-path: var(--torn-lower);
+  /* Mirror of the red piece: the copy gathers in the bottom-left corner. */
+  padding: 0 38% 1.1rem 1.15rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+/* Solid, where the red badge is a wash — the recommendation carries. */
+.exit-torn__piece--gain .exit-torn__badge {
+  background: var(--torn-gain);
+  border-color: var(--torn-gain);
+  color: #04140e;
+}
+
+.exit-torn__piece--gain .exit-torn__title {
+  color: #fff;
+}
+
+.exit-torn__piece--gain .exit-torn__label,
+.exit-torn__piece--gain .exit-torn__aside {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Brighter and larger than its counterpart: the figure that matters. */
+.exit-torn__piece--gain .exit-torn__figure {
+  font-size: 1.5rem;
+  color: var(--torn-gain-bright);
+}
+
+.exit-torn__piece--gain .exit-torn__note {
+  background: rgba(47, 191, 142, 0.14);
+  color: var(--torn-gain-bright);
+}
+
+/* ── Shared type ─────────────────────────────────────────────────── */
+
+/* Each piece is headed by a badge that carries its own verdict icon. */
+.exit-torn__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.45rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.exit-torn__badge svg {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+}
+
+.exit-torn__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.exit-torn__label {
+  font-size: 0.625rem;
+  line-height: 1.45;
+}
+
+.exit-torn__figure {
+  margin-top: 0.05rem;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.exit-torn__aside {
+  font-size: 0.625rem;
+  line-height: 1.45;
+}
+
+.exit-torn__aside strong {
+  font-weight: 700;
+  opacity: 0.92;
+}
+
+/* The closing line, as a tinted strip. */
+.exit-torn__note {
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 7px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* ── Facts as small cards ────────────────────────────────────────── */
+
+/* One line of dotted facts across the foot of the panel. The inset comes
+   from the margin rather than padding, so the rule above lines up with
+   the row. */
+.exit-banner__facts {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0 2.75rem;
+  padding: 1.1rem 0 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.exit-fact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  white-space: nowrap;
+}
+
+.exit-fact::before {
+  content: "";
+  width: 5px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: var(--exit-accent);
+  flex-shrink: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .exit-banner__stage {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2.25rem 2rem 1.5rem;
+  }
+
+  /* Stacked, the curve has nothing to curve against — the brand block
+     simply becomes the stage. */
+  .exit-banner__canvas {
+    inset: 0;
+    width: 100%;
+    clip-path: none;
+  }
+
+  .exit-banner__copy {
+    padding-inline-end: 0;
+  }
+
+  .exit-torn {
+    max-width: none;
+    margin-inline-start: 0;
+  }
+
+  /* Wider sheet, so the copy meets the diagonal later. */
+  .exit-torn__sheet {
+    min-height: 21.8rem;
+  }
+
+  /* Too narrow to hold one line — let them wrap rather than shrink. */
+  .exit-banner__facts {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.6rem 1.5rem;
+    margin: 0 2rem;
+    padding: 1.1rem 0 1.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .exit-banner {
+    padding: 2rem 1rem;
+  }
+
+  .exit-banner__panel {
+    border-radius: 16px;
+  }
+
+  .exit-banner__stage {
+    padding: 1.75rem 1.35rem 1.25rem;
+  }
+
+  .exit-banner__btn {
+    flex: 1 1 100%;
+  }
+
+  .exit-banner__facts {
+    margin: 0 1.35rem;
+    padding: 1rem 0 1.35rem;
+  }
+
+  /* Labels are long enough to need two lines at this width. */
+  .exit-fact {
+    align-items: flex-start;
+    white-space: normal;
+    line-height: 1.5;
+  }
+
+  .exit-fact::before {
+    margin-top: 0.4rem;
+  }
+
+  /* Narrow type wraps further, so the sheet needs more room before the
+     copy meets the diagonal, and less of it held back from the tear. */
+  .exit-torn__sheet {
+    min-height: 26rem;
+  }
+
+  .exit-torn__piece--loss .exit-torn__face {
+    padding-inline-start: 24%;
+  }
+
+  .exit-torn__piece--gain .exit-torn__face {
+    padding-inline-end: 24%;
+  }
+}

@@ -9,6 +9,7 @@ import { initFeaturedSlider } from "../../shared/sliders/FeaturedSlider.js";
 import { initHeroSlider } from "../../shared/sliders/HeroSlider.js";
 import { renderLocations } from "../../shared/components/locations/Locations.js";
 import { renderFilterBanner } from "../../shared/components/filter-banner/FilterBanner.js";
+import { renderExitBanner } from "../../shared/components/exit-banner/ExitBanner.js";
 import { initEventPopup } from "../../shared/components/event-popup/EventPopup.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderFooter("#footer-root");
   initHeroSlider("#hero-slider-root");
   renderFilterBanner("#filter-banner-root");
+  renderExitBanner("#exit-banner-root");
   initFeaturedSlider("#featured-slider-root");
   initPartnersSlider("#partners-slider-root");
   initPropertiesSlider("#properties-slider-root");

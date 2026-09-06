@@ -2,6 +2,7 @@ const NAV_LINKS = [
   { label: "Home", href: "../home/index.html" },
   { label: "Projects", href: "../projects/index.html" },
   { label: "Properties", href: "../properties/index.html" },
+  { label: "Dastan Exit", href: "../dastan-exit/index.html" },
   {
     label: "Society",
     children: [
@@ -10,7 +11,6 @@ const NAV_LINKS = [
     ],
   },
   { label: "About Us", href: "../about-us/index.html" },
-  { label: "Careers", href: "../careers/index.html" },
   { label: "Contact Us", href: "../contact-us/index.html" },
 ];
 
