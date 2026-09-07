@@ -21,6 +21,9 @@
   --dx-buyer-accent: #d4af6a;
   --dx-buyer-accent-soft: #e8d3a4;
 
+  /* The buyer card's call to action — green, brightening on hover. */
+  --dx-buyer-btn: #2fbf8e;
+
   /* Verdict marks — a tick and a cross, drawn once as masks so any element
      can tint one to its own colour instead of shipping two coloured icons. */
   --dx-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
@@ -700,13 +703,15 @@
   background: #000;
 }
 
+/* The buyer CTA stays green rather than following --dx-exit-accent: gold on
+   a gold-accented card reads as decoration, green reads as an action. */
 .dx-side--buyer .dx-side__btn {
-  background: var(--dx-exit-accent);
-  color: var(--dx-ink);
+  background: var(--dx-buyer-btn);
+  color: #fff;
 }
 
 .dx-side--buyer .dx-side__btn:hover {
-  background: var(--dx-exit-accent-soft);
+  background: var(--dx-gain-bright);
 }
 
 .dx-side__btn:focus-visible {
