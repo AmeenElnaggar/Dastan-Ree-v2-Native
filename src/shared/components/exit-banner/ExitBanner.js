@@ -20,6 +20,9 @@ const EXAMPLE = {
 
 const EXIT_HREF = "../dastan-exit/index.html";
 
+// The unit-request page reads ?type=exit to open its Dastan Exit tab.
+const SELL_HREF = "../unit-request/index.html?type=exit";
+
 const ARROW_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
 
 const CLOSE_ICON = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
@@ -68,7 +71,7 @@ export function renderExitBanner(selector) {
               verified against the documents, and we carry the assignment through to completion.
             </p>
             <div class="exit-banner__actions">
-              <a href="${EXIT_HREF}" class="exit-banner__btn exit-banner__btn--primary">
+              <a href="${SELL_HREF}" class="exit-banner__btn exit-banner__btn--primary">
                 Sell your unit ${ARROW_ICON}
               </a>
               <a href="${EXIT_HREF}#exit-opportunities" class="exit-banner__btn exit-banner__btn--ghost">
