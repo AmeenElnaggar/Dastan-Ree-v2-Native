@@ -9,14 +9,17 @@
   --dx-navy: #0a1e77;
   --dx-ink: #060b1c;
   --dx-gain: #0f8a63;
+  /* The same green lifted to read on the buyer card's navy. */
+  --dx-gain-bright: #5ddcae;
   --dx-loss: #d1495b;
   --dx-gold: var(--color-gold-accent);
   --dx-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  /* The buyer card's accent in the "Both sides" tab — reused wherever the
-     page wants that same brand-navy-and-green identity rather than gold. */
-  --dx-buyer-accent: #2fbf8e;
-  --dx-buyer-accent-soft: #5ddcae;
+  /* The buyer card's accent in the "Both sides" tab — brand gold, matching
+     the home banner. Verdict ticks stay green (--dx-gain-bright): there the
+     colour is the meaning, not the identity. */
+  --dx-buyer-accent: #d4af6a;
+  --dx-buyer-accent-soft: #e8d3a4;
 
   /* Verdict marks — a tick and a cross, drawn once as masks so any element
      can tint one to its own colour instead of shipping two coloured icons. */
@@ -567,7 +570,7 @@
   background:
     radial-gradient(
       120% 85% at 100% 0%,
-      rgba(47, 191, 142, 0.14) 0%,
+      rgba(212, 175, 106, 0.14) 0%,
       transparent 58%
     ),
     linear-gradient(var(--dx-exit-veil), var(--dx-exit-veil)),
@@ -650,7 +653,7 @@
 }
 
 .dx-side--buyer .dx-list li::before {
-  background: var(--dx-exit-accent-soft);
+  background: var(--dx-gain-bright);
 }
 
 .dx-list strong {
@@ -699,6 +702,7 @@
 
 .dx-side--buyer .dx-side__btn {
   background: var(--dx-exit-accent);
+  color: var(--dx-ink);
 }
 
 .dx-side--buyer .dx-side__btn:hover {

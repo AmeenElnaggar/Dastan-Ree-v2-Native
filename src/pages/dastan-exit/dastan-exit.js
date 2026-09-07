@@ -362,11 +362,21 @@ function initExplainerTabs() {
    OPPORTUNITIES — filter + sort
    ========================================== */
 
+/**
+ * Handover is authored as a bare year ("2028"), but a listing could carry a
+ * fuller string like "December 2027" — pull the first year out of either and
+ * sort undated listings last rather than turning the comparison into NaN.
+ */
+const handoverYear = (value) => {
+  const match = String(value ?? "").match(/\d{4}/);
+  return match ? Number(match[0]) : Infinity;
+};
+
 const SORTERS = {
   gain: (a, b) => exitMath(b).gain - exitMath(a).gain,
   cash: (a, b) => a.paidToDate - b.paidToDate,
   installment: (a, b) => a.installment.amount - b.installment.amount,
-  delivery: (a, b) => Number(a.deliveryDate) - Number(b.deliveryDate),
+  delivery: (a, b) => handoverYear(a.deliveryDate) - handoverYear(b.deliveryDate),
 };
 
 const FILTERS = {

@@ -1,4 +1,9 @@
 import { amenities } from "../../data/amenities.data.js";
+import {
+  BUYER_FEE_LABEL,
+  exitMath,
+  getExitByPropertyId,
+} from "../../data/exit-listings.data.js";
 import { properties } from "../../data/properties.data.js";
 import {
   AMENITY_ICONS,
@@ -9,7 +14,7 @@ import { renderFooter } from "../../shared/components/footer/Footer.js";
 import { openModal } from "../../shared/components/modal/Modal.js";
 import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 import { renderPropertyCard } from "../../shared/components/property-card/PropertyCard.js";
-import { formatNumber } from "../../utils/format.js";
+import { formatNumber, formatPrice } from "../../utils/format.js";
 import { getParam } from "../../utils/router.js";
 
 const TYPE_LABEL = {
@@ -18,7 +23,30 @@ const TYPE_LABEL = {
   commercial: "Commercial",
 };
 
+/** Where a buyer registers interest in an assignment. */
+const EXIT_PAGE_HREF = "../dastan-exit/index.html";
+
 const capitalize = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : "—");
+
+/**
+ * The exit blocks are optional markup. Looking them up through this keeps a
+ * missing container from throwing mid-render and taking the rest of the page
+ * — quick info, gallery, map — down with it.
+ */
+const optional = (selector) => document.querySelector(selector);
+
+/**
+ * Exit records carry free text written by a consultant (highlights, unit and
+ * project names), so they are escaped before going into innerHTML.
+ */
+const esc = (s) =>
+  String(s ?? "").replace(
+    /[&<>"']/g,
+    (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
+        c
+      ],
+  );
 
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root");
@@ -33,20 +61,26 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  renderProperty(property);
+  // A unit listed for assignment carries a second, contractual layer of
+  // information on top of the ordinary listing. `undefined` for every
+  // property that is not on Dastan Exit, which leaves the page unchanged.
+  const exit = getExitByPropertyId(property.id);
+
+  renderProperty(property, exit);
   initGallerySwipers(property);
   initSimilarSwiper(property);
   initStickyBar();
-  bindActions(property);
+  bindActions(property, exit);
 });
 
 // ── Render ────────────────────────────────────────────────────────
 
-function renderProperty(p) {
+function renderProperty(p, exit) {
   document.title = `${p.name} — Dastan Real Estate`;
 
-  renderIntro(p);
-  renderQuickInfo(p);
+  renderIntro(p, exit);
+  renderQuickInfo(p, exit);
+  renderExit(exit);
   renderAbout(p);
   renderAmenities(p);
   renderVideo(p);
@@ -69,22 +103,37 @@ function renderProperty(p) {
   const featuredEl = document.querySelector("#sticky-featured");
   if (p.featured) featuredEl.hidden = false;
 
+  const stickyExitEl = optional("#sticky-exit");
+  if (exit && stickyExitEl) stickyExitEl.hidden = false;
+
   document.querySelector("#sticky-location").innerHTML = p.location
     ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${p.location}</span>`
     : "";
 
-  document.querySelector("#sticky-price").textContent =
-    `EGP ${formatNumber(p.price)}`;
+  // On an assignment the headline figure is the cash the buyer hands over
+  // now, not the contract price — that is the number they decide on.
+  const math = exitMath(exit);
+  document.querySelector("#sticky-price").textContent = math
+    ? `EGP ${formatNumber(math.cashNow)}`
+    : `EGP ${formatNumber(p.price)}`;
 
   const subEl = document.querySelector("#sticky-price-sub");
-  if (p.area) {
+  if (math) {
+    subEl.textContent = `cash now · + EGP ${formatNumber(exit.remainingToDeveloper)} to developer`;
+  } else if (p.area) {
     subEl.textContent = `EGP ${formatNumber(Math.round(p.price / p.area))} / m²`;
   }
 }
 
-function renderIntro(p) {
+function renderIntro(p, exit) {
   document.querySelector("#intro-badge").textContent =
     TYPE_LABEL[p.type] || capitalize(p.type);
+
+  if (exit) {
+    const chip = optional("#intro-exit-chip");
+    if (chip) chip.hidden = false;
+    renderExitBadges(exit);
+  }
 
   const logo = document.querySelector("#intro-logo");
   if (p.developerLogo) {
@@ -102,11 +151,13 @@ function renderIntro(p) {
     ${p.location || ""}`;
 }
 
-function renderQuickInfo(p) {
+function renderQuickInfo(p, exit) {
+  const math = exitMath(exit);
+
   const rows = [
     {
       label: "Payment Method",
-      value: p.paymentMethod || "—",
+      value: exit ? "Contract assignment" : p.paymentMethod || "—",
       icon: "fa-credit-card",
     },
     {
@@ -146,13 +197,37 @@ function renderQuickInfo(p) {
     },
   ];
 
+  // Two rows only an assignment has: where the build stands, and the
+  // instalment the buyer inherits from the seller.
+  if (exit) {
+    rows.push(
+      {
+        label: "Construction",
+        value: exit.constructionStatus || "—",
+        icon: "fa-helmet-safety",
+      },
+      {
+        label: "Instalment",
+        value: `${formatNumber(exit.installment.amount)} / ${exit.installment.frequency.toLowerCase()}`,
+        icon: "fa-calendar-days",
+      },
+    );
+  }
+
   document.querySelector("#quick-info").innerHTML = `
     <div class="pd-quick-info__price">
-      <div class="pd-quick-info__price-label">Unit Price</div>
+      <div class="pd-quick-info__price-label">${exit ? "Contract Price" : "Unit Price"}</div>
       <div class="pd-quick-info__price-row">
         <span class="pd-quick-info__price-currency">EGP</span>
-        <span class="pd-quick-info__price-amount">${formatNumber(p.price)}</span>
+        <span class="pd-quick-info__price-amount">${formatNumber(exit ? exit.contractPrice : p.price)}</span>
       </div>
+      ${
+        math
+          ? `<div class="pd-quick-info__price-note">
+               Market today ${formatPrice(exit.marketPriceToday)}
+             </div>`
+          : ""
+      }
     </div>
     <div class="pd-quick-info__divider" aria-hidden="true"></div>
     <ul class="pd-quick-info__list">
@@ -170,6 +245,211 @@ function renderQuickInfo(p) {
       <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
       <span>Schedule a Viewing</span>
     </button>`;
+}
+
+/* ── Dastan Exit ─────────────────────────────────────────────────── */
+
+/**
+ * The two assignment sections plus the right-rail summary. Both stay `hidden`
+ * unless this property actually has an exit listing, so an ordinary unit
+ * renders exactly as it did before. The trust facts are badges in the page
+ * header instead of a section — see renderExitBadges.
+ *
+ * @param {ReturnType<typeof getExitByPropertyId>} exit
+ */
+function renderExit(exit) {
+  const math = exitMath(exit);
+  if (!math) return;
+
+  renderExitGlance(exit, math);
+  renderExitContract(exit, math);
+  renderExitPlan(exit, math);
+}
+
+/**
+ * That the contract and receipts have been checked — the one trust fact worth
+ * stating up front. Its label is static markup in the header, beside the type
+ * badge and the Dastan Exit chip, so this only has to reveal it.
+ */
+function renderExitBadges(exit) {
+  const el = optional("#intro-exit-verified");
+  if (!el || !exit.verified) return;
+
+  el.hidden = false;
+}
+
+function renderExitGlance(exit, math) {
+  const el = optional("#exit-glance");
+  if (!el) return;
+
+  el.innerHTML = `
+    <div class="pd-exit-glance__cash">
+      <span class="pd-exit-glance__label">Cash required now</span>
+      <strong class="pd-exit-glance__value">${formatPrice(math.cashNow)}</strong>
+      <small class="pd-exit-glance__note">
+        ${formatPrice(math.totalDueNow)} total, incl. the ${BUYER_FEE_LABEL} buyer fee
+      </small>
+    </div>
+    <div class="pd-exit-glance__rows">
+      <div class="pd-exit-glance__row">
+        <span>Then to the developer</span>
+        <strong>${formatPrice(exit.remainingToDeveloper)}</strong>
+      </div>
+      <div class="pd-exit-glance__row">
+        <span>Instalment</span>
+        <strong>${formatPrice(exit.installment.amount)} / ${esc(exit.installment.frequency.toLowerCase())}</strong>
+      </div>
+      <div class="pd-exit-glance__row pd-exit-glance__row--gain">
+        <span>Your gain today</span>
+        <strong>+ ${formatPrice(math.gain)}</strong>
+      </div>
+    </div>
+    <button class="pd-exit-glance__cta" id="exit-enquire-cta" type="button">
+      <i class="fa-regular fa-paper-plane" aria-hidden="true"></i>
+      <span>Enquire about this assignment</span>
+    </button>
+    <a class="pd-exit-glance__link" href="${EXIT_PAGE_HREF}">
+      How an assignment works
+      <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </a>`;
+
+  el.hidden = false;
+}
+
+function renderExitContract(exit, math) {
+  // paidToDate + remainingToDeveloper always equals contractPrice, so the two
+  // shares of the bar are exact rather than normalised.
+  const paidWidth = (math.cashNow / exit.contractPrice) * 100;
+  const uplift = exit.marketPriceToday - exit.contractPrice;
+
+  const body = optional("#exit-contract-body");
+  const section = optional("#exit-contract-section");
+  if (!body || !section) return;
+
+  body.innerHTML = `
+    <p class="pd-exit__lead">
+      This unit is not being resold — the original installment contract is
+      being assigned to you at the price it was signed at. You pay the seller
+      exactly what they have already paid the developer, with no overprice,
+      and carry on with the instalments as they stand.
+    </p>
+
+    <div class="pd-exit__headline">
+      <div class="pd-exit__headline-item">
+        <span class="pd-exit__headline-label">Cash required now</span>
+        <strong class="pd-exit__headline-value">${formatPrice(math.cashNow)}</strong>
+        <small class="pd-exit__headline-note">
+          ${formatPrice(math.totalDueNow)} total, incl. the ${BUYER_FEE_LABEL} buyer fee
+        </small>
+      </div>
+      <div class="pd-exit__headline-item pd-exit__headline-item--gain">
+        <span class="pd-exit__headline-label">Your gain against today's price</span>
+        <strong class="pd-exit__headline-value">+ ${formatPrice(math.gain)}</strong>
+        <small class="pd-exit__headline-note">
+          ${math.gainPercent}% of today's market price &middot;
+          ${math.gainOnCashPercent}% on the cash you put in
+        </small>
+      </div>
+    </div>
+
+    <div class="pd-exit__progress-block">
+      <div class="pd-exit__progress-head">
+        <span>Contract paid to date</span>
+        <strong>${math.paidPercent}% of ${formatPrice(exit.contractPrice)}</strong>
+      </div>
+      <div
+        class="pd-exit__progress"
+        role="img"
+        aria-label="${math.paidPercent}% of the contract paid, ${100 - math.paidPercent}% still owed to the developer">
+        <span class="pd-exit__progress-fill" style="width:${paidWidth}%"></span>
+      </div>
+      <div class="pd-exit__progress-legend">
+        <span class="pd-exit__legend pd-exit__legend--paid">
+          Paid by the seller &mdash; ${formatPrice(math.cashNow)}
+        </span>
+        <span class="pd-exit__legend pd-exit__legend--due">
+          Still due to the developer &mdash; ${formatPrice(exit.remainingToDeveloper)}
+        </span>
+      </div>
+    </div>
+
+    <div class="pd-exit__waterfall">
+      <h3 class="pd-exit__waterfall-title">Where the gain comes from</h3>
+      <ul class="pd-exit__waterfall-list">
+        <li class="pd-exit__waterfall-row">
+          <span>Same unit at today's price</span>
+          <strong>${formatPrice(exit.marketPriceToday)}</strong>
+        </li>
+        <li class="pd-exit__waterfall-row pd-exit__waterfall-row--minus">
+          <span>Price on the ${exit.contractYear} contract you inherit</span>
+          <strong>&minus; ${formatPrice(exit.contractPrice)}</strong>
+        </li>
+        <li class="pd-exit__waterfall-row pd-exit__waterfall-row--sub">
+          <span>Uplift since the contract was signed</span>
+          <strong>${formatPrice(uplift)}</strong>
+        </li>
+        <li class="pd-exit__waterfall-row pd-exit__waterfall-row--minus">
+          <span>Dastan Exit fee (${BUYER_FEE_LABEL}, on completion)</span>
+          <strong>&minus; ${formatPrice(math.buyerFee)}</strong>
+        </li>
+        <li class="pd-exit__waterfall-row pd-exit__waterfall-row--total">
+          <span>Your gain</span>
+          <strong>+ ${formatPrice(math.gain)}</strong>
+        </li>
+      </ul>
+    </div>`;
+
+  section.hidden = false;
+}
+
+function renderExitPlan(exit, math) {
+  const figures = [
+    { label: "Contract price", value: formatPrice(exit.contractPrice) },
+    {
+      label: "Paid to date",
+      value: `${formatPrice(math.cashNow)} <span>(${math.paidPercent}%)</span>`,
+    },
+    {
+      label: "Remaining to the developer",
+      value: formatPrice(exit.remainingToDeveloper),
+    },
+    {
+      label: "Instalment",
+      value: `${formatPrice(exit.installment.amount)} <span>/ ${esc(exit.installment.frequency.toLowerCase())}</span>`,
+    },
+    { label: "Instalments left", value: exit.installment.remaining },
+    { label: "Contract signed", value: exit.contractYear },
+    { label: "Handover", value: esc(exit.deliveryDate) },
+    { label: "Construction status", value: esc(exit.constructionStatus) },
+    { label: "Finishing", value: esc(exit.finishing) },
+    {
+      label: "Contract price / m²",
+      value: formatPrice(math.pricePerMeterContract),
+    },
+    {
+      label: "Market price / m²",
+      value: formatPrice(math.pricePerMeterMarket),
+    },
+    { label: "Market price today", value: formatPrice(exit.marketPriceToday) },
+  ];
+
+  const body = optional("#exit-plan-body");
+  const section = optional("#exit-plan-section");
+  if (!body || !section) return;
+
+  body.innerHTML = `
+    <dl class="pd-exit-plan__figures">
+      ${figures
+        .map(
+          (f) => `<div class="pd-exit-plan__figure">
+            <dt>${f.label}</dt>
+            <dd>${f.value}</dd>
+          </div>`,
+        )
+        .join("")}
+    </dl>`;
+
+  section.hidden = false;
 }
 
 function renderAbout(p) {
@@ -414,7 +694,7 @@ function initGallerySwipers(p) {
     .map(
       (src, i) =>
         `<div class="swiper-slide">
-           <img src="../../assets/images/properties/property-main-gallery.jfif" alt="${p.name} — image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
+           <img src="${src}" alt="${p.name} — image ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}" />
          </div>`,
     )
     .join("");
@@ -697,10 +977,74 @@ function openViewingModal(propertyName) {
   });
 }
 
-function bindActions(property) {
+/**
+ * An assignment enquiry is a different conversation from a viewing — the
+ * buyer is confirming they can cover the cash now and carry the instalment,
+ * so the form asks about those rather than about a date.
+ */
+function openExitEnquiryModal(exit, math) {
+  openModal({
+    title: `Enquire — ${exit.project} (${exit.unitCode})`,
+    content: `
+      <form id="exit-enquiry-form" class="flex flex-col gap-4">
+        <div class="pd-exit-modal__summary">
+          <div class="pd-exit-modal__row">
+            <span>Cash required now</span>
+            <strong>${formatPrice(math.cashNow)}</strong>
+          </div>
+          <div class="pd-exit-modal__row">
+            <span>Incl. ${BUYER_FEE_LABEL} buyer fee</span>
+            <strong>${formatPrice(math.totalDueNow)}</strong>
+          </div>
+          <div class="pd-exit-modal__row">
+            <span>Then ${formatPrice(exit.installment.amount)} ${esc(exit.installment.frequency.toLowerCase())}</span>
+            <strong>${exit.installment.remaining} left</strong>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="flex flex-col flex-1 min-w-0">
+            <input id="xf-name" type="text" placeholder="Full Name *" aria-label="Full Name" required class="input" />
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <input id="xf-phone" type="tel" placeholder="Phone Number *" aria-label="Phone Number" required class="input" />
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <input id="xf-email" type="email" placeholder="Email Address" aria-label="Email Address" class="input" />
+        </div>
+        <div class="flex flex-col">
+          <label class="pd-exit-modal__label" for="xf-cash">
+            Cash you have available now
+          </label>
+          <input id="xf-cash" type="number" min="0" step="1000" placeholder="${math.cashNow}" aria-label="Cash available now" class="input" />
+        </div>
+        <div class="flex flex-col">
+          <textarea id="xf-notes" placeholder="Anything you want the consultant to know before they call…" aria-label="Notes" rows="3" class="input resize-none"></textarea>
+        </div>
+        <button type="submit" class="btn-primary">Submit Assignment Enquiry</button>
+      </form>`,
+    onOpen: (modal) => {
+      modal
+        .querySelector("#exit-enquiry-form")
+        .addEventListener("submit", (ev) => {
+          ev.preventDefault();
+          modal.querySelector("#exit-enquiry-form").innerHTML =
+            '<p class="text-center text-green-600 font-medium py-6">Your enquiry has been received!<br>A Dastan Exit consultant will review it and contact you within one business day.</p>';
+        });
+    },
+  });
+}
+
+function bindActions(property, exit) {
+  const math = exitMath(exit);
+
   document.addEventListener("click", (e) => {
     if (e.target.closest("#quick-info-cta")) {
       openViewingModal(property.name);
+    }
+
+    if (math && e.target.closest("#exit-enquire-cta")) {
+      openExitEnquiryModal(exit, math);
     }
 
     if (e.target.closest("#masterplan-expand-btn")) {

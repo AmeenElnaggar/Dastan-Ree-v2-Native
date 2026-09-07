@@ -2,7 +2,7 @@ import { formatPrice, formatNumber } from "../../../utils/format.js";
 import {
   exitListings,
   exitMath,
-  BUYER_FEE_RATE,
+  BUYER_FEE_LABEL,
 } from "../../../data/exit-listings.data.js";
 import { openModal } from "../modal/Modal.js";
 
@@ -229,7 +229,7 @@ function buildDialogContent(listing) {
   } = listing;
 
   const math = exitMath(listing);
-  const feeLabel = `${(BUYER_FEE_RATE * 100).toFixed(2).replace(/0$/, "")}%`;
+  const feeLabel = BUYER_FEE_LABEL;
   const detailsUrl = `../property-details/index.html?id=${propertyId}`;
 
   return `

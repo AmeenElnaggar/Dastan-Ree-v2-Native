@@ -1595,3 +1595,533 @@
     right: 0.5rem;
   }
 }
+
+/* ==========================================================================
+   DASTAN EXIT — ASSIGNMENT SECTIONS
+   Only rendered when this property has an exit listing. The Assignment panel
+   is the same navy field as the Quick Info card in the right rail, so the two
+   contract-figure surfaces on the page read as one, with a single green kept
+   for the buyer's gain and red for anything deducted.
+   ========================================================================== */
+
+#exit-contract-section,
+#exit-plan-section {
+  --pd-exit-navy: #080f1f;
+  --pd-exit-gain: #35d69b;
+  --pd-exit-minus: #ff6b6b;
+  --pd-exit-line: #e2e8f0;
+}
+
+/* ── Intro chip, header badges, sticky badge ───────────────────── */
+
+.pd-intro__exit-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #10142a;
+  color: #fff;
+  border: 1px solid rgba(53, 214, 155, 0.4);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin: 0 0 1rem 0.5rem;
+}
+
+.pd-intro__exit-chip i {
+  font-size: 0.6rem;
+  color: #35d69b;
+}
+
+/* Sits inline with the type badge and the exit chip, so the three pills form
+   one row at the top of the header — hence the matching pill geometry and the
+   same trailing margin they carry. */
+.pd-intro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #475569;
+  margin: 0 0 1rem 0.5rem;
+}
+
+.pd-intro-badge i {
+  font-size: 0.66rem;
+  color: #94a3b8;
+}
+
+/* The badge keeps the plain white base — only the tick carries the colour. */
+.pd-intro-badge--verified i {
+  color: #0f8a63;
+}
+
+/* An author `display` outranks the UA stylesheet's `[hidden] { display: none }`,
+   so every exit block that sets one needs the attribute honoured explicitly —
+   otherwise it renders empty on a property that has no assignment. */
+.pd-intro-badge[hidden],
+.pd-intro__exit-chip[hidden],
+.pd-exit-glance[hidden] {
+  display: none;
+}
+
+.prop-sticky-bar__badge--exit {
+  background: rgba(53, 214, 155, 0.14);
+  color: #fff;
+}
+
+.prop-sticky-bar__badge--exit i {
+  color: #35d69b;
+}
+
+/* ── Quick-info: market price under the contract price ─────────── */
+
+.pd-quick-info__price-note {
+  margin-top: 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Right-rail summary card ───────────────────────────────────── */
+
+/* Same flat navy and shadow as .pd-quick-info directly below it, so the two
+   cards in the rail read as one stack rather than two surfaces. */
+.pd-exit-glance {
+  --pd-exit-gain: #35d69b;
+  width: 100%;
+  background: #080f1f;
+  color: #fff;
+  border: 1px solid rgba(201, 164, 92, 0.28);
+  border-radius: 20px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  box-shadow: 0 12px 36px rgba(8, 15, 31, 0.18);
+}
+
+.pd-exit-glance__cash {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pd-exit-glance__label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pd-exit-glance__value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.pd-exit-glance__note {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.pd-exit-glance__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pd-exit-glance__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.78rem;
+}
+
+.pd-exit-glance__row span {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pd-exit-glance__row strong {
+  font-weight: 700;
+  text-align: right;
+}
+
+.pd-exit-glance__row--gain strong {
+  color: var(--pd-exit-gain);
+}
+
+.pd-exit-glance__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  background: #f59e0b;
+  color: #0f172a;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 999px;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.pd-exit-glance__cta:hover {
+  background: #fbbf24;
+  transform: translateY(-1px);
+}
+
+.pd-exit-glance__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.pd-exit-glance__link:hover {
+  color: #fff;
+}
+
+.pd-exit-glance__link i {
+  font-size: 0.62rem;
+}
+
+/* ── Section 1: The Assignment ─────────────────────────────────── */
+
+/* Same navy field and radius as .pd-quick-info in the right rail. */
+.pd-exit {
+  background: var(--pd-exit-navy);
+  color: #fff;
+  border-radius: 20px;
+  padding: 1.75rem 1.6rem;
+  box-shadow: 0 12px 36px rgba(8, 15, 31, 0.18);
+}
+
+.pd-exit__lead {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.62);
+  margin: 0 0 1.6rem;
+}
+
+.pd-exit__headline {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.pd-exit__headline-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem;
+}
+
+.pd-exit__headline-item--gain {
+  background: rgba(53, 214, 155, 0.08);
+  border-color: rgba(53, 214, 155, 0.28);
+}
+
+.pd-exit__headline-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pd-exit__headline-value {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.15;
+}
+
+.pd-exit__headline-item--gain .pd-exit__headline-value {
+  color: var(--pd-exit-gain);
+}
+
+.pd-exit__headline-note {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.42);
+  line-height: 1.5;
+}
+
+/* Payment progress */
+
+.pd-exit__progress-block {
+  margin-bottom: 1.75rem;
+}
+
+.pd-exit__progress-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.pd-exit__progress-head strong {
+  font-weight: 700;
+  color: #fff;
+}
+
+.pd-exit__progress {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.pd-exit__progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #c9a45c 0%, #f59e0b 100%);
+}
+
+.pd-exit__progress-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  margin-top: 0.6rem;
+}
+
+.pd-exit__legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.pd-exit__legend::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.pd-exit__legend--paid::before {
+  background: #f59e0b;
+}
+
+.pd-exit__legend--due::before {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+/* Gain waterfall */
+
+.pd-exit__waterfall {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1.25rem 1.35rem;
+}
+
+.pd-exit__waterfall-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.85rem;
+}
+
+.pd-exit__waterfall-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pd-exit__waterfall-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.pd-exit__waterfall-row strong {
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* The uplift is derived from the two rows above it rather than being a
+   figure off the contract, so it is set apart — without italics. */
+.pd-exit__waterfall-row--sub {
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Anything deducted from the market price reads red. */
+.pd-exit__waterfall-row--minus strong {
+  color: var(--pd-exit-minus);
+}
+
+.pd-exit__waterfall-row--total {
+  border-bottom: none;
+  border-top: 2px solid rgba(255, 255, 255, 0.16);
+  margin-top: 0.35rem;
+  padding-top: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.pd-exit__waterfall-row--total strong {
+  font-size: 1.05rem;
+  color: var(--pd-exit-gain);
+}
+
+/* ── Section 2: Payment Plan & Contract ────────────────────────── */
+
+.pd-exit-plan__figures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--pd-exit-line);
+  border: 1px solid var(--pd-exit-line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.pd-exit-plan__figure {
+  background: #fff;
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pd-exit-plan__figure dt {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.pd-exit-plan__figure dd {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #10142a;
+}
+
+.pd-exit-plan__figure dd span {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+/* ── Enquiry modal ─────────────────────────────────────────────── */
+
+.pd-exit-modal__summary {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.9rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pd-exit-modal__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.pd-exit-modal__row strong {
+  font-weight: 700;
+  color: #10142a;
+  white-space: nowrap;
+}
+
+.pd-exit-modal__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 0.35rem;
+}
+
+/* Matches the Schedule a Viewing form's submit rather than the modal
+   default, so both forms on this page carry the same primary button. */
+#exit-enquiry-form .btn-primary {
+  background: #080f1f;
+}
+
+#exit-enquiry-form .btn-primary:hover {
+  background: #16213a;
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .pd-exit-plan__figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .pd-exit {
+    padding: 1.3rem 1.15rem;
+  }
+
+  .pd-exit__headline {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-exit-plan__figures {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-exit__headline-value {
+    font-size: 1.25rem;
+  }
+
+  .pd-exit__waterfall {
+    padding: 1.1rem;
+  }
+
+  .pd-exit__waterfall-row {
+    font-size: 0.8rem;
+  }
+}

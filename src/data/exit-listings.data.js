@@ -22,6 +22,12 @@
 /** Dastan Exit fee, charged to the buyer only, on completion of the transfer. */
 export const BUYER_FEE_RATE = 0.0125;
 
+/**
+ * The fee as it is written in copy. Derived once here rather than formatted at
+ * each call site, so "1.25%" cannot drift from BUYER_FEE_RATE.
+ */
+export const BUYER_FEE_LABEL = `${Number((BUYER_FEE_RATE * 100).toFixed(4))}%`;
+
 export const exitListings = [
   {
     id: "exit-001",
@@ -35,7 +41,7 @@ export const exitListings = [
     bedrooms: 3,
     bathrooms: 2,
     area: 140,
-    finishing: "Core & shell",
+    finishing: "Core & Shell",
     constructionStatus: "Under construction",
     contractYear: 2024,
     contractPrice: 10835460,
@@ -73,7 +79,7 @@ export const exitListings = [
     bedrooms: 4,
     bathrooms: 5,
     area: 244,
-    finishing: "Semi-finished",
+    finishing: "Semi-Finished",
     constructionStatus: "Under construction",
     contractYear: 2023,
     contractPrice: 14200000,
@@ -110,7 +116,7 @@ export const exitListings = [
     bedrooms: 2,
     bathrooms: 2,
     area: 128,
-    finishing: "Fully finished",
+    finishing: "Fully Finished",
     constructionStatus: "Near handover",
     contractYear: 2022,
     contractPrice: 6450000,
@@ -147,7 +153,7 @@ export const exitListings = [
     bedrooms: 4,
     bathrooms: 4,
     area: 210,
-    finishing: "Core & shell",
+    finishing: "Core & Shell",
     constructionStatus: "Under construction",
     contractYear: 2024,
     contractPrice: 12600000,
@@ -184,7 +190,7 @@ export const exitListings = [
     bedrooms: 3,
     bathrooms: 3,
     area: 155,
-    finishing: "Fully finished",
+    finishing: "Fully Finished",
     constructionStatus: "Under construction",
     contractYear: 2023,
     contractPrice: 9400000,
@@ -221,7 +227,7 @@ export const exitListings = [
     bedrooms: 3,
     bathrooms: 3,
     area: 186,
-    finishing: "Semi-finished",
+    finishing: "Semi-Finished",
     constructionStatus: "Near handover",
     contractYear: 2022,
     contractPrice: 8750000,
@@ -254,11 +260,21 @@ export const exitListings = [
  *
  * The buyer's gain is what is left of today's market price once the cash to
  * the seller, the balance still owed to the developer, and the Dastan Exit
- * fee are all accounted for.
+ * fee are all accounted for. Because `paidToDate + remainingToDeveloper`
+ * always equals `contractPrice`, that reduces exactly to the price uplift
+ * since signing, less the fee — which is how the pages word it.
  *
  * @param {(typeof exitListings)[number]} listing
+ * @returns {{
+ *   cashNow: number, buyerFee: number, totalDueNow: number, gain: number,
+ *   gainPercent: number, gainOnCashPercent: number, remainingTotal: number,
+ *   pricePerMeterContract: number, pricePerMeterMarket: number,
+ *   paidPercent: number,
+ * } | null} `null` when there is no listing, so callers can branch on it.
  */
 export function exitMath(listing) {
+  if (!listing) return null;
+
   const cashNow = listing.paidToDate;
   const buyerFee = Math.round(cashNow * BUYER_FEE_RATE);
   const totalDueNow = cashNow + buyerFee;
@@ -270,11 +286,28 @@ export function exitMath(listing) {
     buyerFee,
     totalDueNow,
     gain,
+    /** Gain as a share of today's market price — reads as a discount. */
     gainPercent: Math.round((gain / listing.marketPriceToday) * 100),
+    /** Gain against the cash actually deployed now — reads as a return. */
+    gainOnCashPercent: Math.round((gain / totalDueNow) * 100),
+    /** Everything the buyer still owes the developer, cash now excluded. */
+    remainingTotal: listing.remainingToDeveloper,
     pricePerMeterContract: Math.round(listing.contractPrice / listing.area),
     pricePerMeterMarket: Math.round(listing.marketPriceToday / listing.area),
     paidPercent: Math.round((cashNow / listing.contractPrice) * 100),
   };
+}
+
+/**
+ * The exit opportunity attached to a Properties listing, if there is one.
+ * Property pages call this to decide whether to show their exit sections.
+ *
+ * @param {string} propertyId
+ * @returns {(typeof exitListings)[number] | undefined}
+ */
+export function getExitByPropertyId(propertyId) {
+  if (!propertyId) return undefined;
+  return exitListings.find((l) => l.propertyId === propertyId);
 }
 
 /** Listings shown first: featured, then biggest buyer gain. */
