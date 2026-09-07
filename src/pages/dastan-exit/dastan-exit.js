@@ -1,5 +1,4 @@
 import { exitListings, exitMath } from "../../data/exit-listings.data.js";
-import { renderCta } from "../../shared/components/cta/Cta.js";
 import {
   renderExitCard,
   initExitCardDialogs,
@@ -10,7 +9,6 @@ import { renderNavbar } from "../../shared/components/navbar/Navbar.js";
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar("#navbar-root");
   renderFooter("#footer-root");
-  renderCta("#cta-root");
   renderHeader("#page-header-root");
 
   initFadeUp();
@@ -386,6 +384,9 @@ const FILTERS = {
   featured: (l) => l.featured,
 };
 
+/** Cards per page, matching the Properties listing. */
+const PER_PAGE = 6;
+
 function initListings() {
   const root = document.getElementById("exit-listings-root");
   const empty = document.getElementById("exit-listings-empty");
@@ -393,29 +394,125 @@ function initListings() {
   const sortEl = document.getElementById("exit-sort");
   if (!root) return;
 
-  const state = { filter: "all", sort: "gain" };
+  const state = { filter: "all", sort: "gain", page: 1 };
 
   const paint = () => {
     const visible = exitListings
       .filter(FILTERS[state.filter])
       .sort(SORTERS[state.sort]);
 
-    root.innerHTML = visible.map(renderExitCard).join("");
+    // A filter can shrink the list under the page we are on; fall back to the
+    // last page that still has cards rather than painting an empty grid.
+    const totalPages = Math.max(1, Math.ceil(visible.length / PER_PAGE));
+    if (state.page > totalPages) state.page = totalPages;
+
+    const start = (state.page - 1) * PER_PAGE;
+    root.innerHTML = visible
+      .slice(start, start + PER_PAGE)
+      .map(renderExitCard)
+      .join("");
     if (empty) empty.hidden = visible.length > 0;
+
+    renderPagination(visible.length, state, () => {
+      paint();
+      scrollToListings();
+    });
   };
 
   chips.forEach((chip) => {
     chip.addEventListener("click", () => {
       chips.forEach((c) => c.classList.toggle("dx-chip--active", c === chip));
       state.filter = chip.dataset.exitFilter;
+      // A new filter is a new result set — start reading it from the top.
+      state.page = 1;
       paint();
     });
   });
 
   sortEl?.addEventListener("change", () => {
     state.sort = sortEl.value;
+    state.page = 1;
     paint();
   });
 
   paint();
+}
+
+/* ==========================================
+   PAGINATION
+   ========================================== */
+
+const CHEV_LEFT = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
+const CHEV_RIGHT = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+
+/**
+ * Paint the shared pagination bar for the opportunities grid.
+ *
+ * @param {number} total   how many listings survived the filter
+ * @param {{ page: number }} state  mutated in place, then `onChange` repaints
+ * @param {() => void} onChange
+ */
+function renderPagination(total, state, onChange) {
+  const nav = document.getElementById("exit-pagination");
+  if (!nav) return;
+
+  const totalPages = Math.ceil(total / PER_PAGE);
+  if (totalPages <= 1) {
+    nav.innerHTML = "";
+    return;
+  }
+
+  const { page } = state;
+  let html = `<button class="pagination__btn" id="exitPagePrev" aria-label="Previous page"${page === 1 ? " disabled" : ""}>${CHEV_LEFT}Prev</button>`;
+
+  buildPageRange(page, totalPages).forEach((p) => {
+    if (p === "…") {
+      html += `<span class="pagination__ellipsis">…</span>`;
+    } else {
+      html += `<button class="pagination__page${p === page ? " pagination__page--active" : ""}" data-page="${p}" aria-label="Page ${p}"${p === page ? ' aria-current="page"' : ""}>${p}</button>`;
+    }
+  });
+
+  html += `<button class="pagination__btn" id="exitPageNext" aria-label="Next page"${page === totalPages ? " disabled" : ""}>Next${CHEV_RIGHT}</button>`;
+  nav.innerHTML = html;
+
+  const go = (p) => {
+    if (p === state.page || p < 1 || p > totalPages) return;
+    state.page = p;
+    onChange();
+  };
+
+  nav.querySelector("#exitPagePrev")?.addEventListener("click", () => go(page - 1));
+  nav.querySelector("#exitPageNext")?.addEventListener("click", () => go(page + 1));
+  nav.querySelectorAll(".pagination__page").forEach((btn) => {
+    btn.addEventListener("click", () => go(Number(btn.dataset.page)));
+  });
+}
+
+/** First page, last page, and a window of one either side of the current. */
+function buildPageRange(current, total) {
+  const range = [];
+  const delta = 1;
+  const left = Math.max(2, current - delta);
+  const right = Math.min(total - 1, current + delta);
+
+  range.push(1);
+  if (left > 2) range.push("…");
+  for (let i = left; i <= right; i++) range.push(i);
+  if (right < total - 1) range.push("…");
+  if (total > 1) range.push(total);
+
+  return range;
+}
+
+/** Land on the toolbar, so the new page starts at the top of the results. */
+function scrollToListings() {
+  const anchor =
+    document.querySelector(".dx-listing-toolbar") ||
+    document.getElementById("exit-listings-root");
+  if (!anchor) return;
+  window.scrollTo({
+    top: anchor.getBoundingClientRect().top + window.scrollY - 100,
+    behavior: "smooth",
+  });
 }

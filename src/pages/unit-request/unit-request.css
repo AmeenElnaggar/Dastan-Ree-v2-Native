@@ -123,13 +123,13 @@
 }
 
 .ur-tabs__btn.is-active {
-  background-color: var(--color-primary, #0a1e77);
+  background-color: #1a2540;
   color: #fff;
-  box-shadow: 0 8px 20px rgba(10, 30, 119, 0.25);
+  box-shadow: 0 8px 20px rgba(26, 37, 64, 0.25);
 }
 
 .ur-tabs__btn.is-active i {
-  color: var(--color-gold-accent);
+  color: var(--color-gold-600, #d97706);
 }
 
 @media (max-width: 560px) {
@@ -405,6 +405,127 @@
 .form-textarea {
   resize: vertical;
   min-height: 100px;
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: -0.15rem 0 0.6rem;
+}
+
+/* Repeater — a field that holds a list of rows (e.g. the payment schedule) */
+.repeater {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.repeater__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.repeater__row {
+  padding: 0.9rem 1rem 1rem;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.repeater__row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.repeater__row-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-primary, #0a1e77);
+}
+
+.repeater__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: rgba(17, 24, 39, 0.05);
+  color: #6b7280;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.repeater__remove:hover {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.repeater--single .repeater__remove {
+  display: none;
+}
+
+.repeater__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.repeater__grid .form-group {
+  grid-column: auto;
+  margin-bottom: 0;
+}
+
+.repeater__row .form-input,
+.repeater__row .ms-trigger {
+  background-color: #fff;
+}
+
+@media (max-width: 640px) {
+  .repeater__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.repeater__add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  padding: 0.55rem 1rem;
+  background-color: transparent;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-primary, #0a1e77);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.repeater__add:hover {
+  border-color: var(--color-primary, #0a1e77);
+  background-color: rgba(10, 30, 119, 0.04);
+}
+
+.repeater__add i {
+  font-size: 0.75rem;
+  color: var(--color-gold-accent);
 }
 
 /* Custom Select */

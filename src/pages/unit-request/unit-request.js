@@ -392,7 +392,6 @@ const EXIT_FIELDS = [
     label: "Project Name",
     type: "text",
     group: "unit",
-    required: true,
     placeholder: "Kingsway",
   },
   {
@@ -400,7 +399,6 @@ const EXIT_FIELDS = [
     label: "Developer",
     type: "text",
     group: "unit",
-    required: true,
     placeholder: "Mountain View",
   },
   {
@@ -526,29 +524,43 @@ const EXIT_FIELDS = [
     step: 0.01,
     placeholder: "0.00",
   },
+  // A plan is rarely one stream: most contracts pair a monthly installment
+  // with an annual or quarterly lump sum, so the schedule is a repeatable
+  // list — one row per stream — instead of a single amount + frequency.
   {
-    name: "installment_amount",
-    label: "Installment Amount",
-    type: "number",
+    name: "payment_schedule",
+    label: "Payment Schedule",
+    type: "repeater",
     group: "contract",
-    min: 0,
-    step: 0.01,
-    placeholder: "0.00",
-  },
-  {
-    name: "installment_frequency",
-    label: "Installment Frequency",
-    type: "select",
-    group: "contract",
-    lookupType: "installmentfrequency",
-  },
-  {
-    name: "installments_remaining",
-    label: "Installments Remaining",
-    type: "number",
-    group: "contract",
-    min: 0,
-    placeholder: "29",
+    width: "full",
+    rowLabel: "Payment",
+    addLabel: "Add another payment",
+    hint: "One row per payment stream. If your plan is a monthly installment plus an annual or quarterly payment, add a row for each.",
+    fields: [
+      {
+        name: "frequency",
+        label: "Frequency",
+        type: "select",
+        required: true,
+        lookupType: "installmentfrequency",
+      },
+      {
+        name: "amount",
+        label: "Amount",
+        type: "number",
+        required: true,
+        min: 0,
+        step: 0.01,
+        placeholder: "0.00",
+      },
+      {
+        name: "remaining",
+        label: "Payments Remaining",
+        type: "number",
+        min: 0,
+        placeholder: "29",
+      },
+    ],
   },
   {
     name: "transfer_status",
@@ -877,7 +889,8 @@ const escape = (s) =>
   );
 
 /** Every rendered id is namespaced by `prefix` so two form instances never collide. */
-const fieldId = (prefix, field) => `${prefix}-${field.name}`;
+const fieldId = (prefix, field) =>
+  field.idOverride || `${prefix}-${field.name}`;
 
 function renderLabel(prefix, field) {
   return `
@@ -995,9 +1008,51 @@ function renderInput(prefix, field) {
         </label>`;
     }
 
+    case "repeater":
+      return renderRepeater(prefix, field);
+
     default:
       return `<input id="${id}" name="${field.name}" type="${field.type}" class="form-input" ${placeholder} ${min} ${step} ${required} />`;
   }
+}
+
+/**
+ * One row of a repeater. Sub-inputs are named `field[index][sub]` so a row
+ * survives round-tripping through FormData, and carry an explicit id so two
+ * rows (or two form instances) never collide.
+ */
+function renderRepeaterRow(prefix, field, index) {
+  const cells = field.fields
+    .map((sub) =>
+      renderField(prefix, {
+        ...sub,
+        name: `${field.name}[${index}][${sub.name}]`,
+        idOverride: `${prefix}-${field.name}-${index}-${sub.name}`,
+      }),
+    )
+    .join("");
+
+  return `
+    <div class="repeater__row" data-index="${index}">
+      <div class="repeater__row-head">
+        <span class="repeater__row-title"></span>
+        <button type="button" class="repeater__remove" aria-label="Remove this ${escape((field.rowLabel || "row").toLowerCase())}">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="repeater__grid">${cells}</div>
+    </div>`;
+}
+
+function renderRepeater(prefix, field) {
+  return `
+    <div class="repeater" data-name="${field.name}" data-row-label="${escape(field.rowLabel || "Row")}" data-next-index="1">
+      <div class="repeater__rows">${renderRepeaterRow(prefix, field, 0)}</div>
+      <button type="button" class="repeater__add">
+        <i class="fa-solid fa-plus"></i>
+        <span>${escape(field.addLabel || "Add another")}</span>
+      </button>
+    </div>`;
 }
 
 function isNarrow(field) {
@@ -1009,9 +1064,18 @@ function renderField(prefix, field) {
   const widthClass = isNarrow(field)
     ? "form-group--narrow"
     : "form-group--full";
+  // A repeater has no single input to point `for` at.
+  const label =
+    field.type === "repeater"
+      ? `<span class="form-label">${escape(field.label)}</span>`
+      : renderLabel(prefix, field);
+  const hint = field.hint
+    ? `<p class="form-hint">${escape(field.hint)}</p>`
+    : "";
   return `
     <div class="form-group ${widthClass}" data-field="${field.name}">
-      ${renderLabel(prefix, field)}
+      ${label}
+      ${hint}
       ${renderInput(prefix, field)}
     </div>`;
 }
@@ -1131,6 +1195,7 @@ function stepFields(steps, fields, index) {
 
 /** Sensible empty default for a field, based on its type. */
 function defaultValueFor(field) {
+  if (field.type === "repeater") return [];
   if (field.type === "file") return field.multiple ? [] : null;
   if (field.type === "multi-select") return [];
   if (field.type === "number") return 0;
@@ -1144,8 +1209,66 @@ function createEmptyPayload(fields) {
   return payload;
 }
 
+const repeaterInputName = (field, index, sub) =>
+  `${field.name}[${index}][${sub.name}]`;
+
+/** The live sub-inputs of one repeater row, keyed by sub-field name. */
+function repeaterRowInputs(row, field) {
+  const cells = new Map();
+  for (const sub of field.fields) {
+    const el = row.querySelector(
+      `[name="${repeaterInputName(field, row.dataset.index, sub)}"]`,
+    );
+    cells.set(sub.name, {
+      sub,
+      el,
+      value: el ? String(el.value || "").trim() : "",
+    });
+  }
+  return cells;
+}
+
+/** Every row of a repeater in DOM order, blank ones included. */
+function repeaterRowsOf(form, field) {
+  const wrap = form.querySelector(`.repeater[data-name="${field.name}"]`);
+  if (!wrap) return [];
+  return Array.from(wrap.querySelectorAll(".repeater__row")).map((row) => ({
+    row,
+    cells: repeaterRowInputs(row, field),
+  }));
+}
+
+const rowIsBlank = (cells) => Array.from(cells.values()).every((c) => !c.value);
+
+/** The text a sub-field currently shows — option label for selects. */
+function cellText(cell) {
+  if (cell.sub.type === "select") {
+    const opt =
+      cell.el && cell.el.options
+        ? cell.el.options[cell.el.selectedIndex]
+        : null;
+    return opt && opt.value !== "" ? opt.text : "";
+  }
+  return cell.value;
+}
+
 /** Human-readable current value of a field, for the review step. */
 function displayValue(form, field) {
+  if (field.type === "repeater") {
+    const rowLabel = field.rowLabel || "Row";
+    return repeaterRowsOf(form, field)
+      .filter(({ cells }) => !rowIsBlank(cells))
+      .map(({ cells }, i) => {
+        const parts = Array.from(cells.values())
+          .map((cell) => ({ cell, text: cellText(cell) }))
+          .filter((part) => part.text !== "")
+          .map((part) => `${part.cell.sub.label}: ${part.text}`)
+          .join(", ");
+        return `${rowLabel} ${i + 1} — ${parts}`;
+      })
+      .join(" | ");
+  }
+
   if (field.type === "file") {
     const el = form.elements.namedItem(field.name);
     const files = el && el.files ? Array.from(el.files) : [];
@@ -1477,10 +1600,100 @@ function bindFileInputs(form) {
   });
 }
 
+/** Clears the invalid state as soon as someone edits the offending input. */
+function bindInvalidClearing(root) {
+  root.querySelectorAll(".form-input").forEach((input) => {
+    input.addEventListener("input", () => input.classList.remove("is-invalid"));
+    input.addEventListener("change", () =>
+      input.classList.remove("is-invalid"),
+    );
+  });
+}
+
+/** Re-titles the rows and hides the remove button while only one row is left. */
+function renumberRepeater(rep) {
+  const rows = rep.querySelectorAll(".repeater__row");
+  const label = rep.dataset.rowLabel || "Row";
+  rows.forEach((row, i) => {
+    const title = row.querySelector(".repeater__row-title");
+    if (title) title.textContent = `${label} ${i + 1}`;
+  });
+  rep.classList.toggle("repeater--single", rows.length <= 1);
+}
+
+/** Empties a row's inputs in place — used when the last row is "removed". */
+function clearRepeaterRow(row) {
+  row.querySelectorAll("input, textarea").forEach((el) => {
+    el.value = "";
+    el.classList.remove("is-invalid");
+  });
+  row.querySelectorAll("select").forEach((el) => {
+    el.value = "";
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+  });
+}
+
+/** Add / remove rows on a repeater, wiring each new row's custom controls. */
+function bindRepeaters(form, config) {
+  const { fields, prefix } = config;
+
+  form.querySelectorAll(".repeater").forEach((rep) => {
+    const field = fields.find((f) => f.name === rep.dataset.name);
+    if (!field) return;
+
+    const rowsWrap = rep.querySelector(".repeater__rows");
+    renumberRepeater(rep);
+
+    rep.querySelector(".repeater__add")?.addEventListener("click", () => {
+      // Row indices only ever grow, so a removed row's name is never reused.
+      const index = Number(rep.dataset.nextIndex || 1);
+      rep.dataset.nextIndex = String(index + 1);
+
+      const holder = document.createElement("div");
+      holder.innerHTML = renderRepeaterRow(prefix, field, index).trim();
+      const row = holder.firstElementChild;
+      rowsWrap.appendChild(row);
+
+      bindSelectFields(row);
+      bindInvalidClearing(row);
+      renumberRepeater(rep);
+      row.querySelector(".form-input, .ms-trigger")?.focus();
+    });
+
+    rep.addEventListener("click", (e) => {
+      const btn = e.target.closest(".repeater__remove");
+      if (!btn) return;
+      const row = btn.closest(".repeater__row");
+      if (rep.querySelectorAll(".repeater__row").length > 1) row.remove();
+      else clearRepeaterRow(row);
+      renumberRepeater(rep);
+    });
+  });
+}
+
 function buildPayload(form, fields) {
   const payload = createEmptyPayload(fields);
 
   for (const field of fields) {
+    if (field.type === "repeater") {
+      payload[field.name] = repeaterRowsOf(form, field)
+        .filter(({ cells }) => !rowIsBlank(cells))
+        .map(({ cells }) => {
+          const row = {};
+          for (const [name, cell] of cells) {
+            if (cell.sub.type === "number") {
+              row[name] = cell.value === "" ? 0 : Number(cell.value);
+            } else if (cell.sub.type === "select") {
+              row[name] = cell.value === "" ? null : Number(cell.value);
+            } else {
+              row[name] = cell.value;
+            }
+          }
+          return row;
+        });
+      continue;
+    }
+
     if (field.type === "file") {
       const el = form.elements.namedItem(field.name);
       if (!el || !el.files || !el.files.length) continue;
@@ -1524,7 +1737,36 @@ function buildPayload(form, fields) {
 function validate(form, fields, { checkConsent = false } = {}) {
   let firstInvalid = null;
 
+  const flag = (el) => {
+    if (el.classList && el.classList.contains("form-input")) {
+      el.classList.add("is-invalid");
+    }
+    const wrapper = el.closest && el.closest(".select-field");
+    if (wrapper) wrapper.classList.add("is-invalid");
+    const target = wrapper ? wrapper.querySelector(".ms-trigger") : el;
+    if (!firstInvalid) firstInvalid = target;
+  };
+
   for (const field of fields) {
+    // A repeater is validated row by row: rows left blank are simply dropped,
+    // but a row someone started has to be complete.
+    if (field.type === "repeater") {
+      const rows = repeaterRowsOf(form, field);
+      const filled = rows.filter(({ cells }) => !rowIsBlank(cells));
+
+      if (field.required && !filled.length && rows.length) {
+        const first = Array.from(rows[0].cells.values()).find((c) => c.el);
+        if (first) flag(first.el);
+      }
+
+      for (const { cells } of filled) {
+        for (const cell of cells.values()) {
+          if (cell.sub.required && cell.el && !cell.value) flag(cell.el);
+        }
+      }
+      continue;
+    }
+
     if (!field.required) continue;
 
     if (field.type === "multi-select") continue; // none currently required
@@ -1537,16 +1779,7 @@ function validate(form, fields, { checkConsent = false } = {}) {
         ? !(el.files && el.files.length)
         : !String(el.value || "").trim();
 
-    if (isEmpty || (el.checkValidity && !el.checkValidity())) {
-      if (el.classList && el.classList.contains("form-input")) {
-        el.classList.add("is-invalid");
-      }
-      const wrapper = el.closest && el.closest(".select-field");
-      if (wrapper) wrapper.classList.add("is-invalid");
-      if (!firstInvalid) {
-        firstInvalid = wrapper ? wrapper.querySelector(".ms-trigger") : el;
-      }
-    }
+    if (isEmpty || (el.checkValidity && !el.checkValidity())) flag(el);
   }
 
   // Cross-field sanity: installments range — only when both fields are in scope.
@@ -1575,6 +1808,15 @@ function validate(form, fields, { checkConsent = false } = {}) {
 
 /** Restores every custom control's display after `form.reset()`. */
 function resetFormUi(form) {
+  // `form.reset()` empties the inputs but leaves the added rows behind.
+  form.querySelectorAll(".repeater").forEach((rep) => {
+    rep.querySelectorAll(".repeater__row").forEach((row, i) => {
+      if (i > 0) row.remove();
+    });
+    rep.dataset.nextIndex = "1";
+    renumberRepeater(rep);
+  });
+
   form.querySelectorAll(".file-drop").forEach((wrap) => {
     wrap.classList.remove("file-drop--has-file");
     const nameEl = wrap.querySelector(".file-drop__name");
@@ -1784,15 +2026,11 @@ function initUnitForm(config) {
   bindLocationCascade(form);
   bindMultiSelects(form);
   bindLangTabs(form);
+  bindRepeaters(form, config);
 
   const stepper = createStepper(form, formStatus, config.steps, config.fields);
 
-  form.querySelectorAll(".form-input").forEach((input) => {
-    input.addEventListener("input", () => input.classList.remove("is-invalid"));
-    input.addEventListener("change", () =>
-      input.classList.remove("is-invalid"),
-    );
-  });
+  bindInvalidClearing(form);
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
