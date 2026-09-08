@@ -5,8 +5,18 @@
    ============================================ */
 
 .exit-banner {
-  --exit-accent: #2fbf8e;
-  --exit-accent-soft: #5ddcae;
+  /* Palette from #317049: one hue (143deg) walked in lightness, so the
+     same green can carry a 5px bullet, a 1.5px border and a headline
+     figure against the panel navy. 600 is the colour as given; the
+     lighter steps exist because 600 alone is 3.2:1 on that navy and
+     would disappear at small sizes. */
+  --exit-green-600: #317049;
+  --exit-green-500: #3b915c;
+  --exit-green-400: #4cbd77;
+  --exit-green-300: #7dd49e;
+
+  --exit-accent: var(--exit-green-400);
+  --exit-accent-soft: var(--exit-green-300);
 
   /* Built like the quick-filters strip above it: one base navy, with the same
      white washes that strip uses — 0.07 for its form bar, 0.06 for a field.
@@ -88,8 +98,12 @@
 .exit-banner__chip {
   padding: 0.3rem 0.7rem;
   border-radius: 4px;
-  background: var(--exit-accent);
-  color: #fff;
+  /* A tinted label rather than a solid block: the CTA below it is the
+     solid green now, and two solid greens in one column read as
+     repetition. Light text on the wash also fixes the contrast the
+     white-on-step-400 chip had (2.4:1). */
+  background: rgba(76, 189, 119, 0.16);
+  color: var(--exit-green-300);
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -163,13 +177,15 @@
   transform: scaleX(-1) translateX(3px);
 }
 
+/* The deepest step of the palette, which is also the one value white
+   text reads on: 5.9:1, where step 400 gave 2.4:1. */
 .exit-banner__btn--primary {
-  background: var(--exit-accent);
+  background: var(--exit-green-600);
   color: #fff;
 }
 
 .exit-banner__btn--primary:hover {
-  background: var(--exit-accent-soft);
+  background: var(--exit-green-500);
 }
 
 .exit-banner__btn--ghost {
@@ -200,8 +216,8 @@
      on that navy rather than on paper. */
   --torn-loss: #e0637a;
   --torn-loss-dim: rgba(224, 99, 122, 0.5);
-  --torn-gain: #2fbf8e;
-  --torn-gain-bright: #5ddcae;
+  --torn-gain: var(--exit-green-500);
+  --torn-gain-bright: var(--exit-green-300);
 
   /* One rectangle, torn on the diagonal — the break runs from 39% down the
      left edge to 69% down the right, zig-zagging either side of that line.
@@ -294,7 +310,7 @@
   z-index: 1;
   transform: rotate(0.6deg) translate(-5px, 7px) scale(1.025);
   filter: drop-shadow(0 8px 16px rgba(3, 6, 22, 0.38))
-    drop-shadow(0 1px 9px rgba(47, 191, 142, 0.12));
+    drop-shadow(0 1px 9px rgba(76, 189, 119, 0.14));
 }
 
 .exit-torn__rim,
@@ -384,9 +400,9 @@
 
 /* Solid, where the red badge is a wash — the recommendation carries. */
 .exit-torn__piece--gain .exit-torn__badge {
-  background: var(--torn-gain);
-  border-color: var(--torn-gain);
-  color: #04140e;
+  background: var(--exit-green-600);
+  border-color: var(--exit-green-600);
+  color: #fff;
 }
 
 .exit-torn__piece--gain .exit-torn__title {
@@ -405,7 +421,7 @@
 }
 
 .exit-torn__piece--gain .exit-torn__note {
-  background: rgba(47, 191, 142, 0.14);
+  background: rgba(76, 189, 119, 0.14);
   color: var(--torn-gain-bright);
 }
 
