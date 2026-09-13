@@ -21,8 +21,10 @@
   --dx-buyer-accent: #d4af6a;
   --dx-buyer-accent-soft: #e8d3a4;
 
-  /* The buyer card's call to action — green, brightening on hover. */
-  --dx-buyer-btn: #2fbf8e;
+  /* The buyer card's call to action — the exit banner's primary green, so the
+     two pages' CTAs are the same colour. Deep enough for white text: 5.9:1. */
+  --dx-buyer-btn: #317049;
+  --dx-buyer-btn-hover: #3b915c;
 
   /* Verdict marks — a tick and a cross, drawn once as masks so any element
      can tint one to its own colour instead of shipping two coloured icons. */
@@ -711,7 +713,7 @@
 }
 
 .dx-side--buyer .dx-side__btn:hover {
-  background: var(--dx-gain-bright);
+  background: var(--dx-buyer-btn-hover);
 }
 
 .dx-side__btn:focus-visible {
