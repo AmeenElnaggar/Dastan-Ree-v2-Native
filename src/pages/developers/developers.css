@@ -199,7 +199,7 @@
 /* Cover image */
 .developer-card__cover {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #0a1e77;
 }

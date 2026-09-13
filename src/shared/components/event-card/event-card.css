@@ -17,13 +17,24 @@
 }
 
 /* Image */
+/* Same ratios as the blog card, so the two listings stay in sync. */
 .event-card__image-wrap {
   position: relative;
-  height: 220px;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   flex-shrink: 0;
+  /* The wrap is an <a>; aspect-ratio needs a block box to apply to. */
   display: block;
   text-decoration: none;
+}
+
+/* 4/3 on large screens, where the card is narrow enough that a wide crop would
+   leave the image short; 16/9 below 1100px, where the grid drops to 2 then 1
+   column and the card gets wide enough that 4/3 would tower over the text. */
+@media (max-width: 1100px) {
+  .event-card__image-wrap {
+    aspect-ratio: 16 / 9;
+  }
 }
 
 .event-card__img {

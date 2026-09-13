@@ -155,7 +155,8 @@
   cursor: not-allowed;
 }
 
-.locations-filter-banner .filter-banner__field:has(.filter-banner__select:disabled) {
+.locations-filter-banner
+  .filter-banner__field:has(.filter-banner__select:disabled) {
   cursor: not-allowed;
 }
 
@@ -170,7 +171,10 @@
 .location-card {
   position: relative;
   display: block;
-  height: 320px;
+  /* Portrait tile, the same 4/5 the project card and event popup use. The
+     auto-fill track holds the card at ~290-320px wide from tablet up, so this
+     lands at ~362px tall, a little past the 320px it replaces. */
+  aspect-ratio: 4 / 5;
   border-radius: var(--radius-lg, 16px);
   overflow: hidden;
   text-decoration: none;
@@ -321,7 +325,10 @@
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .locations-pagination__btn:hover:not(:disabled),
@@ -379,7 +386,9 @@
 .fade-up {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
 .fade-up.is-visible {
@@ -398,8 +407,10 @@
     gap: 1rem;
   }
 
+  /* One column here, so the card goes full-width and the tile turns landscape:
+     ~286px tall on a 430px phone, in place of the 300px this replaces. */
   .location-card {
-    height: 300px;
+    aspect-ratio: 4 / 3;
   }
 
   .location-card__name {

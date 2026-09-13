@@ -598,6 +598,14 @@
   margin-bottom: 2.5rem;
 }
 
+/* The shared card pushes its specs row down with margin-top: auto so the footer
+   sits on the card bottom. Here the grid stretches every card to the tallest in
+   its row, so that auto becomes a visible gap under the location line - the body
+   keeps its content together instead, and the slack falls below the footer. */
+.properties-grid .property-card__specs {
+  margin-top: 0;
+}
+
 /* The filters sidebar leaves each of the 3 columns ~291px wide, so the card default
    16/9 image lands ~60px shorter than the home slider. Taller ratio restores it.
    Only above 1100px - below that the sidebar collapses and the cards are wide enough. */
