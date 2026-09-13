@@ -598,6 +598,21 @@
   margin-bottom: 2.5rem;
 }
 
+/* The filters sidebar leaves each of the 3 columns ~291px wide, so the card default
+   16/9 image lands ~60px shorter than the home slider. Taller ratio restores it.
+   Only above 1100px - below that the sidebar collapses and the cards are wide enough. */
+@media (min-width: 1101px) {
+  /* .properties-grid .property-card__image-wrap {
+    aspect-ratio: 4 / 3;
+  } */
+
+  /* Match the body bottom padding to the footer top padding (0.875rem) so the
+     space above and below the footer row reads as one even gutter. */
+  .properties-grid .property-card__body {
+    padding-bottom: 0;
+  }
+}
+
 /* ===== Empty State ===== */
 
 .properties-empty[hidden] {
