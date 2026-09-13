@@ -400,7 +400,45 @@
 
 /* Overview sits between hero and body, so the body's top padding can shrink. */
 .pd-body {
-  padding-top: 2.5rem;
+  padding: 2.5rem 1.5rem 0;
+}
+
+/* Centered to match the hero and overview sections above it. */
+.pd-body__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  column-gap: 1.5rem;
+  align-items: start;
+}
+
+.pd-body__inner .pd-main-col {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.pd-body__inner .pd-sidebar {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  align-self: stretch;
+}
+
+@media (max-width: 1100px) {
+  .pd-body__inner {
+    grid-template-columns: 1fr;
+    row-gap: 2.5rem;
+  }
+
+  .pd-body__inner .pd-sidebar {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .pd-body__inner .pd-contact-form-card {
+    position: static;
+  }
 }
 
 .pd-overview__inner {
@@ -496,7 +534,8 @@
 }
 
 .pd-overview__stat:nth-last-child(-n + 3):nth-child(3n + 1),
-.pd-overview__stat:nth-last-child(-n + 3):nth-child(3n + 1) ~ .pd-overview__stat {
+.pd-overview__stat:nth-last-child(-n + 3):nth-child(3n + 1)
+  ~ .pd-overview__stat {
   border-bottom: none;
 }
 
